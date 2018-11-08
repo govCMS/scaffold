@@ -2,9 +2,21 @@ image: integratedexperts/circleci2-builder
 services:
 - docker:dind
 stages:
+- build
 - deploy
+build:
+  stage: build
+  script:
+  - export DOCKER_HOST=tcp://localhost:2375
+  - docker network prune -f && docker network create amazeeio-network
+  - docker run --name amazeeio-ssh-agent -d amazeeio/ssh-agent
+  - ahoy up
+  - docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m
+  - ahoy -v composer install
+  - ahoy -v install
+  - ahoy lint || true
 deploy:
   stage: deploy
   script:
-  - echo "curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks-lagoon.govcms.amazee.io/deploy"
-  - curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks-lagoon.govcms.amazee.io/deploy
+  - echo "curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy"
+  - curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy

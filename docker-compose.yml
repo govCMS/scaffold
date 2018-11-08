@@ -1,24 +1,20 @@
 version: '2.3'
 
 x-lagoon-project:
-  &lagoon-project govcms8-saas
+  &lagoon-project govcms8-paas
 
 x-lagoon-local-dev-url:
-  &lagoon-local-dev-url http://govcms8-saas.docker.amazee.io
+  &lagoon-local-dev-url http://govcms8-paas.docker.amazee.io
 
 x-volumes:
   &default-volumes
     volumes:
-      - ./themes:/app/web/profiles/contrib/govcms/themes/custom:${VOLUME_FLAGS:-delegated}
-      - ./files:/app/web/sites/default/files:delegated
-      - ./tests/behat/features:/app/web/tests/behat/features:${VOLUME_FLAGS:-delegated}
-      - ./tests/phpunit/tests:/app/web/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
-      - ./config:/app/config
+      - .:/app:delegated
 
 x-environment:
   &default-environment
     LAGOON_PROJECT: *lagoon-project
-    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-saas.docker.amazee.io}
+    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-paas.docker.amazee.io}
 
 services:
 
@@ -30,7 +26,7 @@ services:
     labels:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
-      lagoon.persistent: /app/sites/default/files/
+      lagoon.persistent: /app/web/sites/default/files/
     << : *default-volumes
     environment:
       << : *default-environment
@@ -39,6 +35,8 @@ services:
     build:
       context: .
       dockerfile: .docker/Dockerfile.test
+      args:
+        CLI_IMAGE: *lagoon-project
     labels:
       lagoon.type: none
     << : *default-volumes
@@ -55,7 +53,7 @@ services:
         CLI_IMAGE: *lagoon-project
     labels:
       lagoon.type: nginx-php-persistent
-      lagoon.persistent: /app/sites/default/files/
+      lagoon.persistent: /app/web/sites/default/files/
     << : *default-volumes
     depends_on:
       - cli
@@ -75,7 +73,7 @@ services:
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx
-      lagoon.persistent: /app/sites/default/files/
+      lagoon.persistent: /app/web/sites/default/files/
     << : *default-volumes
     depends_on:
       - cli
@@ -98,14 +96,16 @@ services:
     environment:
       << : *default-environment
 
-  solr:
-    image: govcms8lagoon/solr
-    labels:
-      lagoon.type: solr
-    ports:
-      - "8983" # Find port on host with `docker-compose port solr 8983`
-    environment:
-      << : *default-environment
+  # Uncomment to enable solr.
+  #
+  # solr:
+  #   image: govcms8lagoon/solr
+  #   labels:
+  #     lagoon.type: solr
+  #   ports:
+  #     - "8983" # Find port on host with `docker-compose port solr 8983`
+  #   environment:
+  #     << : *default-environment
 
   chrome:
     image: selenium/standalone-chrome

@@ -1,9 +1,11 @@
+ARG CLI_IMAGE
+FROM ${CLI_IMAGE} as cli
+
 FROM govcms8lagoon/test
 
-COPY themes/ /app/web/profiles/contrib/govcms/themes/custom
+RUN rm -rf /app
+COPY --from=cli /app /app
+RUN composer install
 
-RUN rm -Rf /app/tests/behat/features/*
-COPY tests/behat/features/ /app/tests/behat/features
-
-RUN rm -Rf /app/tests/phpunit/tests/*
-COPY tests/phpunit/tests/ /app/tests/phpunit/tests
+# Define where the Drupal Root is located
+ENV WEBROOT=web
