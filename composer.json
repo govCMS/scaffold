@@ -22,7 +22,12 @@
         "drush/drush": "^9.0.0",
         "govcms/govcms": "*",
         "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3"
+        "webmozart/path-util": "^2.3",
+        "drupal/fast_404": "^1.0",
+        "drupal/lagoon_logs": "1.x-dev",
+        "drupal/redis": "^1.0",
+        "drupal/stage_file_proxy": "^1.0",
+        "drupal/clamav": "^1.1"
     },
     "require-dev": {
         "behat/behat": "^3.5",
