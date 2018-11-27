@@ -83,7 +83,7 @@ services:
   mariadb:
     image: govcms8lagoon/mariadb-drupal
     labels:
-      lagoon.type: mariadb-shared
+      lagoon.type: mariadb
     ports:
       - "3306" # Find port on host with `docker-compose port mariadb 3306`
     environment:
