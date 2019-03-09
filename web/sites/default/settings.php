@@ -25,36 +25,124 @@
  *
  */
 
-### Lagoon Database connection
-if(getenv('LAGOON')){
-  $databases['default']['default'] = array(
+// Contrib path.
+$contrib_path = 'modules/contrib';
+
+// @see https://govdex.gov.au/jira/browse/GOVCMS-993
+// @see https://github.com/drupal/drupal/blob/7.x/sites/default/default.settings.php#L518
+// @see https://api.drupal.org/api/drupal/includes%21bootstrap.inc/function/drupal_fast_404/8.x
+if (file_exists($contrib_path . '/fast404/fast404.inc')) {
+  include_once $contrib_path . 'fast404/fast404.inc';
+}
+$settings['fast404_exts'] = '/^(?!robots)^(?!sites\/default\/files\/private).*\.(?:png|gif|jpe?g|svg|tiff|bmp|raw|webp|docx?|xlsx?|pptx?|swf|flv|cgi|dll|exe|nsf|cfm|ttf|bat|pl|asp|ics|rtf)$/i';
+$settings['fast404_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL "@path" was not found on this server.</p></body></html>';
+$settings['fast404_whitelist'] = array('robots.txt', 'system/files');
+
+// Allow custom themes to provide custom 404 pages.
+// By placing a file called 404.html in the root of their theme repository.
+// 404 pages must be less than 512KB to be used. This is a performance
+// measure to ensure transfer, memory usage and disk reads are manageable.
+if (!class_exists('govCms404Page')) {
+  class govCms404Page {
+
+    const MAX_FILESIZE = 5132288;
+
+    protected $filepath;
+
+    protected $default;
+
+    public function __construct($fast_404_html) {
+      $this->filepath = '/app/404.html';
+      $this->default = $fast_404_html;
+    }
+
+    public function __toString() {
+      // filesize() will check the file exists. So as long as
+      // we suppress the output, it won't be an issue to not
+      // check for the presence of a file first.
+      $filesize = @filesize($this->filepath);
+      if ($filesize === FALSE || $filesize > self::MAX_FILESIZE) {
+        return $this->default;
+      }
+
+      return file_get_contents($this->filepath);
+    }
+  }
+}
+
+$settings['fast404_html'] = new govCms404Page($settings['fast404_html']);
+
+// Ensure redirects created with the redirect module are able to set appropriate
+// caching headers to ensure that Varnish and Akamai can cache the HTTP 301.
+$settings['page_cache_invoke_hooks'] = TRUE;
+$settings['redirect_page_cache'] = TRUE;
+
+// Ensure that administrators do not block drush access through the UI.
+$config['shield.settings']['allow_cli'] = TRUE;
+
+// Configure seckit to emit the HSTS headers when a user is likely visiting
+// govCMS using a domain with valid SSL.
+//
+// This includes:
+//  - "*-site.test.govcms.gov.au" domains (TEST)
+//  - "*-site.govcms.gov.au" domains (PROD)
+//  - "*.gov.au" domains (PROD)
+//  - "*.org.au" domains (PROD)
+//
+// When the domain likely does not have valid SSL, then HSTS is disabled
+// explicitly (to prevent the database values being used).
+//
+// @see https://govdex.gov.au/jira/browse/GOVCMS-1109
+// @see http://cgit.drupalcode.org/seckit/tree/includes/seckit.form.inc#n397
+//
+if (preg_match("~^.+(\.gov\.au|\.org\.au)$~i", $_SERVER['HTTP_HOST'])) {
+  $config['seckit.settings']['seckit_ssl']['hsts'] = TRUE;
+  $config['seckit.settings']['seckit_ssl']['hsts_max_age'] = 31536000;
+  $config['seckit.settings']['seckit_ssl']['hsts_subdomains'] = FALSE;
+}
+else {
+  $config['seckit.settings']['seckit_ssl']['hsts'] = FALSE;
+  $config['seckit.settings']['seckit_ssl']['hsts_max_age'] = 0;
+  $config['seckit.settings']['seckit_ssl']['hsts_subdomains'] = FALSE;
+}
+
+// Lagoon Database connection
+if (getenv('LAGOON')) {
+  $databases['default']['default'] = [
     'driver' => 'mysql',
     'database' => getenv('MARIADB_DATABASE') ?: 'drupal',
     'username' => getenv('MARIADB_USERNAME') ?: 'drupal',
     'password' => getenv('MARIADB_PASSWORD') ?: 'drupal',
     'host' => getenv('MARIADB_HOST') ?: 'mariadb',
     'port' => 3306,
-    'prefix' => '',
-  );
+    'charset' => 'utf8mb4',
+    'collation' => 'utf8mb4_general_ci',
+  ];
 }
 
-### Lagoon Solr connection
-// WARNING: you have to create a search_api server having "solr" machine name at
-// /admin/config/search/search-api/add-server to make this work.
+// Lagoon Solr connection
 if (getenv('LAGOON')) {
-  $config['search_api.server.solr']['backend_config']['connector_config']['host'] = getenv('SOLR_HOST') ?: 'solr';
-  $config['search_api.server.solr']['backend_config']['connector_config']['path'] = '/solr/';
-  $config['search_api.server.solr']['backend_config']['connector_config']['core'] = getenv('SOLR_CORE') ?: 'drupal';
-  $config['search_api.server.solr']['backend_config']['connector_config']['port'] = 8983;
-  $config['search_api.server.solr']['backend_config']['connector_config']['http_user'] = (getenv('SOLR_USER') ?: '');
-  $config['search_api.server.solr']['backend_config']['connector_config']['http']['http_user'] = (getenv('SOLR_USER') ?: '');
-  $config['search_api.server.solr']['backend_config']['connector_config']['http_pass'] = (getenv('SOLR_PASSWORD') ?: '');
-  $config['search_api.server.solr']['backend_config']['connector_config']['http']['http_pass'] = (getenv('SOLR_PASSWORD') ?: '');
-  $config['search_api.server.solr']['name'] = 'Lagoon Solr - Environment: ' . getenv('LAGOON_PROJECT');
+  $config['search_api.server']['backend_config']['connector_config']['host'] = getenv('SOLR_HOST') ?: 'solr';
+  $config['search_api.server']['backend_config']['connector_config']['path'] = '/solr/' . getenv('SOLR_CORE') ?: 'drupal';
 }
 
-### Lagoon Redis connection
-if (getenv('LAGOON') && getenv('ENABLE_REDIS')){
+// Lagoon Varnish & reverse proxy settings
+if (getenv('LAGOON')) {
+  $varnish_control_port = getenv('VARNISH_CONTROL_PORT') ?: '6082';
+  $varnish_hosts = explode(',', getenv('VARNISH_HOSTS') ?: 'varnish');
+  array_walk($varnish_hosts, function (&$value, $key) use ($varnish_control_port) {
+    $value .= ":$varnish_control_port";
+  });
+
+  $settings['reverse_proxy'] = TRUE;
+  $settings['reverse_proxy_addresses'] = array_merge(explode(',', getenv('VARNISH_HOSTS')), ['varnish']);
+  $settings['varnish_control_terminal'] = implode($varnish_hosts, " ");
+  $settings['varnish_control_key'] = getenv('VARNISH_SECRET') ?: 'lagoon_default_secret';
+  $settings['varnish_version'] = 4;
+}
+
+// Redis configuration.
+if (getenv('LAGOON') && (file_exists($app_root . '/modules/contrib/redis') || file_exists($app_root . 'modules/redis')) && extension_loaded('redis')){
   $settings['redis.connection']['interface'] = 'PhpRedis';
   $settings['redis.connection']['host'] = getenv('REDIS_HOST') ?: 'redis';
   $settings['redis.connection']['port'] = 6379;
@@ -62,7 +150,7 @@ if (getenv('LAGOON') && getenv('ENABLE_REDIS')){
   $settings['cache_prefix']['default'] = getenv('LAGOON_PROJECT') . '_' . getenv('LAGOON_GIT_SAFE_BRANCH');
 
   # Do not set the cache during installations of Drupal
-  if (!drupal_installation_attempted() && extension_loaded('redis')) {
+  if (!drupal_installation_attempted()) {
     $settings['cache']['default'] = 'cache.backend.redis';
 
     // Include the default example.services.yml from the module, which will
@@ -109,58 +197,61 @@ if (getenv('LAGOON') && getenv('ENABLE_REDIS')){
   }
 }
 
-### Lagoon Reverse proxy settings
+// Public, private and temporary files paths.
 if (getenv('LAGOON')) {
-  $settings['reverse_proxy'] = TRUE;
+  $settings['file_public_path'] = 'sites/default/files';
+  $settings['file_private_path'] = 'sites/default/files/private';
+  $settings['file_temporary_path'] = 'sites/default/files/private/tmp';
 }
 
-### Trusted Host Patterns, see https://www.drupal.org/node/2410395 for more information.
-### If your site runs on multiple domains, you need to add these domains here
-if (getenv('LAGOON_ROUTES')) {
-  $settings['trusted_host_patterns'] = array(
-    '^' . str_replace(['.', 'https://', 'http://', ','], ['\.', '', '', '|'], getenv('LAGOON_ROUTES')) . '$', // escape dots, remove schema, use commas as regex separator
-   );
-}
+// ClamAV settings.
+$config['clamav.settings']['scan_mode'] = 1;
+$config['clamav.settings']['mode_executable']['executable_path'] = '/usr/bin/clamscan';
 
-### Temp directory
-if (getenv('TMP')) {
-  $config['system.file']['path']['temporary'] = getenv('TMP');
-}
-
-### Hash Salt
+// Hash Salt
 if (getenv('LAGOON')) {
   $settings['hash_salt'] = hash('sha256', getenv('LAGOON_PROJECT'));
 }
 
-// Settings for all environments
+// Loading settings for all environment types.
 if (file_exists(__DIR__ . '/all.settings.php')) {
   include __DIR__ . '/all.settings.php';
 }
 
-// Services for all environments
-if (file_exists(__DIR__ . '/all.services.yml')) {
-  $settings['container_yamls'][] = __DIR__ . '/all.services.yml';
-}
-
-if(getenv('LAGOON_ENVIRONMENT_TYPE')){
-  // Environment specific settings files.
+// Environment specific settings files.
+if (getenv('LAGOON_ENVIRONMENT_TYPE')) {
   if (file_exists(__DIR__ . '/' . getenv('LAGOON_ENVIRONMENT_TYPE') . '.settings.php')) {
     include __DIR__ . '/' . getenv('LAGOON_ENVIRONMENT_TYPE') . '.settings.php';
   }
-
-  // Environment specific services files.
-  if (file_exists(__DIR__ . '/' . getenv('LAGOON_ENVIRONMENT_TYPE') . '.services.yml')) {
-    $settings['container_yamls'][] = __DIR__ . '/' . getenv('LAGOON_ENVIRONMENT_TYPE') . '.services.yml';
-  }
 }
+
+// Configuration path settings.
+$config_directories[CONFIG_SYNC_DIRECTORY] = '/app/config/default';
+$config_directories['dev'] = '/app/config/dev';
 
 // Last: this servers specific settings files.
 if (file_exists(__DIR__ . '/settings.local.php')) {
   include __DIR__ . '/settings.local.php';
 }
-// Last: This server specific services file.
-if (file_exists(__DIR__ . '/services.local.yml')) {
-  $settings['container_yamls'][] = __DIR__ . '/services.local.yml';
-}
 
-$settings['install_profile'] = 'govcms';
+// Stage file proxy URL from production URL.
+if (getenv('LAGOON_ENVIRONMENT_TYPE') != 'production') {
+
+  if (getenv('LAGOON_PROJECT')) {
+    $origin = 'https://nginx-' . getenv('LAGOON_PROJECT') . '-master.govcms.amazee.io';
+    $config['stage_file_proxy.settings']['origin'] = $origin;
+  }
+
+  if (getenv('STAGE_FILE_PROXY_URL')) {
+    $config['stage_file_proxy.settings']['origin'] = getenv('STAGE_FILE_PROXY_URL');
+  }
+
+  if (getenv('DEV_MODE')) {
+    if (!drupal_installation_attempted()) {
+      if (file_exists(__DIR__ . '/development.settings.php')) {
+        include __DIR__ . '/development.settings.php';
+      }
+    }
+  }
+
+}
