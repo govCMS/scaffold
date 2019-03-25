@@ -90,12 +90,13 @@ services:
     environment:
       << : *default-environment
 
-  redis:
-    image: govcms8lagoon/redis
-    labels:
-      lagoon.type: redis
-    environment:
-      << : *default-environment
+  # Uncomment to enable redis.
+  # redis:
+  #   image: govcms8lagoon/redis
+  #   labels:
+  #     lagoon.type: redis
+  #   environment:
+  #     << : *default-environment
 
   # Uncomment to enable solr.
   #
