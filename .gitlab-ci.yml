@@ -1,4 +1,4 @@
-image: integratedexperts/circleci2-builder
+image: govcmsdev/gitlab-ci
 services:
 - docker:dind
 stages:
