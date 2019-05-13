@@ -21,7 +21,6 @@
         "drupal/console": "^1.0.2",
         "drupal/fast_404": "^1.0@alpha",
         "drupal/lagoon_logs": "^1.0",
-        "drupal/redis": "^1.1",
         "drush/drush": "^9.0.0",
         "govcms/govcms": "*",
         "webflo/drupal-finder": "^1.0.0",
