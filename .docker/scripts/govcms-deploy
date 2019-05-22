@@ -34,7 +34,7 @@ if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then
           fi
 
           # Enable stage file proxy post db-import.
-          drush en stage_file_proxy -y
+          #drush en stage_file_proxy -y
         fi
 
     else
@@ -45,7 +45,7 @@ if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then
       fi
 
       # Enable stage file proxy.
-      drush en stage_file_proxy -y
+      #drush en stage_file_proxy -y
     fi
 
 # Production environments.
