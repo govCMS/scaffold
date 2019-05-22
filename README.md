@@ -63,6 +63,14 @@ Additional commands are listed in `.ahoy.yml`, or available from the command lin
 * The files folder is not (currently) committed to GitLab.
 * Do not make changes to `docker-compose.yml`, `lagoon.yml`, `.gitlab-ci.yml` or the Dockerfiles under `/.docker` - these will result in your project being unable to deploy to GovCMS SaaS
 
+## Stage File Proxy
+
+Stage File Proxy is already configured for use in both local development and cloud development environments. To enable:
+  - Add the `stage_file_proxy` module to your codebase
+  - Uncomment the relevant lines in `.docker/scripts/govcms-deploy`
+
+This will ensure SFP is enabled on non-prod environments in Lagoon.
+
 ## Image inheritance
 
 This project is designed to provision a Drupal 8 project onto GovCMS PaaS, using the GovCMS8 distribution (or defaults), and has been prepared thus.
