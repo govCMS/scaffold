@@ -58,8 +58,6 @@ else
       drush cim -y sync
     fi
 
-    drush en -y govcms_lagoon && drush pmu -y govcms_lagoon;
-
   else
     echo "Drupal not installed."
   fi
