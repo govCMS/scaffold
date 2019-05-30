@@ -3,6 +3,7 @@ FROM ${CLI_IMAGE} as cli
 
 FROM govcms8lagoon/nginx-drupal
 
+RUN rm -rf /app
 COPY --from=cli /app /app
 
 # Define where the Drupal Root is located
