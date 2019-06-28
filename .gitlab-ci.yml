@@ -9,7 +9,7 @@ build:
   script:
   - export DOCKER_HOST=tcp://localhost:2375
   - docker network prune -f && docker network create amazeeio-network
-  - docker run --name amazeeio-ssh-agent -d amazeeio/ssh-agent
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-registry-production.govcms.amazee.io
   - ahoy up
   - docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m
   - ahoy -v composer install
