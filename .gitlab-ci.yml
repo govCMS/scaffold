@@ -7,14 +7,18 @@ stages:
 build:
   stage: build
   script:
-  - export DOCKER_HOST=tcp://localhost:2375
-  - docker network prune -f && docker network create amazeeio-network
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-registry-production.govcms.amazee.io
-  - ahoy up
-  - docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m
-  - ahoy -v composer install
-  - ahoy -v install
-  - ahoy lint || true
+    - "export DOCKER_HOST=tcp://localhost:2375"
+    - "docker network prune -f && docker network create amazeeio-network"
+    - "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-registry-production.govcms.amazee.io"
+    - "ahoy up"
+    - "docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m"
+    - |
+      if grep --quiet '^MARIADB_DATA_IMAGE' .env; then
+        ahoy govcms-deploy
+      else
+        ahoy -v install -- install_configure_form.update_status_module='array(FALSE,FALSE)'
+      fi
+
 deploy:
   stage: deploy
   script:
