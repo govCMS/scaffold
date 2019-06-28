@@ -18,6 +18,7 @@ build:
       else
         ahoy -v install -- install_configure_form.update_status_module='array(FALSE,FALSE)'
       fi
+    - ahoy lint || true
 
 deploy:
   stage: deploy
