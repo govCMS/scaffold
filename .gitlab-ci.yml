@@ -22,5 +22,5 @@ build:
 deploy:
   stage: deploy
   script:
-  - echo "curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy"
-  - curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy
+    - "echo \"curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy\""
+    - "curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy"
