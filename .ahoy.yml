@@ -52,7 +52,7 @@ commands:
 
   install:
     usage: Install the profile.
-    cmd: docker-compose exec -T test drush si -y govcms "$@"
+    cmd: docker-compose exec -T test drush si -y "$@"
 
   login:
     usage: Login to a website.
