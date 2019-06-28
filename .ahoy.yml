@@ -30,6 +30,10 @@ commands:
     usage: Run drush commands in TEST container.
     cmd: docker-compose exec -T test drush "$@"
 
+  govcms-deploy:
+    usage: Runs deployment commands (updb, cc, set up file_stage_proxy)
+    cmd: docker-compose exec -T cli govcms-deploy
+
   logs:
     usage: Show Docker logs.
     cmd: docker-compose logs "$@"
