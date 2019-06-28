@@ -29,8 +29,9 @@ if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then
 
           # Base configuration import with development environment overrides.
           if [ "$config_count" -gt 1 ]; then
-            drush cim -y sync
-            drush cim -y dev --partial
+            echo "Example: Perform config import here."
+            #drush cim -y sync
+            #drush cim -y dev --partial
           fi
 
           # Enable stage file proxy post db-import.
@@ -40,8 +41,9 @@ if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then
     else
       # Base configuration import with development environment overrides.
       if [ "$config_count" -gt 1 ]; then
-        drush cim -y sync
-        drush cim -y dev --partial
+        echo "Example: Perform config import here."
+        #drush cim -y sync
+        #drush cim -y dev --partial
       fi
 
       # Enable stage file proxy.
@@ -55,7 +57,8 @@ else
     mkdir -p /app/web/sites/default/files/private/backups/ && drush sql-dump --ordered-dump --gzip --result-file=/app/web/sites/default/files/private/backups/pre-deploy-dump.sql
     # Configuration import.
     if [ "$config_count" -gt 1 ]; then
-      drush cim -y sync
+      echo "Example: Perform config import here."
+      #drush cim -y sync
     fi
 
   else
