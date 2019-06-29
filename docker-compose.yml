@@ -13,8 +13,11 @@ x-volumes:
 
 x-environment:
   &default-environment
+    STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
+    LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
     LAGOON_PROJECT: *lagoon-project
     LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-paas.docker.amazee.io}
+    DEV_MODE: ${DEV_MODE:-false}
 
 services:
 
