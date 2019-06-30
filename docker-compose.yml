@@ -101,14 +101,18 @@ services:
   #   environment:
   #     << : *default-environment
 
-  # Uncomment to enable solr.
-  #
   # solr:
-  #   image: govcms8lagoon/solr
+  #   build:
+  #     context: .
+  #     dockerfile: .docker/Dockerfile.solr
+  #     args:
+  #       CLI_IMAGE: *lagoon-project
   #   labels:
   #     lagoon.type: solr
   #   ports:
   #     - "8983" # Find port on host with `docker-compose port solr 8983`
+  #   depends_on:
+  #     - cli
   #   environment:
   #     << : *default-environment
 
