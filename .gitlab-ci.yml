@@ -16,7 +16,7 @@ build:
       if grep --quiet '^MARIADB_DATA_IMAGE' .env; then
         ahoy govcms-deploy
       else
-        ahoy -v install -- install_configure_form.update_status_module='array(FALSE,FALSE)'
+        ahoy -v install
       fi
     - ahoy lint || true
 
