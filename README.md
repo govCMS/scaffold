@@ -63,6 +63,10 @@ Additional commands are listed in `.ahoy.yml`, or available from the command lin
 * The files folder is not (currently) committed to GitLab.
 * Do not make changes to `docker-compose.yml`, `lagoon.yml`, `.gitlab-ci.yml` or the Dockerfiles under `/.docker` - these will result in your project being unable to deploy to GovCMS SaaS
 
+## Deployment process
+
+An example deployment script is available in `.docker/scripts/govcms-deploy`. It provides examples for basic configuration management as well as common deployment requirements such as database updates, cache rebuilds, etc.
+
 ## Stage File Proxy
 
 Stage File Proxy is already configured for use in both local development and cloud development environments. To enable:
