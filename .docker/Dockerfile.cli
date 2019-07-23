@@ -1,16 +1,33 @@
-FROM govcms8lagoon/govcms8
+##
+# `cli` image.
+#
+# The application is built in this image as it contains build tools like
+# composer and npm.
+#
+# The default PaaS build strategy is:
+#
+#  * wipe the /app directory, from the upstream image build (which is currently SaaS oriented).
+#  * prepare and run composer install inside the `cli` container
+#  * copy in the non-composer files
+#
 
+FROM amazeeio/php:7.2-cli-drupal
+
+# Clean out anything that might be in /app directory and set up the initial files.
 RUN rm -rf /app
-COPY composer.json composer.lock /app/
-COPY scripts /app/scripts
-# Install composer and remove composers cache directory to reduce image size.
-RUN composer install --no-dev && rm -rf ~/.composer/cache
 COPY . /app
+
+# Run composer. Additional `rm`s can be added to reduce the image size, with diminishing returns.
+RUN composer install --no-dev \
+  && rm -rf ~/.composer/cache \
+  && rm -rf /app/web/core/tests
+
+# Additional files outside of /app
+COPY .docker/aliases.drushrc.php /home/.drush/site-aliases/
+COPY .docker/scripts /usr/bin/
+RUN ln -s /app/web/vendor/bin/drush /usr/bin/drush
+
+RUN fix-permissions /home/.drush/
 
 # Define where the Drupal Root is located
 ENV WEBROOT=web
-
-COPY .docker/aliases.drushrc.php /home/.drush/site-aliases/
-COPY .docker/scripts /usr/bin/
-
-RUN fix-permissions /home/.drush/

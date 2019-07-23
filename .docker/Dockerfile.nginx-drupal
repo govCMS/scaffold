@@ -1,3 +1,10 @@
+##
+# `nginx-drupal` image
+#
+# This image is derived from php-fpm, which lacks tools to build Drupal.
+# The files are therefore copied from the `cli` container (Dockerfile.cli) which is built first.
+#
+
 ARG CLI_IMAGE
 FROM ${CLI_IMAGE} as cli
 

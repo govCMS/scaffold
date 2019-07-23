@@ -5,7 +5,6 @@ FROM govcms8lagoon/test
 
 RUN rm -rf /app
 COPY --from=cli /app /app
-RUN composer install
 
 # Define where the Drupal Root is located
 ENV WEBROOT=web

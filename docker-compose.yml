@@ -1,5 +1,6 @@
 version: '2.3'
 
+# This value is used to name the `cli` image and refer to it, it can be most anything.
 x-lagoon-project:
   &lagoon-project govcms8-paas
 
@@ -25,6 +26,7 @@ services:
     build:
       context: .
       dockerfile: .docker/Dockerfile.cli
+    # Name the image to access it via CLI_IMAGE arg.
     image: *lagoon-project
     labels:
       lagoon.type: cli-persistent
