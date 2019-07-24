@@ -1,6 +1,6 @@
 version: '2.3'
 
-# This value is used to name the `cli` image and refer to it, it can be most anything.
+# This value intentionally matches the project name on Lagoon.
 x-lagoon-project:
   &lagoon-project govcms8-paas
 

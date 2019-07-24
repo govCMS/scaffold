@@ -1,18 +1,15 @@
 ##
-# `nginx-drupal` image
-#
-# This image is derived from php-fpm, which lacks tools to build Drupal.
-# The files are therefore copied from the `cli` container (Dockerfile.cli) which is built first.
+# @see upstream docs https://github.com/govCMS/govcms8lagoon/blob/master/.docker/Dockerfile.nginx-drupal
 #
 
 ARG CLI_IMAGE
 FROM ${CLI_IMAGE} as cli
 
 FROM govcms8lagoon/nginx-drupal
+ENV WEBROOT=web
 
+# Don't trust /app for images from govcms8lagoon/.
 RUN rm -rf /app
+
 # nginx only needs the root and any static files that are there, the rest is handled by the php container.
 COPY --from=cli /app/web /app/web
-
-# Define where the Drupal Root is located
-ENV WEBROOT=web

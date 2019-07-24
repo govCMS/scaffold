@@ -12,22 +12,23 @@
 #
 
 FROM amazeeio/php:7.2-cli-drupal
+ENV WEBROOT=web
 
-# Clean out anything that might be in /app directory and set up the initial files.
+# Clean out anything from upstream. @todo is this needed if we use amazeeio/php:7.2 now?
 RUN rm -rf /app
-COPY . /app
+COPY composer.json composer.lock /app/
+COPY scripts /app/scripts
 
 # Run composer. Additional `rm`s can be added to reduce the image size, with diminishing returns.
 RUN composer install --no-dev \
   && rm -rf ~/.composer/cache \
   && rm -rf /app/web/core/tests
+  && rm -rf /app/web/modules/contrib/webform/tests
 
-# Additional files outside of /app
+# Place remaining files, note exclusions in .dockerignore.
+COPY . /app
+
 COPY .docker/aliases.drushrc.php /home/.drush/site-aliases/
 COPY .docker/scripts /usr/bin/
 RUN ln -s /app/web/vendor/bin/drush /usr/bin/drush
-
 RUN fix-permissions /home/.drush/
-
-# Define where the Drupal Root is located
-ENV WEBROOT=web
