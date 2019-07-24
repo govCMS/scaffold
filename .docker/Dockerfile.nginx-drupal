@@ -8,7 +8,7 @@ FROM ${CLI_IMAGE} as cli
 FROM govcms8lagoon/nginx-drupal
 ENV WEBROOT=web
 
-# Don't trust /app for images from govcms8lagoon/.
+# Don't trust /app for images from govcms8lagoon/nginx-drupal.
 RUN rm -rf /app
 
 # nginx only needs the root and any static files that are there, the rest is handled by the php container.
