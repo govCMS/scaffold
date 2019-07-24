@@ -35,7 +35,8 @@
         "drupal/coder": "^8.3",
         "drupal/drupal-extension": "^3.4",
         "integratedexperts/behat-screenshot": "^0.7.2",
-        "phpunit/phpunit": "^7.4"
+        "phpunit/phpunit": "^7.4",
+        "zaporylie/composer-drupal-optimizations": "^1.1"
     },    
     "conflict": {
         "drupal/drupal": "*"
