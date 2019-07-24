@@ -1,8 +1,7 @@
 ##
 # `cli` image.
 #
-# The application is built in this image as it contains build tools like
-# composer and npm.
+# The application is built in this image as it contains build tools like composer and npm.
 #
 # The default PaaS build strategy is:
 #
@@ -14,8 +13,7 @@
 FROM amazeeio/php:7.2-cli-drupal
 ENV WEBROOT=web
 
-# Clean out anything from upstream. @todo is this needed if we use amazeeio/php:7.2 now?
-RUN rm -rf /app
+# We could run COPY . /app here first, but the order is important for docker layer caching.
 COPY composer.json composer.lock /app/
 COPY scripts /app/scripts
 
