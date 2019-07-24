@@ -22,7 +22,7 @@ COPY scripts /app/scripts
 # Run composer. Additional `rm`s can be added to reduce the image size, with diminishing returns.
 RUN composer install --no-dev \
   && rm -rf ~/.composer/cache \
-  && rm -rf /app/web/core/tests
+  && rm -rf /app/web/core/tests \
   && rm -rf /app/web/modules/contrib/webform/tests
 
 # Place remaining files, note exclusions in .dockerignore.
