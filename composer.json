@@ -34,10 +34,12 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
         "drupal/coder": "^8.3",
         "drupal/drupal-extension": "^3.4",
+        "drupal/schema_metatag": "^1.4",
         "integratedexperts/behat-screenshot": "^0.7.2",
-        "phpunit/phpunit": "^7.4",
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "phpunit/phpunit": "6.5",
         "zaporylie/composer-drupal-optimizations": "^1.1"
-    },    
+    },
     "conflict": {
         "drupal/drupal": "*"
     },
