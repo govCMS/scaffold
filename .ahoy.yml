@@ -32,7 +32,7 @@ commands:
     cmd: docker-compose exec -T cli bash -c "$@"
 
   govcms-deploy:
-    usage: Runs deployment commands (e.g: config import, updb, cr, set up file_stage_proxy)
+    usage: Runs deployment commands (e.g. config import, updb, cr, set up file_stage_proxy)
     cmd: docker-compose exec -T cli govcms-deploy
 
   drush:
@@ -78,15 +78,22 @@ commands:
 
   lint:
     usage: Lint code
-    cmd: docker-compose exec -T test lint-theme
+    cmd: docker-compose exec -T test lint
+
+  tests:
+    usage: Run all tests.
+    cmd: |
+      ahoy test-behat
+      ahoy test-phpunit
+      ahoy lint
 
   test-behat:
     usage: Run Behat tests.
     cmd: docker-compose exec -T test behat "$@"
 
   test-phpunit:
-    usage: Run PHPUnit tests.
-    cmd: docker-compose exec -T test phpunit "$@"
+    usage: Run phpunit tesets
+    cmd: docker-compose exec -T test phpunit --testsuite govcms
 
   pull:
     usage: Pull latest docker images.

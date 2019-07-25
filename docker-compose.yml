@@ -41,6 +41,7 @@ services:
       dockerfile: .docker/Dockerfile.test
       args:
         CLI_IMAGE: *lagoon-project
+        SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
     labels:
       lagoon.type: none
     << : *default-volumes
