@@ -1,4 +1,5 @@
-FROM govcms8lagoon/govcms8
+ARG GOVCMS_IMAGE_VERSION=latest
+FROM govcms8lagoon/govcms8:${GOVCMS_IMAGE_VERSION}
 
 RUN rm -rf /app
 COPY composer.json composer.lock /app/

@@ -1,7 +1,8 @@
 ARG CLI_IMAGE
-FROM ${CLI_IMAGE} as cli
+ARG GOVCMS_IMAGE_VERSION=latest
 
-FROM govcms8lagoon/solr
+FROM ${CLI_IMAGE} as cli
+FROM govcms8lagoon/solr:${GOVCMS_IMAGE_VERSION}
 
 # Copy the Solr configuration files.
 COPY .docker/config/solr /solr-conf/conf

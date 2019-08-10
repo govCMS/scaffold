@@ -1,7 +1,8 @@
 ARG CLI_IMAGE
-FROM ${CLI_IMAGE} as cli
+ARG GOVCMS_IMAGE_VERSION=latest
 
-FROM govcms8lagoon/php
+FROM ${CLI_IMAGE} as cli
+FROM govcms8lagoon/php:${GOVCMS_IMAGE_VERSION}
 
 RUN rm -rf /app
 COPY --from=cli /app /app
