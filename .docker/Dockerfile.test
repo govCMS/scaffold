@@ -4,8 +4,25 @@ FROM ${CLI_IMAGE} as cli
 FROM govcms8lagoon/test
 
 RUN rm -rf /app
+
 COPY --from=cli /app /app
-RUN composer install
+COPY --from=govcms8lagoon/test /app/tests /tests
+
+# Copy the test scripts.
+COPY .docker/scripts/test/behat /usr/bin/behat
+COPY .docker/scripts/test/phpunit /usr/bin/phpunit
+COPY .docker/scripts/test/drutiny /usr/bin/drutiny
+COPY .docker/scripts/test/lint /usr/bin/lint
+
+RUN chmod +x /usr/bin/behat
+RUN chmod +x /usr/bin/phpunit
+RUN chmod +x /usr/bin/drutiny
+RUN chmod +x /usr/bin/lint
+
+# Note: This is currently disabled until parallel drutiny work is resolved.
+# RUN php -d memory_limit=-1 /usr/local/bin/composer --working-dir=/app/web/sites/all/drutiny/ install --ignore-platform-reqs \
+# && rm -Rf /app/web/sites/all/drutiny/.git \
+# && chmod +x /usr/bin/drutiny
 
 # Define where the Drupal Root is located
 ENV WEBROOT=web

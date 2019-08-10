@@ -16,10 +16,10 @@ build:
       if grep --quiet '^MARIADB_DATA_IMAGE' .env; then
         ahoy govcms-deploy
       else
+        ahoy -v composer install
         ahoy -v install
       fi
     - ahoy lint || true
-
 deploy:
   stage: deploy
   script:
