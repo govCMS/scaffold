@@ -1,11 +1,16 @@
 version: '2.3'
 
 # This value intentionally matches the project name on Lagoon.
+# It is used to name the CLI_IMAGE to use as a build arg locally.
 x-lagoon-project:
   &lagoon-project govcms8-paas
 
 x-lagoon-local-dev-url:
   &lagoon-local-dev-url http://govcms8-paas.docker.amazee.io
+
+# See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
+x-govcms-image-version:
+  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-latest}
 
 x-volumes:
   &default-volumes
@@ -18,6 +23,7 @@ x-environment:
     LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
     LAGOON_PROJECT: *lagoon-project
     LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-paas.docker.amazee.io}
+    GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-latest}
     DEV_MODE: ${DEV_MODE:-false}
     X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
 
@@ -27,7 +33,8 @@ services:
     build:
       context: .
       dockerfile: .docker/Dockerfile.cli
-    # Name the image to access it via CLI_IMAGE arg.
+      args:
+        GOVCMS_IMAGE_VERSION: *govcms-image-version
     image: *lagoon-project
     labels:
       lagoon.type: cli-persistent
@@ -42,8 +49,7 @@ services:
       context: .
       dockerfile: .docker/Dockerfile.test
       args:
-        CLI_IMAGE: *lagoon-project
-        SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
+        GOVCMS_IMAGE_VERSION: *govcms-image-version
     labels:
       lagoon.type: none
     << : *default-volumes
@@ -58,6 +64,7 @@ services:
       dockerfile: .docker/Dockerfile.nginx-drupal
       args:
         CLI_IMAGE: *lagoon-project
+        GOVCMS_IMAGE_VERSION: *govcms-image-version
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.persistent: /app/web/sites/default/files/
@@ -77,6 +84,7 @@ services:
       dockerfile: .docker/Dockerfile.php
       args:
         CLI_IMAGE: *lagoon-project
+        GOVCMS_IMAGE_VERSION: *govcms-image-version
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx
@@ -111,7 +119,7 @@ services:
   #     context: .
   #     dockerfile: .docker/Dockerfile.solr
   #     args:
-  #       CLI_IMAGE: *lagoon-project
+  #       GOVCMS_IMAGE_VERSION: *govcms-image-version
   #   labels:
   #     lagoon.type: solr
   #   ports:

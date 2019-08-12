@@ -1,13 +1,5 @@
 ##
-# `cli` image.
-#
-# The application is built in this image as it contains build tools like composer and npm.
-#
-# The default PaaS build strategy is:
-#
-#  * wipe the /app directory, from the upstream image build (which is currently SaaS oriented).
-#  * prepare and run composer install inside the `cli` container
-#  * copy in the non-composer files
+# @see /.docker/README.md
 #
 
 FROM amazeeio/php:7.2-cli-drupal
@@ -23,7 +15,7 @@ RUN composer install --no-dev \
   && rm -rf /app/web/core/tests \
   && rm -rf /app/web/modules/contrib/webform/tests
 
-# Place remaining files, note exclusions in .dockerignore.
+# Place remaining files from repository, note exclusions in .dockerignore.
 COPY . /app
 
 COPY .docker/aliases.drushrc.php /home/.drush/site-aliases/

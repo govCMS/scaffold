@@ -1,18 +1,19 @@
 ##
-# This image is packed with test tools and does not run on lagoon.
-# @see upstream docs https://github.com/govCMS/govcms8lagoon/blob/master/.docker/Dockerfile.test
+# @see /.docker/README.md
 #
 
 ARG CLI_IMAGE
-FROM ${CLI_IMAGE} as cli
+ARG GOVCMS_IMAGE_VERSION=latest
 
-FROM govcms8lagoon/test
+FROM ${CLI_IMAGE} as cli
+FROM govcms8lagoon/test:${GOVCMS_IMAGE_VERSION} as test
+
 ENV WEBROOT=web
 
 RUN rm -rf /app
 
 COPY --from=cli /app /app
-COPY --from=govcms8lagoon/test /app/tests /tests
+COPY --from=test /app/tests /tests
 
 # Copy the test scripts.
 COPY .docker/scripts/test/behat /usr/bin/behat
