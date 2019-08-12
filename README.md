@@ -15,7 +15,7 @@
         gem install pygmy
         pygmy up
 
-* [Windows](https://docs.amazee.io/local_docker_development/windows.html):    
+* [Windows](https://docs.amazee.io/local_docker_development/windows.html):
 
         git clone https://github.com/amazeeio/amazeeio-docker-windows amazeeio-docker-windows; cd amazeeio-docker-windows
         docker-compose up -d; cd ..
@@ -61,7 +61,11 @@ Additional commands are listed in `.ahoy.yml`, or available from the command lin
 * The `vendor`, `web/core` and `web/(modules|profiles|themes)/contrib` folders are created from the composer.json every time, and are not committed to git.
 * Tests specific to your site can be committed to the `/tests` folders
 * The files folder is not (currently) committed to GitLab.
-* Do not make changes to `docker-compose.yml`, `lagoon.yml`, `.gitlab-ci.yml` or the Dockerfiles under `/.docker` - these will result in your project being unable to deploy to GovCMS SaaS
+* This project includes configuration based on the [GovCMS SaaS scaffold](https://github.com/govCMS/govcms8-scaffold) - e.g., `docker-compose.yml`, `.gitlab-ci.yml`, `.lagoon.yml`, and `.version.yml`. As a PaaS customer, you're able to modify this configuration. We don't recommend doing this unless you know what you're doing. You might break your website, or your ability to deploy your project.
+
+## Deployment process
+
+An example deployment script is available in `.docker/scripts/govcms-deploy`. It provides examples for basic configuration management as well as common deployment requirements such as database updates, cache rebuilds, etc.
 
 ## Stage File Proxy
 
@@ -70,6 +74,24 @@ Stage File Proxy is already configured for use in both local development and clo
   - Uncomment the relevant lines in `.docker/scripts/govcms-deploy`
 
 This will ensure SFP is enabled on non-prod environments in Lagoon.
+
+## Fetching a production database for development
+
+GovCMS on Lagoon takes nightly backups of your site.
+
+Your production database backup is packaged inside a MariaDB image and pushed to your project's Container Registry inside Gitlab. You can pull this image locally to work with a copy of your site's database.
+
+To do this:
+
+1. Your site must already be deployed and running on Lagoon, so that a database backup exists. Check the Container Registry for your project inside Gitlab - it's the "Registry" link in the left nav. You should see a recent image named "*org*/*project*/**mariadb-drupal-data**"
+2. Log in to your project's registry locally. See the instructions on your project's Container Registry page, under "How to use the Container Registry":
+   1. `docker login gitlab-registry-production.govcms.amazee.io`
+   2. GovCMS Gitlab uses TFA, so you'll need to use a [personal access token](https://projects.govcms.gov.au/profile/personal_access_tokens) to log in
+3. Copy `.env.defaults` to `.env`, and make these changes:
+   1. Uncomment the line starting with `MARIADB_DATA_IMAGE`
+   2. Replace *org* and *project* with the correct values for your Gitlab project. This should match the name of the backup image in the Container Registry
+4. Run `ahoy refresh-db`
+5. Enjoy your fresh production database for local development!
 
 ## Image inheritance
 

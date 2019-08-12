@@ -19,6 +19,7 @@ x-environment:
     LAGOON_PROJECT: *lagoon-project
     LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-paas.docker.amazee.io}
     DEV_MODE: ${DEV_MODE:-false}
+    X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
 
 services:
 
@@ -42,6 +43,7 @@ services:
       dockerfile: .docker/Dockerfile.test
       args:
         CLI_IMAGE: *lagoon-project
+        SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
     labels:
       lagoon.type: none
     << : *default-volumes
@@ -103,6 +105,7 @@ services:
   #   environment:
   #     << : *default-environment
 
+  # Uncomment to enable solr.
   # solr:
   #   build:
   #     context: .
