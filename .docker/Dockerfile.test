@@ -6,14 +6,13 @@ ARG CLI_IMAGE
 ARG GOVCMS_IMAGE_VERSION=latest
 
 FROM ${CLI_IMAGE} as cli
-FROM govcms8lagoon/test:${GOVCMS_IMAGE_VERSION} as test
+FROM govcms8lagoon/test:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
+RUN mv /app/tests /tests
 RUN rm -rf /app
-
 COPY --from=cli /app /app
-COPY --from=test /app/tests /tests
 
 # Copy the test scripts.
 COPY .docker/scripts/test/behat /usr/bin/behat
