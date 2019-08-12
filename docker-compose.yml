@@ -49,6 +49,7 @@ services:
       context: .
       dockerfile: .docker/Dockerfile.test
       args:
+        CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
     labels:
       lagoon.type: none
