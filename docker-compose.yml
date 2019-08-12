@@ -51,6 +51,7 @@ services:
       args:
         CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
+        SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
     labels:
       lagoon.type: none
     << : *default-volumes
