@@ -37,11 +37,12 @@ ARG GOVCMS_IMAGE_VERSION=latest
 # Tells Docker to prep the CLI container for copying in assets.
 FROM ${CLI_IMAGE} as cli
 
-# The base image. Note the version will default to :latest.
-# `govcms8lagoon/nginx-drupal` will be a generic container built from
-# an `amazee/nginx-drupal` container, in some cases with very little
-# additional logic. But having the intermediary container is good for
-# abstraction.
+# The base image from https://hub.docker.com/u/govcms8lagoon
+# The version currently defaults to :latest. `govcms8lagoon/nginx-drupal`
+# will be a generic container built from an `amazee/nginx-drupal` container,
+# in some cases with very little additional logic. Having the intermediary
+# container allows us to do things like create a full set of images with
+# a different verions of PHP, and so on.
 FROM govcms8lagoon/php:${GOVCMS_IMAGE_VERSION}
 
 # Since we are building from a generic upstream govcms container, we
