@@ -74,7 +74,7 @@ commands:
 
   mysql-dump:
     usage: Dump data out into a file. `ahoy mysql-dump local.sql`
-    cmd: docker-compose exec cli bash -c 'drush sql-dump --ordered-dump' > "$@"
+    cmd: docker-compose exec -T cli bash -c 'drush sql-dump --ordered-dump' > "$@"
 
   lint:
     usage: Lint code
