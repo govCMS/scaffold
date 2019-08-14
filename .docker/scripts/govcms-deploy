@@ -13,6 +13,8 @@ mkdir -p /app/web/sites/default/files/private/tmp/
 config_count=`ls -1 /app/config/default/*.yml 2>/dev/null | wc -l`
 dev_config_count=`ls -1 /app/config/dev/*.yml 2>/dev/null | wc -l`
 
+echo "There are $config_count config yaml files, and $dev_config_count dev yaml files."
+
 # Database updates, cache rebuild, optional config imports.
 common_deploy () {
   drush updb -y
@@ -37,23 +39,30 @@ common_deploy () {
 
 # Non production environments.
 if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then
+    echo "Environment type: $LAGOON_ENVIRONMENT_TYPE"
+
     if ! drush status --fields=bootstrap | grep -q "Successful"; then
+        echo "Drupal is not installed."
+        drush status
+
         # Import prod db in Lagoon development environments.
         if [[ ! -z "$LAGOON_ENVIRONMENT_TYPE" && "$LAGOON_ENVIRONMENT_TYPE" != "local" ]]; then
           drush sql-sync @govcms-prod @self -y
           common_deploy
         else
-          echo "Drupal not installed."
+          echo "Drupal not installed, try ahoy install"
         fi
     else
       common_deploy
     fi
 # Production environments.
 else
+  echo "Lagoon production site."
   if drush status --fields=bootstrap | grep -q "Successful"; then
+    echo "Making a database backup."
     mkdir -p /app/web/sites/default/files/private/backups/ && drush sql-dump --ordered-dump --gzip --result-file=/app/web/sites/default/files/private/backups/pre-deploy-dump.sql
     common_deploy
   else
-    echo "Drupal not installed."
+    echo "Drupal not installed in production"
   fi
 fi
