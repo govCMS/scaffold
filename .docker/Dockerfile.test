@@ -1,12 +1,18 @@
+##
+# @see /.docker/README.md
+#
+
 ARG CLI_IMAGE
+ARG GOVCMS_IMAGE_VERSION=latest
+
 FROM ${CLI_IMAGE} as cli
+FROM govcms8lagoon/test:${GOVCMS_IMAGE_VERSION}
 
-FROM govcms8lagoon/test
+ENV WEBROOT=web
 
+RUN mv /app/tests /tests
 RUN rm -rf /app
-
 COPY --from=cli /app /app
-COPY --from=govcms8lagoon/test /app/tests /tests
 
 # Copy the test scripts.
 COPY .docker/scripts/test/behat /usr/bin/behat
@@ -24,5 +30,5 @@ RUN chmod +x /usr/bin/lint
 # && rm -Rf /app/web/sites/all/drutiny/.git \
 # && chmod +x /usr/bin/drutiny
 
-# Define where the Drupal Root is located
-ENV WEBROOT=web
+# Since `cli` ran --no-dev, run composer install again to get all dev tools.
+RUN composer install

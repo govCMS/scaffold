@@ -1,0 +1,6 @@
+# Ignore these directories when building images. Note some may be populated anyway on composer install.
+.git
+vendor
+web/sites/default/files
+web/core/tests
+web/modules/contrib/webform/tests
