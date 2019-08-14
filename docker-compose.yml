@@ -19,6 +19,8 @@ x-environment:
     LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-paas.docker.amazee.io}
     DEV_MODE: ${DEV_MODE:-false}
     X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
+    DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-govcms}
+    DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-smcvog}
 
 services:
 
