@@ -13,7 +13,8 @@ build:
     - "docker-compose up -d"
     - "docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m"
     - |
-      if grep --quiet '^MARIADB_DATA_IMAGE' .env; then
+      if ! grep --quiet '^MARIADB_DATA_IMAGE' .env; then
+        echo "MARIADB_DATA_IMAGE is not set, installing the govcms profile."
         docker-compose exec -T cli composer install
         docker-compose exec -T cli drush si -y govcms
       fi
