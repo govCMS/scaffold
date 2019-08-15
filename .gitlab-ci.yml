@@ -13,6 +13,7 @@ build:
     - "docker-compose up -d"
     - "docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m"
     - |
+      docker-compose exec -T cli composer install
       if ! grep --quiet '^MARIADB_DATA_IMAGE' .env; then
         echo "MARIADB_DATA_IMAGE is not set. @see https://govcms.gov.au/wiki_vars#MARIADB_DATA_IMAGE"
         docker-compose exec -T cli composer install
