@@ -16,7 +16,6 @@ build:
       docker-compose exec -T cli composer install
       if ! grep --quiet '^MARIADB_DATA_IMAGE' .env; then
         echo "MARIADB_DATA_IMAGE is not set. @see https://govcms.gov.au/wiki_vars#MARIADB_DATA_IMAGE"
-        docker-compose exec -T cli composer install
         docker-compose exec -T cli drush si -y govcms
       fi
       docker-compose exec -T cli govcms-deploy
