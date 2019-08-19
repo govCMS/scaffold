@@ -25,6 +25,3 @@ RUN composer install --no-dev \
 COPY . /app
 
 COPY .docker/aliases.drushrc.php /home/.drush/site-aliases/
-COPY .docker/scripts /usr/bin/
-RUN ln -s /app/web/vendor/bin/drush /usr/bin/drush
-RUN fix-permissions /home/.drush/

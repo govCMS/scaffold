@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * amazee.io Drupal 8 example settings.local.php file
+ * Local settings file example.
  *
- * This file will not be included and is just an example file.
- * If you would like to use this file, copy it to the name 'settings.local.php' (this file will be exluded from Git)
+ * This file will not be included and is just an example file. Copy this to
+ * settings.local.php to enable.
  */
 
 // Disable render caches, necessary for twig files to be reloaded on every page view

@@ -1,0 +1,14 @@
+# SaaS customers may extend this if unlocked in Gitlab. Some types of
+# configuration may be restricted.
+
+# Template values for linting and unit tests, eg phpunit.
+.static:
+  allow_failure: true
+
+# Template values for functional tests, eg that require bootstrapping a site like behat.
+.func:
+  allow_failure: false
+
+# You can add new variables if they don't exist in .gitlab-ci-main.yml.
+.variables:
+  MARIADB_DATA_IMAGE: "$GITLAB_DOCKER_REGISTRY/$GITLAB_PROJECT/mariadb-drupal-data"

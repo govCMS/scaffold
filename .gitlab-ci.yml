@@ -1,27 +1,13 @@
-image: govcmsdev/gitlab-ci
-services:
-- docker:dind
-stages:
-- build
-- deploy
-build:
-  stage: build
-  script:
-    - "export DOCKER_HOST=tcp://localhost:2375"
-    - "docker network prune -f && docker network create amazeeio-network"
-    - "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-registry-production.govcms.amazee.io"
-    - "ahoy up"
-    - "docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m"
-    - |
-      if grep --quiet '^MARIADB_DATA_IMAGE' .env; then
-        ahoy govcms-deploy
-      else
-        ahoy -v composer install
-        ahoy -v install
-      fi
-    - ahoy lint || true
-deploy:
-  stage: deploy
-  script:
-    - "echo \"curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy\""
-    - "curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy"
+# This file is locked for GovCMS SaaS.
+include:
+
+  # Local overrides and defaults.
+  - local: '/.gitlab-ci-defaults.yml'
+
+  # The primary default GovCMS GitLab CI configuration.
+#  - project: 'govcms/image-tooling'
+#    ref: master
+#    file: 'gitlab/.gitlab-ci-main.yml'
+
+  # Replaces the above until something like https://github.com/simesy/scaffold-tooling in Gitlab.
+  - 'https://raw.githubusercontent.com/simesy/scaffold-tooling/master/gitlab/.gitlab-ci-main.yml'
