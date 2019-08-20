@@ -4199,16 +4199,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.7.3",
+            "version": "8.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "b8ca92d4274048aff6bb020c329596c0e9b91269"
+                "reference": "39164616332832e1456199d32fc3ed11562f4721"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/b8ca92d4274048aff6bb020c329596c0e9b91269",
-                "reference": "b8ca92d4274048aff6bb020c329596c0e9b91269",
+                "url": "https://api.github.com/repos/drupal/core/zipball/39164616332832e1456199d32fc3ed11562f4721",
+                "reference": "39164616332832e1456199d32fc3ed11562f4721",
                 "shasum": ""
             },
             "require": {
@@ -4439,7 +4439,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2019-06-05T19:21:30+00:00"
+            "time": "2019-08-07T19:19:20+00:00"
         },
         {
             "name": "drupal/crop",
@@ -6871,17 +6871,17 @@
         },
         {
             "name": "drupal/metatag",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/metatag.git",
-                "reference": "8.x-1.8"
+                "reference": "8.x-1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.8.zip",
-                "reference": "8.x-1.8",
-                "shasum": "fb5d31aa08c8c2e175f096f9917e9741db152ea8"
+                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.9.zip",
+                "reference": "8.x-1.9",
+                "shasum": "230960752c5afa17337fb69bae853bccb1a26ecd"
             },
             "require": {
                 "drupal/core": "*",
@@ -6903,8 +6903,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.8",
-                    "datestamp": "1550692511",
+                    "version": "8.x-1.9",
+                    "datestamp": "1564708406",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7862,17 +7862,17 @@
         },
         {
             "name": "drupal/scheduled_transitions",
-            "version": "1.0.0-rc3",
+            "version": "1.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/scheduled_transitions.git",
-                "reference": "8.x-1.0-rc3"
+                "reference": "8.x-1.0-rc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/scheduled_transitions-8.x-1.0-rc3.zip",
-                "reference": "8.x-1.0-rc3",
-                "shasum": "35c0ecb4c4c9ccd3eff0abdf5bae589064261957"
+                "url": "https://ftp.drupal.org/files/projects/scheduled_transitions-8.x-1.0-rc1.zip",
+                "reference": "8.x-1.0-rc1",
+                "shasum": "4fbfdbc8c5713672f0cdbc1fc06b343d1bd55838"
             },
             "require": {
                 "drupal/core": "^8.6",
@@ -7885,8 +7885,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-rc3",
-                    "datestamp": "1565837557",
+                    "version": "8.x-1.0-rc1",
+                    "datestamp": "1564755488",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -9205,16 +9205,16 @@
         },
         {
             "name": "govcms/govcms",
-            "version": "1.0.0-beta7",
+            "version": "1.0.0-beta8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/govCMS/govCMS8.git",
-                "reference": "07ae08defba9e36a8cce9a3ec01285c7db86adf5"
+                "reference": "0cf8163588fc0b511a85c6d6361a38a71ee572cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/govCMS/govCMS8/zipball/07ae08defba9e36a8cce9a3ec01285c7db86adf5",
-                "reference": "07ae08defba9e36a8cce9a3ec01285c7db86adf5",
+                "url": "https://api.github.com/repos/govCMS/govCMS8/zipball/0cf8163588fc0b511a85c6d6361a38a71ee572cc",
+                "reference": "0cf8163588fc0b511a85c6d6361a38a71ee572cc",
                 "shasum": ""
             },
             "require": {
@@ -9235,7 +9235,7 @@
                 "drupal/consumers": "1.9",
                 "drupal/contact_storage": "1.0-beta9",
                 "drupal/context": "4.0-beta2",
-                "drupal/core": "8.7.3",
+                "drupal/core": "8.7.6",
                 "drupal/ctools": "3.2.0",
                 "drupal/devel": "2.0",
                 "drupal/diff": "1.0-rc2",
@@ -9264,7 +9264,7 @@
                 "drupal/memcache": "2.0",
                 "drupal/menu_block": "1.5",
                 "drupal/menu_trail_by_path": "1.1",
-                "drupal/metatag": "1.8",
+                "drupal/metatag": "1.9",
                 "drupal/modifiers": "1.2",
                 "drupal/module_filter": "3.1",
                 "drupal/panelizer": "4.1",
@@ -9277,7 +9277,7 @@
                 "drupal/redirect": "1.3",
                 "drupal/restui": "1.16.0",
                 "drupal/robotstxt": "1.2",
-                "drupal/scheduled_transitions": "^1.0-rc1",
+                "drupal/scheduled_transitions": "1.0.0-rc1",
                 "drupal/search_api": "1.11",
                 "drupal/search_api_attachments": "1.0-beta13",
                 "drupal/search_api_solr": "2.2",
@@ -9388,7 +9388,7 @@
                 "govCMS",
                 "govCMS8"
             ],
-            "time": "2019-07-16T23:50:36+00:00"
+            "time": "2019-08-20T03:11:33+00:00"
         },
         {
             "name": "govcms/scaffold-tooling",
@@ -9396,12 +9396,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simesy/scaffold-tooling.git",
-                "reference": "76e152bdd95775444627cccdc125b9b700596fa5"
+                "reference": "a87c6c66d31f45e1c82393e7c4df3609d4bc1ed6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simesy/scaffold-tooling/zipball/76e152bdd95775444627cccdc125b9b700596fa5",
-                "reference": "76e152bdd95775444627cccdc125b9b700596fa5",
+                "url": "https://api.github.com/repos/simesy/scaffold-tooling/zipball/a87c6c66d31f45e1c82393e7c4df3609d4bc1ed6",
+                "reference": "a87c6c66d31f45e1c82393e7c4df3609d4bc1ed6",
                 "shasum": ""
             },
             "require": {
@@ -9425,13 +9425,18 @@
                 "webmozart/path-util": "^2.3",
                 "zaporylie/composer-drupal-optimizations": "^1.0"
             },
+            "bin": [
+                "scripts/tests/lint",
+                "scripts/tests/phpunit",
+                "scripts/tests/vet"
+            ],
             "type": "library",
             "description": "A variety of standard config, scripts and packages to support GovCMS scaffold.",
             "support": {
                 "source": "https://github.com/simesy/scaffold-tooling/tree/master",
                 "issues": "https://github.com/simesy/scaffold-tooling/issues"
             },
-            "time": "2019-08-19T06:58:06+00:00"
+            "time": "2019-08-20T07:25:57+00:00"
         },
         {
             "name": "grasmash/expander",
