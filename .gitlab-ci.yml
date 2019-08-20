@@ -10,15 +10,15 @@ build:
     - "export DOCKER_HOST=tcp://localhost:2375"
     - "docker network prune -f && docker network create amazeeio-network"
     - "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-registry-production.govcms.amazee.io"
-    - "ahoy up"
+    - "docker-compose up -d"
     - "docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m"
     - |
-      if grep --quiet '^MARIADB_DATA_IMAGE' .env; then
-        ahoy govcms-deploy
-      else
-        ahoy -v composer install
-        ahoy -v install
+      docker-compose exec -T cli composer install
+      if ! grep --quiet '^MARIADB_DATA_IMAGE' .env; then
+        echo "MARIADB_DATA_IMAGE is not set. @see https://govcms.gov.au/wiki_vars#MARIADB_DATA_IMAGE"
+        docker-compose exec -T cli drush si -y govcms
       fi
+      docker-compose exec -T cli govcms-deploy
     - ahoy lint || true
 deploy:
   stage: deploy
