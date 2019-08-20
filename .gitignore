@@ -20,9 +20,3 @@ web/sites/simpletest
 
 # behat screenshots
 tests/behat/screenshots
-
-# This is because of a bug in drupal-console, can remove when composer install no long creates this directory.
-console
-
-# Site audit needs to live inside the drupal to run with @self.
-audit-site
