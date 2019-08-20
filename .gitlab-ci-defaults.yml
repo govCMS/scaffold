@@ -11,4 +11,4 @@
 
 # You can add new variables if they don't exist in .gitlab-ci-main.yml.
 .variables:
-  MARIADB_DATA_IMAGE: "$GITLAB_DOCKER_REGISTRY/$GITLAB_PROJECT/mariadb-drupal-data"
+  EXAMPLE_VARIABLE: "Example value."
