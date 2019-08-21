@@ -1,12 +1,14 @@
-# SaaS customers may extend this if unlocked in Gitlab. Some types of
-# configuration may be restricted.
+# Basic control of your GitLab CI.
+# @todo wiki page
 
-# Template values for linting and unit tests, eg phpunit.
-.static:
+# Linting and other unit tests (no fully loaded Drupal).
+.static-tests:
+  # when: manual
   allow_failure: true
 
-# Template values for functional tests, eg that require bootstrapping a site like behat.
-.func:
+# Behat and integration tests (fully loaded Drupal).
+.integration-tests:
+  # when: manual
   allow_failure: false
 
 # You can add new variables if they don't exist in .gitlab-ci-main.yml.

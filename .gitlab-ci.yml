@@ -1,7 +1,7 @@
 # This file is locked for GovCMS SaaS.
 include:
 
-  # Local overrides and defaults.
+  # This file allows some control of GitLab testing phases.
   - local: '/.gitlab-ci-defaults.yml'
 
   # The primary default GovCMS GitLab CI configuration.
