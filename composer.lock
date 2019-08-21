@@ -9396,12 +9396,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simesy/scaffold-tooling.git",
-                "reference": "75865c0b316fe22c7811429b43fa7db841133049"
+                "reference": "d0920c3d6467cadd66d4e08f907f984ce64742de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simesy/scaffold-tooling/zipball/75865c0b316fe22c7811429b43fa7db841133049",
-                "reference": "75865c0b316fe22c7811429b43fa7db841133049",
+                "url": "https://api.github.com/repos/simesy/scaffold-tooling/zipball/d0920c3d6467cadd66d4e08f907f984ce64742de",
+                "reference": "d0920c3d6467cadd66d4e08f907f984ce64742de",
                 "shasum": ""
             },
             "require": {
@@ -9440,7 +9440,7 @@
                 "source": "https://github.com/simesy/scaffold-tooling/tree/master",
                 "issues": "https://github.com/simesy/scaffold-tooling/issues"
             },
-            "time": "2019-08-21T13:42:43+00:00"
+            "time": "2019-08-21T14:49:32+00:00"
         },
         {
             "name": "grasmash/expander",
