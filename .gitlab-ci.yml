@@ -9,5 +9,5 @@ include:
 #    ref: master
 #    file: 'gitlab/.gitlab-ci-main.yml'
 
-  # Replaces the above until something like https://github.com/simesy/scaffold-tooling in Gitlab.
+  # Replaces the above until something like https://github.com/govcms/scaffold-tooling versioned and in Gitlab.
   - 'https://raw.githubusercontent.com/simesy/scaffold-tooling/master/gitlab/.gitlab-ci-main.yml'
