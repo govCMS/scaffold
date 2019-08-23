@@ -46,14 +46,7 @@
 /* @var $govcms_env string */
 
 $govcms_includes = $app_root . '/../vendor/govcms/scaffold-tooling/drupal/settings';
-
-// Todo, this logic to be reviewed by Amazee.
 $govcms_is_prod = !getenv('DEV_MODE') && (getenv('LAGOON_ENVIRONMENT_TYPE') && getenv('LAGOON_ENVIRONMENT_TYPE') == 'production');
-
-if (!file_exists($govcms_includes . '/all.settings.php')) {
-  // Currently simesy/require.
-  throw new \Exception('Expecting settings files at ' . $govcms_includes . '. Has "composer install" run successfully?');
-}
 
 include $govcms_includes . '/all.settings.php';
 
