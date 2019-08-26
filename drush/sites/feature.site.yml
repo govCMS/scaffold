@@ -1,0 +1,13 @@
+#
+# Dynamically generated aliases for feature branches.
+# If your branch is feature/foobar, you can run `drush @feature.foobar st`.
+#
+
+'*':
+  root: /app
+  host: ssh-lagoon.govcms.amazee.io
+  user: govcms8-scaffold-satis-feature-${env-name}
+  uri: nginx-govcms8-scaffold-satis-feature-${env-name}.govcms.amazee.io
+  ssh:
+    options: -p 30831
+    tty: false
