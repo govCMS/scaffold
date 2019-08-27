@@ -24,4 +24,5 @@ RUN composer install --no-dev \
 # Place remaining files from repository, note exclusions in .dockerignore.
 COPY . /app
 
-COPY .docker/aliases.drushrc.php /home/.drush/site-aliases/
+# Internal drush aliases for the platform.
+RUN mv /app/vendor/govcms/scaffold-tooling/drupal/govcms.site.yml /app/drush/sites/
