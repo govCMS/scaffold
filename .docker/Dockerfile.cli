@@ -16,7 +16,7 @@ COPY composer.json composer.lock /app/
 COPY scripts /app/scripts
 
 # Run composer. Additional `rm`s can be added to reduce the image size, with diminishing returns.
-RUN composer install --no-dev \
+RUN composer install --no-dev --quiet \
   && rm -rf ~/.composer/cache \
   && rm -rf /app/web/core/tests \
   && rm -rf /app/web/modules/contrib/webform/tests
@@ -24,5 +24,14 @@ RUN composer install --no-dev \
 # Place remaining files from repository, note exclusions in .dockerignore.
 COPY . /app
 
-# Internal drush aliases for the platform.
-RUN mv /app/vendor/govcms/scaffold-tooling/drupal/govcms.site.yml /app/drush/sites/
+# Set up standard Drush aliases.
+# @todo COPY can be moved upstream.
+COPY .docker/config/cli/ci.site.yml /etc/drush/sites/
+ARG LAGOON_SAFE_PROJECT
+RUN sed -i "s/%%LAGOON_SAFE_PROJECT%%/${LAGOON_SAFE_PROJECT}/g" /etc/drush/sites/ci.site.yml
+
+# Make drush-launcher default per plans here https://github.com/amazeeio/lagoon/pull/1183
+# @todo do this properly in .cli upstream.
+RUN wget -O /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar" \
+  && chmod +x /usr/local/bin/drush \
+  && rm -Rf /home/.composer/bin
