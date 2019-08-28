@@ -10,4 +10,4 @@ include:
 #    file: 'gitlab/.gitlab-ci-main.yml'
 
   # Replaces the above until something like https://github.com/govcms/scaffold-tooling versioned and in Gitlab.
-  - remote: 'https://raw.githubusercontent.com/simesy/scaffold-tooling/ff7e1cbd3be7ef8158c7b186386be878c62fabcc/gitlab/.gitlab-ci-main.yml'
+  - remote: 'https://raw.githubusercontent.com/simesy/scaffold-tooling/feea8ec/gitlab/.gitlab-ci-main.yml'
