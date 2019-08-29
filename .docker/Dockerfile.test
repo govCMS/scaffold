@@ -21,13 +21,11 @@ RUN cp /app/vendor/govcms/scaffold-tooling/scripts/govcms-deploy /usr/local/bin/
 RUN cp /app/vendor/govcms/scaffold-tooling/scripts/tests/* /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
 
-# Install govcms/site-audit outside of the mount, although it needs to go into the mount at test time.
-# @todo audit-site/drutiny should move to the test container. Not doing any optimisation or cleanup here.
+# Build govcms/site-audit outside of the mount, although it needs to go into /app at test time.
+# @todo audit-site/drutiny (probably the phar) should be available in test container upstream. Not doing any optimisation or cleanup here.
 WORKDIR /opt
 RUN git clone --branch 7.x-3.x --depth 1 https://github.com/govCMS/audit-site.git
 RUN composer --working-dir=audit-site update --ignore-platform-reqs
-RUN chmod 775 audit-site/vendor/bin/drutiny
-
 WORKDIR /app
 
 # @see drush setup in Dockerfile.cli
