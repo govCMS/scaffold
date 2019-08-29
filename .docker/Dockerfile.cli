@@ -9,14 +9,14 @@ FROM govcms8lagoon/govcms8:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
+# @todo Can be removed when we can trust files from govcms/govcms8lagoon images.
 RUN rm -rf /app
 
-# We could run COPY . /app here first, but the order is has been stated as "important for docker layer caching".
 COPY composer.json composer.lock /app/
 COPY scripts /app/scripts
 
 # Run composer. Additional `rm`s can be added to reduce the image size, with diminishing returns.
-RUN composer install --no-dev --quiet \
+RUN composer install --no-dev --no-interaction --no-suggest \
   && rm -rf ~/.composer/cache \
   && rm -rf /app/web/core/tests \
   && rm -rf /app/web/modules/contrib/webform/tests
@@ -24,14 +24,14 @@ RUN composer install --no-dev --quiet \
 # Place remaining files from repository, note exclusions in .dockerignore.
 COPY . /app
 
-# Set up standard Drush aliases.
-# @todo COPY can be moved upstream.
+# Set up Drush aliases.
+# @todo Move this COPY to govcms/govcms8lagoon. the `sed` needs to remain here as it needs to know the project name.
 COPY .docker/config/cli/ci.site.yml /etc/drush/sites/
 ARG LAGOON_SAFE_PROJECT
 RUN sed -i "s/%%LAGOON_SAFE_PROJECT%%/${LAGOON_SAFE_PROJECT}/g" /etc/drush/sites/ci.site.yml
 
-# Make drush-launcher default per plans here https://github.com/amazeeio/lagoon/pull/1183
-# @todo do this properly in .cli upstream.
+# Ensure drush-launcher instead of Drush 8 in /home/.composer
+# @todo Make drush launcher available upstream, @see https://github.com/amazeeio/lagoon/pull/1183
 RUN wget -O /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar" \
   && chmod +x /usr/local/bin/drush \
   && rm -Rf /home/.composer/bin

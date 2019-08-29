@@ -25,7 +25,7 @@ RUN chmod +x /usr/local/bin/*
 # @todo audit-site/drutiny (probably the phar) should be available in test container upstream. Not doing any optimisation or cleanup here.
 WORKDIR /opt
 RUN git clone --branch 7.x-3.x --depth 1 https://github.com/govCMS/audit-site.git
-RUN composer --working-dir=audit-site update --ignore-platform-reqs
+RUN composer --working-dir=audit-site update --ignore-platform-reqs --no-interaction --no-suggest
 WORKDIR /app
 
 # @see drush setup in Dockerfile.cli
