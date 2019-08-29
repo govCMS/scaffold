@@ -5,6 +5,6 @@ include:
   - local: '/.gitlab-ci-inputs.yml'
 
   # The primary default GovCMS GitLab CI configuration.
-  - project: 'govcms/image-tooling'
+  - project: 'govcms/scaffold-tooling'
     ref: master
     file: 'gitlab/.gitlab-ci-main.yml'
