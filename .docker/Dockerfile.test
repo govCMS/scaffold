@@ -28,6 +28,8 @@ RUN git clone --branch 7.x-3.x --depth 1 https://github.com/govCMS/audit-site.gi
 RUN composer --working-dir=audit-site update --ignore-platform-reqs --no-interaction --no-suggest
 WORKDIR /app
 
-# @see drush setup in Dockerfile.cli
+# @see also drush setup in Dockerfile.cli
 COPY --from=cli /usr/local/bin/drush /usr/local/bin/
-RUN chmod +x /usr/local/bin/drush && rm -Rf /home/.composer/bin
+RUN chmod +x /usr/local/bin/drush && rm -Rf /home/.composer/vendor/bin
+# Drutiny expects "drush-launcher" which is not the idea of drush-launcher. Hack around it.
+RUN cp /usr/local/bin/drush /usr/local/bin/drush-launcher && chmod +x /usr/local/bin/drush-launcher

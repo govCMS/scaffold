@@ -34,4 +34,4 @@ RUN sed -i "s/%%LAGOON_SAFE_PROJECT%%/${LAGOON_SAFE_PROJECT}/g" /etc/drush/sites
 # @todo Make drush launcher available upstream, @see https://github.com/amazeeio/lagoon/pull/1183
 RUN wget -O /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar" \
   && chmod +x /usr/local/bin/drush \
-  && rm -Rf /home/.composer/bin
+  && rm -Rf /home/.composer/vendor/bin
