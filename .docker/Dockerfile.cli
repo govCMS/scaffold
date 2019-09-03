@@ -25,13 +25,8 @@ RUN composer install --no-dev --no-interaction --no-suggest \
 COPY . /app
 
 # Set up Drush aliases.
-# @todo Move this COPY command to govcms/govcms8lagoon.
+# @todo Move this alias file to govcms/govcms8lagoon.
 COPY .docker/config/cli/ci.site.yml /etc/drush/sites/
-
-# @todo Needs review. This should be a build arg, parse it from docker-compose.yml which is where the build arg should come from.
-# ARG LAGOON_SAFE_PROJECT
-RUN LAGOON_SAFE_PROJECT=$(cat /app/docker-compose.yml | grep " &lagoon-project" | awk '{print $2;}') \
-  ; sed -i -e "s/%%LAGOON_SAFE_PROJECT%%/$LAGOON_SAFE_PROJECT/g" /etc/drush/sites/ci.site.yml
 
 # Ensure drush-launcher instead of Drush 8 in /home/.composer
 # @todo Make drush launcher available upstream, @see https://github.com/amazeeio/lagoon/pull/1183

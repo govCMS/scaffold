@@ -10,7 +10,7 @@
 prod:
   root: /app
   host: ssh.lagoon.svc
-  user: %%LAGOON_SAFE_PROJECT%%-master
-  uri: nginx-%%LAGOON_SAFE_PROJECT%%-master.govcms.amazee.io
+  user: ${env.LAGOON_PROJECT}-master
+  uri: nginx-${env.LAGOON_PROJECT}-master.govcms.amazee.io
   ssh:
     options: -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p 2020 -F /dev/null
