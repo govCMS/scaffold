@@ -20,3 +20,9 @@ web/sites/simpletest
 
 # behat screenshots
 tests/behat/screenshots
+
+# Possible temporary drupal console bug.
+console
+
+# Current location where audit application runs from, required so drush works with drutiny.
+audit-site
