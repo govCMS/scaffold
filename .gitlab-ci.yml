@@ -22,6 +22,7 @@ build:
     - ahoy lint || true
 deploy:
   stage: deploy
+  variables:
+    GOVCMS_DASHBOARD: "https://dashboard.govcms.gov.au/projects"
   script:
-    - "echo \"curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy\""
-    - "curl -X POST -d projectName=$CI_PROJECT_NAME -d branchName=$CI_COMMIT_REF_NAME http://rest2tasks.lagoon.svc:3000/deploy"
+    - echo "Deployment triggered, please see $GOVCMS_DASHBOARD/$CI_PROJECT_NAME/$CI_PROJECT_NAME-$(echo $CI_COMMIT_REF_NAME | sed -e 's/[^[:alnum:]-]/-/g')"
