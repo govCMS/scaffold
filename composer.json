@@ -6,13 +6,16 @@
     "repositories": {
         "govcms": {
             "type": "composer",
-            "url": "https://satis.govcms.gov.au"
+            "url": "https://satis.govcms.gov.au/"
         },
         "packagist.org": false
     },
     "require": {
         "govcms/govcms": "~1",
-        "govcms/scaffold-tooling": "dev-master"
+        "govcms/scaffold-tooling": "~1"
+    },
+    "require-dev": {
+        "govcms/require-dev": "~1"
     },
     "conflict": {
         "drupal/drupal": "*"
