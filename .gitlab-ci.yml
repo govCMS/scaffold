@@ -6,5 +6,5 @@ include:
 
   # The primary default GovCMS GitLab CI configuration.
   - project: 'govcms/scaffold-tooling'
-    ref: "0.1.1"
+    ref: "0.1.2"
     file: '.gitlab-ci-main.yml'
