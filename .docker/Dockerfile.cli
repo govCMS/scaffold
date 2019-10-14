@@ -9,14 +9,14 @@ FROM govcms8lagoon/govcms8:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
+# @todo Can be removed when we can trust files from govcms/govcms8lagoon images.
 RUN rm -rf /app
 
-# We could run COPY . /app here first, but the order is has been stated as "important for docker layer caching".
 COPY composer.json composer.lock /app/
 COPY scripts /app/scripts
 
 # Run composer. Additional `rm`s can be added to reduce the image size, with diminishing returns.
-RUN composer install --no-dev \
+RUN composer install --no-dev --no-interaction --no-suggest \
   && rm -rf ~/.composer/cache \
   && rm -rf /app/web/core/tests \
   && rm -rf /app/web/modules/contrib/webform/tests
@@ -24,7 +24,12 @@ RUN composer install --no-dev \
 # Place remaining files from repository, note exclusions in .dockerignore.
 COPY . /app
 
-COPY .docker/aliases.drushrc.php /home/.drush/site-aliases/
-COPY .docker/scripts /usr/bin/
-RUN ln -s /app/web/vendor/bin/drush /usr/bin/drush
-RUN fix-permissions /home/.drush/
+# Set up Drush aliases.
+# @todo Move this alias file to govcms/govcms8lagoon.
+COPY .docker/config/cli/ci.site.yml /etc/drush/sites/
+
+# Ensure drush-launcher instead of Drush 8 in /home/.composer
+# @todo Make drush launcher available upstream, @see https://github.com/amazeeio/lagoon/pull/1183
+RUN wget -O /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar" \
+  && chmod +x /usr/local/bin/drush \
+  && rm -Rf /home/.composer/vendor/bin

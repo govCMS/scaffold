@@ -1,28 +1,10 @@
-image: govcmsdev/gitlab-ci
-services:
-- docker:dind
-stages:
-- build
-- deploy
-build:
-  stage: build
-  script:
-    - "export DOCKER_HOST=tcp://localhost:2375"
-    - "docker network prune -f && docker network create amazeeio-network"
-    - "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-registry-production.govcms.amazee.io"
-    - "docker-compose up -d"
-    - "docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 1m"
-    - |
-      docker-compose exec -T cli composer install
-      if ! grep --quiet '^MARIADB_DATA_IMAGE' .env; then
-        echo "MARIADB_DATA_IMAGE is not set. @see https://govcms.gov.au/wiki_vars#MARIADB_DATA_IMAGE"
-        docker-compose exec -T cli drush si -y govcms
-      fi
-      docker-compose exec -T cli govcms-deploy
-    - ahoy lint || true
-deploy:
-  stage: deploy
-  variables:
-    GOVCMS_DASHBOARD: "https://dashboard.govcms.gov.au/projects"
-  script:
-    - echo "Deployment triggered, please see $GOVCMS_DASHBOARD/$CI_PROJECT_NAME/$CI_PROJECT_NAME-$(echo $CI_COMMIT_REF_NAME | sed -e 's/[^[:alnum:]-]/-/g')"
+# This file is locked for GovCMS SaaS.
+include:
+
+  # Simple control of your jobs.
+  - local: '/.gitlab-ci-inputs.yml'
+
+  # The primary default GovCMS GitLab CI configuration.
+  - project: 'govcms/scaffold-tooling'
+    ref: "0.1.2"
+    file: '.gitlab-ci-main.yml'

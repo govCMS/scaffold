@@ -10,25 +10,26 @@ FROM govcms8lagoon/test:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
+# @todo find out why this.
 RUN mv /app/tests /tests
+
 RUN rm -rf /app
 COPY --from=cli /app /app
 
 # Copy the test scripts.
-COPY .docker/scripts/test/behat /usr/bin/behat
-COPY .docker/scripts/test/phpunit /usr/bin/phpunit
-COPY .docker/scripts/test/drutiny /usr/bin/drutiny
-COPY .docker/scripts/test/lint /usr/bin/lint
+RUN cp /app/vendor/govcms/scaffold-tooling/scripts/govcms-deploy /usr/local/bin/
+RUN cp /app/vendor/govcms/scaffold-tooling/scripts/tests/* /usr/local/bin/
+RUN chmod +x /usr/local/bin/*
 
-RUN chmod +x /usr/bin/behat
-RUN chmod +x /usr/bin/phpunit
-RUN chmod +x /usr/bin/drutiny
-RUN chmod +x /usr/bin/lint
+# Build govcms/site-audit outside of the mount, although it needs to go into /app at test time.
+# @todo audit-site/drutiny (probably the phar) should be available in test container upstream. Not doing any optimisation or cleanup here.
+WORKDIR /opt
+RUN git clone --branch 7.x-3.x --depth 1 https://github.com/govCMS/audit-site.git
+RUN composer --working-dir=audit-site update --ignore-platform-reqs --no-interaction --no-suggest
+WORKDIR /app
 
-# Note: This is currently disabled until parallel drutiny work is resolved.
-# RUN php -d memory_limit=-1 /usr/local/bin/composer --working-dir=/app/web/sites/all/drutiny/ install --ignore-platform-reqs \
-# && rm -Rf /app/web/sites/all/drutiny/.git \
-# && chmod +x /usr/bin/drutiny
-
-# Since `cli` ran --no-dev, run composer install again to get all dev tools.
-RUN composer install
+# @see also drush setup in Dockerfile.cli
+COPY --from=cli /usr/local/bin/drush /usr/local/bin/
+RUN chmod +x /usr/local/bin/drush && rm -Rf /home/.composer/vendor/bin
+# Drutiny expects "drush-launcher" which is not the idea of drush-launcher. Hack around it.
+RUN cp /usr/local/bin/drush /usr/local/bin/drush-launcher && chmod +x /usr/local/bin/drush-launcher

@@ -1,44 +1,21 @@
 {
     "name": "govcms/govcms-project",
-    "description": "Project template for GovCMS Drupal 8 projects with composer",
+    "description": "GovCMS Drupal 8 Scaffold",
     "type": "project",
     "license": "GPL-2.0-or-later",
-    "repositories": [
-        {
+    "repositories": {
+        "govcms": {
             "type": "composer",
-            "url": "https://packages.drupal.org/8"
+            "url": "https://satis.govcms.gov.au/"
         },
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ],
+        "packagist.org": false
+    },
     "require": {
-        "composer/installers": "^1.2",
-        "cweagans/composer-patches": "^1.6.5",
-        "drupal-composer/drupal-scaffold": "^2.5",
-        "drupal/console": "^1.0.2",
-        "drush/drush": "^9.0.0",
-        "govcms/govcms": "*",
-        "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3",
-        "drupal/fast_404": "^1.0",
-        "drupal/redis": "^1.0",
-        "drupal/stage_file_proxy": "^1.0",
-        "drupal/clamav": "^1.1",
-        "drupal/lagoon_logs": "^1.0"
+        "govcms/govcms": "~1",
+        "govcms/scaffold-tooling": "~1"
     },
     "require-dev": {
-        "behat/behat": "^3.5",
-        "behat/gherkin": "^4.5",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-        "drupal/coder": "^8.3",
-        "drupal/drupal-extension": "^3.4",
-        "drupal/schema_metatag": "^1.4",
-        "integratedexperts/behat-screenshot": "^0.7.2",
-        "jakub-onderka/php-parallel-lint": "^1.0",
-        "phpunit/phpunit": "6.5",
-        "zaporylie/composer-drupal-optimizations": "^1.1"
+        "govcms/require-dev": "~1"
     },
     "conflict": {
         "drupal/drupal": "*"
