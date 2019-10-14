@@ -1,5 +1,5 @@
 {
-    "name": "govcms/govcms-project",
+    "name": "govcms/govcms8-scaffold-paas",
     "description": "GovCMS Drupal 8 Scaffold",
     "type": "project",
     "license": "GPL-2.0-or-later",
