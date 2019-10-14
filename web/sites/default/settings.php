@@ -4,7 +4,7 @@
  * @file
  * Drupal settings entry point.
  *
- * Do you need to override or set defaults. Check the stories below:
+ * Do you need to override or set defaults? Check the stories below:
  *
  * As a developer ...
  *
