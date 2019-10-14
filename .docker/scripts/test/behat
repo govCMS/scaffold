@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Behat testing.
-
-TESTS_DIR=${TESTS_DIR:-/tests}
-APP_DIR=${APP_DIR:-/app}
-BEHAT_PROFILE=${BEHAT_PROFILE:-}
-
-${TESTS_DIR}/vendor/bin/behat --config ${APP_DIR}/tests/behat/behat.yml --strict --colors $BEHAT_PROFILE "$@"
