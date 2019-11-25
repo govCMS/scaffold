@@ -1,0 +1,5 @@
+{
+    "name": "govcms/custom",
+    "description": "Defined additional patches, and modules from https://satis.govcms.gov.au/whitelist",
+    "require": {}
+}
