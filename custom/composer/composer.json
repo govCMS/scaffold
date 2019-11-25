@@ -1,5 +1,5 @@
 {
     "name": "govcms/custom",
-    "description": "Defined additional patches, and modules from https://satis.govcms.gov.au/whitelist",
+    "description": "Additional packages from https://satis.govcms.gov.au or where composer.json is locked.",
     "require": {}
 }

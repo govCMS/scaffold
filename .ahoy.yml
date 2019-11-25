@@ -122,3 +122,8 @@ commands:
         false
       fi
     hide: true
+
+  my:
+    usage: Custom commands for this project. See `ahoy my help`.
+    imports:
+      - 'custom/ahoy.yml'

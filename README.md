@@ -16,8 +16,8 @@ composer create-project govcms/govcms8-scaffold-paas MY_PROJECT
 
 ## Next steps
 
- * [Drupal/GovCMS distribution](https://govcms.gov.au/wiki_distro)
- * [GovCMS Platform](https://govcms.gov.au/wiki_platform)
+ * [Drupal/GovCMS distribution](https://govcms.gov.au/wiki-distro)
+ * [GovCMS Platform](https://govcms.gov.au/wiki-platform)
 
 ## Customising this README
 
