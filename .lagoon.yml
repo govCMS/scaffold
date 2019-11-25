@@ -13,6 +13,6 @@ environments:
       mariadb: mariadb-shared
     cronjobs:
       - name: drush cron
-        schedule: "*/15 * * * *"
+        schedule: "0 * * * *"
         command: 'drush cron --root=/app'
         service: cli
