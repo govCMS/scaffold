@@ -14,6 +14,7 @@ RUN rm -rf /app
 
 COPY composer.json composer.lock /app/
 COPY scripts /app/scripts
+COPY custom /app/custom
 
 # Run composer. Additional `rm`s can be added to reduce the image size, with diminishing returns.
 RUN composer install --no-dev --no-interaction --no-suggest \
