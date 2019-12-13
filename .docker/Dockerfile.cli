@@ -1,5 +1,5 @@
 ##
-# @see /.docker/README.md
+# @see  https://govcms.gov.au/wiki-advanced#docker
 #
 
 ARG CLI_IMAGE

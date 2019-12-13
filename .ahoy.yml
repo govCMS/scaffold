@@ -10,11 +10,11 @@ commands:
     usage: Delete project (CAUTION).
     cmd: |
       if [ "$1" == "y" ]; then
-        docker-compose down
+        docker-compose down --volumes
       else
         ahoy confirm "Running this command will destroy your current site, database and build? Are you sure you didn't mean ahoy stop?" &&
         # Run this if confirm returns true
-        docker-compose down ||
+        docker-compose down  --volumes ||
         # Run this if confirm returns false
         echo "OK, probably a wise choice..."
       fi
@@ -78,7 +78,7 @@ commands:
 
   lint:
     usage: Lint code
-    cmd: docker-compose exec -T test lint
+    cmd: docker-compose exec -T test ./vendor/bin/govcms-lint web/themes/custom
 
   tests:
     usage: Run all tests.
@@ -89,11 +89,11 @@ commands:
 
   test-behat:
     usage: Run Behat tests.
-    cmd: docker-compose exec -T test behat "$@"
+    cmd: docker-compose exec -T test ./vendor/bin/govcms-behat "$@"
 
   test-phpunit:
-    usage: Run phpunit tesets
-    cmd: docker-compose exec -T test phpunit --testsuite govcms
+    usage: Run phpunit tests
+    cmd: docker-compose exec -T test ./vendor/bin/govcms-phpunit --testsuite govcms
 
   pull:
     usage: Pull latest docker images.
@@ -110,7 +110,7 @@ commands:
 
   audit-site:
     usage: Run site audit
-    cmd: docker-compose exec -T test drutiny profile:run ci @self "$@"
+    cmd: docker-compose exec -T test ./vendor/bin/govcms-audit
 
   confirm:
     cmd: |
@@ -122,3 +122,8 @@ commands:
         false
       fi
     hide: true
+
+  my:
+    usage: Custom commands for this project. See `ahoy my help`.
+    imports:
+      - 'custom/ahoy.yml'

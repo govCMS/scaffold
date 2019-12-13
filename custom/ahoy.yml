@@ -1,0 +1,17 @@
+---
+ahoyapi: v2
+usage: Project specific ahoy commands.
+
+commands:
+  help:
+    cmd: |
+      echo
+      echo -e "\033[0;32mCustom Ahoy commands\033[0m"
+      echo -e "You may add custom commands to \033[0;32mcustom/ahoy.yml\033[0m to share with developers in your project."
+      echo -e "Type \`\033[0;32mahoy my\033[0m\` for a list of custom commmands."
+      echo
+
+#  mycustomcommand:
+#    cmd: |
+#      echo "Anything complex you can do on the command line, you can make available for all developers in your project."
+#      git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -15

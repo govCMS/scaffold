@@ -1,5 +1,5 @@
 ##
-# @see /.docker/README.md
+# @see  https://govcms.gov.au/wiki-advanced#docker
 #
 
 ARG GOVCMS_IMAGE_VERSION=latest

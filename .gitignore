@@ -15,11 +15,9 @@ vendor/
 web/sites/*/settings.local.php
 web/sites/*/services.local.yml
 
-# Ignore SimpleTest multi-site environment.
-web/sites/simpletest
-
-# behat screenshots
+# Test and CI artifacts.
 tests/behat/screenshots
+web/sites/simpletest
 
 # Possible temporary drupal console bug.
 console
