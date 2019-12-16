@@ -1,12 +1,5 @@
 docker-compose-yaml: docker-compose.yml
 
-tasks:
-  post-rollout:
-    - run:
-        name: Deploy GovCMS
-        command: govcms-deploy
-        service: cli
-
 environments:
   master:
     types:
@@ -16,3 +9,73 @@ environments:
         schedule: "0 * * * *"
         command: 'drush cron --root=/app'
         service: cli
+
+# Note regarding tasks in the scaffold.
+# Please avoid making scripts more than one or two lines, and avoid if/else logic.
+# When PaaS users or the support team modify this file, it should be easy to turn things on and off.
+
+tasks:
+  pre-rollout:
+    - run:
+        name: Ensure backup folder exists - not all current envs have one
+        command: mkdir -p /app/web/sites/default/files/private/backups
+        service: cli
+        shell: bash    
+    - run:
+        name: Snapshot the database and store
+        command: if [[ "$LAGOON_ENVIRONMENT_TYPE" = "production" ]]; then drush sql:dump --root=/app --gzip --result-file=/app/web/sites/default/files/private/backups/pre-deploy-dump.sql; fi
+        service: cli
+        shell: bash
+    - run:
+        name: Snapshot the config and store
+        command: if [[ $(drush cex --root=/app sync -y --quiet --destination "$TMP"/config; echo "$?") = 0 ]]; then tar -czf /app/web/sites/default/files/private/backups/pre-deploy-config.tar.gz "$TMP"/config --remove-files; fi
+        service: cli
+        shell: bash
+
+  post-rollout:
+    - run:
+        name: Correct legacy drush alias if necessary
+        command: sed -i "s/%%PROJECT_NAME%%/\${env.LAGOON_PROJECT}/g" /app/drush/sites/govcms.site.yml
+        service: cli
+        shell: bash
+    - run:
+        name: Ensure backup folder exists
+        command: mkdir -p /app/web/sites/default/files/private/backups
+        service: cli
+        shell: bash
+    - run:
+        name: If a new environment populate database from master
+        command: drush status db-status | grep Connected || if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then drush sql:sync @govcms.prod @self -y; fi
+        service: cli
+        shell: bash
+    - run:
+        name: Perform database updates
+        command: drush -y updatedb
+        service: cli
+        shell: bash
+    - run:
+        name: Perform config import (uncomment to enable)
+        command: |
+          # drush cim -y sync && if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then drush cim -y --partial --source=../config/dev; fi
+        service: cli
+        shell: bash
+    - run:
+        name: Perform cache rebuild
+        command: drush -y cr
+        service: cli
+        shell: bash
+    - run:
+        name: Ensure GovCMS/Lagoon modules are enabled
+        command: drush en -y govcms_lagoon && drush pmu -y govcms_lagoon
+        service: cli
+        shell: bash
+    - run:
+        name: Enable any non-production modules
+        command: if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then drush en stage_file_proxy -y; fi
+        service: cli
+        shell: bash
+    - run:
+        name: Preserve the last successful backup
+        command: export BACKUP="/app/web/sites/default/files/private/backups/pre-deploy-dump" && mv "$BACKUP.sql.gz" "$BACKUP-last-good.sql.gz" || true
+        service: cli
+        shell: bash
