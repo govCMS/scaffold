@@ -46,6 +46,10 @@ services:
     << : *default-volumes
     environment:
       << : *default-environment
+    # Mount volumes from Pygmy to inject host SSH key into container.
+    # https://pygmy.readthedocs.io/en/master/ssh_agent/
+    volumes_from: ### Local overrides to mount host SSH keys. Automatically removed in CI.
+      - container:amazeeio-ssh-agent
 
   test:
     build:
