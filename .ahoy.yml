@@ -99,7 +99,7 @@ commands:
     cmd: |
       ahoy confirm "Running this command will replace your current database. Are you sure?" &&
       # Run this if confirm returns true
-      ( cat .env | grep MARIADB_DATA_IMAGE | cut -c20- | xargs -n1 docker pull; docker-compose rm -f -s -v mariadb && ahoy up ) ||
+      ( cat .env | grep ^MARIADB_DATA_IMAGE | cut -c20- | xargs -n1 docker pull; docker-compose rm -f -s -v mariadb && ahoy up ) ||
       # Run this if confirm returns false
       echo "OK, probably a wise choice..."
 
