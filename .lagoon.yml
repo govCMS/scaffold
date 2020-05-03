@@ -20,7 +20,7 @@ tasks:
         name: Ensure backup folder exists - not all current envs have one
         command: mkdir -p /app/web/sites/default/files/private/backups
         service: cli
-        shell: bash    
+        shell: bash
     - run:
         name: Snapshot the database and store
         command: if [[ "$LAGOON_ENVIRONMENT_TYPE" = "production" ]]; then drush sql:dump --root=/app --gzip --result-file=/app/web/sites/default/files/private/backups/pre-deploy-dump.sql; fi
@@ -76,6 +76,6 @@ tasks:
         shell: bash
     - run:
         name: Preserve the last successful backup
-        command: export BACKUP="/app/web/sites/default/files/private/backups/pre-deploy-dump" && mv "$BACKUP.sql.gz" "$BACKUP-last-good.sql.gz" || true
+        command: if [[ "$LAGOON_ENVIRONMENT_TYPE" = "production" ]]; then export BACKUP="/app/web/sites/default/files/private/backups/pre-deploy-dump" && mv "$BACKUP.sql.gz" "$BACKUP-last-good.sql.gz" || true; fi
         service: cli
         shell: bash
