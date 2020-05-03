@@ -11,7 +11,7 @@
     },
     "require": {
         "govcms/govcms": "~1",
-        "govcms/scaffold-tooling": "~1",
+        "govcms/scaffold-tooling": "~2",
         "govcms/custom": "*"
     },
     "require-dev": {
