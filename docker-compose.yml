@@ -10,7 +10,7 @@ x-lagoon-local-dev-url:
 
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
 x-govcms-image-version:
-  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-latest}
+  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-8.5.0}
 
 x-volumes:
   &default-volumes
@@ -23,7 +23,7 @@ x-environment:
     LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
     LAGOON_PROJECT: *lagoon-project
     LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-paas.docker.amazee.io}
-    GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-latest}
+    GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-8.5.0}
     DEV_MODE: ${DEV_MODE:-false}
     XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
     DOCKERHOST: ${DOCKERHOST:-host.docker.internal}

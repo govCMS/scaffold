@@ -2,7 +2,7 @@
 # @see  https://govcms.gov.au/wiki-advanced#docker
 #
 
-ARG GOVCMS_IMAGE_VERSION=latest
+ARG GOVCMS_IMAGE_VERSION=8.5.0
 
 FROM govcms8lagoon/solr:${GOVCMS_IMAGE_VERSION}
 
