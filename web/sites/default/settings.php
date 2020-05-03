@@ -46,7 +46,6 @@
 /* @var $govcms_env string */
 
 $govcms_includes = $app_root . '/../vendor/govcms/scaffold-tooling/drupal/settings';
-$govcms_is_prod = !getenv('DEV_MODE') && (getenv('LAGOON_ENVIRONMENT_TYPE') && getenv('LAGOON_ENVIRONMENT_TYPE') == 'production');
 
 include $govcms_includes . '/all.settings.php';
 
@@ -56,10 +55,11 @@ if (getenv('LAGOON')) {
 }
 
 // Prod vs Dev specific overrides.
-if ($govcms_is_prod) {
+if (getenv('LAGOON_ENVIRONMENT_TYPE') && getenv('LAGOON_ENVIRONMENT_TYPE') == 'production') {
   include $govcms_includes . '/production.settings.php';
 }
-else {
+
+if (getenv('DEV_MODE') && getenv('DEV_MODE') == 'true') {
   include $govcms_includes . '/development.settings.php';
 }
 
