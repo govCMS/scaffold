@@ -15,67 +15,62 @@ environments:
 # When PaaS users or the support team modify this file, it should be easy to turn things on and off.
 
 tasks:
+  # Pre-rollout tasks do not get called on first deploy; use post-rollout tasks instead.
+  # Pre-rollout tasks need to have file existance checks as these are run in the active
+  # containers and it is not guaranteed that the commands will be available there.
   pre-rollout:
-    - run:
-        name: Ensure backup folder exists - not all current envs have one
-        command: mkdir -p /app/web/sites/default/files/private/backups
+    -
+      run:
+        name: Pre-rollout database updates
+        command: "[ -f /app/vendor/bin/govcms-pre-deploy-db-update ] && /app/vendor/bin/govcms-pre-deploy-db-update || echo 'Pre Update databse is not available.'"
         service: cli
         shell: bash
-    - run:
+    -
+      run:
         name: Snapshot the database and store
-        command: if [[ "$LAGOON_ENVIRONMENT_TYPE" = "production" ]]; then drush sql:dump --root=/app --gzip --result-file=/app/web/sites/default/files/private/backups/pre-deploy-dump.sql; fi
+        command: "[ -f /app/vendor/bin/govcms-db-backup ] && /app/vendor/bin/govcms-db-backup || echo 'Database backup is not available.'"
         service: cli
         shell: bash
-    - run:
+    -
+      run:
         name: Snapshot the config and store
-        command: if [[ $(drush cex --root=/app sync -y --quiet --destination "$TMP"/config; echo "$?") = 0 ]]; then tar -czf /app/web/sites/default/files/private/backups/pre-deploy-config.tar.gz "$TMP"/config --remove-files; fi
+        command: "[ -f /app/vendor/bin/govcms-config-backup ] && /app/vendor/bin/govcms-config-backup || echo 'Config backup is not available.'"
         service: cli
         shell: bash
 
   post-rollout:
     - run:
-        name: Correct legacy drush alias if necessary
-        command: sed -i "s/%%PROJECT_NAME%%/\${env.LAGOON_PROJECT}/g" /app/drush/sites/govcms.site.yml
+        name: Prepare the site for deployment
+        command: /app/vendor/bin/govcms-update_site_alias
         service: cli
         shell: bash
     - run:
-        name: Ensure backup folder exists
-        command: mkdir -p /app/web/sites/default/files/private/backups
-        service: cli
-        shell: bash
-    - run:
-        name: If a new environment populate database from master
-        command: drush status db-status | grep Connected || if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then drush sql:sync @govcms.prod @self -y; fi
+        name: Synchronise the database
+        command: /app/vendor/bin/govcms-db-sync
         service: cli
         shell: bash
     - run:
         name: Perform database updates
-        command: drush -y updatedb
+        command: /app/vendor/bin/govcms-db-update
         service: cli
         shell: bash
     - run:
-        name: Perform config import (uncomment to enable)
-        command: |
-          # drush cim -y sync && if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then drush cim -y --partial --source=../config/dev; fi
+        name: Perform config import
+        command: /app/vendor/bin/govcms-config-import
         service: cli
         shell: bash
     - run:
         name: Perform cache rebuild
-        command: drush -y cr
+        command: /app/vendor/bin/govcms-cache-rebuild
         service: cli
         shell: bash
     - run:
         name: Ensure GovCMS/Lagoon modules are enabled
-        command: drush en -y govcms_lagoon && drush pmu -y govcms_lagoon
-        service: cli
-        shell: bash
-    - run:
-        name: Enable any non-production modules
-        command: if [[ "$LAGOON_ENVIRONMENT_TYPE" != "production" ]]; then drush en stage_file_proxy -y; fi
+        command: /app/vendor/bin/govcms-enable_modules
         service: cli
         shell: bash
     - run:
         name: Preserve the last successful backup
-        command: if [[ "$LAGOON_ENVIRONMENT_TYPE" = "production" ]]; then export BACKUP="/app/web/sites/default/files/private/backups/pre-deploy-dump" && mv "$BACKUP.sql.gz" "$BACKUP-last-good.sql.gz" || true; fi
+        command: /app/vendor/bin/govcms-backups-preserve
         service: cli
         shell: bash
