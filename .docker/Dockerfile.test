@@ -16,9 +16,8 @@ RUN mv /app/tests /tests
 RUN rm -rf /app
 COPY --from=cli /app /app
 
-# Copy the test scripts.
-RUN cp /app/vendor/govcms/scaffold-tooling/scripts/govcms-deploy /usr/local/bin/
-RUN cp /app/vendor/govcms/scaffold-tooling/scripts/tests/* /usr/local/bin/
+# Copy deploy and test scripts.
+RUN cp /app/vendor/govcms/scaffold-tooling/scripts/govcms* /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
 
 # Build govcms/site-audit outside of the mount, although it needs to go into /app at test time.
