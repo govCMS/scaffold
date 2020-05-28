@@ -9040,16 +9040,16 @@
         },
         {
             "name": "govcms/scaffold-tooling",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/govCMS/scaffold-tooling.git",
-                "reference": "52b0a2184d64c39f02203c00cc766a1a4aa2af37"
+                "reference": "1d9cbd001f6eaa3e25ed94b86b51cbbf31c42869"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/govCMS/scaffold-tooling/zipball/52b0a2184d64c39f02203c00cc766a1a4aa2af37",
-                "reference": "52b0a2184d64c39f02203c00cc766a1a4aa2af37",
+                "url": "https://api.github.com/repos/govCMS/scaffold-tooling/zipball/1d9cbd001f6eaa3e25ed94b86b51cbbf31c42869",
+                "reference": "1d9cbd001f6eaa3e25ed94b86b51cbbf31c42869",
                 "shasum": ""
             },
             "require": {
@@ -9089,15 +9089,12 @@
                 "scripts/deploy/govcms-update_site_alias"
             ],
             "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0-or-later"
             ],
             "description": "A variety of standard config, scripts and packages to support GovCMS scaffold.",
-            "support": {
-                "source": "https://github.com/govCMS/scaffold-tooling/tree/2.0.1",
-                "issues": "https://github.com/govCMS/scaffold-tooling/issues"
-            },
-            "time": "2020-05-15T02:18:48+00:00"
+            "time": "2020-05-28T21:24:01+00:00"
         },
         {
             "name": "grasmash/expander",
