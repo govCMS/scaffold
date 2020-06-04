@@ -9040,16 +9040,16 @@
         },
         {
             "name": "govcms/scaffold-tooling",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/govCMS/scaffold-tooling.git",
-                "reference": "1d9cbd001f6eaa3e25ed94b86b51cbbf31c42869"
+                "reference": "d6ea52c075419d3a8c881558cef15395b59208a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/govCMS/scaffold-tooling/zipball/1d9cbd001f6eaa3e25ed94b86b51cbbf31c42869",
-                "reference": "1d9cbd001f6eaa3e25ed94b86b51cbbf31c42869",
+                "url": "https://api.github.com/repos/govCMS/scaffold-tooling/zipball/d6ea52c075419d3a8c881558cef15395b59208a0",
+                "reference": "d6ea52c075419d3a8c881558cef15395b59208a0",
                 "shasum": ""
             },
             "require": {
@@ -9094,7 +9094,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "A variety of standard config, scripts and packages to support GovCMS scaffold.",
-            "time": "2020-05-28T21:24:01+00:00"
+            "time": "2020-06-04T04:04:43+00:00"
         },
         {
             "name": "grasmash/expander",
