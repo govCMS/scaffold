@@ -1,12 +1,5 @@
 docker-compose-yaml: docker-compose.yml
 
-tasks:
-  post-rollout:
-    - run:
-        name: Deploy GovCMS
-        command: govcms-deploy
-        service: cli
-
 environments:
   master:
     types:
@@ -16,3 +9,65 @@ environments:
         schedule: "0 * * * *"
         command: 'drush cron --root=/app'
         service: cli
+
+# Note regarding tasks in the scaffold.
+# Please avoid making scripts more than one or two lines, and avoid if/else logic.
+# When PaaS users or the support team modify this file, it should be easy to turn things on and off.
+
+tasks:
+  # Pre-rollout tasks do not get called on first deploy; use post-rollout tasks instead.
+  # Pre-rollout tasks need to have file existance checks as these are run in the active
+  # containers and it is not guaranteed that the commands will be available there.
+  pre-rollout:
+    - run:
+        name: Pre-rollout database updates
+        command: "[ -f /app/vendor/bin/govcms-pre-deploy-db-update ] && /app/vendor/bin/govcms-pre-deploy-db-update || echo 'Pre Update databse is not available.'"
+        service: cli
+        shell: bash
+    - run:
+        name: Snapshot the database and store
+        command: "[ -f /app/vendor/bin/govcms-db-backup ] && /app/vendor/bin/govcms-db-backup || echo 'Database backup is not available.'"
+        service: cli
+        shell: bash
+    - run:
+        name: Snapshot the config and store
+        command: "[ -f /app/vendor/bin/govcms-config-backup ] && /app/vendor/bin/govcms-config-backup || echo 'Config backup is not available.'"
+        service: cli
+        shell: bash
+
+  post-rollout:
+    - run:
+        name: Prepare the site for deployment
+        command: /app/vendor/bin/govcms-update_site_alias
+        service: cli
+        shell: bash
+    - run:
+        name: Synchronise the database
+        command: /app/vendor/bin/govcms-db-sync
+        service: cli
+        shell: bash
+    - run:
+        name: Perform database updates
+        command: /app/vendor/bin/govcms-db-update
+        service: cli
+        shell: bash
+    - run:
+        name: Perform config import
+        command: /app/vendor/bin/govcms-config-import
+        service: cli
+        shell: bash
+    - run:
+        name: Perform cache rebuild
+        command: /app/vendor/bin/govcms-cache-rebuild
+        service: cli
+        shell: bash
+    - run:
+        name: Ensure GovCMS/Lagoon modules are enabled
+        command: /app/vendor/bin/govcms-enable_modules
+        service: cli
+        shell: bash
+    - run:
+        name: Preserve the last successful backup
+        command: /app/vendor/bin/govcms-backups-preserve
+        service: cli
+        shell: bash

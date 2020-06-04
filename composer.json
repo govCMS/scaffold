@@ -3,16 +3,16 @@
     "description": "GovCMS Drupal 8 Scaffold",
     "type": "project",
     "license": "GPL-2.0-or-later",
-    "repositories": {
-        "govcms": { "type": "composer", "url": "https://satis.govcms.gov.au/" },
-        "whitelist": { "type": "composer", "url": "https://satis.govcms.gov.au/whitelist/" },
-        "custom": { "type": "path", "url": "custom/composer" },
-        "packagist.org": false
-    },
+    "repositories": [
+        { "type": "path", "url": "custom/composer" },
+        { "type": "composer", "url": "https://packages.drupal.org/8" },
+        { "type": "composer", "url": "https://asset-packagist.org" }
+    ],
     "require": {
+        "govcms/custom": "*",
         "govcms/govcms": "~1",
-        "govcms/scaffold-tooling": "~1",
-        "govcms/custom": "*"
+        "govcms/scaffold-tooling": "~2",
+        "symfony/event-dispatcher": "4.3.11 as 3.4.35"
     },
     "require-dev": {
         "govcms/require-dev": "~1"
