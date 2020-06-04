@@ -19,20 +19,17 @@ tasks:
   # Pre-rollout tasks need to have file existance checks as these are run in the active
   # containers and it is not guaranteed that the commands will be available there.
   pre-rollout:
-    -
-      run:
+    - run:
         name: Pre-rollout database updates
         command: "[ -f /app/vendor/bin/govcms-pre-deploy-db-update ] && /app/vendor/bin/govcms-pre-deploy-db-update || echo 'Pre Update databse is not available.'"
         service: cli
         shell: bash
-    -
-      run:
+    - run:
         name: Snapshot the database and store
         command: "[ -f /app/vendor/bin/govcms-db-backup ] && /app/vendor/bin/govcms-db-backup || echo 'Database backup is not available.'"
         service: cli
         shell: bash
-    -
-      run:
+    - run:
         name: Snapshot the config and store
         command: "[ -f /app/vendor/bin/govcms-config-backup ] && /app/vendor/bin/govcms-config-backup || echo 'Config backup is not available.'"
         service: cli
