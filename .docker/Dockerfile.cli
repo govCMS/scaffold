@@ -27,7 +27,7 @@ COPY . /app
 
 # Set up Drush aliases.
 # @todo Move this alias file to govcms/govcms8lagoon.
-COPY .docker/config/cli/govcms.site.yml /etc/drush/sites/
+COPY .docker/config/cli/govcms.site.yml /app/drush/sites/
 
 # Ensure drush-launcher instead of Drush 8 in /home/.composer
 # @todo Make drush launcher available upstream, @see https://github.com/amazeeio/lagoon/pull/1183
