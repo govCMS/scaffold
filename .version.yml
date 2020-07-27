@@ -4,5 +4,5 @@
 # Automated GovCMS tasks read this file to determine which processes to run -
 # e.g. site audits, automated backups.
 version: 8
-type: paas
+type: {{ GOVCMS_TYPE }}
 scaffold: 2.0.0

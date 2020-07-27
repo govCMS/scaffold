@@ -131,3 +131,13 @@ commands:
     usage: Custom commands for this project. See `ahoy my help`.
     imports:
       - 'custom/ahoy.yml'
+
+  init:
+    usage: Initisalise codebase (saas|paas|saasplus)
+    cmd: |
+      if [[ "$1" != "saas" && "$1" != "paas" && "$1" != "saasplus" ]]; then
+        echo "Must be saas | paas | saasplus"
+        exit
+      fi
+      sed -i.bak "s/{{ GOVCMS_TYPE }}/$1/" .version.yml && rm .version.yml.bak
+      sed -i.bak "s/{{ GOVCMS_TYPE }}/$1/" docker-compose.yml && rm docker-compose.yml.bak

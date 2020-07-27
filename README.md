@@ -1,6 +1,6 @@
-# GovCMS8 PaaS Project Scaffolding
+# GovCMS Project Scaffolding
 
-This is a composer project which builds a Drupal 8 GovCMS **PaaS** site ready for
+This is a composer project which builds a Drupal GovCMS site ready for
 hosting on the GovCMS platform (Lagoon).
 
 **Note**: If you are a new GovCMS customer visiting this page on

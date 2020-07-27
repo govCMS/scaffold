@@ -3,10 +3,10 @@ version: '2.3'
 # This value intentionally matches the project name on Lagoon.
 # It is used to name the CLI_IMAGE to use as a build arg locally.
 x-lagoon-project:
-  &lagoon-project govcms8-paas
+  &lagoon-project govcms8-scaffold
 
 x-lagoon-local-dev-url:
-  &lagoon-local-dev-url http://govcms8-paas.docker.amazee.io
+  &lagoon-local-dev-url http://govcms8-scaffold.docker.amazee.io
 
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
 x-govcms-image-version:
@@ -22,7 +22,7 @@ x-environment:
     STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
     LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
     LAGOON_PROJECT: *lagoon-project
-    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-paas.docker.amazee.io}
+    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-scaffold.docker.amazee.io}
     GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-8.5.0}
     DEV_MODE: ${DEV_MODE:-false}
     XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
@@ -36,7 +36,9 @@ services:
   cli:
     build:
       context: .
-      dockerfile: .docker/Dockerfile.cli
+      # Change GOVCMS_TYPE to SaaS or PaaS.
+      # Note: This should happen automatically during project provision.
+      dockerfile: .docker/Dockerfile.{{ GOVCMS_TYPE }}
       args:
         LAGOON_SAFE_PROJECT: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
