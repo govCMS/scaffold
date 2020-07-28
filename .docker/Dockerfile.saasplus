@@ -9,10 +9,9 @@ FROM govcms8lagoonupdate/govcms8:latest
 
 ENV WEBROOT=web
 
-# To enable SaaS+ uncomment this line
 COPY custom /app/custom
 
-RUN rm composer.lock && composer install -d /app
+RUN rm composer.lock && composer install -d /app && composer clearcache
 
 COPY themes/ /app/web/themes/custom
 COPY config /app/config
