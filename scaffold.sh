@@ -44,8 +44,6 @@ sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .version.yml && rm .version.yml.b
 sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" docker-compose.yml && rm docker-compose.yml.bak
 
 if [[ "$GOVCMS_TYPE" != "paas" ]]; then
-  rm -rf web scripts web drush
-
   cat >> .gitignore << 'EOF'
 
 # Added by the scaffold provisioner.
