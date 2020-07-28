@@ -38,15 +38,21 @@ if [[ "$GOVCMS_TYPE" != "saas" && "$GOVCMS_TYPE" != "paas" && "$GOVCMS_TYPE" != 
   exit 2
 fi
 
-echo "[success]: Preparing scaffold for $GOVCMS_TYPE"
+echo "[info]: Preparing scaffold for $GOVCMS_TYPE"
 
 sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .version.yml && rm .version.yml.bak
 sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" docker-compose.yml && rm docker-compose.yml.bak
 
 if [[ "$GOVCMS_TYPE" != "paas" ]]; then
   rm -rf web scripts web drush
+
+  cat >> .gitignore << 'EOF'
+
+# Added by the scaffold provisioner.
+web/
+scripts/
+drush/
+EOF
 fi
 
-# Clean up init command from .ahoy.yml
-
-trap finish EXIT
+# trap finish EXIT
