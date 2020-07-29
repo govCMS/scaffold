@@ -5,7 +5,7 @@
 ARG CLI_IMAGE
 ARG GOVCMS_IMAGE_VERSION=latest
 
-FROM govcms8lagoonupdate/govcms8:latest
+FROM govcms8lagoon/govcms8:latest
 
 ENV WEBROOT=web
 
