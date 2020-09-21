@@ -33,7 +33,11 @@ commands:
 
   govcms-deploy:
     usage: Runs deployment commands (e.g. config import, updb, cr, set up file_stage_proxy).
-    cmd: docker-compose exec -T cli govcms-deploy
+    cmd: |
+      docker-compose exec -T cli /app/vendor/bin/govcms-db-update && \
+      docker-compose exec -T cli /app/vendor/bin/govcms-config-import && \
+      docker-compose exec -T cli /app/vendor/bin/govcms-cache-rebuild && \
+      docker-compose exec -T cli /app/vendor/bin/govcms-enable_modules
 
   drush:
     usage: Run drush commands in cli container.
