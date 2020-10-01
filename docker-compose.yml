@@ -3,14 +3,14 @@ version: '2.3'
 # This value intentionally matches the project name on Lagoon.
 # It is used to name the CLI_IMAGE to use as a build arg locally.
 x-lagoon-project:
-  &lagoon-project govcms8-scaffold
+  &lagoon-project {{ GOVCMS_PROJECT_NAME }}
 
 x-lagoon-local-dev-url:
-  &lagoon-local-dev-url http://govcms8-scaffold.docker.amazee.io
+  &lagoon-local-dev-url http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
 
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
 x-govcms-image-version:
-  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-8.5.0}
+  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
 
 x-volumes:
   &default-volumes
@@ -22,8 +22,8 @@ x-environment:
     STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
     LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
     LAGOON_PROJECT: *lagoon-project
-    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://govcms8-scaffold.docker.amazee.io}
-    GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-8.5.0}
+    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io}
+    GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}}
     DEV_MODE: ${DEV_MODE:-false}
     XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
     DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
