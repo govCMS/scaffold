@@ -152,10 +152,11 @@ commands:
         exit
       fi
       cp .env.default .env
+      sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$1/" .env && rm .env.bak
+      sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$1/" docker-compose.yml && rm docker-compose.yml.bak
       sed -i.bak "s/{{ GOVCMS_TYPE }}/$2/" .version.yml && rm .version.yml.bak
       sed -i.bak "s/{{ GOVCMS_TYPE }}/$2/" docker-compose.yml && rm docker-compose.yml.bak
       sed -i.bak "s/{{ GOVCMS_VERSION }}/$3/" .version.yml && rm .version.yml.bak
       sed -i.bak "s/{{ GOVCMS_VERSION }}/$3/" docker-compose.yml && rm docker-compose.yml.bak
       sed -i.bak "s/{{ GOVCMS_VERSION }}/$3/" .env && rm .env.bak
-      sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$1/" .env && rm .env.bak
-      sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$1/" docker-compose.yml && rm docker-compose.yml.bak
+      sed -i.bak "s/{{ GOVCMS_VERSION }}/$3/" .docker/* && rm .docker/*.bak
