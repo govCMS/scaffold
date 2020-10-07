@@ -131,7 +131,7 @@ services:
   # solr:
   #   build:
   #     context: .
-  #     dockerfile: .docker/Dockerfile.solr
+  #     dockerfile: .docker/Dockerfile.solr.{{ GOVCMS_TYPE }}
   #     args:
   #       GOVCMS_IMAGE_VERSION: *govcms-image-version
   #   labels:

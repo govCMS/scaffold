@@ -72,4 +72,14 @@ drush/
 EOF
 fi
 
+# Remove non-relevant scaffold items
+echo "[info]: Cleaning up"
+if [[ "$GOVCMS_TYPE" != "paas" ]]; then
+  rm .docker/Dockerfile*saas*
+elif [[ "$GOVCMS_TYPE" == "saasplus" ]] || [[ "$GOVCMS_TYPE" == "saas" ]]; then
+  rm .docker/Dockerfile*paas*
+  rm -r .docker/config/solr
+fi
+
+
 # trap finish EXIT

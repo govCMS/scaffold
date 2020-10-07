@@ -1,0 +1,7 @@
+##
+# @see /.docker/README.md
+#
+
+ARG GOVCMS_IMAGE_VERSION=latest
+
+FROM govcms8lagoon/solr:${GOVCMS_IMAGE_VERSION}
