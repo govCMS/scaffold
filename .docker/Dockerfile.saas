@@ -9,12 +9,13 @@ FROM govcms/govcms:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
-# To enable SaaS+ uncomment this line
-#COPY custom /app/custom
-
 COPY themes/ /app/web/themes/custom
 COPY config /app/config
 
 # Default application favicon this will be used for files and server
 # error pages all other favicon requests will be surfaced via Drupal.
 COPY favicon.ico /app/web
+
+# To enable SaaS+ uncomment these lines
+#COPY custom /app/custom
+#RUN rm composer.lock && composer install -d /app && composer clearcache

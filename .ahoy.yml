@@ -138,25 +138,4 @@ commands:
 
   init:
     usage: Initisalise codebase with project name, type (saas|paas|saasplus) and version (8|9)
-    cmd: |
-      if [[ -z "$1" ]]; then
-        echo "First argument must be the project machine name"
-        exit
-      fi
-      if [[ "$2" != "saas" && "21" != "paas" && "$2" != "saasplus" ]]; then
-        echo "Second argument must be a type (saas | paas | saasplus)"
-        exit
-      fi
-      if [[ "$3" != "8" && "$3" != "9" ]]; then
-        echo "Third argument must be a version (8 | 9)"
-        exit
-      fi
-      cp .env.default .env
-      sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$1/" .env && rm .env.bak
-      sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$1/" docker-compose.yml && rm docker-compose.yml.bak
-      sed -i.bak "s/{{ GOVCMS_TYPE }}/$2/" .version.yml && rm .version.yml.bak
-      sed -i.bak "s/{{ GOVCMS_TYPE }}/$2/" docker-compose.yml && rm docker-compose.yml.bak
-      sed -i.bak "s/{{ GOVCMS_VERSION }}/$3/" .version.yml && rm .version.yml.bak
-      sed -i.bak "s/{{ GOVCMS_VERSION }}/$3/" docker-compose.yml && rm docker-compose.yml.bak
-      sed -i.bak "s/{{ GOVCMS_VERSION }}/$3/" .env && rm .env.bak
-      sed -i.bak "s/{{ GOVCMS_VERSION }}/$3/" .docker/* && rm .docker/*.bak
+    cmd: scripts/scaffold-init.sh -n $1 -t $2 -v $3
