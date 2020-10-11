@@ -70,6 +70,9 @@ web/
 scripts/
 drush/
 EOF
+else
+  # Replace default/saas mounts for PaaS projects.
+  sed -i.bak "s/*default-volumes/paas-volumes/" docker-compose.yml && rm docker-compose.yml.bak
 fi
 
 # Remove non-relevant scaffold items
