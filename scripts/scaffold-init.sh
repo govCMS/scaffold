@@ -77,9 +77,11 @@ echo "[info]: Cleaning up"
 
 if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm .docker/Dockerfile*saas*
+  rm -r themes
 else
   rm .docker/Dockerfile*paas*
   rm -r .docker/config/solr
+  rm -r composer.*
 fi
 
 
