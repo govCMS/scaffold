@@ -70,6 +70,9 @@ web/
 scripts/
 drush/
 EOF
+else
+  ## Remove SaaS-only blocks from .lagoon.yml
+  sed -i.bak "/START SaaS-only/,/END SaaS-only/d" .lagoon.yml && rm .lagoon.yml.bak
 fi
 
 # Remove non-relevant scaffold items

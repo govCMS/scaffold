@@ -17,6 +17,7 @@ web/sites/*/services.local.yml
 
 # Test and CI artifacts.
 tests/behat/screenshots
+!tests/behat/screenshots/.gitkeep
 web/sites/simpletest
 
 # Possible temporary drupal console bug.
