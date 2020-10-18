@@ -73,6 +73,9 @@ EOF
 else
   ## Remove SaaS-only blocks from .lagoon.yml
   sed -i.bak "/START SaaS-only/,/END SaaS-only/d" .lagoon.yml && rm .lagoon.yml.bak
+
+  # Replace default/saas mounts for PaaS projects.
+  sed -i.bak "s/*default-volumes/paas-volumes/" docker-compose.yml && rm docker-compose.yml.bak
 fi
 
 # Remove non-relevant scaffold items
@@ -80,9 +83,11 @@ echo "[info]: Cleaning up"
 
 if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm .docker/Dockerfile*saas*
+  rm -r themes
 else
   rm .docker/Dockerfile*paas*
   rm -r .docker/config/solr
+  rm -r composer.*
 fi
 
 
