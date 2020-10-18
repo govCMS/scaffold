@@ -41,6 +41,18 @@ tasks:
         command: /app/vendor/bin/govcms-update_site_alias
         service: cli
         shell: bash
+    ## START SaaS-only
+    - run:
+        name: Prevent elevated permissions
+        command: /app/vendor/bin/govcms-validate-permissions
+        service: cli
+        shell: bash
+    - run:
+        name: Validate theme YAML files
+        command: /app/vendor/bin/govcms-validate-theme-yml
+        service: cli
+        shell: bash
+    ## END SaaS-only
     - run:
         name: Synchronise the database
         command: /app/vendor/bin/govcms-db-sync
