@@ -2,8 +2,6 @@ docker-compose-yaml: docker-compose.yml
 
 environments:
   master:
-    types:
-      mariadb: mariadb-shared
     cronjobs:
       - name: drush cron
         schedule: "0 * * * *"
