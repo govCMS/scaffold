@@ -34,3 +34,10 @@ COPY .docker/config/cli/govcms.site.yml /app/drush/sites/
 RUN wget -O /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar" \
   && chmod +x /usr/local/bin/drush \
   && rm -Rf /home/.composer/vendor/bin
+
+# Sanitize the Drupal install to remove potentially
+# harmful files from the built image.
+COPY .docker/scripts/sanitize.sh /tmp/sanitize.sh
+RUN chmod +x /tmp/sanitize.sh \
+  && /tmp/sanitize.sh \
+  && rm /tmp/sanitize.sh
