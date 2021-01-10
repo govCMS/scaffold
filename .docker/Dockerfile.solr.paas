@@ -1,7 +1,7 @@
 ##
 # @see  https://govcms.gov.au/wiki-advanced#docker
 #
-FROM amazeeio/solr:7.5-drupal
+FROM uselagoon/solr-7.7-drupal:latest
 
 # Based off search_api_solr/solr-conf-templates/7.x as a sane default.
 COPY .docker/config/solr /solr-conf/conf/
