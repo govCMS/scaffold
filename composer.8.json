@@ -10,7 +10,7 @@
         { "type": "vcs", "url": "git@github.com:govcms/govcms.git" }
     ],
     "require": {
-        "govcms/custom": "*",
+        "govcms/govcms-custom": "*",
         "govcms/govcms": "1.x-dev",
         "govcms/scaffold-tooling": "~2",
         "symfony/event-dispatcher": "4.3.11 as 3.4.41"
@@ -78,9 +78,8 @@
             ]
         },
         "drupal-scaffold": {
-            "initial": {
-                ".editorconfig": "../.editorconfig",
-                ".gitattributes": "../.gitattributes"
+            "locations": {
+                "web-root": "web/"
             }
         }
     }
