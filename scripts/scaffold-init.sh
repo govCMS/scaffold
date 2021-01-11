@@ -87,14 +87,13 @@ echo "[info]: Cleaning up"
 if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm .docker/Dockerfile*saas*
   rm -r themes
+  rm composer.8.json
+  rm composer.9.json
 else
   rm .docker/Dockerfile*paas*
   rm -r .docker/config/solr
-  rm -r composer.*
+  rm composer.*
 fi
-
-rm composer.8.json
-rm composer.9.json
 
 
 # trap finish EXIT
