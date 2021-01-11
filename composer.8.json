@@ -1,18 +1,19 @@
 {
-    "name": "govcms/govcms8-scaffold-paas",
-    "description": "GovCMS Drupal 8 Scaffold",
+    "name": "govcms/scaffold",
+    "description": "GovCMS Drupal Scaffold",
     "type": "project",
     "license": "GPL-2.0-or-later",
     "repositories": [
         { "type": "path", "url": "custom/composer" },
         { "type": "composer", "url": "https://packages.drupal.org/8" },
-        { "type": "composer", "url": "https://asset-packagist.org" }
+        { "type": "composer", "url": "https://asset-packagist.org" },
+        { "type": "vcs", "url": "git@github.com:govcms/govcms.git" }
     ],
     "require": {
         "govcms/custom": "*",
-        "govcms/govcms": "~1",
+        "govcms/govcms": "1.x-dev",
         "govcms/scaffold-tooling": "~2",
-        "symfony/event-dispatcher": "4.3.11 as 3.4.35"
+        "symfony/event-dispatcher": "4.3.11 as 3.4.41"
     },
     "require-dev": {
         "govcms/require-dev": "~1"

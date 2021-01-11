@@ -71,11 +71,14 @@ scripts/
 drush/
 EOF
 else
-  ## Remove SaaS-only blocks from .lagoon.yml
+  # Remove SaaS-only blocks from .lagoon.yml
   sed -i.bak "/START SaaS-only/,/END SaaS-only/d" .lagoon.yml && rm .lagoon.yml.bak
 
   # Replace default/saas mounts for PaaS projects.
-  sed -i.bak "s/*default-volumes/paas-volumes/" docker-compose.yml && rm docker-compose.yml.bak
+  sed -i.bak "s/*default-volumes/*paas-volumes/" docker-compose.yml && rm docker-compose.yml.bak
+
+  # Copy correct composer.json version into place.
+  cp "composer.$GOVCMS_VERSION.json" composer.json
 fi
 
 # Remove non-relevant scaffold items
@@ -89,6 +92,9 @@ else
   rm -r .docker/config/solr
   rm -r composer.*
 fi
+
+rm composer.8.json
+rm composer.9.json
 
 
 # trap finish EXIT
