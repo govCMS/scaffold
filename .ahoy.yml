@@ -21,7 +21,10 @@ commands:
 
   build:
     usage: Build project.
-    cmd: docker-compose up -d --build "$@" && ahoy govcms-deploy && ahoy info
+    cmd: |
+      docker-compose up -d --build "$@" &&
+      docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 2m &&
+      ahoy govcms-deploy && ahoy info;
 
   cli:
     usage: Start a shell inside cli container.
