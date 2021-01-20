@@ -91,9 +91,17 @@ if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm composer.9.json
 else
   rm .docker/Dockerfile*paas*
-  rm -r .docker/config/solr
+  rm -r .docker/config
+  rm -r .docker/scripts
   rm composer.*
 fi
 
+if [[ "$GOVCMS_TYPE" == "saas" ]]; then
+  rm  -r custom/composer
+  rm .docker/Dockerfile.saasplus
+  rm .docker/Dockerfile.solr.saasplus
+fi
+
+rm scripts/scaffold-init.sh
 
 # trap finish EXIT
