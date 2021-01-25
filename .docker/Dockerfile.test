@@ -10,11 +10,9 @@ FROM govcms/test:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
-# @todo find out why this.
-RUN mv /app/tests /tests
-
 RUN rm -rf /app
 COPY --from=cli /app /app
+COPY tests /app/tests/
 
 # Copy deploy and test scripts.
 RUN cp /app/vendor/govcms/scaffold-tooling/scripts/govcms* /usr/local/bin/
