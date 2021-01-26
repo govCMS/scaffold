@@ -10,7 +10,6 @@ FROM govcms/test:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
-RUN rm -rf /app
 COPY --from=cli /app /app
 COPY tests /app/tests/
 
