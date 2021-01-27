@@ -47,9 +47,7 @@ services:
   cli:
     build:
       context: .
-      # Change GOVCMS_TYPE to SaaS or PaaS.
-      # Note: This should happen automatically during project provision.
-      dockerfile: .docker/Dockerfile.{{ GOVCMS_TYPE }}
+      dockerfile: .docker/Dockerfile.cli
       args:
         LAGOON_SAFE_PROJECT: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
@@ -133,7 +131,7 @@ services:
   # solr:
   #   build:
   #     context: .
-  #     dockerfile: .docker/Dockerfile.solr.{{ GOVCMS_TYPE }}
+  #     dockerfile: .docker/Dockerfile.solr
   #     args:
   #       GOVCMS_IMAGE_VERSION: *govcms-image-version
   #   labels:
