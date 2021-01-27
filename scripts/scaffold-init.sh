@@ -83,8 +83,8 @@ fi
 
 # Remove non-relevant scaffold items
 echo "[info]: Cleaning up"
-mv ".docker/Dockerfile.$GOVCMS_VERSION" .docker/Dockerfile.cli
-mv ".docker/Dockerfile.solr.$GOVCMS_VERSION" .docker/Dockerfile.solr
+mv ".docker/Dockerfile.$GOVCMS_TYPE" .docker/Dockerfile.cli
+mv ".docker/Dockerfile.solr.$GOVCMS_TYPE" .docker/Dockerfile.solr
 
 if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm .docker/Dockerfile*saas*
