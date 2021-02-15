@@ -1,18 +1,19 @@
 # GovCMS Project Scaffolding
 
-This is a composer project which builds a Drupal GovCMS site ready for
+This codebase provides a Drupal GovCMS site ready for
 hosting on the GovCMS platform (Lagoon).
 
 **Note**: If you are a new GovCMS customer visiting this page on
-[Github](https://github.com/govCMS/govcms8-scaffold-paas)
+[Github](https://github.com/govcms/scaffold)
 you may prefer to wait for the GovCMS service desk to create your project in Gitlab.
 
-For testing GovCMS separately to the GovCMS platform, you can create a project
-by running:
+To make this codebase function you must first initialise it.
+```
+ahoy init project_name type version
+```
 
-```
-composer create-project govcms/govcms8-scaffold-paas MY_PROJECT
-```
+`type`: May be `saas` or `paas`
+`version`: May be `8` or `9`
 
 ## Next steps
 
