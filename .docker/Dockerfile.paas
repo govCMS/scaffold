@@ -12,7 +12,7 @@ ENV WEBROOT=web
 # @todo Can be removed when we can trust files from govcms/govcms8lagoon images.
 RUN rm -rf /app
 
-COPY composer.json composer.lock /app/
+COPY composer.* /app/
 COPY scripts /app/scripts
 COPY custom /app/custom
 
