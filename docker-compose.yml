@@ -118,10 +118,10 @@ services:
       << : *default-environment
 
   mariadb:
-    image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal-{{ GOVCMS_VERSION }}.x-latest}
+    image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
     labels:
       lagoon.type: mariadb
-      lagoon.image: govcms/mariadb-drupal-{{ GOVCMS_VERSION }}.x-latest
+      lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
     ports:
       - "3306" # Find port on host with `docker-compose port mariadb 3306`
     environment:
