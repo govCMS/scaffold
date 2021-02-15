@@ -10,6 +10,7 @@ vendor/
 
 # Ignore Drupal's file directory
 /web/sites/*/files/
+/files
 
 # Ingore files that are only for the current local environment
 web/sites/*/settings.local.php
