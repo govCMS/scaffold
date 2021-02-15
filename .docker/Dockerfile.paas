@@ -9,7 +9,7 @@ FROM govcms/govcms:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
-# @todo Can be removed when we can trust files from govcms/govcms8lagoon images.
+# @todo: May be removed once base image is leaner.
 RUN rm -rf /app
 
 COPY composer.* /app/
@@ -26,7 +26,6 @@ RUN composer install --no-dev --no-interaction --no-suggest \
 COPY . /app
 
 # Set up Drush aliases.
-# @todo Move this alias file to govcms/govcms8lagoon.
 COPY .docker/config/cli/govcms.site.yml /app/drush/sites/
 
 # Ensure drush-launcher instead of Drush 8 in /home/.composer
