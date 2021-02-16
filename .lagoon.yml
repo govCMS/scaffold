@@ -47,7 +47,7 @@ tasks:
         shell: bash
     - run:
         name: Validate theme YAML files
-        command: /app/vendor/bin/govcms-validate-theme-yml
+        command: /app/vendor/bin/govcms-validate-theme-yml || true
         service: cli
         shell: bash
     ## END SaaS-only

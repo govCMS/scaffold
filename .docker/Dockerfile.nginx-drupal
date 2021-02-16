@@ -9,8 +9,4 @@ FROM ${CLI_IMAGE} as cli
 FROM govcms/nginx-drupal:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
-
-RUN rm -rf /app
-
-# nginx only needs the root and any static files that are there, the rest is handled by the php container.
 COPY --from=cli /app/web /app/web

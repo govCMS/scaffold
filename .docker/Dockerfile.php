@@ -8,5 +8,4 @@ ARG GOVCMS_IMAGE_VERSION={{ GOVCMS_VERSION }}.x-latest
 FROM ${CLI_IMAGE} as cli
 FROM govcms/php:${GOVCMS_IMAGE_VERSION}
 
-RUN rm -rf /app
 COPY --from=cli /app /app
