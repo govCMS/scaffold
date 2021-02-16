@@ -4,7 +4,10 @@ ahoyapi: v2
 commands:
   up:
     usage: Build project.
-    cmd: docker-compose up -d "$@";
+    cmd: |
+      docker-compose up -d "$@" &&
+      docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 2m &&
+      ahoy info;
 
   down:
     usage: Delete project (CAUTION).
