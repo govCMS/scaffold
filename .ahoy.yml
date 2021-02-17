@@ -67,7 +67,7 @@ commands:
 
   install:
     usage: Install the profile.
-    cmd: docker-compose exec -T cli drush si -y "$@" && ahoy govcms-deploy
+    cmd: docker-compose exec -T cli drush si -y govcms "$@" && ahoy govcms-deploy
 
   login:
     usage: Login to a website.
@@ -143,5 +143,5 @@ commands:
       - 'custom/ahoy.yml'
 
   init:
-    usage: Initisalise codebase with project name, type (saas|paas|saasplus) and version (8|9)
+    usage: Initialise codebase with project name, type (saas|paas|saasplus) and version (8|9)
     cmd: scripts/scaffold-init.sh -n $1 -t $2 -v $3
