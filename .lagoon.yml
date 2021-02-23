@@ -4,7 +4,7 @@ environments:
   master:
     cronjobs:
       - name: drush cron
-        schedule: "0 * * * *"
+        schedule: "M * * * *"
         command: 'drush cron --root=/app'
         service: cli
 
