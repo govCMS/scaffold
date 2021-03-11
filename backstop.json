@@ -18,7 +18,7 @@
     {
       "label": "Sample App or Tool content page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/resources/rebel-base-locator/",
+      "url": "http://ask.docker.amazee.io/resources/rebel-base-locator/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -40,7 +40,7 @@
     {
       "label": "Sample collection content page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/collections/technical-specifications/",
+      "url": "http://ask.docker.amazee.io/collections/technical-specifications/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -62,7 +62,7 @@
     {
       "label": "Sample FOI Request content page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/foi/holographic-disguise-matrix/",
+      "url": "http://ask.docker.amazee.io/foi/holographic-disguise-matrix/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -84,7 +84,7 @@
     {
       "label": "Sample video content page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/resources/rise-darth-vader/",
+      "url": "http://ask.docker.amazee.io/resources/rise-darth-vader/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -106,7 +106,7 @@
     {
       "label": "Sample contact content page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/contacts/darth-vader/",
+      "url": "http://ask.docker.amazee.io/contacts/darth-vader/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -128,7 +128,7 @@
     {
       "label": "Sample news page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/news/force-friday-event-guide-updated/",
+      "url": "http://ask.docker.amazee.io/news/force-friday-event-guide-updated/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -150,7 +150,7 @@
     {
       "label": "Sample Landing page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/star-wars-trilogy/",
+      "url": "http://ask.docker.amazee.io/star-wars-trilogy/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -172,7 +172,7 @@
     {
       "label": "Sample Landing page with featured content",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/featured-items/",
+      "url": "http://ask.docker.amazee.io/featured-items/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -194,7 +194,7 @@
     {
       "label": "Sample listing content page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/resources/",
+      "url": "http://ask.docker.amazee.io/resources/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
@@ -216,7 +216,7 @@
     {
       "label": "Sample Standard Page content page",
       "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://hsk.govcms.docker.amazee.io/star-wars/",
+      "url": "http://ask.docker.amazee.io/star-wars/",
       "referenceUrl": "",
       "readyEvent": "",
       "readySelector": "",
