@@ -1,0 +1,20 @@
+uuid: 3ac440bf-f2ce-4c6d-a720-44ffe4039715
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - taxonomy
+id: paragraph.field_h_args_pub_type_term
+field_name: field_h_args_pub_type_term
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

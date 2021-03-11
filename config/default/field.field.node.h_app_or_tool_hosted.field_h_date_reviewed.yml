@@ -1,0 +1,21 @@
+uuid: 63be1d79-dafc-48c9-99fc-fe37a7feb6c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_reviewed
+    - node.type.h_app_or_tool_hosted
+  module:
+    - datetime
+id: node.h_app_or_tool_hosted.field_h_date_reviewed
+field_name: field_h_date_reviewed
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: 'Date last reviewed'
+description: 'Select the date this page was last reviewed.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

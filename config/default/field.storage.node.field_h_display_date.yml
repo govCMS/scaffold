@@ -1,0 +1,18 @@
+uuid: 55173161-5af6-451c-9362-10570cc0b9f1
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_h_display_date
+field_name: field_h_display_date
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

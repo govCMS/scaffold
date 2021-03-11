@@ -1,0 +1,21 @@
+uuid: d5fb6d2e-87a1-4017-a6ac-524bba923041
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_telephone_number
+    - paragraphs.paragraphs_type.para_h_telephone_numbers
+  module:
+    - telephone
+id: paragraph.para_h_telephone_numbers.field_h_telephone_number
+field_name: field_h_telephone_number
+entity_type: paragraph
+bundle: para_h_telephone_numbers
+label: Number
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

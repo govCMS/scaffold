@@ -1,0 +1,444 @@
+uuid: acd54e18-bc5c-4a45-8caf-30f788c7f2e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.h_image_browser
+    - field.field.node.h_publication.field_h_audience
+    - field.field.node.h_publication.field_h_content_grade_level
+    - field.field.node.h_publication.field_h_content_long_sentences
+    - field.field.node.h_publication.field_h_content_owner
+    - field.field.node.h_publication.field_h_content_pass_sentences
+    - field.field.node.h_publication.field_h_content_readability
+    - field.field.node.h_publication.field_h_date_created
+    - field.field.node.h_publication.field_h_date_published
+    - field.field.node.h_publication.field_h_date_reviewed
+    - field.field.node.h_publication.field_h_date_updated
+    - field.field.node.h_publication.field_h_description
+    - field.field.node.h_publication.field_h_image_featured
+    - field.field.node.h_publication.field_h_language
+    - field.field.node.h_publication.field_h_link_external
+    - field.field.node.h_publication.field_h_order_id
+    - field.field.node.h_publication.field_h_order_text
+    - field.field.node.h_publication.field_h_publication_type
+    - field.field.node.h_publication.field_h_resource_availability
+    - field.field.node.h_publication.field_h_resource_date
+    - field.field.node.h_publication.field_h_resource_parts
+    - field.field.node.h_publication.field_h_subject
+    - field.field.node.h_publication.field_h_subject_2
+    - field.field.node.h_publication.field_h_subject_3
+    - field.field.node.h_publication.field_h_summary
+    - node.type.h_publication
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - datetime
+    - entity_browser
+    - field_group
+    - link
+    - paragraphs
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_h_tabs:
+      children:
+        - group_h_content
+        - group_h_downloads
+        - group_h_ordering_info
+        - group_h_metadata
+        - group_h_relationships
+        - group_h_dates
+        - group_h_readability
+      parent_name: ''
+      weight: 2
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+      label: Tabs
+      region: content
+    group_h_content:
+      children:
+        - field_h_summary
+        - field_h_description
+        - field_h_link_external
+        - field_h_image_featured
+        - field_h_resource_availability
+        - field_h_resource_date
+        - field_h_order_id
+        - field_h_order_text
+      parent_name: group_h_tabs
+      weight: 20
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Content
+      region: content
+    group_h_ordering_info:
+      children: {  }
+      parent_name: group_h_tabs
+      weight: 22
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: 'Ordering information'
+      region: content
+    group_h_metadata:
+      children:
+        - field_h_publication_type
+        - field_h_language
+        - field_h_audience
+        - field_h_content_owner
+      parent_name: group_h_tabs
+      weight: 23
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Metadata
+      region: content
+    group_h_relationships:
+      children:
+        - field_h_subject
+        - field_h_subject_2
+        - field_h_subject_3
+      parent_name: group_h_tabs
+      weight: 24
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Related
+      region: content
+    group_h_dates:
+      children:
+        - field_h_publication_date
+        - field_h_publication_date_display
+        - field_h_date_reviewed
+        - group_h_system_dates
+      parent_name: group_h_tabs
+      weight: 25
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Dates
+      region: content
+    group_h_system_dates:
+      children:
+        - field_h_date_created
+        - field_h_date_updated
+        - field_h_date_published
+      parent_name: group_h_dates
+      weight: 33
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'System dates'
+      region: content
+    group_h_readability:
+      children:
+        - field_h_content_long_sentences
+        - field_h_content_pass_sentences
+        - field_h_content_readability
+        - field_h_content_grade_level
+      parent_name: group_h_tabs
+      weight: 26
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Readability
+      region: content
+    group_h_downloads:
+      children:
+        - field_h_resource_parts
+      parent_name: group_h_tabs
+      weight: 21
+      format_type: tab
+      format_settings:
+        description: ''
+        formatter: closed
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Downloadable files'
+      region: content
+id: node.h_publication.default
+targetEntityType: node
+bundle: h_publication
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_h_audience:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_content_grade_level:
+    weight: 40
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_long_sentences:
+    weight: 37
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_owner:
+    weight: 29
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_content_pass_sentences:
+    weight: 38
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_readability:
+    weight: 39
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_date_created:
+    weight: 35
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_published:
+    weight: 37
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_reviewed:
+    weight: 32
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_updated:
+    weight: 36
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_description:
+    weight: 11
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_h_image_featured:
+    weight: 13
+    settings:
+      entity_browser: h_image_browser
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_h_language:
+    weight: 27
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_link_external:
+    weight: 12
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_h_order_id:
+    weight: 16
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_order_text:
+    weight: 17
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_h_publication_type:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_resource_availability:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_resource_date:
+    weight: 15
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_resource_parts:
+    type: paragraphs
+    weight: 104
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_h_subject:
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject_2:
+    weight: 102
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject_3:
+    weight: 103
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_summary:
+    weight: 10
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 6
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

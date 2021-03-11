@@ -1,0 +1,15 @@
+{% set svg %}
+  {% include "@health/svg/health-svg--microsoft-app-store.html.twig" %}
+{% endset %}
+
+{% set text %}
+  {% trans %}Get it from Microsoft{% endtrans %}
+{% endset %}
+
+{%
+  embed "@health/field/includes/health-field-link-app-store.html.twig" with {
+    "text": text,
+    "image": svg
+  }
+%}
+{% endembed %}

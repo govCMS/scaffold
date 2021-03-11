@@ -1,0 +1,29 @@
+uuid: 956acac2-bd51-4baa-9036-5238bc181ca3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_owner
+    - node.type.h_contact
+    - taxonomy.vocabulary.h_content_owner
+id: node.h_contact.field_h_content_owner
+field_name: field_h_content_owner
+entity_type: node
+bundle: h_contact
+label: 'Content owner'
+description: 'Select the area responsible for checking accuracy and clearing this content.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_content_owner: h_content_owner
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

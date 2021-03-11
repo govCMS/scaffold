@@ -1,0 +1,15 @@
+uuid: 711700c4-d244-4247-aa67-2f7e0d7f6e21
+langcode: en
+status: true
+dependencies: {  }
+name: h_video_16_9_full
+label: 'Video 16:9 - Full'
+effects:
+  037c4fcd-8cc2-4ffa-8351-ea5f759f70af:
+    uuid: 037c4fcd-8cc2-4ffa-8351-ea5f759f70af
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 768
+      height: 432
+      anchor: center-center

@@ -30,3 +30,52 @@ audit-site
 web/
 scripts/
 drush/
+
+# Composer related files.
+vendor
+
+# Composer managed packages.
+/dev_modules/contrib
+
+# Node/NPM packages.
+node_modules
+
+# Backstop.js.
+backstop_data/*
+!backstop_data/engine_scripts
+!backstop_data/bitmaps_reference
+
+# Cypress tests.
+cypress/screenshots/*
+!cypress/screenshots/.gitkeep
+cypress/video/*
+!cypress/video/.gitkeep
+
+# Local development related files.
+/app
+
+# Databas backups.
+*.sql
+*.sql.gz
+*.sql.zip
+*.sql.bz2
+*.sql.tar.gz
+*.sql.tar
+
+# Patch files.
+*.patch
+
+# Git merge conflict files.
+*.orig
+*.rej
+
+# OS related files.
+.DS_Store
+.idea/
+
+# Medela theme is not ready for inclusion in the HSK.
+themes/medela/
+# Added by the scaffold provisioner.
+web/
+scripts/
+drush/

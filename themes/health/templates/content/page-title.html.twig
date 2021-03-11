@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Theme override for page titles.
+ *
+ * Available variables:
+ * - title_attributes: HTML attributes for the page title element.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ */
+#}
+{{ title_prefix }}
+
+{% if title %}
+  <div{{ title_attributes }}>
+    {% if mobile_breadcrumb_url %}
+    <div class="health-sub-header__section-title">
+      <a class="au-direction-link au-direction-link--left" href="{{ mobile_breadcrumb_url }}">{{ mobile_breadcrumb_title }}</a>
+    </div>
+    {% endif %}
+    <h1>{{ page_title }}</h1>
+    <p class="au-introduction">
+      {{ page_summary }}
+    </p>
+
+  </div>
+{% endif %}
+
+{{ title_suffix }}

@@ -1,0 +1,10 @@
+<sup class="health-footnotes__links rs_preserve">
+  [
+    {% for id, text in items %}
+      <span class="health-footnotes__link" aria-describedby="#footnote-{{ id }}__description" tabindex="0" aria-label="Footnote">{{ text|trim }}</span>
+	    {% if loop.last == false %}
+        {{ ',' }}
+      {% endif %}
+    {% endfor %}
+  ]
+</sup>

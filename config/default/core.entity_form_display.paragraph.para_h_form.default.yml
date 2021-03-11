@@ -1,0 +1,24 @@
+uuid: 2186efa6-f694-4d71-804b-3afa8638e357
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_form.field_h_form
+    - paragraphs.paragraphs_type.para_h_form
+  module:
+    - webform
+id: paragraph.para_h_form.default
+targetEntityType: paragraph
+bundle: para_h_form
+mode: default
+content:
+  field_h_form:
+    weight: 0
+    settings:
+      default_data: false
+    third_party_settings: {  }
+    type: webform_entity_reference_select
+    region: content
+hidden:
+  created: true
+  status: true

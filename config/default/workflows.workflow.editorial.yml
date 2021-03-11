@@ -1,0 +1,109 @@
+uuid: d86cf49a-e92e-4399-a9aa-807d69339320
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.h_app_or_tool
+    - node.type.h_app_or_tool_hosted
+    - node.type.h_collection
+    - node.type.h_contact
+    - node.type.h_foi_request
+    - node.type.h_global_notification
+    - node.type.h_landing_page
+    - node.type.h_listing
+    - node.type.h_news_article
+    - node.type.h_publication
+    - node.type.h_standard_page
+    - node.type.h_video
+    - node.type.search_results
+  module:
+    - content_moderation
+_core:
+  default_config_hash: Tb-51cdwZpaG6YOhvXqJhQzcxQwuxOmbfi0qohrOm5Q
+id: editorial
+label: Editorial
+type: content_moderation
+type_settings:
+  states:
+    archived:
+      label: Archived
+      weight: -7
+      published: false
+      default_revision: true
+    draft:
+      label: Draft
+      published: false
+      default_revision: false
+      weight: -10
+    needs_review:
+      published: false
+      default_revision: false
+      label: 'Needs Review'
+      weight: -9
+    published:
+      label: Published
+      published: true
+      default_revision: true
+      weight: -8
+  transitions:
+    archive:
+      label: Archive
+      from:
+        - published
+      to: archived
+      weight: 0
+    archived_draft:
+      label: 'Restore to Draft'
+      from:
+        - archived
+      to: draft
+      weight: 1
+    archived_published:
+      label: Restore
+      from:
+        - archived
+      to: published
+      weight: 2
+    create_new_draft:
+      label: 'Create New Draft'
+      to: draft
+      weight: -4
+      from:
+        - draft
+        - published
+    needs_review:
+      label: 'Needs Review'
+      from:
+        - draft
+      to: needs_review
+      weight: -3
+    publish:
+      label: Publish
+      to: published
+      weight: -1
+      from:
+        - draft
+        - needs_review
+        - published
+    send_back_to_draft:
+      label: 'Send back to Draft'
+      from:
+        - needs_review
+      to: draft
+      weight: -2
+  entity_types:
+    node:
+      - h_app_or_tool
+      - h_app_or_tool_hosted
+      - h_collection
+      - h_contact
+      - h_foi_request
+      - h_global_notification
+      - h_landing_page
+      - h_listing
+      - h_news_article
+      - h_publication
+      - h_standard_page
+      - h_video
+      - search_results
+  default_moderation_state: draft

@@ -1,0 +1,40 @@
+uuid: 6de9cd55-c21a-457d-9d2c-574355217f4c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: BTPGWiKOVl_bNzmvC6eCM7o10FrUow7S3Y0D4TCzgeY
+id: content_approver
+label: 'Content Approver'
+weight: 3
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access site in maintenance mode'
+  - 'access toolbar'
+  - 'bypass honeypot protection'
+  - 'delete any h_contact content'
+  - 'delete any h_decision content'
+  - 'delete any h_departmental_media content'
+  - 'delete any h_global_notification content'
+  - 'delete any h_landing_page content'
+  - 'delete any h_news_article content'
+  - 'delete any h_publication content'
+  - 'delete any h_standard_page content'
+  - 'delete any h_video content'
+  - 'use editorial transition archive'
+  - 'use editorial transition archived_draft'
+  - 'use editorial transition archived_published'
+  - 'use editorial transition create_new_draft'
+  - 'use editorial transition needs_review'
+  - 'use editorial transition publish'
+  - 'use editorial transition send_back_to_draft'
+  - 'use text format rich_text'
+  - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view own unpublished content'
+  - 'view the administration theme'
+  - 'view unpublished paragraphs'

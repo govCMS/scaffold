@@ -1,0 +1,15 @@
+uuid: 9cf23053-bc05-4552-abd7-e0f05676a554
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: m4_OkygXMcgn8nW2nO_vjGSxT984ukJLWQZkCZVMwhM
+id: audio
+label: Audio
+description: 'Used for uploading local audio files.'
+source: audio_file
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_audio_file
+field_map: {  }

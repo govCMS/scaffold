@@ -1,0 +1,9 @@
+{% extends '@paragraphs/paragraph.html.twig' %}
+
+{% block paragraph %}
+  {% for link in health_links %}
+    <p>
+      <a class="au-btn au-btn--large au-cta-link au-cta-link--dark" href="{{ link.url }}">{{ link.text }}</a>
+    </p>
+  {% endfor %}
+{% endblock %}

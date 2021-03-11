@@ -1,0 +1,23 @@
+uuid: 4bd1ebfa-84a9-4460-9921-3146028ad7c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_pass_sentences
+    - node.type.h_news_article
+id: node.h_news_article.field_h_content_pass_sentences
+field_name: field_h_content_pass_sentences
+entity_type: node
+bundle: h_news_article
+label: 'Content % passive sentences'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: !!float 100
+  prefix: ''
+  suffix: '%'
+field_type: decimal

@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Facet template for Funnelback.
+ *
+ * Available variables:
+ * - facets: An array of facet items.
+ *    Each item contains related selection details and urls.
+ * - query: The search key word string.
+ */
+#}
+{% if facets %}
+  {% for facet in facets %}
+    {% if facet.categories %}
+      <div class='health-facet'>
+        <h2 class='au-display-sm'>{{ facet.name }}</h2>
+        <ul class="au-form list--remove health-facet__list">
+          {% for category in facet.categories %}
+            {% for value in category.values %}
+              {% if value.count > 0 %}
+                <li class="au-form__item facet">
+                  <div class="au-control-input au-control-input--compact au-control-input--block">
+                    {% if facet.guessedDisplayType == 'CHECKBOX' or facet.guessedDisplayType == 'SINGLE_DRILL_DOWN' %}
+                        <input type="checkbox" class="au-control-input__input" {{ (value.selected) ? 'checked' }}
+                              redirect="{{ value.toggleUrl }}">
+                    {% elseif facet.guessedDisplayType == 'RADIO_BUTTON' %}
+                      <input type="radio" class="au-control-input__input" {{ (value.selected) ? 'checked' }}
+                              redirect="{{ value.toggleUrl }}">
+                    {% endif %}
+                    <label class="au-control-input__text">{{ value.label }} ({{ value.count }})</label>
+                  </div>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}

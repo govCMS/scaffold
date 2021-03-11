@@ -1,0 +1,393 @@
+uuid: c3d4e5cc-612e-4797-8ba5-c08e1c5bcd16
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.h_image_browser
+    - field.field.node.h_video.field_h_audience
+    - field.field.node.h_video.field_h_content_grade_level
+    - field.field.node.h_video.field_h_content_long_sentences
+    - field.field.node.h_video.field_h_content_owner
+    - field.field.node.h_video.field_h_content_pass_sentences
+    - field.field.node.h_video.field_h_content_readability
+    - field.field.node.h_video.field_h_date_created
+    - field.field.node.h_video.field_h_date_published
+    - field.field.node.h_video.field_h_date_reviewed
+    - field.field.node.h_video.field_h_date_updated
+    - field.field.node.h_video.field_h_description
+    - field.field.node.h_video.field_h_duration
+    - field.field.node.h_video.field_h_image_featured
+    - field.field.node.h_video.field_h_language
+    - field.field.node.h_video.field_h_resource_availability
+    - field.field.node.h_video.field_h_resource_date
+    - field.field.node.h_video.field_h_resource_transcript
+    - field.field.node.h_video.field_h_subject
+    - field.field.node.h_video.field_h_subject_2
+    - field.field.node.h_video.field_h_subject_3
+    - field.field.node.h_video.field_h_summary
+    - field.field.node.h_video.field_h_video_type
+    - field.field.node.h_video.field_h_video_youtubeid
+    - node.type.h_video
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - datetime
+    - entity_browser
+    - field_group
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_h_tabs:
+      children:
+        - group_h_content
+        - group_h_metadata
+        - group_h_related
+        - group_h_dates
+        - group_h_readability
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+      label: Tabs
+      region: content
+    group_h_content:
+      children:
+        - field_h_summary
+        - field_h_description
+        - field_h_video_youtubeid
+        - field_h_duration
+        - field_h_image_featured
+        - field_h_resource_transcript
+      parent_name: group_h_tabs
+      weight: 15
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Content
+      region: content
+    group_h_metadata:
+      children:
+        - field_h_video_type
+        - field_h_resource_availability
+        - field_h_language
+        - field_h_audience
+        - field_h_content_owner
+      parent_name: group_h_tabs
+      weight: 16
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Metadata
+      region: content
+    group_h_related:
+      children:
+        - field_h_subject
+        - field_h_subject_2
+        - field_h_subject_3
+      parent_name: group_h_tabs
+      weight: 17
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Related
+      region: content
+    group_h_dates:
+      children:
+        - field_h_resource_date
+        - field_h_date_reviewed
+        - group_h_system_dates
+      parent_name: group_h_tabs
+      weight: 18
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Dates
+      region: content
+    group_h_readability:
+      children:
+        - field_h_content_long_sentences
+        - field_h_content_pass_sentences
+        - field_h_content_readability
+        - field_h_content_grade_level
+      parent_name: group_h_tabs
+      weight: 19
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Readability
+      region: content
+    group_h_system_dates:
+      children:
+        - field_h_date_created
+        - field_h_date_updated
+        - field_h_date_published
+      parent_name: group_h_dates
+      weight: 127
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'System dates'
+      region: content
+id: node.h_video.default
+targetEntityType: node
+bundle: h_video
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_h_audience:
+    weight: 29
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_content_grade_level:
+    weight: 33
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_long_sentences:
+    weight: 30
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_owner:
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_content_pass_sentences:
+    weight: 31
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_readability:
+    weight: 32
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_date_created:
+    weight: 120
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_published:
+    weight: 123
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_reviewed:
+    weight: 124
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_updated:
+    weight: 122
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_description:
+    weight: 117
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_h_duration:
+    weight: 119
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_image_featured:
+    weight: 120
+    settings:
+      entity_browser: h_image_browser
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_h_language:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_resource_availability:
+    weight: 27
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_resource_date:
+    weight: 123
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_resource_transcript:
+    weight: 121
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_h_subject:
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject_2:
+    weight: 102
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject_3:
+    weight: 103
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_summary:
+    weight: 116
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_h_video_type:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_video_youtubeid:
+    weight: 118
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

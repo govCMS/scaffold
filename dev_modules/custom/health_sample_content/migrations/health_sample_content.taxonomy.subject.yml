@@ -1,0 +1,25 @@
+id: sample_taxonomy_subject
+label: Sample Taxomony Terms - Subject
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: About the Empire
+    -
+      name: Interogations
+    -
+      name: Politics
+  ids:
+    name:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_subject

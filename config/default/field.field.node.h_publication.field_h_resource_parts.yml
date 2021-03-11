@@ -1,0 +1,58 @@
+uuid: 9c92984d-1533-43e8-bb4a-2277455b6b1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_resource_parts
+    - node.type.h_publication
+    - paragraphs.paragraphs_type.para_h_resource_part
+  module:
+    - entity_reference_revisions
+id: node.h_publication.field_h_resource_parts
+field_name: field_h_resource_parts
+entity_type: node
+bundle: h_publication
+label: 'Resource parts'
+description: 'Add one or more parts. Each part has a title, summary and downloadable files. Use multiple resource part if the publication has been split (e.g. introduction, Part A, appendix).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_resource_part: para_h_resource_part
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: 11
+        enabled: false
+      para_h_content_callout:
+        weight: 12
+        enabled: false
+      para_h_content_html:
+        weight: 13
+        enabled: false
+      para_h_content_table:
+        weight: 14
+        enabled: false
+      para_h_content_text:
+        weight: 15
+        enabled: false
+      para_h_email_addresses:
+        weight: 17
+        enabled: false
+      para_h_fax_numbers:
+        weight: 18
+        enabled: false
+      para_h_listing_embedded:
+        weight: 19
+        enabled: false
+      para_h_resource_part:
+        enabled: true
+        weight: 16
+      para_h_telephone_numbers:
+        weight: 20
+        enabled: false
+field_type: entity_reference_revisions

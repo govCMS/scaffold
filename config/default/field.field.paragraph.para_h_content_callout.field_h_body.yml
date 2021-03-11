@@ -1,0 +1,21 @@
+uuid: 0a852615-bfc3-43b0-bc83-d9d0f723e956
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_body
+    - paragraphs.paragraphs_type.para_h_content_callout
+  module:
+    - text
+id: paragraph.para_h_content_callout.field_h_body
+field_name: field_h_body
+entity_type: paragraph
+bundle: para_h_content_callout
+label: Content
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

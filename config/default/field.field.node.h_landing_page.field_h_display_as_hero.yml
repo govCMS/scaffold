@@ -1,0 +1,23 @@
+uuid: 4aa649fe-2e62-416b-9af8-6c8aa71d2d14
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_display_as_hero
+    - node.type.h_landing_page
+id: node.h_landing_page.field_h_display_as_hero
+field_name: field_h_display_as_hero
+entity_type: node
+bundle: h_landing_page
+label: 'Display title as hero'
+description: 'When enabled the page title and summary will be displayed as a hero with background image'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Display page title and summary as hero'
+  off_label: 'Don''t display title and summary as hero'
+field_type: boolean

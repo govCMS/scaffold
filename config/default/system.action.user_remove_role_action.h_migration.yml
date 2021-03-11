@@ -1,0 +1,14 @@
+uuid: 7209fcd0-5265-4a83-858d-f0125baa4153
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.h_migration
+  module:
+    - user
+id: user_remove_role_action.h_migration
+label: 'Remove the Migration role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: h_migration

@@ -1,0 +1,205 @@
+id: sample_node_contact
+label: Sample Nodes - Contact
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: node_h_contact_1
+      title: Darth Vader
+      field_h_summary: |
+        Once a heroic Jedi Knight, Darth Vader was seduced by the dark side of the Force, became a Sith Lord, and led the Empire’s eradication of the Jedi Order.
+      field_h_image_featured: image_1
+      field_h_subject: Politics
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_contact_type: Individual
+      field_h_content_owner: Incom
+      field_h_contact_title_role: Sith Lord
+      field_h_description: |
+        Darth Vader (formerly known as Anakin Skywalker) was a Sith Lord who acted as the chief enforcer and apprentice of Emperor Palpatine, and the Supreme Commander of the Imperial Military. He was tasked with hunting down surviving Jedi and rebel cells. After his duel on Mustafar with his former Jedi Master Obi-Wan Kenobi, Darth Vader bears no resemblance to Anakin Skywalker.
+      field_h_email_addresses:
+        -
+          id: para_h_email_addresses_1
+      field_h_fax_numbers:
+        -
+          id: para_h_fax_numbers_1
+      field_h_contact_street_addresses:
+        -
+          id: para_h_address_1
+      field_h_contact_postal_addresses:
+        -
+          id: para_h_address_2
+      field_h_contact_organisation: Galactic Empire
+      field_h_social_facebook: 'https://facebook.com'
+      field_h_social_instagram: 'https://instagram.com'
+      field_h_social_linkedin: 'https://linkedin.com'
+      field_h_social_twitter: 'https://twitter.com'
+      field_h_social_youtube: 'https://youtube.com'
+      field_h_telephone_numbers:
+        -
+          id: para_h_telephone_numbers_1
+      field_h_link_external: 'https://www.starwars.com/databank/darth-vader'
+      status: '1'
+  ids:
+    id:
+      type: string
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  # created: created
+  # changed: changed
+  # promote: promote
+  # sticky: sticky
+  # revision_uid: revision_uid
+  # revision_log: log
+  # revision_timestamp: timestamp
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: rich_text
+  'field_h_image_featured/target_id':
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+    no_stub: true
+  field_h_contact_title_role: field_h_contact_title_role
+  'field_h_contact_type/target_id':
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_contact_type
+    bundle_key: vid
+    bundle: h_contact_type
+    access_check: false
+  'field_h_description/value': field_h_description
+  'field_h_description/format':
+    plugin: default_value
+    default_value: rich_text
+  field_h_email_addresses:
+    plugin: sub_process
+    source: field_h_email_addresses
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: sample_paragraphs_email_addresses
+        source: id
+      target_revision_id: '@target_id'
+  field_h_fax_numbers:
+    plugin: sub_process
+    source: field_h_fax_numbers
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: sample_paragraphs_fax
+        source: id
+      target_revision_id: '@target_id'
+  'field_h_social_facebook/uri': field_h_social_facebook
+  'field_h_social_instagram/uri': field_h_social_instagram
+  'field_h_social_linkedin/uri': field_h_social_linkedin
+  'field_h_social_twitter/uri': field_h_social_twitter
+  'field_h_social_youtube/uri': field_h_social_youtube
+  field_h_telephone_numbers:
+    plugin: sub_process
+    source: field_h_telephone_numbers
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: sample_paragraphs_telephone
+        source: id
+      target_revision_id: '@target_id'
+  field_h_contact_postal_addresses:
+    plugin: sub_process
+    source: field_h_contact_postal_addresses
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: sample_paragraphs_address
+        source: id
+      target_revision_id: '@target_id'
+  field_h_contact_street_addresses:
+    plugin: sub_process
+    source: field_h_contact_street_addresses
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: sample_paragraphs_address
+        source: id
+      target_revision_id: '@target_id'
+  field_h_contact_organisation:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_contact_organisation
+    bundle_key: vid
+    bundle: h_organisation
+  field_h_audience:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_audience
+    bundle_key: vid
+    bundle: h_target_audience_group
+  field_h_subject:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_subject
+    bundle_key: vid
+    bundle: h_subject
+  field_h_language:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_language
+    bundle_key: vid
+    bundle: h_language
+  field_h_content_owner:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_content_owner
+    bundle_key: vid
+    bundle: h_content_owner
+  'field_h_link_external/uri': field_h_link_external
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: entity:node
+  default_bundle: h_contact
+migration_dependencies:
+  required:
+    - sample_taxonomy_audience
+    - sample_taxonomy_colour
+    - sample_taxonomy_contact_type
+    - sample_taxonomy_content_owner
+    - sample_taxonomy_country
+    - sample_taxonomy_language
+    - sample_taxonomy_organisation
+    - sample_taxonomy_publication_type
+    - sample_taxonomy_resource_availability
+    - sample_taxonomy_state
+    - sample_taxonomy_subject
+    - sample_taxonomy_subject_2
+    - sample_taxonomy_subject_3
+    - sample_taxonomy_video_type
+    - sample_taxonomy_media_type
+    - sample_paragraphs_email_addresses
+    - sample_paragraphs_telephone

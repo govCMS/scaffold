@@ -1,0 +1,9 @@
+uuid: 89d770b3-d26b-4a7e-8ffb-136b01765f35
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: j2_OwJn7WxpF1AARnqraKYmuPFhVPx57f-HWzGcOCgo
+id: administer_account_settings
+label: 'Administer account settings'
+path: admin/config/people/accounts

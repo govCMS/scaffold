@@ -1,0 +1,12 @@
+uuid: 40584e19-4754-419c-8fce-63a24c1a71e9
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: 1KgQ58v_NNm7MF7_g5zQM6RqLTwWwZLoRA3mSbrJ00I
+id: media.landscape
+label: Landscape
+targetEntityType: media
+cache: true

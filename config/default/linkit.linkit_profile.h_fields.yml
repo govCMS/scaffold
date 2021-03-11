@@ -1,0 +1,25 @@
+uuid: fd34bf87-4273-4ec9-b1fc-f4988b581e30
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: h_fields
+label: Fields
+description: ''
+matchers:
+  855eb04a-0788-434f-b4db-d52701d90a4f:
+    uuid: 855eb04a-0788-434f-b4db-d52701d90a4f
+    id: 'entity:node'
+    weight: 0
+    settings:
+      include_unpublished: true
+      metadata: ''
+      bundles:
+        h_news_article: h_news_article
+        h_contact: h_contact
+        h_publication: h_publication
+        h_video: h_video
+      group_by_bundle: true
+      substitution_type: canonical
+      limit: 100

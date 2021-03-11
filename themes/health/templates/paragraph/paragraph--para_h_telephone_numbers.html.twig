@@ -1,0 +1,14 @@
+{% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  {% set label = content.field_h_label|render|striptags|trim %}
+  {% set value = content.field_h_telephone_number|render|striptags|trim %}
+
+  <div class="health-field health-field--inline health-field--light">
+    <div class="health-field__label">{{ label }}</div>
+    <div class="health-field__item">
+      {% include '@health/custom/health-icon.html.twig' with {'name': 'phone-alt', 'class': 'fa-left'} %}
+      <a href="tel:{{ value }}" class="">{{ value }}</a>
+    </div>
+  </div>
+{% endblock %}

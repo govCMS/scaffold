@@ -1,0 +1,99 @@
+uuid: 1d6e7caf-6029-4730-9fe7-dcc401302828
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.h_search_result
+    - field.field.node.h_app_or_tool.field_h_audience
+    - field.field.node.h_app_or_tool.field_h_content_components
+    - field.field.node.h_app_or_tool.field_h_content_grade_level
+    - field.field.node.h_app_or_tool.field_h_content_long_sentences
+    - field.field.node.h_app_or_tool.field_h_content_owner
+    - field.field.node.h_app_or_tool.field_h_content_pass_sentences
+    - field.field.node.h_app_or_tool.field_h_content_readability
+    - field.field.node.h_app_or_tool.field_h_date_created
+    - field.field.node.h_app_or_tool.field_h_date_published
+    - field.field.node.h_app_or_tool.field_h_date_reviewed
+    - field.field.node.h_app_or_tool.field_h_date_updated
+    - field.field.node.h_app_or_tool.field_h_generate_toc
+    - field.field.node.h_app_or_tool.field_h_image_featured
+    - field.field.node.h_app_or_tool.field_h_language
+    - field.field.node.h_app_or_tool.field_h_link_apple_app
+    - field.field.node.h_app_or_tool.field_h_link_google_app
+    - field.field.node.h_app_or_tool.field_h_link_microsoft_app
+    - field.field.node.h_app_or_tool.field_h_resource_availability
+    - field.field.node.h_app_or_tool.field_h_resource_date
+    - field.field.node.h_app_or_tool.field_h_resource_parts
+    - field.field.node.h_app_or_tool.field_h_subject
+    - field.field.node.h_app_or_tool.field_h_summary
+    - node.type.h_app_or_tool
+  module:
+    - ds
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      content:
+        - node_title
+        - field_h_summary
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 0
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          wrapper: h2
+          class: 'au-display-md health-search-result__link-title'
+id: node.h_app_or_tool.h_search_result
+targetEntityType: node
+bundle: h_app_or_tool
+mode: h_search_result
+content:
+  field_h_summary:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden:
+  content_moderation_control: true
+  field_h_audience: true
+  field_h_content_components: true
+  field_h_content_grade_level: true
+  field_h_content_long_sentences: true
+  field_h_content_owner: true
+  field_h_content_pass_sentences: true
+  field_h_content_readability: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_generate_toc: true
+  field_h_image_featured: true
+  field_h_language: true
+  field_h_link_apple_app: true
+  field_h_link_google_app: true
+  field_h_link_microsoft_app: true
+  field_h_resource_availability: true
+  field_h_resource_date: true
+  field_h_resource_parts: true
+  field_h_subject: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

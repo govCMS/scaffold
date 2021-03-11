@@ -1,0 +1,8 @@
+uuid: ce7b5cc3-7e66-437b-835a-876e453f03af
+langcode: en
+status: true
+dependencies: {  }
+name: Colour
+vid: h_colour
+description: 'Custom colour palette.'
+weight: 0

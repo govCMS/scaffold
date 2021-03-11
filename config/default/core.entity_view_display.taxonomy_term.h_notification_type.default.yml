@@ -1,0 +1,33 @@
+uuid: faebabcc-f651-4fa0-a02b-a1bd327fa181
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.h_notification_type.field_h_colour
+    - taxonomy.vocabulary.h_notification_type
+  module:
+    - panelizer
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: taxonomy_term.h_notification_type.default
+targetEntityType: taxonomy_term
+bundle: h_notification_type
+mode: default
+content:
+  field_h_colour:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: h_colour_code
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+hidden:
+  description: true
+  langcode: true
+  search_api_excerpt: true

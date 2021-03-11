@@ -1,0 +1,21 @@
+uuid: 9704f618-9cb5-4d4e-8384-93dda67f3751
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_updated
+    - node.type.h_global_notification
+  module:
+    - datetime
+id: node.h_global_notification.field_h_date_updated
+field_name: field_h_date_updated
+entity_type: node
+bundle: h_global_notification
+label: 'Last updated'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

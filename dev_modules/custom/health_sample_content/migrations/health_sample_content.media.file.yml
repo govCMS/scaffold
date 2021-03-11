@@ -1,0 +1,60 @@
+id: sample_media_file
+label: Sample Media - File
+migration_tags:
+  - sample_file_file
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      file: 'https://health.govcms.gov.au/sites/default/files/documents/2020/07/when-should-masks-be-worn-in-the-community-in-australia.pdf'
+    -
+      id: 2
+      file: 'https://health.govcms.gov.au/sites/default/files/documents/2020/07/when-should-masks-be-worn-in-the-community-in-australia.docx'
+    -
+      id: 3
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/09/coronavirus-covid-19-common-operating-picture-coronavirus-covid-19-common-operating-picture-3-september-2020.pdf'
+    -
+      id: 4
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/08/coronavirus-covid-19-common-operating-picture-coronavirus-covid-19-common-operating-picture-27-august-2020.pdf'
+    -
+      id: 5
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/11/coronavirus-covid-19-at-a-glance-16-november-2020_0.pdf'
+    -
+      id: 6
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/11/how-to-become-a-representative-for-someone-in-my-aged-care.pdf'
+    -
+      id: 7
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/11/how-to-become-a-representative-for-someone-in-my-aged-care.docx'
+  ids:
+    id:
+      type: integer
+process:
+  pseudo_destination_filename:
+    -
+      plugin: callback
+      callable: basename
+      source: file
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Cannot import empty filename.'
+  pseudo_destionation_path:
+    -
+      plugin: concat
+      source:
+        - '@pseudo_destination_filename'
+  name: '@pseudo_destination_filename'
+  'field_media_file/target_id':
+    plugin: migration_lookup
+    migration: sample_file_document
+    source: id
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:media'
+  default_bundle: file
+migration_dependencies:
+  required:
+    - sample_file_document

@@ -1,0 +1,21 @@
+uuid: dd0ab30e-2811-4bed-9463-ce13f37acfdb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_body
+    - paragraphs.paragraphs_type.para_h_content_table
+  module:
+    - text
+id: paragraph.para_h_content_table.field_h_body
+field_name: field_h_body
+entity_type: paragraph
+bundle: para_h_content_table
+label: Table
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

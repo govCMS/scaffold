@@ -1,0 +1,30 @@
+{
+  "name": "MY_THEME",
+  "version": "1.0.0",
+  "description": "Custom theme.",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "cd scripts && ./npm_post_install.sh",
+    "gulp": "gulp"
+  },
+  "author": "Australian Government Department of Health",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {},
+  "browserslist": [
+    "defaults",
+    "ie 9-11"
+  ]
+}

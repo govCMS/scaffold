@@ -1,0 +1,112 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template in this directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - messages: Status and error messages. Should be displayed prominently.
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header
+ * - page.header_top
+ * - page.navigation
+ * - page.title_core
+ * - page.title_supp
+ * - page.sidebar_first
+ * - page.sidebar_second
+ * - page.content_top
+ * - page.content
+ * - page.content_bottom
+ * - page.footer_top
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+
+{% set sidebar_first_clean =  page.sidebar_first|render|striptags|trim %}
+
+<div class="au-body">
+
+  {% block header %}
+    {%
+      embed "@health/custom/health-header.html.twig" with {
+        "header": page.header,
+        "logo": logo
+      }
+    %}
+    {% endembed %}
+  {% endblock %}
+
+  {{ page.navigation }}
+
+  <div class="health-sub-header {{ modifiers }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <h1>Page not found</h1>
+            <p class="au-introduction au-introduction--dark">The page you were looking for could not be found.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% if full_width %}
+
+    <div id="content" class="health-content health-content--flush">
+      {{ page.content }}
+    </div>
+
+  {% else %}
+
+    <div class="container health-content">
+      <div class="row">
+        <div id="content" class="{{ sidebar_first_clean ? 'col-sm-8' : 'col-xs-12' }}">
+          <h2 id="why-am-i-here">Why am I here?</h2>
+          <p>The page you are looking for may have:</p>
+          <ul>
+          <li>moved</li>
+          <li>been replaced, removed or renamed.</li>
+          </ul>
+          <h2 id="still-cant-find-what-youre-looking-for">Still can't find what you're looking for?</h2>
+          <p><a href="/about-us/contact-us">Contact us</a></p>
+
+        </div>
+        {% if sidebar_first_clean %}
+          <div class="col-sm-4">
+            {{ page.sidebar_first }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  {% endif %}
+
+  {{ footer }}
+
+  {% if back_to_top %}
+    {{ back_to_top }}
+  {% endif %}
+
+</div>

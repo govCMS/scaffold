@@ -1,0 +1,138 @@
+id: sample_paragraphs_content_text
+label: Sample Paragraphs - Content Text
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_content_text_1
+      body_text: |
+        <h2>A New Hope</h2>
+        <p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.</p>
+        <p>During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet.</p>
+        <p>Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy…</p>
+        <h2>Empire Strikes Back</h2>
+        <p>It is a dark time for the Rebellion. Although the Death Star has been destroyed, Imperial troops have driven the Rebel forces from their hidden base and pursued them across the galaxy.</p>
+        <p>Evading the dreaded Imperial Starfleet, a group of freedom fighters led by Luke Skywalker has established a new secret base on the remote ice world of Hoth.</p>
+        <p>The evil lord Darth Vader, obsessed with finding young Skywalker, has dispatched thousands of remote probes into the far reaches of space…</p>
+    -
+      id: para_h_content_text_2
+      body_text: |
+        <p>It is a dark time for the Rebellion. Although the Death Star has been destroyed, Imperial troops have driven the Rebel forces from their hidden base and pursued them across the galaxy. Evading the dreaded Imperial Starfleet, a group of freedom fighters led by Luke Skywalker has established a new secret base on the remote ice world of Hoth. The evil lord Darth Vader, obsessed with finding young Skywalker, has dispatched thousands of remote probes into the far reaches of space…</p>
+    -
+      id: para_h_content_text_3
+      body_text: |
+        <h2>Return of the Jedi</h2>
+        <p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet.</p>
+    -
+      id: para_h_content_text_4
+      body_text: |
+        <h2>The Force Awakens</h2>
+        <p>Luke Skywalker has vanished. In his absence, the sinister FIRST ORDER has risen from the ashes of the Empire and will not rest until Skywalker, the last Jedi, has been destroyed.</p>
+        <p>With the support of the REPUBLIC, General Leia Organa leads a brave RESISTANCE. She is desperate to find her brother Luke and gain his help in restoring peace and justice to the galaxy.</p>
+        <p>Leia has sent her most daring pilot on a secret mission to Jakku, where an old ally has discovered a clue to Luke’s whereabouts…</p>
+    -
+      id: para_h_content_text_5
+      body_text: |
+        <h2>The Phantom Menace</h2>
+        <p>Turmoil has engulfed the Galactic Republic. The taxation of trade routes to outlying star systems is in dispute.</p>
+        <p>Hoping to resolve the matter with a blockade of deadly battleships, the greedy Trade Federation has stopped all shipping to the small planet of Naboo.</p>
+        <p>While the congress of the Republic endlessly debates this alarming chain of events, the Supreme Chancellor has secretly dispatched two Jedi Knights, the guardians of peace and justice in the galaxy, to settle the conflict…</p>
+    -
+      id: para_h_content_text_6
+      body_text: |
+        <h2>Attack of the Clones</h2>
+        <p>There is unrest in the Galactic Senate. Several thousand solar systems have declared their intentions to leave the Republic.</p>
+        <p>This Separatist movement, under the leadership of the mysterious Count Dooku, has made it difficult for the limited number of Jedi Knights to maintain peace and order in the galaxy.</p>
+        <p>Senator Amidala, the former Queen of Naboo, is returning to the Galactic Senate to vote on the critical issue of creating an ARMY OF THE REPUBLIC to assist the overwhelmed Jedi…</p>
+    -
+      id: para_h_content_text_7
+      body_text: |
+        <h2>The Force Awakens</h2>
+    -
+      id: para_h_content_text_8
+      body_text: |
+        <h2>Last Jedi</h2>
+    -
+      id: para_h_content_text_9
+      body_text: |
+        <h2>The Rise of Skywalker</h2>
+    -
+      id: para_h_content_text_10
+      body_text: |
+        <p>Luke Skywalker has returned to his home planet of Tatooine in an attempt to rescue his friend Han Solo from the clutches of the vile gangster Jabba the Hutt.</p>
+        <p>Little does Luke know that the GALACTIC EMPIRE has secretly begun construction on a new armored space station even more powerful than the first dreaded Death Star.</p>
+        <p>When completed, this ultimate weapon will spell certain doom for the small band of rebels struggling to restore freedom to the galaxy...</p>
+    -
+      id: para_h_content_text_11
+      body_text: |
+        <p>Don't let them get away. Enter the quadrant and sector you wish to search and find that rebel scum.</p>
+    -
+      id: para_h_content_text_12
+      body_text: |
+        <p>Triple Force Friday is coming October 4, marking the official launch of new products from Star Wars: The Rise of Skywalker, The Mandalorian, and Star Wars: Jedi Fallen Order amid other special events throughout the weekend.</p>
+        <p>Check out StarWars.com’s official list of activities, giveaways, and midnight madness openings that make Triple Force Friday an event you won’t want to miss.</p>
+        <h2>Amazon</h2>
+        <p>On October 4, the Amazon Treasure Truck will feature a limited-edition product in select cities — sign up for Treasure Truck alerts at amazon.com/treasuretruck so you don’t miss out!</p>
+        <p>Then tune in to Twitch.tv/twitchpresents that day at 12 p.m. PT for live interactive unboxings, product deep dives, backstories, and more. Join in to watch, chat, play, and buy these amazing new toys, games, and collectibles from Star Wars: The Rise of Skywalker, Star Wars Jedi: Fallen Order, and more.</p>
+    -
+      id: para_h_content_text_13
+      body_text: |
+        <p>This Friday, there will indeed be an awakening…for Star Wars collectors everywhere.</p>
+        <p>September 4, a.k.a. Force Friday — the highly-anticipated midnight release of Star Wars: The Force Awakens toys, collectibles, gadgets, and more — is almost here. It will be the world’s first chance to own official product celebrating the next installment of the Star Wars saga, and several retailers have, to quote Admiral Piett, “something special planned.” Check out StarWars.com’s special event guide below and may the Force (Friday) be with you!</p>
+        <p><strong>Amazon.com</strong>: Amazon.com is celebrating Force Friday by offering customers access to a variety of new Star Wars products, as well as deals on select Star Wars items. Customers can visit Amazon’s Star Wars Store to find a wide selection of new toys and games, including Amazon exclusives, deals, and much more.</p>
+    -
+      id: para_h_content_text_14
+      body_text: |
+        <p>Force Friday II weekend kicks off on September 1, and with it the launch of new products inspired by Star Wars: The Last Jedi. But to quote Luke Skywalker, “It’s so much bigger!” There will be activities, giveaways, midnight madness events, and the special Find the Force augmented reality treasure hunt — where you can unlock Star Wars: The Last Jedi characters with the Star Wars app.</p>
+        <p>View a PDF featuring a complete list of Find the Force retailers here, and read on below for details on what to expect at select participating retailers.</p>
+        <p>To commemorate Force Friday II, ALL Disney Store locations throughout North America will open their door on September 1, revealing the first toys, collectibles, books, apparel, and more inspired by Star Wars: The Last Jedi. Fans will be able to tap into the Force to help with the opening ceremony and enjoy limited-time Find the Force.</p>
+    -
+      id: para_h_content_text_15
+      body_text: |
+        <p>The Offworld Jawas found on Nevarro and Arvala-7 may look different than their Tatooine counterparts, having adapted to their new surroundings, but their obsessive need for technology still drives them.</p>
+    -
+      id: para_h_content_text_16
+      body_text: |
+        <h2>Beskar</h2>
+        <p>Mandalorian armor forged from beskar can withstand blaster bolts, nearly impenetrable protection that made the warrior class difficult to defeat at the height of their power. After the fall of the Empire, the nearly indestructible steel is harder to come by.</p>
+        <p><a class="au-cta-link" href="https://starwars.com">find out more about beskar</a></p>
+    -
+      id: para_h_content_text_17
+      body_text: |
+        <h2>Millenium Falcon</h2>
+        <p>An extensively modified Corellian light freighter, the Millennium Falcon is a legend in smuggler circles and is coveted by many for being the fastest hunk of junk in the galaxy. </p>
+        <p><a class="au-cta-link" href="https://www.starwars.com/databank/millennium-falcon">find out more about the Falcon</a></p>
+    -
+      id: para_h_content_text_18
+      body_text: |
+        <p>The Sarlacc rests in the sandy well known as the Great Pit of Carkoon, buried except for its massive mouth and beaked tongue. The strange beast's lair was the site of many spectacles for Jabba the Hutt, who entertained himself by forcing prisoners into the creature's gaping tentacled maw.</p>
+        <p>With his customized Mandalorian armor, deadly weaponry, and silent demeanor, Boba Fett was one of the most feared bounty hunters in the galaxy. A genetic clone of his “father,” bounty hunter Jango Fett, Boba learned combat and martial skills from a young age. Over the course of his career, which included contracts for the Empire and the criminal underworld, he became a legend.</p>
+        <p>Boba remained one of Jabba the Hutt’s most trusted enforcers, and was a fixture in the crime lord’s palace. During Luke Skywalker’s daring rescue of Han Solo above the Sarlacc, Boba tried to subdue the Jedi -- first with a grappling rope, then with blaster bolts. Before he could hit his target, however, Han accidentally slammed a pole into the bounty hunter’s jetpack. It ignited, sending Boba careening into the side of Jabba’s sail barge and tumbling into the man-eating pit.</p>
+    -
+      id: para_h_content_text_19
+      body_text: |
+        <h2>Description</h2>
+        <p>The moon was covered in dense woodlands, tall mountains, and savannas, and home to the sentient Ewok, Dulok, and Yuzzum species. Some of Endor's trees reached more than 1,000 meters in height. It contained a breathable atmosphere to humans and 8% surface water. It also had two suns: Endor I and Endor II</p>
+        <h2>History</h2>
+        <p>Throughout galactic history, offworld raiders occasionally came to Endor to hunt the native Ewok population to make Ewok Jerky, which was a popular snack across the Outer Rim.</p>
+        <p>Sometime during the reign of the Galactic Empire, the Empire established an outpost on the moon that included a shield generator complex to protect the incomplete second Death Star in orbit of the moon. In order to make way for the complex, an Ewok village was razed by Imperial troops, leading to strained Imperial—Ewok relations.[17] As a result of the repulsorlift field emitted by the SLD-26 planetary shield generator to keep the Death Star in a stationary orbit, Endor was prone to earthquakes, tidal imbalances, and other geological disturbances.</p>
+        <h2>Behind the scenes</h2>
+        <p>The speeder bike chase was filmed at the Owen R. Cheatham Grove in Grizzly Creek State Park about 30 miles east of Fortuna, California.[23] Most of the other location scenes for Endor were filmed in Stout Grove, part of Jedidah Smith Redwods State Park, 5 miles east of Crescent City, California, near the Tolowa village Hiouchi. Scenes requiring explosions were shot on private logging company land in the vicinity because the trees were scheduled to be logged and the State Park would not allow damage to their trees.</p>
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  'field_h_body/value': body_text
+  'field_h_body/format':
+    plugin: default_value
+    default_value: rich_text
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_content_text

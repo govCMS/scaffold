@@ -1,0 +1,32 @@
+uuid: 5599371c-77ef-463f-97c7-6ef8cd2bd2f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_listing.field_h_listing_content_types
+    - field.field.paragraph.para_h_listing.field_h_listing_facets
+    - paragraphs.paragraphs_type.para_h_listing
+id: paragraph.para_h_listing.default
+targetEntityType: paragraph
+bundle: para_h_listing
+mode: default
+content:
+  field_h_listing_content_types:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_listing_facets:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden:
+  created: true
+  status: true

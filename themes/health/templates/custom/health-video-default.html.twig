@@ -1,0 +1,16 @@
+<div class="health-video">
+	<div class="health-video__preview">
+		<a class="health-video__preview__link" href="" data-youtubeid="{{ youtube_id }}">
+			<div class="au-responsive-media-img">
+				{{ cover_image }}
+			</div>
+			<div class="health-video__preview__play-button">
+				{% include '@health/custom/health-icon.html.twig' with {'name': 'youtube', 'category': 'brands'} %}
+			</div>
+		</a>
+		<div class="au-video__preview__length health-video__preview__length">
+			{% include '@health/custom/health-icon.html.twig' with {'name': 'clock', 'category': 'regular'} %}
+			{{ duration }}
+		</div>
+	</div>
+</div>

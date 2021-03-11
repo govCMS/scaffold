@@ -1,0 +1,55 @@
+uuid: 7f8c4548-6c95-44d6-8100-93497017ad4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.h_table
+  module:
+    - ckeditor
+format: h_table
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - JustifyLeft
+            - JustifyRight
+            - Superscript
+            - Subscript
+            - RemoveFormat
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Tools
+          items:
+            - Table
+            - Maximize
+            - Source
+  plugins:
+    drupallink:
+      linkit_enabled: true
+      linkit_profile: h_wysiwyg
+    language:
+      language_list: un
+    stylescombo:
+      styles: ''
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

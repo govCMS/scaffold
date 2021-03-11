@@ -1,0 +1,13 @@
+{% extends '@paragraphs/paragraph.html.twig' %}
+
+{% block paragraph %}
+	<div class="au-callout">
+
+    {% if title %}
+      <h3 class="au-display-md">{{ title }}</h3>
+    {% endif %}
+
+    {{ content.field_h_body }}
+
+  </div>
+{% endblock %}

@@ -1,0 +1,78 @@
+id: sample_node_listing
+lable: Sample Nodes - Listing
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: Resources
+      field_h_summary: |
+        Find all of our publications, videos, reports and more.
+      field_h_content_components:
+        -
+          id: para_h_content_text_3
+        -
+          id: para_h_listing_1
+      field_h_content_owner: Incom
+      status: '1'
+  ids:
+    id:
+      type: integer
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_content_owner:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_content_owner
+    bundle_key: vid
+    bundle: h_content_owner
+  field_h_content_components:
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_content_text
+          - sample_paragraphs_listing
+        source: id
+      target_revision_id: '@target_id'
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: 'entity:node'
+  default_bundle: h_listing
+migration_dependencies:
+  required:
+    - sample_taxonomy_audience
+    - sample_taxonomy_content_owner
+    - sample_taxonomy_language
+    - sample_taxonomy_resource_availability
+    - sample_taxonomy_subject
+    - sample_taxonomy_subject_2
+    - sample_taxonomy_subject_3
+    - sample_paragraphs_listing

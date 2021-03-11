@@ -1,0 +1,15 @@
+.desktop-only {
+  display: none;
+
+  @include AU-media(sm) {
+    display: block;
+  }
+}
+
+.mobile-only {
+  display: block;
+
+  @include AU-media(sm) {
+    display: none;
+  }
+}

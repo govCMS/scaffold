@@ -1,0 +1,21 @@
+uuid: 9bc79473-57b9-45d1-9bb1-eb2bfcc40336
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_table_source
+    - paragraphs.paragraphs_type.para_h_content_table
+  module:
+    - text
+id: paragraph.para_h_content_table.field_h_table_source
+field_name: field_h_table_source
+entity_type: paragraph
+bundle: para_h_content_table
+label: Footnotes
+description: 'Add a line break using the Enter key between each footnote. Enter footnotes with double brackets so they can be referenced in content eg [[1]], then enter this number in text eg sample content [[1]] to create a tooltip and link.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

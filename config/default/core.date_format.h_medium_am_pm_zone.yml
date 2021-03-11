@@ -1,0 +1,8 @@
+uuid: 3f82cadd-fc77-4f4d-b1be-a0eac0d91ee5
+langcode: en
+status: true
+dependencies: {  }
+id: h_medium_am_pm_zone
+label: 'Health - Medium am/pm (Zone)'
+locked: false
+pattern: 'j F Y g:ia T'

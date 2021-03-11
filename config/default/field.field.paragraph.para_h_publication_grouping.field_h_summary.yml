@@ -1,0 +1,19 @@
+uuid: 64ee2306-4a09-4f4e-902a-1c6d1aae9fea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_summary
+    - paragraphs.paragraphs_type.para_h_publication_grouping
+id: paragraph.para_h_publication_grouping.field_h_summary
+field_name: field_h_summary
+entity_type: paragraph
+bundle: para_h_publication_grouping
+label: Summary
+description: 'Add a summary to the collection group (optional).'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

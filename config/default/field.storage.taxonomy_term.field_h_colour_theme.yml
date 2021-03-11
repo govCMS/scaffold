@@ -1,0 +1,27 @@
+uuid: e4f34340-c0a6-46c7-8875-00f7d4ee7ade
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+id: taxonomy_term.field_h_colour_theme
+field_name: field_h_colour_theme
+entity_type: taxonomy_term
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: light
+      label: Light
+    -
+      value: dark
+      label: Dark
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

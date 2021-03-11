@@ -1,0 +1,45 @@
+uuid: 764c1578-cdaf-410e-85d3-91e59c4987e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_layout_three_column.field_h_content_components
+    - field.field.paragraph.para_h_layout_three_column.field_h_content_components_col_1
+    - field.field.paragraph.para_h_layout_three_column.field_h_content_components_col_2
+    - paragraphs.paragraphs_type.para_h_layout_three_column
+  module:
+    - entity_reference_revisions
+id: paragraph.para_h_layout_three_column.default
+targetEntityType: paragraph
+bundle: para_h_layout_three_column
+mode: default
+content:
+  field_h_content_components:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_h_content_components_col_1:
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_h_content_components_col_2:
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,520 @@
+<?php
+
+/**
+ * @file
+ * Custom functionality for Adminimal Medela theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\FileInterface;
+use Drupal\media\MediaInterface;
+use Drupal\node\NodeForm;
+use Drupal\node\NodeInterface;
+use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\taxonomy\TermInterface;
+
+// User roles.
+const ROLE_AUTHENTICATED = 'authenticated';
+const ROLE_CONTENT_AUTHOR = 'content_author';
+const ROLE_CONTENT_APPROVER = 'content_approver';
+const ROLE_MIGRATION = 'h_migration';
+const ROLE_SITE_BUILDER = 'h_site_builder';
+
+/**
+ * Get taxonomy term by term name.
+ *
+ * @param string $name
+ *   The name of the taxonomy term to find. This value is case sensitive.
+ * @param string $vid
+ *   The ID of the vocabulary to search.
+ *
+ * @return \Drupal\taxonomy\Entity\Term
+ *   The instance of the term. If there is more than one term with the same
+ *   name in a given vocabulary, then the first instance will be returned.
+ */
+function _adminimal_medela_get_term_by_name($name, $vid) {
+  $term_properties = [
+    'name' => $name,
+    'vid' => $vid,
+  ];
+  $terms = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadByProperties($term_properties);
+  $term = reset($terms);
+
+  return $term;
+}
+
+/**
+ * Returns true if current user has the role.
+ *
+ * @param string $role
+ *   Machine name of the role. Use constants eg ROLE_MIGRATION.
+ * @param bool $include_uid1
+ *   Defaults to TRUE. Also allow user id 1 access.
+ *
+ * @return bool
+ *   True if current user has the role or is user id 1 if specified.
+ */
+function _adminimal_medela_has_role($role, $include_uid1 = TRUE) {
+  $current_user = \Drupal::service('current_user');
+  $user_roles = $current_user->getRoles();
+  return in_array($role, $user_roles) || ($include_uid1 && $current_user->id() == 1);
+}
+
+/**
+ * Hide system date fields.
+ *
+ * @param array $form
+ *   Drupal form array.
+ */
+function _adminimal_medela_hide_system_dates(array &$form) {
+  // Disable date override related fields.
+  $fields = [
+    'field_h_date_created',
+    'field_h_date_published',
+    'field_h_date_updated',
+  ];
+  foreach ($fields as $field) {
+    if (isset($form[$field])) {
+      $form[$field]['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Create a version of a string for file names or ids.
+ *
+ * @param string $text
+ *   The text to convert.
+ * @param string $separator
+ *   String used to replace removed stuff.
+ *
+ * @return string
+ *   Converted text.
+ */
+function _adminimal_medela_prepare_filename($text, $separator = '-') {
+  // Replace anything not normal with a hyphen.
+  $clean = strtolower(preg_replace('/[^a-zA-Z\d-]+/', $separator, $text));
+  // Remove any hyphens at the start.
+  $clean = preg_replace('/^-/', '', $clean);
+  // Remove any hyphens at the end.
+  $clean = preg_replace('/-$/', '', $clean);
+  // If this was only special characters, base 64 encode it so it is usable.
+  if (empty($clean)) {
+    return base64_encode($text);
+  }
+  return $clean;
+}
+
+/**
+ * Set character limits on title and relevant form fields.
+ *
+ * @param array $form
+ *   Drupal form array.
+ * @param array $fields
+ *   Collection of key/value pairs containing field name and respective field
+ *   character limit .
+ */
+function _adminimal_medela_set_field_character_limit(array &$form, array $fields) {
+  foreach ($fields as $field => $char_limit) {
+    if (!empty($form[$field]) && isset($form[$field]['widget'][0]['value'])) {
+      $form[$field]['widget'][0]['value']['#maxlength'] = $char_limit;
+    }
+  }
+}
+
+/**
+ * Convert a mimetype into a human readable format.
+ *
+ * @param string $mimetype
+ *   Mime type.
+ *
+ * @return string
+ *   Human readable mime type.
+ */
+function adminimal_medela_get_friendly_mime($mimetype) {
+  $descriptions = [
+    'application/pdf' => 'PDF',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'Word',
+    'application/msword' => 'Word',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'PowerPoint',
+    'text/plain' => 'plain text',
+    'image/jpeg' => 'JPEG',
+    'image/png' => 'PNG',
+    'image/gif' => 'GIF',
+    'audio/mpeg' => 'MP3',
+    'audio/x-wav' => 'WAVE',
+  ];
+  if (array_key_exists($mimetype, $descriptions)) {
+    return $descriptions[$mimetype];
+  }
+
+  return $mimetype;
+}
+
+/**
+ * Rename a Media content.
+ *
+ * Provides a more user friendly name for Media content label. Name is based
+ * on current content page name, content page type, and media type (e.g. PNG,
+ * JPG, PDF, etc.).
+ *
+ * @param int $fid
+ *   File id.
+ * @param string $title
+ *   The new title of the file.
+ * @param \Drupal\node\NodeInterface $node
+ *   Instance of Drupal entity.
+ * @param \Drupal\media\MediaInterface $media
+ *   Instance of Drupal Media entity.
+ */
+function _adminimal_medela_file_rename($fid, $title, NodeInterface $node, MediaInterface $media) {
+  $media_title = $media->getName();
+  $file = Drupal::service('entity_type.manager')->getStorage('file')->load($fid);
+
+  if ($file instanceof FileInterface) {
+    $node_type_label = node_get_type_label($node);
+
+    // Construct a useful title for admin purposes.
+    $new_title = Unicode::truncate('[' . $node_type_label . '] ' . $node->getTitle() . ' (' . adminimal_medela_get_friendly_mime($file->getMimeType()) . ')', 255);
+
+    // Make sure we need to rename.
+    if ($new_title !== $media_title) {
+      // Get the directory specified by the field.
+      $file_system = Drupal::service('file_system');
+      $file_uri = $file->getFileUri();
+      $path_info = pathinfo(file_uri_target($file_uri));
+      $dir = $file_system->uriScheme($file_uri) . '://';
+      if ($path_info['dirname'] != '.') {
+        $dir .= $path_info['dirname'];
+      }
+
+      // Create the new title.
+      // Restrict to 255 characters, leaving room for file_create_filename()
+      // to add _0 on the end up to _999.
+      $max_length = 251 - strlen($dir) - strlen($path_info['extension']);
+      $new_filename = Unicode::truncate(_adminimal_medela_prepare_filename($title), $max_length) . '.' . $path_info['extension'];
+
+      // Rename actual file.
+      $new_filename = $file_system->createFilename($new_filename, $dir);
+      $file = file_move($file, $new_filename);
+      if ($file instanceof FileInterface) {
+        $file->save();
+      }
+
+      // Update Media object name.
+      $media->setName($new_title);
+      $media->save();
+    }
+  }
+}
+
+/**
+ * Submit handler to rename Media content so that it has a user friendly title.
+ *
+ * @param array $form
+ *   Drupal form build array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Drupal form state object.
+ */
+function _adminimal_medela_file_rename_submit(array $form, FormStateInterface $form_state) {
+  $title_value = $form_state->getValue('title');
+  $title = $title_value[0]['value'];
+  $entity_type_manager = Drupal::service('entity_type.manager');
+  $media_ids = [];
+
+  // Publication files.
+  $field_h_resource_parts_value = $form_state->getValue('field_h_resource_parts');
+  if ($field_h_resource_parts_value !== NULL && !empty($field_h_resource_parts_value[0]['subform']['field_h_files']['target_id'])) {
+    $target_id_value = $field_h_resource_parts_value[0]['subform']['field_h_files']['target_id'];
+    $target_id_values = explode(' ', $target_id_value);
+    foreach ($target_id_values as $index => $value) {
+      $media_ids[] = preg_replace('/media:/', '', $target_id_values[$index]);
+    }
+  }
+
+  // Image.
+  $field_h_image_featured_value = $form_state->getValue('field_h_image_featured');
+  if ($field_h_image_featured_value !== NULL && !empty($field_h_image_featured_value['target_id'])) {
+    $target_id = $field_h_image_featured_value['target_id'];
+    $media_ids[] = preg_replace('/media:/', '', $target_id);
+  }
+
+  // Create an editor friendly label for Media content.
+  if (!empty($media_ids)) {
+    $form_storage = $form_state->getStorage();
+    if (isset($form_storage['nid'])) {
+      $nid = $form_storage['nid'];
+      $node = $entity_type_manager->getStorage('node')->load($nid);
+      foreach ($media_ids as $mid) {
+        $media = $entity_type_manager->getStorage('media')->load($mid);
+        $fid = $media->getSource()->getSourceFieldValue($media);
+        $form_storage = $form_state->getStorage();
+        _adminimal_medela_file_rename($fid, $title, $node, $media);
+      }
+    }
+  }
+}
+
+/**
+ * Submit handler for dates.
+ *
+ * This assumes that the user is not migrating content.
+ *
+ * @param array $form
+ *   Drupal form build array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Drupal form state object.
+ */
+function _adminimal_medela_submit_dates(array &$form, FormStateInterface &$form_state) {
+  $form_object = $form_state->getFormObject();
+  if ($form_object instanceof NodeForm) {
+    $node = $form_object->getEntity();
+    // If node is new, set creation date.
+    if ($node->id() === NULL) {
+      $form_state->setValue('field_h_date_created', [['value' => new DrupalDateTime()]]);
+    }
+
+    // Set last updated if it hasn't been changed by the user.
+    $form_state->setValue('field_h_date_updated', [['value' => new DrupalDateTime()]]);
+
+    // On publish for the first time.
+    if ($form_state->getValue('moderation_state')[0]['value'] == 'published') {
+      if (_adminimal_medela_node_first_published($form_object->getEntity()) == FALSE) {
+        // Populate date published with today.
+        $form_state->setValue('field_h_date_published', [['value' => new DrupalDateTime()]]);
+        // If date reviewed is empty then populate it with todays date.
+        if (!isset($form_state->getValue('field_h_date_reviewed')[0]['value'])) {
+          $form_state->setValue('field_h_date_reviewed', [['value' => new DrupalDateTime()]]);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Force migration users to enter system dates.
+ *
+ * @param array $element
+ *   Element.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state.
+ */
+function _adminimal_medela_validator_date_mandatory(array $element, FormStateInterface &$form_state) {
+  if (empty($element['value']['#value']['date'])) {
+    $form_state->setErrorByName($element['#array_parents'][0], t("%name cannot be left blank.", ['%name' => $element['#title']]));
+  }
+}
+
+/**
+ * Find out if a node has been published before.
+ *
+ * @param Drupal\node\NodeInterface $node
+ *   The node to check.
+ *
+ * @return bool|DrupalDateTime
+ *   A date if it has been published, otherwise FALSE.
+ */
+function _adminimal_medela_node_first_published(NodeInterface $node) {
+  $vids = \Drupal::service('entity.manager')->getStorage('node')->revisionIds($node);
+  foreach ($vids as $vid) {
+    $revision = \Drupal::service('entity.manager')->getStorage('node')->loadRevision($vid);
+    if ($revision->get('moderation_state')->getString() == 'published') {
+      return $revision->getRevisionCreationTime();
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Make system date fields mandatory.
+ *
+ * @param array $form
+ *   Drupal form array.
+ */
+function _adminimal_medela_mandatory_system_dates(array &$form) {
+  // Force migration users to enter dates when they are authoring.
+  $fields = [
+    'field_h_date_created',
+    'field_h_date_published',
+    'field_h_date_updated',
+  ];
+  foreach ($fields as $field) {
+    if (isset($form[$field])) {
+      // Mark the field as mandatory.
+      $form[$field]['widget'][0]['#required'] = TRUE;
+      // Apply a mandatory validator on submit.
+      // We have to do this because setting required is not enough in D8.
+      $form[$field]['widget'][0]['#element_validate'][] = '_adminimal_medela_validator_date_mandatory';
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function adminimal_medela_form_node_form_alter(array &$form, FormStateInterface &$form_state, $form_id) {
+
+  // Non-migration user.
+  if (!_adminimal_medela_has_role(ROLE_MIGRATION)) {
+    // Hide system dates.
+    _adminimal_medela_hide_system_dates($form);
+    // Populate dates on submit.
+    foreach (array_keys($form['actions']) as $action) {
+      if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+        array_unshift($form['actions'][$action]['#submit'], '_adminimal_medela_submit_dates');
+      }
+    }
+  }
+  // Migration user.
+  else {
+    _adminimal_medela_mandatory_system_dates($form);
+  }
+
+  // Set maximum character length of Title and Summary fields.
+  $fields = [
+    'title' => 150,
+    'field_h_summary' => 300,
+  ];
+  _adminimal_medela_set_field_character_limit($form, $fields);
+
+  // Rename files based on node titles.
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = '_adminimal_medela_file_rename_submit';
+    }
+  }
+
+  // HTML5 browser validation causes issues with hidden fields, so disable it.
+  $form['#attributes']['novalidate'] = 'novalidate';
+
+  // Mandatory revision comments.
+  if (theme_get_setting('mandatory_revision_comments')) {
+    $form['#attached']['library'][] = 'adminimal_medela/moderation';
+  }
+
+  // Lock text formats.
+  if (theme_get_setting('lock_text_formats_enable')) {
+    $form['#attached']['library'][] = 'adminimal_medela/lock-text-formats';
+    $config = theme_get_setting('lock_text_formats_config');
+    $config = explode("\n", $config);
+    foreach ($config as &$c) {
+      $params = explode('|', $c);
+      $c = [
+        'format' => $params[0],
+        'selector' => $params[1],
+      ];
+    }
+    $form['#attached']['drupalSettings']['lockTextFormats'] = $config;
+  }
+
+  // Full HTML paragraph. Only allow certain roles to add and use.
+  if (!_adminimal_medela_has_role(ROLE_SITE_BUILDER)) {
+    if (isset($form['field_h_content_components'])) {
+      unset($form['field_h_content_components']['widget']['add_more']['add_more_button_para_h_content_html']);
+      unset($form['field_h_content_components']['widget']['add_more']['operations']['#links']['add_more_button_para_h_content_html']);
+    }
+  }
+
+  // Attach custom JavaScript used by paragraph edit forms. Have to do it at
+  // the node edit form level since one cannot directly access paragraph edit
+  // forms the theme layer.
+  if (isset($form['field_h_content_components'])) {
+    $form['field_h_content_components']['#attached']['library'][] = 'adminimal_medela/col-width-edit';
+    $form['field_h_content_components']['#attached']['library'][] = 'adminimal_medela/layout-grid-custom-settings';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function adminimal_medela_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  switch ($form_id) {
+
+    case 'node_h_publication_edit_form':
+    case 'node_h_publication_form':
+      // Conditionally display Order ID and Order Instructions fields if publication
+      // is orderable.
+      if (isset($form['field_h_resource_availability'])) {
+        $term_name = 'Orderable';
+        $term = _adminimal_medela_get_term_by_name($term_name, 'h_resource_availability');
+        if ($term instanceof TermInterface) {
+          $selector = ':input[name="field_h_resource_availability[' . $term->id() . ']"]';
+
+          if (isset($form['field_h_order_id'])) {
+            $form['field_h_order_id']['#states'] = [
+              'visible' => [
+                $selector => [
+                  'checked' => TRUE,
+                ],
+              ],
+            ];
+          }
+
+          if (isset($form['field_h_order_text'])) {
+            $form['field_h_order_text']['#states'] = [
+              'visible' => [
+                $selector => [
+                  'checked' => TRUE,
+                ],
+              ],
+            ];
+          }
+        }
+      }
+      break;
+
+    case 'node_h_video_edit_form':
+    case 'node_h_video_form':
+      // Disable changing the resource availability for Videos.
+      // The default is 'Online'.
+      if (isset($form['field_h_resource_availability'])) {
+        $form['field_h_resource_availability']['widget']['#disabled'] = TRUE;
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function adminimal_medela_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
+  // Work-around for a core bug affecting admin themes. See issue #943212.
+  if (isset($form_id)) {
+    return;
+  }
+
+  $form['adminimal_medela_custom'] = [
+    '#type' => 'details',
+    '#title' => t('Medela'),
+    '#weight' => -99,
+    '#open' => TRUE,
+  ];
+
+  $form['adminimal_medela_custom']['mandatory_revision_comments'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Mandatory revision comments'),
+    '#description' => t('Force authors to enter revision comments.'),
+    '#default_value' => NULL !== theme_get_setting('mandatory_revision_comments') ? theme_get_setting('mandatory_revision_comments') : 1,
+  ];
+
+  $form['adminimal_medela_custom']['lock_text_formats'] = [
+    '#type' => 'details',
+    '#title' => t('Lock text formats'),
+    '#open' => TRUE,
+  ];
+
+  $form['adminimal_medela_custom']['lock_text_formats']['lock_text_formats_enable'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Prevent authors from changing text formats'),
+    '#default_value' => NULL !== theme_get_setting('lock_text_formats_enable') ? theme_get_setting('lock_text_formats_enable') : 1,
+  ];
+
+  $form['adminimal_medela_custom']['lock_text_formats']['lock_text_formats_config'] = [
+    '#type' => 'textarea',
+    '#title' => t('Config'),
+    '#description' => t('Enter the format and selector, one per line. eg rich_text|.paragraph-type--para-h-content-text .field--name-field-h-body'),
+    '#default_value' => NULL !== theme_get_setting('lock_text_formats_config') ? theme_get_setting('lock_text_formats_config') : "",
+  ];
+}

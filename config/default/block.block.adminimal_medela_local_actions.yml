@@ -1,0 +1,20 @@
+uuid: 34445ac2-9e09-47cb-809c-63478fffe4b3
+langcode: en
+status: true
+dependencies:
+  theme:
+    - adminimal_medela
+_core:
+  default_config_hash: zCvh8Yr91K8PLR8mxzcPFLWa4LNWnGjZV92qWf8jszM
+id: adminimal_medela_local_actions
+theme: adminimal_medela
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

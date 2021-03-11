@@ -1,0 +1,33 @@
+uuid: a22703db-26c8-4e41-8a3a-a91c8f7a9b3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_language
+    - node.type.h_news_article
+    - taxonomy.vocabulary.h_language
+  content:
+    - 'taxonomy_term:h_language:90d9b6cc-5c71-44b9-95fd-feea1ccb16f5'
+id: node.h_news_article.field_h_language
+field_name: field_h_language
+entity_type: node
+bundle: h_news_article
+label: Language
+description: 'Select the language in which this information is written (English is selected by default)'
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: 90d9b6cc-5c71-44b9-95fd-feea1ccb16f5
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_language: h_language
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

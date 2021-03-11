@@ -1,0 +1,51 @@
+uuid: 2677e9ff-320c-4aee-abcd-613686a60a06
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_telephone_numbers.field_h_label
+    - field.field.paragraph.para_h_telephone_numbers.field_h_telephone_number
+    - paragraphs.paragraphs_type.para_h_telephone_numbers
+  module:
+    - field_group
+    - telephone
+third_party_settings:
+  field_group:
+    group_h_telephone_number:
+      children:
+        - field_h_label
+        - field_h_telephone_number
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Phone number'
+      region: content
+id: paragraph.para_h_telephone_numbers.default
+targetEntityType: paragraph
+bundle: para_h_telephone_numbers
+mode: default
+content:
+  field_h_label:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_telephone_number:
+    weight: 2
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

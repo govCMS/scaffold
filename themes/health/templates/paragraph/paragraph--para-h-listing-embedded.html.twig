@@ -1,0 +1,11 @@
+{% extends "@health/paragraph/includes/health-paragraph-no-wrappers.html.twig" %}
+
+{% block paragraph %}
+
+  {{ content.field_h_title }}
+
+  {{ content.field_h_body }}
+
+  {{ content|without('field_h_title', 'field_h_body') }}
+
+{% endblock %}

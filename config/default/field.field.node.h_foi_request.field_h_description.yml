@@ -1,0 +1,21 @@
+uuid: 55af81f9-6d7d-45ba-a2fd-fd104cc9bd36
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_description
+    - node.type.h_foi_request
+  module:
+    - text
+id: node.h_foi_request.field_h_description
+field_name: field_h_description
+entity_type: node
+bundle: h_foi_request
+label: Description
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

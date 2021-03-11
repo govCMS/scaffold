@@ -1,0 +1,9 @@
+uuid: 904400dd-e2e0-426d-931d-e207f3563772
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: HbHh3ybjIRX7YZzNoFg8CRaZNXouidStYoegd6grW8s
+id: administer_site_information
+label: 'administer site information'
+path: /admin/config/system/site-information

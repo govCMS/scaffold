@@ -1,0 +1,103 @@
+uuid: 1f3a50b7-3d58-421b-b497-c1c8f18f447a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_collection_grouping
+    - node.type.h_collection
+    - paragraphs.paragraphs_type.para_h_publication_grouping
+  module:
+    - entity_reference_revisions
+id: node.h_collection.field_h_collection_grouping
+field_name: field_h_collection_grouping
+entity_type: node
+bundle: h_collection
+label: 'Collection groups'
+description: 'Add resources to the collection. If you add more than one collection group, give each group a heading.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_publication_grouping: para_h_publication_grouping
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: -47
+        enabled: false
+      para_h_app_or_tool:
+        weight: 27
+        enabled: false
+      para_h_band:
+        weight: -46
+        enabled: false
+      para_h_button:
+        weight: -45
+        enabled: false
+      para_h_content_callout:
+        weight: -43
+        enabled: false
+      para_h_content_featured:
+        weight: -42
+        enabled: false
+      para_h_content_html:
+        weight: -41
+        enabled: false
+      para_h_content_iframe:
+        weight: -40
+        enabled: false
+      para_h_content_image:
+        weight: -39
+        enabled: false
+      para_h_content_reference:
+        weight: -38
+        enabled: false
+      para_h_content_table:
+        weight: -37
+        enabled: false
+      para_h_content_text:
+        weight: -36
+        enabled: false
+      para_h_email_addresses:
+        weight: -35
+        enabled: false
+      para_h_fax_numbers:
+        weight: -34
+        enabled: false
+      para_h_form:
+        weight: -33
+        enabled: false
+      para_h_layout_grid:
+        weight: 41
+        enabled: false
+      para_h_layout_three_column:
+        weight: -32
+        enabled: false
+      para_h_layout_two_column:
+        weight: -31
+        enabled: false
+      para_h_listing:
+        weight: -30
+        enabled: false
+      para_h_listing_embedded:
+        weight: -29
+        enabled: false
+      para_h_listing_tile:
+        weight: -28
+        enabled: false
+      para_h_publication_grouping:
+        enabled: true
+        weight: -44
+      para_h_resource_part:
+        weight: -27
+        enabled: false
+      para_h_telephone_numbers:
+        weight: -26
+        enabled: false
+      para_h_tile:
+        weight: -25
+        enabled: false
+field_type: entity_reference_revisions

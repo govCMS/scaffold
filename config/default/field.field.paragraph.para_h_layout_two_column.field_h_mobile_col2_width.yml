@@ -1,0 +1,21 @@
+uuid: 0430ccb8-d5e1-49d5-9cd4-0c79d8db5694
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_mobile_col2_width
+    - paragraphs.paragraphs_type.para_h_layout_two_column
+  module:
+    - options
+id: paragraph.para_h_layout_two_column.field_h_mobile_col2_width
+field_name: field_h_mobile_col2_width
+entity_type: paragraph
+bundle: para_h_layout_two_column
+label: Mobile
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

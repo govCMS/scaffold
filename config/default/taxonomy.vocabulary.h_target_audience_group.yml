@@ -1,0 +1,8 @@
+uuid: 9bf76316-d488-4351-954a-159424f868a9
+langcode: en
+status: true
+dependencies: {  }
+name: Audience
+vid: h_target_audience_group
+description: 'The audience for whom this information applies or is written.'
+weight: 0

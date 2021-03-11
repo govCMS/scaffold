@@ -1,0 +1,19 @@
+uuid: 6d4c1a23-0590-4daa-a409-14114e066df1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_foi_number
+    - node.type.h_foi_request
+id: node.h_foi_request.field_h_foi_number
+field_name: field_h_foi_number
+entity_type: node
+bundle: h_foi_request
+label: 'FOI number'
+description: 'Enter the FOI number assigned to this request in the format XXX-XXXX'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

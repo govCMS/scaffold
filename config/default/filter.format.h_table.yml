@@ -1,0 +1,36 @@
+uuid: 18b56488-4443-4abc-9e37-c7177e78cb2a
+langcode: en
+status: true
+dependencies: {  }
+name: Table
+format: h_table
+weight: -9
+filters:
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: 0
+    settings:
+      filter_url_length: 72
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<table dir> <th colspan dir rowspan> <tr dir> <td colspan dir rowspan> <caption dir> <colgroup dir> <col dir> <tbody dir> <thead dir> <tfoot dir> <p dir> <em dir> <strong dir> <a *> <sup dir> <sub dir> <ul dir> <li dir> <ol dir>'
+      filter_html_help: true
+      filter_html_nofollow: false
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }

@@ -1,0 +1,26 @@
+uuid: 3cdf11f9-c5ef-40ed-8a38-e3e3aec50cd3
+langcode: en
+status: true
+dependencies: {  }
+id: node__h_news_article
+label: 'Content: News'
+tags:
+  description: '[node:field_h_summary]'
+  dcterms_identifier: '[current-page:url:absolute]'
+  dcterms_format: text/html
+  dcterms_subject: '[site:slogan]'
+  dcterms_title: '[node:title]'
+  dcterms_creator: 'National Sports Tribunal'
+  dcterms_publisher: 'National Sports Tribunal'
+  dcterms_date: '[current-date:custom:Y-m-d\TH:iP]'
+  dcterms_language: en
+  dcterms_description: '[node:field_h_summary]'
+  dcterms_type: text
+  og_updated_time: '[node:changed:custom:c]'
+  og_description: '[node:field_h_summary]'
+  og_title: '[current-page:title]'
+  og_url: '[current-page:url:absolute]'
+  og_image: '[node:field_h_image_featured]'
+  article_modified_time: '[node:changed:custom:c]'
+  og_type: article
+  article_published_time: '[node:created:custom:c]'

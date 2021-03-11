@@ -1,0 +1,21 @@
+uuid: 4995dad2-ccfd-4d3a-8d23-4767c2dab74e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_description
+    - node.type.h_collection
+  module:
+    - text
+id: node.h_collection.field_h_description
+field_name: field_h_description
+entity_type: node
+bundle: h_collection
+label: Description
+description: 'Describe the contents of the collection and its use in more detail. Do not duplicate the summary.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * Facet template for Funnelback.
+ *
+ * Available variables:
+ * - display_url: The url string for display.
+ * - live_url: The live url string.
+ * - title: The result title string.
+ * - date: The result date string.
+ * - summary: The result summary string.
+ * - metadata: An array of additional metadata with the result.
+ */
+#}
+<div class="health-search-result{{ old_health ? ' health-search-result--notes' : '' }}">
+
+  <a href="{{ display_url }}" class="health-search-result__link">
+    <h2 class="au-display-md health-search-result__link-title">
+      {{ title|raw }}
+    </h2>
+
+    {% if metadata.healthBreadCrumb %}
+      <br/>
+      <span class="health-search-result__link-path">
+        {{ metadata.healthBreadCrumb }}
+      </span>
+    {% elseif not metadata.healthSearchTitle %}
+      <br/>
+      <span class="health-search-result__link-path">
+        {{ display_url }}
+      </span>
+    {% endif %}
+  </a>
+
+  <p class="health-search-result__summary">
+    {% if date %}
+      <span class="health-search-result__summary-date">
+        {{ (date / 1000)|format_date('h_day_month_year') }}
+      </span>
+      -
+    {% endif %}
+    {% if metadata.healthDisplayDesc %}
+      {{ metadata.healthDisplayDesc }}
+    {% else %}
+      {{ summary|raw }}
+    {% endif %}
+  </p>
+  {% if metadata.displayed %}
+    <div class="metadata metadata--inline text--minor">
+      <p>{{ metadata.displayed|join('<br/>') }}</p>
+    </div>
+  {% endif %}
+</div>

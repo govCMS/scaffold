@@ -1,0 +1,23 @@
+{% extends "@health/content/includes/node-content-only.html.twig" %}
+
+{# Set variables. #}
+
+{% set card_content %}
+  {%
+    include "@health/custom/health-metadata.html.twig" with {
+      "content": metadata_content
+    }
+  %}
+{% endset %}
+
+{# Set node content to display card component. #}
+{% block content %}
+  {%
+    include "@health/custom/health-card--image.html.twig" with {
+      "title": title,
+      "url": url,
+      "image": image,
+      "content": card_content
+    }
+  %}
+{% endblock %}

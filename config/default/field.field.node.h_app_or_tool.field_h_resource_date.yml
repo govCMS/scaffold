@@ -1,0 +1,21 @@
+uuid: 9f65d50b-023e-487b-b898-a7ce74a826ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_resource_date
+    - node.type.h_app_or_tool
+  module:
+    - datetime
+id: node.h_app_or_tool.field_h_resource_date
+field_name: field_h_resource_date
+entity_type: node
+bundle: h_app_or_tool
+label: 'Resource published'
+description: 'Enter the date the app was published or released by the publisher - you can backdate this if you need to. Otherwise leave as the default, which will be the date published to our site. Update this field when a new version is made available.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,20 @@
+minimum_single: 10
+minimum_multiple: 0
+disable_search_threshold: 0
+minimum_width: 200
+jquery_selector: 'select:visible, .vertical-tabs select'
+search_contains: true
+disable_search: false
+allow_single_deselect: false
+placeholder_text_multiple: 'Choose some options'
+placeholder_text_single: 'Choose an option'
+no_results_text: 'No results match'
+disabled_themes:
+  seven: '0'
+  adminimal_theme: '0'
+  acpc: '0'
+  adminimal_medela: '0'
+  health: '0'
+chosen_include: 2
+_core:
+  default_config_hash: ZfR64W3oKe1JdqTnpHhFCViYPhcqy7bGkHhxGQYwlG0

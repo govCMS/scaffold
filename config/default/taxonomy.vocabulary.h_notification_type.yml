@@ -1,0 +1,8 @@
+uuid: f976cb41-2a52-4d03-b2bd-128f18698116
+langcode: en
+status: true
+dependencies: {  }
+name: 'Notification type'
+vid: h_notification_type
+description: 'Used to define types of notifications.'
+weight: 0

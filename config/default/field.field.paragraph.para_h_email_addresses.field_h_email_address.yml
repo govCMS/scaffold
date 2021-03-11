@@ -1,0 +1,19 @@
+uuid: 0f88a3bd-4355-4049-a63f-1e855cb4d327
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_email_address
+    - paragraphs.paragraphs_type.para_h_email_addresses
+id: paragraph.para_h_email_addresses.field_h_email_address
+field_name: field_h_email_address
+entity_type: paragraph
+bundle: para_h_email_addresses
+label: Email
+description: 'Contact email address'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

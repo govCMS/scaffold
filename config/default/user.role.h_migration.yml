@@ -1,0 +1,12 @@
+uuid: de32f4e3-325a-4fbd-b2d9-ccc0037ac4b5
+langcode: en
+status: true
+dependencies: {  }
+id: h_migration
+label: Migration
+weight: 6
+is_admin: null
+permissions:
+  - 'access site in maintenance mode'
+  - 'access toolbar'
+  - 'view the administration theme'

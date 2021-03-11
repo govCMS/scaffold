@@ -1,0 +1,32 @@
+uuid: 2915e2d2-5770-48e9-b376-8b5fd9d596ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_content_callout.field_h_body
+    - field.field.paragraph.para_h_content_callout.field_h_title
+    - paragraphs.paragraphs_type.para_h_content_callout
+  module:
+    - text
+id: paragraph.para_h_content_callout.default
+targetEntityType: paragraph
+bundle: para_h_content_callout
+mode: default
+content:
+  field_h_body:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_h_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

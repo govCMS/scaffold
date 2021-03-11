@@ -1,0 +1,21 @@
+<header class="au-header {{ modifiers is defined ? modifiers : 'au-header--dark' }}" role="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <a href="/" title="Home" rel="home" class="au-header__logo">
+          <img src="{{ logo }}" alt="{{ site_name }}" class="au-header__logo-image au-responsive-media-img">
+        </a>
+        <div class="au-sronly">
+          <p>{{ site_name }}</p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="health-sub-nav text--align-right">
+          {{ header }}
+          {% if funnelback %}
+            {% include "@health/funnelback/funnelback-search-form.html.twig" %}
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</header>

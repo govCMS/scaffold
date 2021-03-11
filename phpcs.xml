@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="drupal">
+  <description>PHP CodeSniffer configuration for Drupal coding standards.</description>
+  <file>./dev_modules/custom</file>
+  <file>./themes/health</file>
+  <exclude-pattern>./themes/*/app/*</exclude-pattern>
+  <exclude-pattern>./scripts/*</exclude-pattern>
+  <arg name="extensions" value="php,module,inc,install,test,profile,theme,yml" />
+  <config name="drupal_core_version" value="8" />
+  <rule ref="./vendor/drupal/coder/coder_sniffer/Drupal" />
+  <rule ref="./vendor/drupal/coder/coder_sniffer/DrupalPractice" />
+</ruleset>

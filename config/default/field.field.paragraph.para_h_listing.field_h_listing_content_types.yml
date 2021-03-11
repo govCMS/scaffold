@@ -1,0 +1,23 @@
+uuid: 5813a818-83b1-47ce-b22d-ca76d33544ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_listing_content_types
+    - paragraphs.paragraphs_type.para_h_listing
+id: paragraph.para_h_listing.field_h_listing_content_types
+field_name: field_h_listing_content_types
+entity_type: paragraph
+bundle: para_h_listing
+label: 'Content types'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node_type'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

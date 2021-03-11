@@ -1,0 +1,13 @@
+{% extends "@health/content/node.html.twig" %}
+
+{% block content %}
+  {{ content|without('field_h_subject') }}
+{% endblock %}
+
+{% block footer %}
+  {% if page %}
+    <div class="health-separator"></div>
+    {{ content.field_h_subject }}
+  {% endif %}
+{% endblock %}
+

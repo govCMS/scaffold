@@ -1,0 +1,10 @@
+{
+  "title": "Search",
+  "context": {
+    "search": {
+      "placeholder": "Search this website",
+      "id": "search-field",
+      "global": true
+    }
+  }
+}

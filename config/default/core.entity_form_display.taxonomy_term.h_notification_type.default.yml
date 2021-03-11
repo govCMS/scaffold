@@ -1,0 +1,58 @@
+uuid: 992261d5-aaa2-4ce9-81b9-1b410211988f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.h_notification_type.field_h_colour
+    - taxonomy.vocabulary.h_notification_type
+  module:
+    - path
+    - text
+id: taxonomy_term.h_notification_type.default
+targetEntityType: taxonomy_term
+bundle: h_notification_type
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+      rows: 5
+    third_party_settings: {  }
+  field_h_colour:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  langcode:
+    type: language_select
+    weight: 3
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+hidden: {  }

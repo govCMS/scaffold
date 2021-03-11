@@ -1,0 +1,10 @@
+uuid: 7a0df639-86a8-48f5-97fb-a20d6b8b9797
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_content_html
+label: 'Content - HTML'
+icon_uuid: null
+icon_default: null
+description: 'Create block of rich text/HTML content.'
+behavior_plugins: {  }

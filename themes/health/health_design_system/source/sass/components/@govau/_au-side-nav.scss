@@ -1,0 +1,51 @@
+.au-body {
+  .au-side-nav {
+
+    // Make our version flush with the sub-header above.
+    @include AU-space('margin-top', 1unit);
+    @include AU-media(sm) {
+      @include AU-space('margin-top', 0);
+    }
+
+    // Add our colours.
+    @extend %bg-neutral;
+    @include AU-media(sm) {
+      background: $AU-color-background;
+    }
+
+    a {
+      background: transparent;
+      &:hover,
+      &:focus {
+        background-color: $colour-lighter;
+      }
+      &.active {
+        font-weight: bold;
+        color: $AU-color-foreground-text;
+        background-color: $colour-lighter;
+      }
+    }
+
+    li, ul {
+      position: relative;
+    }
+
+    @media print {
+      display: none;
+    }
+  }
+
+  // Put the nav on the right instead of the left.
+  // Apply to wrapper above au-side-nav.
+  .au-side-nav--right {
+    float: none;
+    padding-left: 0;
+    padding-right: 0;
+    @include AU-space(padding-bottom, 2unit);
+    @include AU-media(sm){
+      float: right;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+}

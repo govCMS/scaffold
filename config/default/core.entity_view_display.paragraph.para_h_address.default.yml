@@ -1,0 +1,95 @@
+uuid: 22a73c3b-9e40-4587-a002-e924a58e644e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_address.field_h_address_line_1
+    - field.field.paragraph.para_h_address.field_h_address_line_2
+    - field.field.paragraph.para_h_address.field_h_city_suburb
+    - field.field.paragraph.para_h_address.field_h_country
+    - field.field.paragraph.para_h_address.field_h_label
+    - field.field.paragraph.para_h_address.field_h_location_latitude
+    - field.field.paragraph.para_h_address.field_h_location_longitude
+    - field.field.paragraph.para_h_address.field_h_postcode
+    - field.field.paragraph.para_h_address.field_h_state
+    - paragraphs.paragraphs_type.para_h_address
+id: paragraph.para_h_address.default
+targetEntityType: paragraph
+bundle: para_h_address
+mode: default
+content:
+  field_h_address_line_1:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_address_line_2:
+    weight: 2
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_city_suburb:
+    weight: 3
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_country:
+    weight: 5
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_label:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_location_latitude:
+    type: string
+    weight: 7
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_h_location_longitude:
+    type: string
+    weight: 8
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_h_postcode:
+    weight: 6
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_state:
+    weight: 4
+    label: hidden
+    settings:
+      view_mode: h_abbreviation
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+hidden:
+  search_api_excerpt: true

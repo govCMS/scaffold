@@ -1,0 +1,39 @@
+.au-body {
+    .au-side-nav {
+        background:$colour-lighter;
+        @include AU-media('sm'){
+            background: none;
+        }
+        @include AU-space('margin-top',1unit);
+        @include AU-media('sm'){
+            @include AU-space('margin-top',0);
+        }
+
+        // Flush with edge of screen on mobile.
+        @include AU-space('margin-left', - ceil( ( $AU-grid-12-gutter-width / 2 ) ));
+        @include AU-space('margin-right', - floor( ( $AU-grid-12-gutter-width / 2 ) ));
+        @include AU-media('sm') { // Normal gutter on desktop.
+            @include AU-space('margin-left', 0);
+            @include AU-space('margin-right', 0);
+        }
+
+        .au-side-nav__header {
+            @include AU-space('margin',1unit);
+            @include AU-media('sm'){
+                display: none;
+            }
+        }
+
+        a.active {
+            border-left: 0.25rem solid $colour-complementary-skyblue;
+            background: $colour-light-dark;
+            @include AU-media('sm'){
+                background: $colour-lighter;
+            }
+        }
+
+        a.is-active{
+            @extend a.active;
+        }
+    }
+}

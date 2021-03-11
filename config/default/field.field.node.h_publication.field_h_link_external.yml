@@ -1,0 +1,23 @@
+uuid: 1ddda8d8-026d-4543-8fde-5e6b139b6382
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_link_external
+    - node.type.h_publication
+  module:
+    - link
+id: node.h_publication.field_h_link_external
+field_name: field_h_link_external
+entity_type: node
+bundle: h_publication
+label: 'External link to publication'
+description: 'If this publication a stub (that is, the publication is available through another Health portfolio agency) link to the external portfolio site here.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

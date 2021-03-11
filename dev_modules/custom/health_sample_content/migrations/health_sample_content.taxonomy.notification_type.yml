@@ -1,0 +1,39 @@
+id: sample_taxonomy_notification_type
+label: Sample Taxomony Terms - Notification Type
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: h_notification_type_1
+      name: success
+      field_h_colour: success
+    -
+      id: h_notification_type_2
+      name: information
+      field_h_colour: information
+    -
+      id: h_notification_type_3
+      name: warning
+      field_h_colour: warning
+  ids:
+    id:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+  field_h_colour:
+    plugin: migration_lookup
+    migration:
+      - sample_taxonomy_colour
+    source: field_h_colour
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_notification_type
+dependencies:
+  required:
+    - sample_taxonomy_colour

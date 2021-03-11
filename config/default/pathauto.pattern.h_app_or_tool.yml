@@ -1,0 +1,22 @@
+uuid: 513e0df5-d8f9-4978-a3ee-ff9867402663
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: h_app_or_tool
+label: 'App or tool'
+type: 'canonical_entities:node'
+pattern: 'resources/[node:title]'
+selection_criteria:
+  b6e0d3d2-728b-4236-a5a1-95d3ac0620e6:
+    id: node_type
+    bundles:
+      h_app_or_tool: h_app_or_tool
+    negate: false
+    context_mapping:
+      node: node
+    uuid: b6e0d3d2-728b-4236-a5a1-95d3ac0620e6
+selection_logic: and
+weight: -5
+relationships: {  }

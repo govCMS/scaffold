@@ -1,0 +1,114 @@
+uuid: 1192b815-52e9-4f06-8a3a-5d9d45ab19e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_content_components_col_1
+    - paragraphs.paragraphs_type.para_h_content_callout
+    - paragraphs.paragraphs_type.para_h_content_featured
+    - paragraphs.paragraphs_type.para_h_content_html
+    - paragraphs.paragraphs_type.para_h_content_image
+    - paragraphs.paragraphs_type.para_h_content_reference
+    - paragraphs.paragraphs_type.para_h_content_table
+    - paragraphs.paragraphs_type.para_h_content_text
+    - paragraphs.paragraphs_type.para_h_layout_two_column
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+  module:
+    - entity_reference_revisions
+id: paragraph.para_h_layout_two_column.field_h_content_components_col_1
+field_name: field_h_content_components_col_1
+entity_type: paragraph
+bundle: para_h_layout_two_column
+label: 'Column left'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_content_text: para_h_content_text
+      para_h_content_callout: para_h_content_callout
+      para_h_content_featured: para_h_content_featured
+      para_h_content_html: para_h_content_html
+      para_h_content_image: para_h_content_image
+      para_h_content_reference: para_h_content_reference
+      para_h_content_table: para_h_content_table
+      para_h_listing_embedded: para_h_listing_embedded
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: -49
+        enabled: false
+      para_h_band:
+        weight: -48
+        enabled: false
+      para_h_band_featured:
+        weight: -47
+        enabled: false
+      para_h_band_listing:
+        weight: -46
+        enabled: false
+      para_h_band_tile:
+        weight: -45
+        enabled: false
+      para_h_button:
+        weight: -44
+        enabled: false
+      para_h_content_callout:
+        enabled: true
+        weight: -42
+      para_h_content_featured:
+        enabled: true
+        weight: -41
+      para_h_content_html:
+        enabled: true
+        weight: -40
+      para_h_content_image:
+        enabled: true
+        weight: -39
+      para_h_content_reference:
+        enabled: true
+        weight: -38
+      para_h_content_table:
+        enabled: true
+        weight: -37
+      para_h_content_text:
+        enabled: true
+        weight: -43
+      para_h_email_addresses:
+        weight: -35
+        enabled: false
+      para_h_fax_numbers:
+        weight: -34
+        enabled: false
+      para_h_form:
+        weight: -33
+        enabled: false
+      para_h_layout_three_column:
+        weight: -32
+        enabled: false
+      para_h_layout_two_column:
+        weight: -31
+        enabled: false
+      para_h_listing:
+        weight: -30
+        enabled: false
+      para_h_listing_embedded:
+        enabled: true
+        weight: -36
+      para_h_listing_tile:
+        weight: -29
+        enabled: false
+      para_h_resource_part:
+        weight: -28
+        enabled: false
+      para_h_telephone_numbers:
+        weight: -27
+        enabled: false
+      para_h_tile:
+        weight: -26
+        enabled: false
+field_type: entity_reference_revisions

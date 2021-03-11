@@ -1,0 +1,23 @@
+uuid: 8ef254c7-a8c3-460c-bc8d-52150ec9301e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_long_sentences
+    - node.type.h_app_or_tool_hosted
+id: node.h_app_or_tool_hosted.field_h_content_long_sentences
+field_name: field_h_content_long_sentences
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: 'Content % long sentences'
+description: 'Run content through Visible Thread (VT). Enter the % of long sentences.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: !!float 100
+  prefix: ''
+  suffix: '%'
+field_type: decimal

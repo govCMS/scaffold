@@ -1,0 +1,23 @@
+uuid: f2b1668d-7a05-447d-9007-eb5de71e975a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_two_column_widths
+    - paragraphs.paragraphs_type.para_h_layout_two_column
+  module:
+    - options
+id: paragraph.para_h_layout_two_column.field_h_two_column_widths
+field_name: field_h_two_column_widths
+entity_type: paragraph
+bundle: para_h_layout_two_column
+label: 'Two column widths'
+description: 'Select the ratio of left and right column widths. '
+required: true
+translatable: false
+default_value:
+  -
+    value: '6_6'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

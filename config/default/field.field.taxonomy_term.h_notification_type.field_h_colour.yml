@@ -1,0 +1,29 @@
+uuid: fa6f8d88-5242-40a8-9acd-95eec34b60be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_h_colour
+    - taxonomy.vocabulary.h_colour
+    - taxonomy.vocabulary.h_notification_type
+id: taxonomy_term.h_notification_type.field_h_colour
+field_name: field_h_colour
+entity_type: taxonomy_term
+bundle: h_notification_type
+label: Colour
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_colour: h_colour
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

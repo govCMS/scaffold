@@ -1,0 +1,50 @@
+uuid: 7199bf69-22b7-4b27-bcc5-9e29ce8f40fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.h_landing_page.field_h_content_components
+    - field.field.node.h_landing_page.field_h_content_owner
+    - field.field.node.h_landing_page.field_h_date_created
+    - field.field.node.h_landing_page.field_h_date_published
+    - field.field.node.h_landing_page.field_h_date_reviewed
+    - field.field.node.h_landing_page.field_h_date_updated
+    - field.field.node.h_landing_page.field_h_display_as_hero
+    - field.field.node.h_landing_page.field_h_image_featured
+    - field.field.node.h_landing_page.field_h_summary
+    - node.type.h_landing_page
+  module:
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_landing_page.search_index
+targetEntityType: node
+bundle: h_landing_page
+mode: search_index
+content:
+  field_h_summary:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden:
+  content_moderation_control: true
+  field_h_content_components: true
+  field_h_content_owner: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_display_as_hero: true
+  field_h_image_featured: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

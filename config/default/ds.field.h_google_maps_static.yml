@@ -1,0 +1,11 @@
+id: h_google_maps_static
+label: 'Google maps static'
+ui_limit: 'para_h_address|*'
+properties:
+  content:
+    value: "<p>This is place holder for static Google map</p>\r\n"
+    format: full_html
+type: token
+type_label: 'Token field'
+entities:
+  paragraph: paragraph

@@ -1,0 +1,19 @@
+uuid: 82c7942b-bfa7-4f1a-9d75-e03c5856a1f6
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - text
+id: paragraph.field_h_table_source
+field_name: field_h_table_source
+entity_type: paragraph
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

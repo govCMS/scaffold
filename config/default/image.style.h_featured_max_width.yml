@@ -1,0 +1,15 @@
+uuid: fdf8aed6-adc7-4213-90e7-2e0366b02e80
+langcode: en
+status: true
+dependencies: {  }
+name: h_featured_max_width
+label: 'Featured (max width)'
+effects:
+  70c05ba7-f48b-41b7-86e0-231cde8a6b95:
+    uuid: 70c05ba7-f48b-41b7-86e0-231cde8a6b95
+    id: image_scale
+    weight: 1
+    data:
+      width: 570
+      height: null
+      upscale: false

@@ -1,0 +1,22 @@
+name: Health Base Theme
+type: theme
+description: 'Base theme for Health project sites'
+core: 8.x
+core_version_requirement: ^8
+base theme: stable
+logo: logo.png
+libraries:
+  - health/global
+ckeditor_stylesheets:
+  - build/css/ckeditor.min.css
+regions:
+  header_top: Header top
+  header: Header
+  navigation: Navigation bar
+  title_core: Title core
+  title_supp: Title supplimentary
+  content_top:  Content top
+  content: Content
+  sidebar_first: Sidebar
+  content_bottom: Content bottom
+  footer_top: Footer top

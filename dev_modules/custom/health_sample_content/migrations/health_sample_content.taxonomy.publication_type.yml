@@ -1,0 +1,47 @@
+id: sample_taxonomy_publication_type
+label: Sample Taxomony Terms - Publication Type
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: Agenda
+    -
+      name: Agreement
+    -
+      name: Book
+    -
+      name: Brochure
+    -
+      name: Digital image
+      description: |
+        <p>A digital still image available or intended for download. Includes photographs, graphics, banners, social media tiles and icons.</p>
+        <p>A Digital image may include text, but should not be used for visual representations of information such as infographics, maps or diagrams (use Infographic); data (use Data visualisation); or posters (use Poster).</p>
+        <p>Images not specifically available or intended for download (ie a photo associated with a news item, or a thumbnail of a publication cover) should still be uploaded as inline images embedded within another publication subtype.</p>
+    -
+      name: Factsheet
+    -
+      name: Form
+    -
+      name: Infographic
+    -
+      name: Meeting minutes
+    -
+      name: Report
+  ids:
+    name:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+  description/value: description
+  description/format:
+    plugin: default_value
+    default_value: rich_text
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_publication_type

@@ -1,0 +1,29 @@
+uuid: c972f859-0c8b-45c5-ba7f-cc85fcaf0ab0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_subject_2
+    - node.type.h_contact
+    - taxonomy.vocabulary.h_subject_2
+id: node.h_contact.field_h_subject_2
+field_name: field_h_subject_2
+entity_type: node
+bundle: h_contact
+label: 'Subject two'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_subject_2: h_subject_2
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

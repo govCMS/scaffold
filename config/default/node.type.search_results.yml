@@ -1,0 +1,17 @@
+uuid: 778028b7-269c-4719-a972-a8ed63c0dfe7
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Funnelback search results'
+type: search_results
+description: "Used for Funnelback search results. If Funnelback is enabled, a single page should be created using the path set in the theme settings under Funnelback.\r\nIf not using Funnelback, this content type can be safely deleted."
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

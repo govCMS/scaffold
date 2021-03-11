@@ -1,0 +1,201 @@
+uuid: a0829c7c-40b6-4d08-bc42-4654a15b11ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.h_global_notification.field_h_date_created
+    - field.field.node.h_global_notification.field_h_date_published
+    - field.field.node.h_global_notification.field_h_date_reviewed
+    - field.field.node.h_global_notification.field_h_date_updated
+    - field.field.node.h_global_notification.field_h_description
+    - field.field.node.h_global_notification.field_h_display_date
+    - field.field.node.h_global_notification.field_h_notification_type
+    - node.type.h_global_notification
+  module:
+    - content_moderation
+    - datetime
+    - field_group
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_h_tabs:
+      children:
+        - group_h_content
+        - group_h_dates
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+      label: Tabs
+    group_h_content:
+      children:
+        - field_h_display_date
+        - field_h_notification_type
+        - field_h_description
+      parent_name: group_h_tabs
+      weight: 20
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: open
+        required_fields: true
+      label: Content
+    group_h_dates:
+      children:
+        - field_h_date_reviewed
+        - group_h_system_dates
+      parent_name: group_h_tabs
+      weight: 21
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Dates
+    group_h_system_dates:
+      children:
+        - field_h_date_created
+        - field_h_date_updated
+        - field_h_date_published
+      parent_name: group_h_dates
+      weight: 15
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'System dates'
+id: node.h_global_notification.default
+targetEntityType: node
+bundle: h_global_notification
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_h_date_created:
+    weight: 15
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_published:
+    weight: 17
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_reviewed:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_updated:
+    weight: 16
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_description:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_h_display_date:
+    weight: 3
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_notification_type:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 9
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 10
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 6
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

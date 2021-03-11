@@ -1,0 +1,30 @@
+uuid: e6e2b159-6c16-4491-ac78-e23294746a64
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_email_addresses.field_h_email_address
+    - field.field.paragraph.para_h_email_addresses.field_h_label
+    - paragraphs.paragraphs_type.para_h_email_addresses
+id: paragraph.para_h_email_addresses.default
+targetEntityType: paragraph
+bundle: para_h_email_addresses
+mode: default
+content:
+  field_h_email_address:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_label:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

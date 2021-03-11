@@ -1,0 +1,12 @@
+uuid: 7766350d-74fb-4e81-bda8-af31cdfec92f
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: 5Kc5A8xJK08y5Xw2PZKo5eHYCkiBBrAW75S8hc8nB2M
+id: node.stack_detail
+label: 'Stack Detail'
+targetEntityType: node
+cache: true

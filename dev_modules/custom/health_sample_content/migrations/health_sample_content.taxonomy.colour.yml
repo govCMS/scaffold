@@ -1,0 +1,49 @@
+id: sample_taxonomy_colour
+label: Sample Taxomony Terms - Colour
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: white
+      colour: '#FFFFFF'
+      theme: light
+    -
+      name: primary
+      colour: '#00205b'
+      theme: dark
+    -
+      name: teal
+      colour: '#007680'
+      theme: dark
+    -
+      name: neutral 1
+      colour: '#ececec'
+      theme: light
+    -
+      name: success
+      colour: '#d1e7dd'
+      theme: light
+    -
+      name: information
+      colour: '#fff3cd'
+      theme: light
+    -
+      name: warning
+      colour: '#f8d7da'
+      theme: light
+  ids:
+    name:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+  field_h_colour_hex: colour
+  field_h_colour_theme: theme
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_colour

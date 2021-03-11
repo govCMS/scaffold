@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Health - Figure.
+ *
+ * Available variables:
+ * - title: The title of figure.
+ * - image: The image markup.
+ * - source: Markup of the source of the figure.
+ * - caption: Markup of the caption of the figure.
+ * - zoomable: Boolean to indicate if this image should be zoomable. If it is, a large_image_path must be set.
+ * - large_image_path: The url to the large image that will be used for zooming.
+ */
+#}
+<div class="health-figure{% if caption|render %} health-figure--border{% endif %}">
+  <p class="au-display-sm">
+    {{ title }}
+  </p>
+  <figure role="group" class="au-accordion au-accordion--small">
+
+    {% if zoomable %}
+      <a href="{{ large_image_path }}" data-lightbox="fancybox" class="health-figure__image-link" aria-label="Zoom in">
+      {% include '@health/custom/health-icon.html.twig' with {
+        name: 'search-plus',
+        class: 'health-figure__image-link__icon fa-2x'
+      } %}
+    {% endif %}
+
+    {{ image }}
+
+    {% if zoomable %}
+      </a>
+    {% endif %}
+
+    {% if source %}
+      <div class="text--minor standard-gap">
+        {{ source }}
+      </div>
+    {% endif %}
+
+    {% if caption|render %}
+      <a href="#figcaption" class="standard-gap au-accordion__title au-accordion--closed js-au-accordion" aria-controls="figcaption" aria-expanded="false" onclick="return AU.accordion.Toggle( this )">
+        Show description of image
+      </a>
+      <figcaption class="au-accordion__body au-accordion--closed" id="figcaption">
+        <div class="au-accordion__body-wrapper">
+          {{ caption }}
+        </div>
+      </figcaption>
+    {% endif %}
+  </figure>
+</div>

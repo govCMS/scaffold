@@ -1,0 +1,43 @@
+id: sample_taxonomy_state
+label: Sample Taxomony Terms - State
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: Australian Capital Territory
+      abbreviation: ACT
+    -
+      name: New South Wales
+      abbreviation: NSW
+    -
+      name: Northern Territory
+      abbreviation: NT
+    -
+      name: Queensland
+      abbreviation: QLD
+    -
+      name: South Australia
+      abbreviation: SA
+    -
+      name: Victoria
+      abbreviation: VIC
+    -
+      name: Western Australia
+      abbreviation: WA
+  ids:
+    name:
+      type: string
+    abbreviation:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+  field_h_abbreviation: abbreviation
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_state

@@ -1,0 +1,23 @@
+uuid: f33b4892-2c13-4850-9a97-03c7ed51e836
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_items_per_row_mobile
+    - paragraphs.paragraphs_type.para_h_layout_grid
+  module:
+    - options
+id: paragraph.para_h_layout_grid.field_h_items_per_row_mobile
+field_name: field_h_items_per_row_mobile
+entity_type: paragraph
+bundle: para_h_layout_grid
+label: Mobile
+description: 'Use this field if you would like to display more than one tile per row on a mobile device. Make sure you enter a value for all device types.'
+required: false
+translatable: false
+default_value:
+  -
+    value: '1'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

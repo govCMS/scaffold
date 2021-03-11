@@ -1,0 +1,19 @@
+uuid: 3bd3abed-2181-457d-8baf-5e583f86f0e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_title
+    - paragraphs.paragraphs_type.para_h_content_table
+id: paragraph.para_h_content_table.field_h_title
+field_name: field_h_title
+entity_type: paragraph
+bundle: para_h_content_table
+label: Title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

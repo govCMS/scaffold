@@ -1,0 +1,19 @@
+uuid: d282d284-8c84-4875-8474-c0240507cc8b
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - footer
+      - main
+    parent: 'main:'
+name: 'Standard page'
+type: h_standard_page
+description: "Use for structured web content including instructions and guidance. Not to be used for\_news,\_initiatives, programs,\_resources or\_contacts, which have their own content types.\_"
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

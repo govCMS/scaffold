@@ -1,0 +1,21 @@
+uuid: 8d393a1c-cf63-4949-b305-bbd85ac43fcd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_reviewed
+    - node.type.h_foi_request
+  module:
+    - datetime
+id: node.h_foi_request.field_h_date_reviewed
+field_name: field_h_date_reviewed
+entity_type: node
+bundle: h_foi_request
+label: 'Date last reviewed'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

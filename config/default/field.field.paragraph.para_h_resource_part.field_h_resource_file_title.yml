@@ -1,0 +1,19 @@
+uuid: d3af8859-1b60-4b4f-82e3-2e07286c64ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_resource_file_title
+    - paragraphs.paragraphs_type.para_h_resource_part
+id: paragraph.para_h_resource_part.field_h_resource_file_title
+field_name: field_h_resource_file_title
+entity_type: paragraph
+bundle: para_h_resource_part
+label: Title
+description: "If there is only a single document, title should be the same as the Publication title.<br/>\r\nIf there are multiple document parts, title should reflect the title of that part (e.g. Appendix)"
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

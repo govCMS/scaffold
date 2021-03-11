@@ -1,0 +1,15 @@
+uuid: 794373cb-8614-4244-8482-e330f6a76f51
+langcode: en
+status: true
+dependencies: {  }
+name: h_video_16_9_teaser
+label: 'Video 16:9 - teaser'
+effects:
+  ff52e596-3cc0-4e3b-a636-ca4169bdf397:
+    uuid: ff52e596-3cc0-4e3b-a636-ca4169bdf397
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 368
+      height: 207
+      anchor: center-center

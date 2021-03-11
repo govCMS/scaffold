@@ -1,0 +1,19 @@
+uuid: fac9642b-acc6-4328-ace9-f09e18be4926
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: GrfuUsl_XCwd6QGfPpebb8Yk-8noWf0Lslu5coEIhe8
+name: image_browser
+label: 'Image browser'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets: {  }

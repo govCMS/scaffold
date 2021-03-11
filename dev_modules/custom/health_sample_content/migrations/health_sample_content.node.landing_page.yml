@@ -1,0 +1,133 @@
+id: sample_node_landing_page
+label: Sample Nodes - Landing Page
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: Star Wars Trilogy
+      field_h_summary: |
+        The movie revolves around a civil war taking place "in a galaxy far far away." The Rebels are fighting against the nefarious Darth Vader and his Imperial forces from the Galactic Empire, a tyrannical army intent on destroying civilizations across the universe.
+      field_h_content_components:
+        -
+          id: para_h_band_1
+        -
+          id: para_h_band_2
+        -
+          id: para_h_band_3
+        -
+          id: para_h_band_4
+        -
+          id: para_h_band_5
+        -
+          id: para_h_band_6
+        -
+          id: para_h_band_7
+        -
+          id: para_h_band_18
+        -
+          id: para_h_band_19
+      content_owner: Incom
+      field_h_image_featured: image_3
+      field_h_display_as_hero: 1
+      status: '1'
+    -
+      id: 2
+      title: Featured Items
+      field_h_summary: |
+        The movie revolves around a civil war taking place "in a galaxy far far away." The Rebels are fighting against the nefarious Darth Vader and his Imperial forces from the Galactic Empire, a tyrannical army intent on destroying civilizations across the universe.
+      field_h_content_components:
+        -
+          id: para_h_band_8
+        -
+          id: para_h_band_9
+        -
+          id: para_h_band_10
+        -
+          id: para_h_band_11
+        -
+          id: para_h_band_12
+        -
+          id: para_h_band_13
+        -
+          id: para_h_band_14
+        -
+          id: para_h_band_15
+        -
+          id: para_h_band_16
+        -
+          id: para_h_band_17
+      content_owner: Incom
+      field_h_image_featured: image_3
+      field_h_display_as_hero: 1
+      status: '1'
+  ids:
+    id:
+      type: integer
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  # created: created
+  # changed: changed
+  # promote: promote
+  # sticky: sticky
+  # revision_uid: revision_uid
+  # revision_log: log
+  # revision_timestamp: timestamp
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_display_as_hero: field_h_display_as_hero
+  'field_h_image_featured/target_id':
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+    no_stub: true
+  'field_h_content_components':
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_band
+        source: id
+      target_revision_id: '@target_id'
+  'field_h_content_owner/target_id':
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: content_owner
+    bundle_key: vid
+    bundle: h_content_owner
+    access_ckeck: false
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: entity:node
+  default_bundle: h_landing_page
+migration_dependencies:
+  required:
+    - sample_taxonomy_colour
+    - sample_taxonomy_content_owner
+    - sample_paragraphs_band
+    - sample_media_image

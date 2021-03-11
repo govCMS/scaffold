@@ -1,0 +1,21 @@
+uuid: 8801dfde-6611-4b92-a246-35cd9673e0ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_created
+    - node.type.h_app_or_tool_hosted
+  module:
+    - datetime
+id: node.h_app_or_tool_hosted.field_h_date_created
+field_name: field_h_date_created
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: 'Date created'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

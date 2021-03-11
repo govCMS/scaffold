@@ -1,0 +1,17 @@
+uuid: 937696d0-794b-435f-a62b-b1accfd3c66f
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: News
+type: h_news_article
+description: "Use News to promote the latest information on topical issues, make brief announcements and keep web visitors up-to-date.\_"
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

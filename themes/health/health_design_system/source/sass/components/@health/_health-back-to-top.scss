@@ -1,0 +1,57 @@
+.health-back-to-top {
+  background-color: transparent;
+  position: fixed;
+  display: block;
+  @include AU-space( right, 1unit );
+  bottom: -4px;
+  @include opacity(0);
+  z-index: -1;
+  padding: 0;
+  border: 0;
+
+  @media print {
+    display: none;
+  }
+
+  .au-btn.au-btn--secondary {
+    line-height: 1.2;
+    font-size: 0.85rem;
+    @include AU-space( width, 4unit );
+    @include AU-space( padding, 0.25unit .75unit .5unit .75unit);
+    @include AU-media(md) {
+      @include AU-space( width, 6unit );
+      @include AU-space( padding, 0.5unit 1unit 1unit);
+    }
+    background: $colour-lighter;
+    border: none;
+    color: $AU-color-foreground-text;
+
+    i {
+      width: 1.5em;
+      height: 1.5em;
+      margin-bottom: -5px;
+      background: $AU-color-foreground-text;
+    }
+
+    // Hover
+    &:hover,
+    &:hover:not(:disabled) {
+      background-color: $colour-light-dark;
+      color: darken($AU-color-foreground-text, 10%);
+      border: none;
+      i {
+        background: darken($AU-color-foreground-text, 10%);
+      }
+    }
+
+    span {
+      display: block;
+    }
+  }
+
+  &.isVisible {
+    @include opacity(.8);
+    z-index: 9999;
+    transition: all .4s ease-in;
+  }
+}

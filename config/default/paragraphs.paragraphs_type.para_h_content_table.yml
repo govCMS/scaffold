@@ -1,0 +1,10 @@
+uuid: a09bc6a0-bfcd-4bfa-9fb5-b946c9763865
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_content_table
+label: 'Content - Table'
+icon_uuid: null
+icon_default: null
+description: 'If the table is complex, provide details of how the data in this table is organised. Assistive technologies will use this description to help users navigate the table. The description will not display on the page. See WCAG Caption & Summary.'
+behavior_plugins: {  }

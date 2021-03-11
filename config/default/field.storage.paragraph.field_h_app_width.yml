@@ -1,0 +1,27 @@
+uuid: d681c731-ae2f-41d3-806e-c4530852fb7c
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_h_app_width
+field_name: field_h_app_width
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: container-fluid
+      label: 'Full page'
+    -
+      value: container
+      label: 'Main content area'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

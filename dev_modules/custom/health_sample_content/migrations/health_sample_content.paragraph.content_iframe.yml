@@ -1,0 +1,35 @@
+id: sample_paragraphs_content_iframe
+label: Sample Paragraphs - Content Iframe
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_content_iframe_1
+      field_h_title: Star Wars
+      field_h_summary: |
+        It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.
+      field_h_iframe_title: Health
+      field_h_iframe_classes: ''
+      field_h_iframe_source: "https://www.health.gov.au/"
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_title: field_h_title
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_iframe_title: field_h_iframe_title
+  field_h_iframe_classes: field_h_iframe_classes
+  field_h_iframe_source: field_h_iframe_source
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_content_iframe

@@ -1,0 +1,112 @@
+uuid: 5ba24ef0-4ea4-448a-8769-34b7e0d9d601
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.h_featured
+    - field.field.node.h_app_or_tool.field_h_audience
+    - field.field.node.h_app_or_tool.field_h_content_components
+    - field.field.node.h_app_or_tool.field_h_content_grade_level
+    - field.field.node.h_app_or_tool.field_h_content_long_sentences
+    - field.field.node.h_app_or_tool.field_h_content_owner
+    - field.field.node.h_app_or_tool.field_h_content_pass_sentences
+    - field.field.node.h_app_or_tool.field_h_content_readability
+    - field.field.node.h_app_or_tool.field_h_date_created
+    - field.field.node.h_app_or_tool.field_h_date_published
+    - field.field.node.h_app_or_tool.field_h_date_reviewed
+    - field.field.node.h_app_or_tool.field_h_date_updated
+    - field.field.node.h_app_or_tool.field_h_generate_toc
+    - field.field.node.h_app_or_tool.field_h_image_featured
+    - field.field.node.h_app_or_tool.field_h_language
+    - field.field.node.h_app_or_tool.field_h_link_apple_app
+    - field.field.node.h_app_or_tool.field_h_link_google_app
+    - field.field.node.h_app_or_tool.field_h_link_microsoft_app
+    - field.field.node.h_app_or_tool.field_h_resource_availability
+    - field.field.node.h_app_or_tool.field_h_resource_date
+    - field.field.node.h_app_or_tool.field_h_resource_parts
+    - field.field.node.h_app_or_tool.field_h_subject
+    - field.field.node.h_app_or_tool.field_h_summary
+    - image.style.h_featured_max_width
+    - node.type.h_app_or_tool
+  module:
+    - field_group
+    - media
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  field_group:
+    group_h_get_the_app:
+      children:
+        - field_h_link_apple_app
+        - field_h_link_google_app
+        - field_h_link_microsoft_app
+      parent_name: ''
+      weight: 4
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: standard-gap
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Get the app'
+      region: hidden
+id: node.h_app_or_tool.h_featured
+targetEntityType: node
+bundle: h_app_or_tool
+mode: h_featured
+content:
+  field_h_image_featured:
+    weight: 1
+    label: hidden
+    settings:
+      image_style: h_featured_max_width
+      image_link: ''
+    third_party_settings: {  }
+    type: media_thumbnail
+    region: content
+  field_h_summary:
+    type: basic_string
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_h_audience: true
+  field_h_content_components: true
+  field_h_content_grade_level: true
+  field_h_content_long_sentences: true
+  field_h_content_owner: true
+  field_h_content_pass_sentences: true
+  field_h_content_readability: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_generate_toc: true
+  field_h_language: true
+  field_h_link_apple_app: true
+  field_h_link_google_app: true
+  field_h_link_microsoft_app: true
+  field_h_resource_availability: true
+  field_h_resource_date: true
+  field_h_resource_parts: true
+  field_h_subject: true
+  langcode: true
+  search_api_excerpt: true

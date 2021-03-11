@@ -1,0 +1,78 @@
+{
+    "name": "healthgovau/health-project-starter-kit",
+    "description": "Starter Kit for Health projects base on GovCMS8 SaaS site",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Ben Gunn",
+            "email": "ben.gunn@health.gov.au"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Health\\": "src/Health/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "healthgovau/medela",
+                "version": "1.0.0",
+                "type": "health-theme",
+                "source": {
+                    "type": "git",
+                    "url": "git@github.com:healthgovau/medela.git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
+    "minimum-stability": "stable",
+    "replace": {
+        "drupal/core": "*"
+    },
+    "require": {
+        "drupal/adminimal_theme": "^1.5",
+        "drupal/migrate_tools": "^5.0",
+        "drupal/config_update": "^1.7"
+    },
+    "require-dev": {
+        "oomphinc/composer-installers-extender": "^1.1"
+    },
+    "scripts": {
+        "post-package-install": [
+            "Health\\Helper::postPackageInstall",
+            "Health\\App::postPackageInstall"
+        ]
+    },
+    "extra": {
+        "installer-types": [
+            "health-app-default",
+            "health-app-react",
+            "health-app-angular",
+            "health-theme"
+        ],
+        "installer-paths": {
+            "themes/{$name}/": [
+                "type:health-theme",
+                "type:drupal-theme"
+            ],
+            "themes/contrib/{$name}/": [
+                "type:drupal-theme"
+            ],
+            "themes/health/apps/{$name}/": [
+                "type:health-app-default",
+                "type:health-app-react",
+                "type:health-app-angular"
+            ],
+            "dev_modules/contrib/{$name}/": [
+                "type:drupal-module"
+            ]
+        }
+    }
+}

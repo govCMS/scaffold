@@ -1,0 +1,24 @@
+uuid: 4d292554-c80b-4976-8393-d3439953f097
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_updated
+    - node.type.h_contact
+  module:
+    - datetime
+id: node.h_contact.field_h_date_updated
+field_name: field_h_date_updated
+entity_type: node
+bundle: h_contact
+label: 'Last updated'
+description: 'The date this information was last updated (medified).'
+required: true
+translatable: true
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

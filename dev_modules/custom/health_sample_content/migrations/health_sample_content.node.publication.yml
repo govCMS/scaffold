@@ -1,0 +1,217 @@
+id: sample_node_publication
+label: Sample Nodes - Publication
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: node_h_publication_1
+      title: Code of the Sith
+      field_h_summary: |
+        The Code of the Sith, known as Qotsisajak in Sith, was the mantra that reinforced the core beliefs of the Sith Order. It was considered the dark side counterpart to the Jedi Code, and was first authored on the planet Korriban in 6900 BBY by the Jedi heretic Sorzus Syn.
+      field_h_description: |
+        <p>The Sith Code, as written by Sorzus Syn and taught by Darth Bane:</p>
+        <p>Peace is a lie, there is only passion. Through passion, I gain strength. Through strength, I gain power. Through power, I gain victory. Through victory, my chains are broken. The Force shall free me.</p>
+      field_h_image_featured: image_2
+      field_h_resource_availability: Online
+      field_h_resource_date: 01-02-2019
+      field_h_order_id: 134-92345-00
+      field_h_order_text: |
+        Sign up for our emails to get the inside scoop on special offers and new products.
+      field_h_resource_parts:
+        -
+          id: para_h_resource_part_1
+      field_h_publication_type: Factsheet
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_content_owner: Incom
+      field_h_subject: Politics
+      status: '1'
+    -
+      id: node_h_publication_2
+      title: Jedi texts
+      field_h_summary: |
+        The fabled founding texts of the Jedi Order were sheltered from Ahch-To’s weather by the huge trunk of a once-mighty uneti tree. This collection of ancient tomes was painstakingly assembled by Luke Skywalker, but became a burden and a torment to him.
+      field_h_description: |
+        <p>The first temple of the Jedi Order sits atop Ahch-To’s sacred island, high above the surrounding sea. The temple has been worn away by wind and time, but a visitor will still find mosaics depicting the first Jedi and an ancient meditation ledge. This spot is where Rey takes her next steps into a larger world.</p>
+        <p>An enclave of females from the Lanai species, the Caretakers dwell on Ahch-To’s sacred island, and consider it their religious duty to maintain its ancient structures and care for any seekers of truth drawn to their lonely planet. Male Lanais spend most of their time at sea, returning for monthly celebrations.</p>
+      field_h_image_featured: image_15
+      field_h_resource_availability: Online
+      field_h_resource_date: 01-02-2019
+      field_h_order_id: 134-12345-00
+      field_h_order_text: |
+        Sign up for our emails to get the inside scoop on special offers and new products.
+      field_h_resource_parts:
+        -
+          id: para_h_resource_part_2
+      field_h_publication_type: Report
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_content_owner: Incom
+      field_h_subject: Politics
+      status: '1'
+    -
+      id: node_h_publication_3
+      title: A-wing
+      field_h_summary: |
+        The A-wing was a wedge-shaped strike fighter that took design inspiration from Republic starfighters of the Clone Wars. The Empire passed on the earliest A-wing model, Kuat Systems Engineering’s R-22, but rebel cells modified the seemingly failed fighter into a blazingly fast but temperamental attack craft, dubbed the RZ-1.
+      field_h_description: |
+        <p>One of the earliest rebel units to use these quick, powerful fighters was Phoenix Squadron, whose pilots would tragically meet their match in an encounter with Darth Vader. Several of the fighters entered the fray when Vader tracked the Ghost crew to the rebel fleet. The Imperial enforcer methodically wiped the craft out, showing expert piloting skills and a ruthlessness that the A-wing pilots could not equal.</p>
+        <p>As the Empire ramped up production of both standard TIE fighters and experimental models, the Alliance sought to turn the A-wing into a starfighter that could outfly them all. Alliance techs stripped away shields, armor and heavy weapons to create a fighter that was tough to maintain and fly, but could outrun even a TIE interceptor. These reworked RZ-1s played an important role in the Battle of Endor, the rebels' greatest victory over the Empire.</p>
+        <p>With the New Republic victorious over the Empire’s fragments, Kuat Systems Engineering revived the R-22 design as the basis for the RZ-2, a streamlined model that incorporated years of Alliance field modifications and customizations. After the New Republic slashed A-wing production, the RZ-2 lived on as a mainstay of the Resistance, which used A-wings for many different missions.</p>
+      field_h_image_featured: image_16
+      field_h_resource_availability: Online
+      field_h_resource_date: 01-02-2019
+      field_h_order_id: 134-12375-00
+      field_h_order_text: |
+        Sign up for our emails to get the inside scoop on special offers and new products.
+      field_h_resource_parts:
+        -
+          id: para_h_resource_part_3
+      field_h_publication_type: Infographic
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_content_owner: Incom
+      field_h_subject: Politics
+      status: '1'
+    -
+      id: node_h_publication_4
+      title: Death Star Plans
+      field_h_summary: |
+        The plans for the Empire’s ultimate weapon reside in a electromagnetic cartridge in the Structural Engineering node of the Scarif vault’s datatree. The plans contain the Death Star’s entire design history, including the flaw introduced into its reactor system. Stolen by Jyn Erso, they are beamed to the Profundity, copied and hidden in the memory systems of a humble astromech droid.
+      field_h_description: |
+        <p>One of the earliest rebel units to use these quick, powerful fighters was Phoenix Squadron, whose pilots would tragically meet their match in an encounter with Darth Vader. Several of the fighters entered the fray when Vader tracked the Ghost crew to the rebel fleet. The Imperial enforcer methodically wiped the craft out, showing expert piloting skills and a ruthlessness that the A-wing pilots could not equal.</p>
+        <p>With the New Republic victorious over the Empire’s fragments, Kuat Systems Engineering revived the R-22 design as the basis for the RZ-2, a streamlined model that incorporated years of Alliance field modifications and customizations. After the New Republic slashed A-wing production, the RZ-2 lived on as a mainstay of the Resistance, which used A-wings for many different missions.</p>
+      field_h_image_featured: image_20
+      field_h_resource_availability:
+        - Online
+        - Orderable
+      field_h_resource_date: 01-02-2019
+      field_h_order_id: 134-12375-00
+      field_h_order_text: |
+        Sign up for our emails to get the inside scoop on special offers and new products.
+      field_h_resource_parts:
+        -
+          id: para_h_resource_part_4
+      field_h_publication_type: Infographic
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_content_owner: Incom
+      field_h_subject: Politics
+      status: '1'
+  ids:
+    id:
+      type: string
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format': plain_text
+  'field_h_description/value': field_h_description
+  'field_h_description/format':
+    plugin: default_value
+    default_value: rich_text
+  'field_h_image_featured/target_id':
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+    no_stub: true
+  field_h_resource_availability:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_resource_availability
+    bundle_key: vid
+    bundle: h_resource_availability
+  field_h_resource_date:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d'
+    source: field_h_resource_date
+  field_h_order_id: field_h_order_id
+  'field_h_order_text/value': field_h_order_text
+  'field_h_order_text/format': plain_text
+  field_h_resource_parts:
+    plugin: sub_process
+    source: field_h_resource_parts
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: sample_paragraphs_resource_part
+        source: id
+      target_revision_id: '@target_id'
+  field_h_publication_type:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_publication_type
+    bundle_key: vid
+    bundle: h_publication_type
+  field_h_language:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_language
+    bundle_key: vid
+    bundle: h_language
+  field_h_audience:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_audience
+    bundle_key: vid
+    bundle: h_target_audience_group
+  field_h_content_owner:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_content_owner
+    bundle_key: vid
+    bundle: h_content_owner
+  field_h_subject:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_subject
+    bundle_key: vid
+    bundle: h_subject
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: 'entity:node'
+  default_bundle: h_publication
+migration_dependencies:
+  required:
+    - sample_taxonomy_audience
+    - sample_taxonomy_colour
+    - sample_taxonomy_contact_type
+    - sample_taxonomy_content_owner
+    - sample_taxonomy_country
+    - sample_taxonomy_language
+    - sample_taxonomy_publication_type
+    - sample_taxonomy_resource_availability
+    - sample_taxonomy_state
+    - sample_taxonomy_subject
+    - sample_taxonomy_subject_2
+    - sample_taxonomy_subject_3
+    - sample_taxonomy_video_type
+    - sample_taxonomy_media_type
+    - sample_paragraphs_resource_part
+    - sample_media_image

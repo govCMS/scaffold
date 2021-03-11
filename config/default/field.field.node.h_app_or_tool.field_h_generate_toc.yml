@@ -1,0 +1,23 @@
+uuid: 3099d329-4a14-49d4-ab94-6bf0dbe09ef2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_generate_toc
+    - node.type.h_app_or_tool
+id: node.h_app_or_tool.field_h_generate_toc
+field_name: field_h_generate_toc
+entity_type: node
+bundle: h_app_or_tool
+label: 'Generate table of contents'
+description: 'Select a table of contents whenever you have more than two headings on a page.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

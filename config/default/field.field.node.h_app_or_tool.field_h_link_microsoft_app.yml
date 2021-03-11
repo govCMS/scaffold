@@ -1,0 +1,23 @@
+uuid: e462930c-2f2b-496c-8b1c-966851cf5edb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_link_microsoft_app
+    - node.type.h_app_or_tool
+  module:
+    - link
+id: node.h_app_or_tool.field_h_link_microsoft_app
+field_name: field_h_link_microsoft_app
+entity_type: node
+bundle: h_app_or_tool
+label: 'App link (Microsoft store)'
+description: 'If available, enter the URL link to the app or tool on the Microsoft app store.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

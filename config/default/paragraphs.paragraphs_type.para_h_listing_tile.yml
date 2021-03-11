@@ -1,0 +1,10 @@
+uuid: b9cd67ba-9d1c-492f-8bca-7a97d501848c
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_listing_tile
+label: 'Listing - Tile'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

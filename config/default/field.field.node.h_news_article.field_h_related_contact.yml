@@ -1,0 +1,28 @@
+uuid: e3d8a025-c06f-4e3c-aa37-a36c99ff765f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_related_contact
+    - node.type.h_contact
+    - node.type.h_news_article
+id: node.h_news_article.field_h_related_contact
+field_name: field_h_related_contact
+entity_type: node
+bundle: h_news_article
+label: 'Related contact'
+description: 'Select the point of contact for this news item (National Sports Tribunal by default).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      h_contact: h_contact
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

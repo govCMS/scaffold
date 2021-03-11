@@ -1,0 +1,23 @@
+uuid: 7c9ba670-7d6c-452e-acbc-a7875dab1261
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_heading_hide
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+id: paragraph.para_h_listing_embedded.field_h_heading_hide
+field_name: field_h_heading_hide
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: 'Hide heading'
+description: 'Determines if the listing heading is displayed on the page. If hidden, the heading will still be readable by screen reader technology to ensure good accessibility.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

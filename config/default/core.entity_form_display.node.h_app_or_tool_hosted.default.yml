@@ -1,0 +1,326 @@
+uuid: 9da6b48d-711e-4b4d-9104-d5da9f8ea880
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.h_app_or_tool_hosted.field_h_audience
+    - field.field.node.h_app_or_tool_hosted.field_h_content_components
+    - field.field.node.h_app_or_tool_hosted.field_h_content_grade_level
+    - field.field.node.h_app_or_tool_hosted.field_h_content_long_sentences
+    - field.field.node.h_app_or_tool_hosted.field_h_content_owner
+    - field.field.node.h_app_or_tool_hosted.field_h_content_pass_sentences
+    - field.field.node.h_app_or_tool_hosted.field_h_content_readability
+    - field.field.node.h_app_or_tool_hosted.field_h_date_created
+    - field.field.node.h_app_or_tool_hosted.field_h_date_published
+    - field.field.node.h_app_or_tool_hosted.field_h_date_reviewed
+    - field.field.node.h_app_or_tool_hosted.field_h_date_updated
+    - field.field.node.h_app_or_tool_hosted.field_h_language
+    - field.field.node.h_app_or_tool_hosted.field_h_resource_availability
+    - field.field.node.h_app_or_tool_hosted.field_h_subject
+    - field.field.node.h_app_or_tool_hosted.field_h_summary
+    - node.type.h_app_or_tool_hosted
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - datetime
+    - field_group
+    - paragraphs
+    - path
+third_party_settings:
+  field_group:
+    group_h_tabs:
+      children:
+        - group_h_content
+        - group_h_metadata
+        - group_h_relationship
+        - group_h_dates
+        - group_h_readability
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+      label: h_tabs
+      region: content
+    group_h_content:
+      children:
+        - field_h_summary
+        - field_h_resource_availability
+        - field_h_content_components
+      parent_name: group_h_tabs
+      weight: 20
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: open
+        required_fields: true
+      label: Content
+      region: content
+    group_h_metadata:
+      children:
+        - field_h_language
+        - field_h_audience
+        - field_h_content_owner
+      parent_name: group_h_tabs
+      weight: 21
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Metadata
+      region: content
+    group_h_relationship:
+      children:
+        - field_h_subject
+      parent_name: group_h_tabs
+      weight: 22
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Related
+      region: content
+    group_h_dates:
+      children:
+        - field_h_date_reviewed
+        - group_systemn_
+      parent_name: group_h_tabs
+      weight: 23
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Dates
+      region: content
+    group_h_readability:
+      children:
+        - field_h_content_long_sentences
+        - field_h_content_pass_sentences
+        - field_h_content_grade_level
+        - field_h_content_readability
+      parent_name: group_h_tabs
+      weight: 24
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Readability
+      region: content
+    group_systemn_:
+      children:
+        - field_h_date_created
+        - field_h_date_published
+        - field_h_date_updated
+      parent_name: group_h_dates
+      weight: 18
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'System dates'
+      region: content
+id: node.h_app_or_tool_hosted.default
+targetEntityType: node
+bundle: h_app_or_tool_hosted
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_h_audience:
+    weight: 16
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_content_components:
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_h_content_grade_level:
+    weight: 15
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_long_sentences:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_owner:
+    weight: 17
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_content_pass_sentences:
+    weight: 14
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_readability:
+    weight: 16
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_date_created:
+    weight: 19
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_published:
+    weight: 20
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_reviewed:
+    weight: 17
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_updated:
+    weight: 21
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_language:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_resource_availability:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_h_subject:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_summary:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  langcode:
+    type: language_select
+    weight: 10
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 8
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

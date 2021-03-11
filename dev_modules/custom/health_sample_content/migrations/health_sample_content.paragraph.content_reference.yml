@@ -1,0 +1,61 @@
+id: sample_paragraphs_content_reference
+label: Sample Paragraphs - Content Reference
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_content_reference_1
+      field_h_reference: node_h_contact_1
+    -
+      id: para_h_content_reference_2
+      field_h_reference: node_h_publication_1
+    -
+      id: para_h_content_reference_3
+      field_h_reference: node_h_contact_1
+    -
+      id: para_h_content_reference_4
+      field_h_reference: node_h_publication_1
+    -
+      id: para_h_content_reference_5
+      field_h_reference: node_h_video_1
+    -
+      id: para_h_content_reference_6
+      field_h_reference: node_h_collection_1
+    -
+      id: para_h_content_reference_7
+      field_h_reference: node_h_foi_request_1
+    -
+      id: para_h_content_reference_8
+      field_h_reference: node_h_news_1
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  'field_h_reference/target_id':
+    plugin: migration_lookup
+    migration:
+      - sample_node_collection
+      - sample_node_contact
+      - sample_node_foi_request
+      - sample_node_news
+      - sample_node_publication
+      - sample_node_video
+    source: field_h_reference
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_content_reference
+migration_dependencies:
+  required:
+      - sample_node_collection
+      - sample_node_contact
+      - sample_node_foi_request
+      - sample_node_news
+      - sample_node_publication
+      - sample_node_video

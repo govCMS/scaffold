@@ -1,0 +1,88 @@
+.au-body {
+  // SVG images.
+  fill: $AU-color-foreground-text;
+
+  // BACKGROUND //
+  &.au-body--dark {
+    background: $AU-colordark-background;
+    &-tertiary {
+      background: $colour-primary-blue;
+    }
+  }
+
+  //// SVG images ////
+  &.au-body--dark {
+    fill: $AU-colordark-foreground-text;
+  }
+
+  // Minor text.
+  .text--minor,
+  %minor-text {
+    color: $colour-minorText;
+    font-size: 0.8em;
+  }
+
+  // Right align text.
+  .text--align-right {
+    text-align: right;
+  }
+  .text--align-center {
+    text-align: center;
+  }
+
+  // Introduction text.
+  .au-introduction {
+    @include health-fontgrid( lg , default, light);
+    color: $colour-minorText;
+
+    &--dark {
+      color: $AU-color-foreground-text;
+    }
+  }
+
+  //// Abbreviations ////
+  abbr, abbr[title], .definition {
+    border-bottom: 1px dotted #CCC !important;
+    text-decoration: none !important;
+    cursor: help;
+  }
+
+  // Create class for screen reader only.
+  .au-sronly {
+    @include AU-sronly();
+  }
+
+  // The standard margin top used for uikit.
+  %standard-gap,
+  .standard-gap {
+    @include AU-space(margin-top, 1.5unit);
+    &--mobile-only {
+      @include AU-space(margin-top, 1.5unit);
+      @include AU-media(sm) {
+        margin-top: 0;
+      }
+    }
+    &--bottom {
+      @include AU-space(margin-bottom, 1.5unit);
+    }
+  }
+
+  // Hide fields when printing.
+  .print--hide {
+    @media print {
+      display: none;
+    }
+  }
+
+  @media print {
+    a[href]:after {
+      content: '' !important;
+    }
+  }
+
+  // IE 11.
+  main, aside {
+    display: block;
+  }
+
+}

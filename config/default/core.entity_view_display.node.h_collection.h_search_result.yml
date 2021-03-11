@@ -1,0 +1,101 @@
+uuid: f8bdb817-0622-4598-9c26-3deb8bf82fd9
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.h_search_result
+    - field.field.node.h_collection.field_h_audience
+    - field.field.node.h_collection.field_h_collection_grouping
+    - field.field.node.h_collection.field_h_content_grade_level
+    - field.field.node.h_collection.field_h_content_long_sentences
+    - field.field.node.h_collection.field_h_content_owner
+    - field.field.node.h_collection.field_h_content_pass_sentences
+    - field.field.node.h_collection.field_h_content_readability
+    - field.field.node.h_collection.field_h_date_published
+    - field.field.node.h_collection.field_h_date_reviewed
+    - field.field.node.h_collection.field_h_date_updated
+    - field.field.node.h_collection.field_h_description
+    - field.field.node.h_collection.field_h_generate_toc
+    - field.field.node.h_collection.field_h_image_featured
+    - field.field.node.h_collection.field_h_language
+    - field.field.node.h_collection.field_h_subject
+    - field.field.node.h_collection.field_h_subject_2
+    - field.field.node.h_collection.field_h_subject_3
+    - field.field.node.h_collection.field_h_summary
+    - node.type.h_collection
+  module:
+    - datetime
+    - ds
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: true
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      content:
+        - node_title
+        - field_h_date_published
+        - field_h_summary
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 0
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          wrapper: h2
+          class: 'au-display-md health-search-result__link-title'
+id: node.h_collection.h_search_result
+targetEntityType: node
+bundle: h_collection
+mode: h_search_result
+content:
+  field_h_date_published:
+    type: datetime_default
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: h_day_month_year
+    third_party_settings: {  }
+  field_h_summary:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden:
+  content_moderation_control: true
+  field_h_audience: true
+  field_h_collection_grouping: true
+  field_h_content_grade_level: true
+  field_h_content_long_sentences: true
+  field_h_content_owner: true
+  field_h_content_pass_sentences: true
+  field_h_content_readability: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_description: true
+  field_h_generate_toc: true
+  field_h_image_featured: true
+  field_h_language: true
+  field_h_subject: true
+  field_h_subject_2: true
+  field_h_subject_3: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

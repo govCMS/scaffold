@@ -1,0 +1,32 @@
+uuid: c198c295-0fa9-4e67-b57b-93151a600669
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_reference_publication
+    - node.type.h_collection
+    - node.type.h_publication
+    - node.type.h_video
+    - paragraphs.paragraphs_type.para_h_publication_grouping
+id: paragraph.para_h_publication_grouping.field_h_reference_publication
+field_name: field_h_reference_publication
+entity_type: paragraph
+bundle: para_h_publication_grouping
+label: Resources
+description: 'Add resources to this collection group.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      h_collection: h_collection
+      h_publication: h_publication
+      h_video: h_video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: h_publication
+field_type: entity_reference

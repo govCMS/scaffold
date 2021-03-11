@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Spell suggestion template.
+ *
+ * Available variables:
+ * - spell: An array of spell information.
+ */
+#}
+{% if spell %}
+ <p class="au-display-md--text">Did you mean
+  {% for suggestion in spell %}
+    <a href='?{{ suggestion.url }}'>{{ suggestion.text }}</a>?
+  {% endfor %}
+</p>
+{% endif %}

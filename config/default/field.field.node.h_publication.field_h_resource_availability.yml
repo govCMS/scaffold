@@ -1,0 +1,33 @@
+uuid: c9b9fe50-4df1-4cd4-a58a-0c36199aad99
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_resource_availability
+    - node.type.h_publication
+    - taxonomy.vocabulary.h_resource_availability
+  content:
+    - 'taxonomy_term:h_resource_availability:8753969e-3070-43d9-8455-a83736ad7278'
+id: node.h_publication.field_h_resource_availability
+field_name: field_h_resource_availability
+entity_type: node
+bundle: h_publication
+label: 'Resource availability'
+description: 'Select ''orderable'' if this resource can also be ordered (availability is online by default).'
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 8753969e-3070-43d9-8455-a83736ad7278
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_resource_availability: h_resource_availability
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

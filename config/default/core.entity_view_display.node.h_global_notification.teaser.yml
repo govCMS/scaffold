@@ -1,0 +1,36 @@
+uuid: a0f99f1b-7587-4276-b7e9-cca689ef9df8
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.h_global_notification.field_h_date_created
+    - field.field.node.h_global_notification.field_h_date_published
+    - field.field.node.h_global_notification.field_h_date_reviewed
+    - field.field.node.h_global_notification.field_h_date_updated
+    - field.field.node.h_global_notification.field_h_description
+    - field.field.node.h_global_notification.field_h_display_date
+    - field.field.node.h_global_notification.field_h_notification_type
+    - node.type.h_global_notification
+  module:
+    - user
+id: node.h_global_notification.teaser
+targetEntityType: node
+bundle: h_global_notification
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_description: true
+  field_h_display_date: true
+  field_h_notification_type: true
+  langcode: true
+  search_api_excerpt: true

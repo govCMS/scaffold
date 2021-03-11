@@ -1,0 +1,14 @@
+uuid: 0ddc0c79-3e7a-463f-bc1e-82789d211446
+name: 'Australian Government National Sports Tribunal'
+mail: admin@example.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /star-wars-trilogy
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI

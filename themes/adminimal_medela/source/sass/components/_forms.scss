@@ -1,0 +1,14 @@
+.layout-column-widths-custom {
+
+  .fieldset-wrapper {
+    display: flex;
+
+    > * {
+      flex: 0 1 33.333%;
+    }
+
+    > *:not(:last-child) {
+      padding-right: 1rem;
+    }
+  }
+}

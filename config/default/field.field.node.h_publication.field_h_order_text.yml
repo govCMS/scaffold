@@ -1,0 +1,21 @@
+uuid: 6fc40f52-2ce3-44c0-ba9b-38e0a169cdad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_order_text
+    - node.type.h_publication
+  module:
+    - text
+id: node.h_publication.field_h_order_text
+field_name: field_h_order_text
+entity_type: node
+bundle: h_publication
+label: 'Order instructions'
+description: 'Enter instructions for how the resource may be ordered.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,21 @@
+uuid: 17c838ba-b00b-4e8d-85e7-9537ab35ced7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_items_per_row
+    - paragraphs.paragraphs_type.para_h_layout_grid
+  module:
+    - options
+id: paragraph.para_h_layout_grid.field_h_items_per_row
+field_name: field_h_items_per_row
+entity_type: paragraph
+bundle: para_h_layout_grid
+label: 'Tiles per row'
+description: 'Select how many tiles you would like to display per row on a desktop display. By default, mobile devices and tablets will display only one tile per row. To change this default, use the Customise grid by device field below.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

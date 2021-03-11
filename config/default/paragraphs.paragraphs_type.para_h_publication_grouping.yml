@@ -1,0 +1,10 @@
+uuid: b32125a5-f560-4d91-ae46-2ac3f54c93af
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_publication_grouping
+label: 'Collection group'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

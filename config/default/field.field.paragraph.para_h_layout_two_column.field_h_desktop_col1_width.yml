@@ -1,0 +1,21 @@
+uuid: 7b1148ff-4a86-4750-be2c-ef0afc2af5e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_desktop_col1_width
+    - paragraphs.paragraphs_type.para_h_layout_two_column
+  module:
+    - options
+id: paragraph.para_h_layout_two_column.field_h_desktop_col1_width
+field_name: field_h_desktop_col1_width
+entity_type: paragraph
+bundle: para_h_layout_two_column
+label: Desktop
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

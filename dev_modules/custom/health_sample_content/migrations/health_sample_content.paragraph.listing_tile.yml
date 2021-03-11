@@ -1,0 +1,43 @@
+id: sample_paragraphs_listing_tile
+label: Sample Paragraphs - Listing Tile
+migration_tags:
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_listing_tile_1
+      field_h_title: Fleet Defenders
+      field_h_summary: |
+        Here are the top picks for the best figthers in the Impirial and Rebel fleets.
+      field_h_content_components:
+        -
+          id: para_h_layout_grid_2
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_content_components:
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_layout_grid
+        source: id
+      target_revision_id: '@target_id'
+  field_h_title: field_h_title
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_listing_tile
+migration_dependencies:
+  required:
+    - sample_paragraphs_layout_grid

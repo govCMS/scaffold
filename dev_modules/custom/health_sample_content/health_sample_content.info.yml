@@ -1,0 +1,13 @@
+name: Health Sample Content
+type: module
+description: Imports sample content using Migrate
+core_version_requirement: ^8
+package: Health
+dependencies:
+  - drupal:file
+  - drupal:link
+  - drupal:path
+  - migrate:migrate
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - paragraphs:paragraphs

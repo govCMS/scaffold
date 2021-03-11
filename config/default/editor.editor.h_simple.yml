@@ -1,0 +1,39 @@
+uuid: 5339b0e8-cbd5-41f5-8109-5c9dd9857f82
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.h_simple
+  module:
+    - ckeditor
+format: h_simple
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: Tools
+          items:
+            - Source
+  plugins:
+    stylescombo:
+      styles: ''
+    drupallink:
+      linkit_enabled: true
+      linkit_profile: h_wysiwyg
+    language:
+      language_list: un
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

@@ -1,0 +1,168 @@
+id: sample_paragraphs_band
+label: Sample Paragraphs - Band
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_band_1
+      field_h_colour_background: white
+      field_h_content_components:
+        -
+          id: para_h_listing_tile_1
+    -
+      id: para_h_band_2
+      field_h_title: Star Wars sequel trilogy
+      field_h_colour_background: teal
+      field_h_content_components:
+        -
+          id: para_h_layout_three_column_1
+    -
+      id: para_h_band_3
+      field_h_colour_background: neutral 1
+      field_h_content_components:
+        -
+          id: para_h_content_featured_1
+    -
+      id: para_h_band_4
+      field_h_title: A New Hope
+      field_h_colour_background: primary
+      field_h_content_components:
+        -
+          id: para_h_content_text_2
+    -
+      id: para_h_band_5
+      field_h_colour_background: neutral 1
+      field_h_content_components:
+        -
+          id: para_h_content_text_6
+    -
+      id: para_h_band_6
+      field_h_colour_background: white
+      field_h_content_components:
+        -
+          id: para_h_layout_two_column_1
+    -
+      id: para_h_band_7
+      field_h_colour_background: white
+      field_h_content_components:
+        -
+          id: para_h_layout_two_column_2
+    -
+      id: para_h_band_8
+      field_h_colour_background: teal
+      field_h_content_components:
+        -
+          id: para_h_content_featured_2
+    -
+      id: para_h_band_9
+      field_h_colour_background: neutral 1
+      field_h_content_components:
+        -
+          id: para_h_content_featured_3
+    -
+      id: para_h_band_10
+      field_h_colour_background: primary
+      field_h_content_components:
+        -
+          id: para_h_content_featured_4
+    -
+      id: para_h_band_11
+      field_h_colour_background: white
+      field_h_content_components:
+        -
+          id: para_h_content_featured_5
+    -
+      id: para_h_band_12
+      field_h_colour_background: teal
+      field_h_content_components:
+        -
+          id: para_h_content_featured_6
+    -
+      id: para_h_band_13
+      field_h_colour_background: neutral 1
+      field_h_content_components:
+        -
+          id: para_h_content_featured_7
+    -
+      id: para_h_band_14
+      field_h_colour_background: primary
+      field_h_content_components:
+        -
+          id: para_h_content_featured_8
+    -
+      id: para_h_band_15
+      field_h_colour_background: white
+      field_h_content_components:
+        -
+          id: para_h_content_featured_9
+    -
+      id: para_h_band_16
+      field_h_colour_background: teal
+      field_h_content_components:
+        -
+          id: para_h_content_featured_10
+    -
+      id: para_h_band_17
+      field_h_colour_background: neutral 1
+      field_h_content_components:
+        -
+          id: para_h_content_featured_11
+    -
+      id: para_h_band_18
+      field_h_colour_background: teal
+      field_h_content_components:
+        -
+          id: para_h_layout_two_column_3
+    -
+      id: para_h_band_19
+      field_h_colour_background: neutral 1
+      field_h_content_components:
+        -
+          id: para_h_layout_two_column_4
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_title:
+    plugin: default_value
+    source: field_h_title
+    default_value: ""
+  field_h_colour_background:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_colour_background
+    bundle_key: vid
+    bundle: h_colour
+  field_h_content_components:
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_content_featured
+          - sample_paragraphs_listing_tile
+          - sample_paragraphs_content_text
+          - sample_paragraphs_layout_two_column
+          - sample_paragraphs_layout_three_column
+        source: id
+      target_revision_id: '@target_id'
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_band
+migration_dependencies:
+  required:
+    - sample_paragraphs_content_featured
+    - sample_paragraphs_content_text
+    - sample_paragraphs_layout_two_column
+    - sample_paragraphs_layout_three_column
+    - sample_taxonomy_colour
+    - sample_paragraphs_listing_tile

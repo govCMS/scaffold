@@ -1,0 +1,24 @@
+uuid: e11249a4-4601-470c-a899-d678308fb151
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.search_results.field_h_summary
+    - node.type.search_results
+  module:
+    - user
+id: node.search_results.teaser
+targetEntityType: node
+bundle: search_results
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_h_summary: true
+  langcode: true
+  search_api_excerpt: true

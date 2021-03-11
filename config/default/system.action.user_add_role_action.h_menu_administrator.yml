@@ -1,0 +1,14 @@
+uuid: 6490a66b-0aa6-4499-8169-132507f232cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.h_menu_administrator
+  module:
+    - user
+id: user_add_role_action.h_menu_administrator
+label: 'Add the Menu administrator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: h_menu_administrator

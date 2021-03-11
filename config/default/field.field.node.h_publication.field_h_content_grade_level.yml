@@ -1,0 +1,23 @@
+uuid: 6398996d-07de-4ca7-b871-0ca736dbf319
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_grade_level
+    - node.type.h_publication
+id: node.h_publication.field_h_content_grade_level
+field_name: field_h_content_grade_level
+entity_type: node
+bundle: h_publication
+label: 'Content grade level'
+description: 'Run the description field text through a readability tool. Enter the content grade level.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

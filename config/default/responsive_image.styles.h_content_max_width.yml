@@ -1,0 +1,34 @@
+uuid: 82b35b9f-744c-4780-b636-29af02f6c581
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.h_content_max_width_mobile
+    - image.style.h_content_max_width_no_upscale
+  theme:
+    - health
+id: h_content_max_width
+label: 'Content max width'
+image_style_mappings:
+  -
+    breakpoint_id: health.health.lg
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: h_content_max_width_no_upscale
+  -
+    breakpoint_id: health.health.md
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: h_content_max_width_no_upscale
+  -
+    breakpoint_id: health.health.sm
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: h_content_max_width_no_upscale
+  -
+    breakpoint_id: health.health.xs
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: h_content_max_width_mobile
+breakpoint_group: health.health
+fallback_image_style: h_content_max_width_no_upscale

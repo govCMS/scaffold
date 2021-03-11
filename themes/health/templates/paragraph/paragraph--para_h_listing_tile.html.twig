@@ -1,0 +1,28 @@
+{% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  {% set display_band_intro = title is not empty or summary is not empty ? true : false %}
+
+  {% set layout_classes = display_band_intro ? 'col-xs-12 col-sm-9' : 'col-xs-12' %}
+
+
+  <div class="container health-listing health-listing--tile">
+    <div class="row">
+
+      {% if display_band_intro %}
+        <div class="health-listing__intro health-listing__intro--tile col-xs-12 col-sm-3">
+          <h2>
+            {{ title }}
+          </h2>
+          <p>
+            {{ summary }}
+          </p>
+        </div>
+      {% endif %}
+
+      <div class="health-listing__items health-listing__items--tile {{ layout_classes }}">
+        {{ content.field_h_content_components }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

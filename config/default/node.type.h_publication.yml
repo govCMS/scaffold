@@ -1,0 +1,17 @@
+uuid: a6651abd-720a-4985-9c9d-612ae7e96852
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Publication
+type: h_publication
+description: "Use Publications to publish Departmental documents as downloadable Word, PDF or other files, as a single page of HTML or a link to an external\_publication. "
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,43 @@
+uuid: 81d4e124-174d-4ab2-a21b-9e05766ba97f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_publication_grouping.field_h_reference_publication
+    - field.field.paragraph.para_h_publication_grouping.field_h_summary
+    - field.field.paragraph.para_h_publication_grouping.field_h_title
+    - paragraphs.paragraphs_type.para_h_publication_grouping
+id: paragraph.para_h_publication_grouping.default
+targetEntityType: paragraph
+bundle: para_h_publication_grouping
+mode: default
+content:
+  field_h_reference_publication:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_h_summary:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_h_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true

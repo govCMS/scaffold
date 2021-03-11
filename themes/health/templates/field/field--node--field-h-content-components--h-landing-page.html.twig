@@ -1,0 +1,7 @@
+{% if items %}
+  <div class="health-field health-field--label-hidden">
+    {% for item in items %}
+      <div{{ item.attributes.addClass('health-field__item') }}>{{ item.content }}</div>
+    {% endfor %}
+  </div>
+{% endif %}

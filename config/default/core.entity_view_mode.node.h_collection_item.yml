@@ -1,0 +1,10 @@
+uuid: f6acff25-a490-48a9-abd5-7e0549469113
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.h_collection_item
+label: 'Collection item'
+targetEntityType: node
+cache: true

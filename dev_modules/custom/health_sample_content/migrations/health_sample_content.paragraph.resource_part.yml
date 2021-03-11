@@ -1,0 +1,79 @@
+id: sample_paragraphs_resource_part
+label: Sample Paragraphs - Resource Part
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_resource_part_1
+      field_h_resource_file_title: Code of the Sith
+      field_h_resource_file_summary: |
+        The Code of the Sith, also known as Qotsisajak, was a mantra that expressed the core beliefs of the Sith. It was an inversion of the Jedi Code, a set of rules for members of the Jedi Order. It notably taught its followers that it is for the strong to destroy the weak.
+      field_h_files:
+        -
+          id: 1
+        -
+          id: 2
+    -
+      id: para_h_resource_part_2
+      field_h_resource_file_title: Ahch-To
+      field_h_resource_file_summary: |
+        An uncharted world located deep in the galaxy’s Unknown Regions, Ahch-To is the world where the Jedi Order was founded, and its sacred island is the site of the first Jedi Temple. Luke Skywalker discovered the lost world after a long search, and chose it as his place of exile – only to have Rey find her way to his lonely island.
+      field_h_files:
+        -
+          id: 3
+    -
+      id: para_h_resource_part_3
+      field_h_resource_file_title: IG-11
+      field_h_resource_file_summary: |
+        One of a series of dangerous assassin droids largely outlawed in the galaxy, IG-11 is a hired gun programmed to follow Bounty Hunters Guild protocols to the letter. Reliable and durable, IG-11's thin body is built on an armored substrate that can withstand repeated assaults. It is against his programming to be captured, and he has built-in last-ditch fail-safes to prevent that from ever happening.
+      field_h_files:
+        -
+          id: 4
+    -
+      id: para_h_resource_part_4
+      field_h_resource_file_title: Death Star Plans
+      field_h_resource_file_summary: |
+        The plans for the Empire’s ultimate weapon reside in a electromagnetic cartridge in the Structural Engineering node of the Scarif vault’s datatree. The plans contain the Death Star’s entire design history, including the flaw introduced into its reactor system. Stolen by Jyn Erso, they are beamed to the Profundity, copied and hidden in the memory systems of a humble astromech droid.
+      field_h_files:
+        -
+          id: 5
+    -
+      id: para_h_resource_part_5
+      field_h_resource_file_title: Alderaan Cruiser
+      field_h_resource_file_summary: |
+        Both Bail Organa and his adoptive daughter, Princess Leia, used their position in the Senate to benefit their heartfelt causes of freedom and to aid those that desperately needed it in war-weary times.
+      field_h_files:
+        -
+          id: 6
+        -
+          id: 7
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_resource_file_title: field_h_resource_file_title
+  'field_h_resource_file_summary/value': field_h_resource_file_summary
+  'field_h_resource_file_summary/format':
+    plugin: default_value
+    default_value: rich_text
+  field_h_files:
+    plugin: sub_process
+    source: field_h_files
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: sample_media_file
+        source: id
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_resource_part
+migration_dependencies:
+  required:
+    - sample_media_file

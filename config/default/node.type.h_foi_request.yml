@@ -1,0 +1,17 @@
+uuid: ccfdda8e-795e-4507-995d-a78cb6ea58ff
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'FOI request'
+type: h_foi_request
+description: 'Use FOI request to publish a disclosed Freedom of Information request and decision as part of the FOI log.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

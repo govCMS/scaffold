@@ -1,0 +1,17 @@
+{% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  {% if facets %}
+  <div class="row standard-gap--after">
+    <div class="col-sm-4 col-md-3">
+      {% include "@health/custom/health-filter.html.twig" %}
+      {{ facets }}
+    </div>
+    <div class="col-sm-8 col-md-9">
+      {{ view }}
+    </div>
+  </div>
+  {% else %}
+    {{ view }}
+  {% endif %}
+{% endblock %}

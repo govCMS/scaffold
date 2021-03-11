@@ -1,0 +1,8 @@
+uuid: 91e382f1-6c64-4f05-8873-5ee54f4cc120
+langcode: en
+status: true
+dependencies: {  }
+name: State
+vid: h_state
+description: 'Australia state and territory names including abbreviations.'
+weight: 0

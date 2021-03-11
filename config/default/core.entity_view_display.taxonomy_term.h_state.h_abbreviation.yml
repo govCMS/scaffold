@@ -1,0 +1,33 @@
+uuid: 6db818ab-dfc4-46ec-a3fe-0acbe942a9bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.h_abbreviation
+    - field.field.taxonomy_term.h_state.field_h_abbreviation
+    - taxonomy.vocabulary.h_state
+  module:
+    - panelizer
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: taxonomy_term.h_state.h_abbreviation
+targetEntityType: taxonomy_term
+bundle: h_state
+mode: h_abbreviation
+content:
+  field_h_abbreviation:
+    type: string
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  description: true
+  langcode: true
+  search_api_excerpt: true

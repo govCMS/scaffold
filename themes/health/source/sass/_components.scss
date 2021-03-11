@@ -1,0 +1,14 @@
+// HDS - DTA Design System.
+@import '../../health_design_system/source/vendor/gov.au/design-system';
+
+// HDS - Utilities, functions and mixins.
+@import '../../health_design_system/source/sass/abstracts/abstracts';
+
+// HDS - Resets.
+@import '../../health_design_system/source/sass/base/normalize';
+
+// HDS - Components.
+@import '../../health_design_system/source/sass/components/components';
+
+// Health - Customisations.
+@import './components/components';

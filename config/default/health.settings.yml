@@ -1,0 +1,33 @@
+features:
+  node_user_picture: true
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: 1
+logo:
+  use_default: 1
+favicon:
+  use_default: 0
+  path: profiles/contrib/govcms/favicon.ico
+  mimetype: image/vnd.microsoft.icon
+health_full_width_layout:
+  h_landing_page: h_landing_page
+  search_results: 0
+  h_app_or_tool: 0
+  h_app_or_tool_hosted: 0
+  h_contact: 0
+  h_decision: 0
+  h_departmental_media: 0
+  h_listing: 0
+  h_news_article: 0
+  h_publication: 0
+  h_standard_page: 0
+  h_video: 0
+health_google_maps_client: ''
+health_gtm_id: ''
+health_old_health_website_url: 'https://www1.health.gov.au'
+health_funnelback_enable: 0
+health_funnelback_url: 'https://doh-search.clients.funnelback.com'
+health_funnelback_collection: health-meta
+health_funnelback_profile: _default
+health_funnelback_results_url: /search/results
+health_funnelback_view_mode: search_result

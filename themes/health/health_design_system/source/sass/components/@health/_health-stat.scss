@@ -1,0 +1,65 @@
+// @todo: Refactor to .health-stat
+
+.stat {
+  @include AU-space('margin', 1.5unit 0 2unit);
+  @include AU-media('sm') {
+    border-right: 1px dotted $colour-primary-teal-text;
+    &:last-of-type {
+      border-right: none;
+    }
+  }
+}
+
+// Statistic text.
+.stat__text {
+  //@include health-fontgrid('md', 'default', 'light');
+  @include AU-space('padding', 0 0 .25unit 0);
+  @include AU-media('md') {
+    @include AU-space('padding-bottom', 1unit);
+  }
+}
+
+// The trend.
+.stat__trend {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.stat__trend-value {
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+
+.stat__trend-icon {
+  margin-right: 5px;
+  color: white;
+  &:before {
+    @include AU-space('margin-top', -1unit);
+  }
+}
+
+// Source text
+.stat__source {
+  @include AU-space('margin-bottom', .5unit);
+  margin-top: 0 !important;
+}
+
+// Variation with no trend.
+.stat--no-trend {
+  .stat__value {
+    border-bottom: 0;
+  }
+  .stat__trend {
+    display: none;
+  }
+}
+
+// UIKit overrides.
+.au-body {
+  .stat {
+    p {
+      margin-top: 0;
+    }
+  }
+}

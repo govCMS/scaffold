@@ -1,0 +1,19 @@
+.health-pager {
+
+  text-align: center;
+  @include AU-space(margin-top, 1unit);
+
+  li {
+    @include AU-space('padding', 0 .25unit);
+
+    &.active {
+      font-weight: bold;
+    }
+  }
+
+  @at-root .health-listing + & {
+    margin-top: 0;
+    @include AU-space(padding-top, 2unit);
+    border-top: none;
+  }
+}

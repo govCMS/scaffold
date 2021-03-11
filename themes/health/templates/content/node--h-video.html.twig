@@ -1,0 +1,38 @@
+{% extends "@health/content/includes/node-content-only.html.twig" %}
+
+{% set nid = node.id %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      {% block column_left %}
+
+        {%
+          include "@health/custom/health-video-default.html.twig" with {
+            "youtube_id": content.field_h_video_youtubeid,
+            "cover_image": content.field_h_image_featured,
+            "duration": content.field_h_duration
+          }
+        %}
+
+        {%
+          include "@health/custom/health-accordion-default.html.twig" with {
+            "title": "Transcript"|t,
+            "content": content.field_h_resource_transcript,
+            "id": nid
+          }
+        %}
+
+      {% endblock %}
+    </div>
+    <div class="col-sm-4 standard-gap--mobile-only">
+      {% block column_right %}
+
+        {{ content|without("field_h_video_youtubeid", "field_h_duration", "field_h_resource_transcript", "field_h_image_featured", 'field_h_date_updated', 'field_h_subject') }}
+
+      {% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}

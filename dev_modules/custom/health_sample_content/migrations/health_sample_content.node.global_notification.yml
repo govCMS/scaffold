@@ -1,0 +1,120 @@
+id: sample_node_global_notification
+label: Sample Nodes - Global Notification
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: node_h_global_notification_1
+      title: King of the Aquarium
+      field_h_notification_type: h_notification_type_1
+      field_h_description: |
+        Discus are members of the Family Cichlidae and are sometimes referred to as “King of the Aquarium” because of their majestic beauty and regal colors.
+      field_h_display_date: '0'
+      field_h_date_created: 04-05-2019
+      field_h_date_published: 04-05-2019
+      field_h_date_reviewed: 04-05-2019
+      field_h_date_updated: 04-05-2019
+      status: '1'
+    -
+      id: node_h_global_notification_2
+      title: Clownfish
+      field_h_notification_type: h_notification_type_2
+      field_h_description: |
+        Small and colourful, these famous fishes have one of the most interesting symbiotic relationships.
+      field_h_display_date: '0'
+      field_h_date_created: 04-05-2019
+      field_h_date_published: 04-05-2019
+      field_h_date_reviewed: 04-05-2019
+      field_h_date_updated: 05-05-2019
+      status: '1'
+    -
+      id: node_h_global_notification_3
+      title: Openning crawl
+      field_h_notification_type: h_notification_type_3
+      field_h_description: |
+        <p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.</p>
+        <p>During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet.</p>
+      field_h_display_date: '0'
+      field_h_date_created: 04-05-2019
+      field_h_date_published: 04-05-2019
+      field_h_date_reviewed: 04-05-2019
+      field_h_date_updated: 06-05-2019
+      status: '1'
+  ids:
+    id:
+      type: string
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "und"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: '1'
+  'field_h_description/value': field_h_description
+  'field_h_description/format':
+    plugin: default_value
+    default_value: rich_text
+  field_h_notification_type:
+    plugin: migration_lookup
+    migration:
+      - sample_taxonomy_notification_type
+    source: field_h_notification_type
+  field_h_display_date: field_h_display_date
+  field_h_date_created:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_created
+  field_h_date_published:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_published
+  field_h_date_reviewed:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_reviewed
+  field_h_date_updated:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_updated
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: entity:node
+  default_bundle: h_global_notification
+migration_dependencies:
+  required:
+    - sample_taxonomy_audience
+    - sample_taxonomy_colour
+    - sample_taxonomy_contact_type
+    - sample_taxonomy_content_owner
+    - sample_taxonomy_country
+    - sample_taxonomy_language
+    - sample_taxonomy_notification_type
+    - sample_taxonomy_publication_type
+    - sample_taxonomy_resource_availability
+    - sample_taxonomy_state
+    - sample_taxonomy_subject
+    - sample_taxonomy_subject_2
+    - sample_taxonomy_subject_3
+    - sample_taxonomy_video_type
+    - sample_taxonomy_media_type
+    - sample_media_image
+    - sample_paragraphs_content_text

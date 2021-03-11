@@ -1,0 +1,11 @@
+<div class="health-video rs_preserve">
+  <div class="health-video__preview">
+    <div class="image--border">
+      {{ video }}
+    </div>
+    <div class="health-video__preview__length health-video__preview__length--small">
+      {% include '@health/custom/health-icon.html.twig' with {'name': 'clock', 'category': 'regular'} %}
+      {{ duration }}
+    </div>
+  </div>
+</div>

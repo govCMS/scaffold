@@ -1,0 +1,52 @@
+uuid: 3d021a4b-b0a9-4a1b-b3b8-e78fce42451f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_email_addresses.field_h_email_address
+    - field.field.paragraph.para_h_email_addresses.field_h_label
+    - paragraphs.paragraphs_type.para_h_email_addresses
+  module:
+    - field_group
+third_party_settings:
+  field_group:
+    group_h_email:
+      children:
+        - field_h_label
+        - field_h_email_address
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+        open: false
+      label: Email
+      region: content
+id: paragraph.para_h_email_addresses.default
+targetEntityType: paragraph
+bundle: para_h_email_addresses
+mode: default
+content:
+  field_h_email_address:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+    region: content
+  field_h_label:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

@@ -1,0 +1,21 @@
+uuid: 7d6b22e2-b559-4d9a-8aeb-7caf1e35e303
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_h_abbreviation
+field_name: field_h_abbreviation
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

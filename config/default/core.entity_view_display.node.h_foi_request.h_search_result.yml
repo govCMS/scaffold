@@ -1,0 +1,92 @@
+uuid: ec298e29-f980-485f-a713-7f015d5269bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.h_search_result
+    - field.field.node.h_foi_request.field_h_audience
+    - field.field.node.h_foi_request.field_h_content_grade_level
+    - field.field.node.h_foi_request.field_h_content_long_sentences
+    - field.field.node.h_foi_request.field_h_content_owner
+    - field.field.node.h_foi_request.field_h_content_pass_sentences
+    - field.field.node.h_foi_request.field_h_content_readability
+    - field.field.node.h_foi_request.field_h_date_published
+    - field.field.node.h_foi_request.field_h_date_reviewed
+    - field.field.node.h_foi_request.field_h_date_updated
+    - field.field.node.h_foi_request.field_h_description
+    - field.field.node.h_foi_request.field_h_foi_number
+    - field.field.node.h_foi_request.field_h_language
+    - field.field.node.h_foi_request.field_h_publication_type
+    - field.field.node.h_foi_request.field_h_resource_date
+    - field.field.node.h_foi_request.field_h_resource_parts
+    - field.field.node.h_foi_request.field_h_subject
+    - field.field.node.h_foi_request.field_h_subject_2
+    - field.field.node.h_foi_request.field_h_subject_3
+    - field.field.node.h_foi_request.field_h_summary
+    - node.type.h_foi_request
+  module:
+    - ds
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: true
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      content:
+        - node_title
+        - field_h_summary
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 0
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          wrapper: h2
+          class: 'au-display-md health-search-result__link-title'
+id: node.h_foi_request.h_search_result
+targetEntityType: node
+bundle: h_foi_request
+mode: h_search_result
+content:
+  field_h_summary:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden:
+  field_h_audience: true
+  field_h_content_grade_level: true
+  field_h_content_long_sentences: true
+  field_h_content_owner: true
+  field_h_content_pass_sentences: true
+  field_h_content_readability: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_description: true
+  field_h_foi_number: true
+  field_h_language: true
+  field_h_publication_type: true
+  field_h_resource_date: true
+  field_h_resource_parts: true
+  field_h_subject: true
+  field_h_subject_2: true
+  field_h_subject_3: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

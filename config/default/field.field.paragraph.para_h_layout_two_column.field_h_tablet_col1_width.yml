@@ -1,0 +1,21 @@
+uuid: eea4ef47-57e1-4fe8-8c5b-3b18eda74ee6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_tablet_col1_width
+    - paragraphs.paragraphs_type.para_h_layout_two_column
+  module:
+    - options
+id: paragraph.para_h_layout_two_column.field_h_tablet_col1_width
+field_name: field_h_tablet_col1_width
+entity_type: paragraph
+bundle: para_h_layout_two_column
+label: Tablet
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

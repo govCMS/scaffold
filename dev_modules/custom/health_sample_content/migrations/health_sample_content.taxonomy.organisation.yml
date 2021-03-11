@@ -1,0 +1,23 @@
+id: sample_taxonomy_organisation
+label: Sample Taxomony Terms - Organisation
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: Galactic Empire
+    -
+      name: Rebel Alliance
+  ids:
+    name:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_organisation

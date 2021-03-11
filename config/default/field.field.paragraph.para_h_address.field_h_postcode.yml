@@ -1,0 +1,19 @@
+uuid: 972ba7eb-4186-4794-8913-2e0f5246b218
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_postcode
+    - paragraphs.paragraphs_type.para_h_address
+id: paragraph.para_h_address.field_h_postcode
+field_name: field_h_postcode
+entity_type: paragraph
+bundle: para_h_address
+label: Postcode
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

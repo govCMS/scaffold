@@ -1,0 +1,19 @@
+uuid: 7a536165-5eb7-4f76-b47e-9480769910ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_h_colour_hex
+    - taxonomy.vocabulary.h_colour
+id: taxonomy_term.h_colour.field_h_colour_hex
+field_name: field_h_colour_hex
+entity_type: taxonomy_term
+bundle: h_colour
+label: 'Colour hexadecimal code'
+description: 'Enter the colour''s hexadecimal code (e.g. <strong>#FFFFFF</strong>)'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

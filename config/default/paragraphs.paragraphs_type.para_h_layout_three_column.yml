@@ -1,0 +1,10 @@
+uuid: f44a981a-fcb7-4f94-bb29-02d64670dcc5
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_layout_three_column
+label: 'Layout - three column'
+icon_uuid: null
+icon_default: null
+description: 'Create layout containing three regions which are displayed as columns. Components can be added to each of three regions.'
+behavior_plugins: {  }

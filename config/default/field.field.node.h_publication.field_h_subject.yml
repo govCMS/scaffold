@@ -1,0 +1,29 @@
+uuid: db945326-5f6f-48fe-a1db-b2948af98a5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_subject
+    - node.type.h_publication
+    - taxonomy.vocabulary.h_subject
+id: node.h_publication.field_h_subject
+field_name: field_h_subject
+entity_type: node
+bundle: h_publication
+label: 'Related subjects'
+description: 'Select up to 3 related subjects. This will help users find related content on the site and filter search results.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_subject: h_subject
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

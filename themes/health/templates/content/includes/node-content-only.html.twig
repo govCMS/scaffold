@@ -1,0 +1,17 @@
+{#
+/**
+ * Provides template for content only nodes.
+ *
+ * Extends node.html.twig template to remove default node title and authoring
+ * information normally present in standard node template.
+ */
+#}
+{% extends "@health/content/node.html.twig" %}
+
+{% block default_node_title %}
+  {# No default title. #}
+{% endblock %}
+
+{% block author_info %}
+  {# No author information. #}
+{% endblock %}

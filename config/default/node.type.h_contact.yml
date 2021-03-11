@@ -1,0 +1,17 @@
+uuid: 7490b317-2b01-40ad-afc3-428890d59101
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Contact
+type: h_contact
+description: 'Capture contact information for an individual, committee, Departmental service or program, or other organisation or agency.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

@@ -1,0 +1,19 @@
+uuid: 367c46f1-74f3-4b54-b714-958f1d57e930
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_summary
+    - node.type.h_collection
+id: node.h_collection.field_h_summary
+field_name: field_h_summary
+entity_type: node
+bundle: h_collection
+label: Summary
+description: 'Sum up the collection''s purpose or subject in 200 characters or less. Use terms the audience will be looking for to ensure good SEO.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,19 @@
+uuid: bf1daa60-a0ef-489a-88c4-f6ac9328389f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_summary
+    - node.type.h_app_or_tool_hosted
+id: node.h_app_or_tool_hosted.field_h_summary
+field_name: field_h_summary
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: Summary
+description: 'Summarise this app or tool in 300 characters or less.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,11 @@
+uuid: 5eaca24e-9622-4f2a-a575-5d326cadb66a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.h_app_or_tool_hosted
+id: node.h_app_or_tool_hosted
+target_entity_type_id: node
+target_bundle: h_app_or_tool_hosted
+default_langcode: site_default
+language_alterable: false

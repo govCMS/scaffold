@@ -1,0 +1,23 @@
+uuid: 4c2177df-5ecf-4be2-bfc5-da27d5b581fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_link_apple_app
+    - node.type.h_app_or_tool
+  module:
+    - link
+id: node.h_app_or_tool.field_h_link_apple_app
+field_name: field_h_link_apple_app
+entity_type: node
+bundle: h_app_or_tool
+label: 'App link (Apple Store)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

@@ -1,0 +1,21 @@
+uuid: 3ac1a553-bfdf-4ea1-9fce-92bdaf7312de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_sort_options_exposed
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+  module:
+    - options
+id: paragraph.para_h_listing_embedded.field_h_sort_options_exposed
+field_name: field_h_sort_options_exposed
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: 'Sort order'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

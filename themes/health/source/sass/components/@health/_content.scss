@@ -1,0 +1,11 @@
+.health-content {
+  @include AU-space('margin-top', 2unit);
+  @include AU-media('sm'){
+      @include AU-space('margin-top', 2.5unit);
+  }
+
+  &--flush {
+    @include AU-space('margin-top', 0unit);
+  }
+
+}

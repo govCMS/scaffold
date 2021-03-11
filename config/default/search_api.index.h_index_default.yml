@@ -1,0 +1,146 @@
+uuid: 18a4d34a-058c-463a-ae17-233d3890587e
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_solr
+    - node
+    - search_api
+  config:
+    - field.storage.node.field_h_summary
+    - search_api.server.lagoon_solr
+    - core.entity_view_mode.node.search_index
+third_party_settings:
+  search_api_solr:
+    finalize: false
+    commit_before_finalize: false
+    commit_after_finalize: false
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
+    highlighter:
+      maxAnalyzedChars: 51200
+      fragmenter: gap
+      regex:
+        slop: 0.5
+        pattern: blank
+        maxAnalyzedChars: 10000
+      usePhraseHighlighter: true
+      highlightMultiTerm: true
+      preserveMulti: false
+      highlight:
+        mergeContiguous: false
+        requireFieldMatch: false
+        snippets: 3
+        fragsize: 0
+    mlt:
+      mintf: 1
+      mindf: 1
+      maxdf: 0
+      maxdfpct: 0
+      minwl: 0
+      maxwl: 0
+      maxqt: 100
+      maxntp: 2000
+      boost: false
+      interestingTerms: none
+    advanced:
+      index_prefix: ''
+      collection: ''
+      timezone: ''
+id: h_index_default
+name: 'Site default index'
+description: 'Default Solr index for site. This is the primary search index for the site.'
+read_only: false
+field_settings:
+  field_h_summary:
+    label: Summary
+    datasource_id: 'entity:node'
+    property_path: field_h_summary
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_h_summary
+  nid:
+    label: ID
+    datasource_id: 'entity:node'
+    property_path: nid
+    type: integer
+    dependencies:
+      module:
+        - node
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          h_app_or_tool: search_index
+          h_app_or_tool_hosted: search_index
+          h_collection: search_index
+          h_contact: search_index
+          h_foi_request: search_index
+          h_landing_page: search_index
+          h_listing: search_index
+          h_news_article: search_index
+          h_publication: search_index
+          h_standard_page: search_index
+          h_video: search_index
+          search_results: ''
+  status:
+    label: Published
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    dependencies:
+      module:
+        - node
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    dependencies:
+      module:
+        - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - node
+  uid:
+    label: 'Authored by'
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: true
+      selected:
+        - h_global_notification
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+  solr_date_range: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: lagoon_solr

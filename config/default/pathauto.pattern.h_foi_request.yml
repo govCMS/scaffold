@@ -1,0 +1,22 @@
+uuid: a36a3f34-f4af-4ec3-b4be-b024d4a84d91
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: h_foi_request
+label: 'FOI request'
+type: 'canonical_entities:node'
+pattern: 'foi/[node:title]'
+selection_criteria:
+  75905754-3438-435c-8ca8-8f83891eda11:
+    id: node_type
+    bundles:
+      h_foi_request: h_foi_request
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 75905754-3438-435c-8ca8-8f83891eda11
+selection_logic: and
+weight: -5
+relationships: {  }

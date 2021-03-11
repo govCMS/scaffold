@@ -1,0 +1,19 @@
+uuid: 0533dec3-086a-49b9-bab5-dc87918df1c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_label
+    - paragraphs.paragraphs_type.para_h_content_featured
+id: paragraph.para_h_content_featured.field_h_label
+field_name: field_h_label
+entity_type: paragraph
+bundle: para_h_content_featured
+label: 'Link text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,29 @@
+uuid: 8f821a5f-130f-4c01-9b7e-7f63e6c59f1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_subject_3
+    - node.type.h_standard_page
+    - taxonomy.vocabulary.h_subject_3
+id: node.h_standard_page.field_h_subject_3
+field_name: field_h_subject_3
+entity_type: node
+bundle: h_standard_page
+label: 'Subject three'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_subject_3: h_subject_3
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

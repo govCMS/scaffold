@@ -1,0 +1,67 @@
+.health-field {
+
+  * + & {
+    @include AU-space(margin-top, 1.5unit);
+  }
+
+  & + * {
+    clear: both;
+  }
+
+  &--label-hidden {
+    * + & {
+      @include AU-space(margin-top, .5unit);
+    }
+  }
+
+  &--inline,
+  &--inline--wide {
+    .health-field__label {
+      @include AU-media(sm) {
+        float: left;
+      }
+    }
+    .health-field__item {
+      display: table;
+    }
+  }
+
+  &--inline {
+    .health-field__label {
+      @include AU-media(sm) {
+        width: 10em;
+      }
+    }
+  }
+
+  &--inline--wide {
+    .health-field__label {
+      @include AU-media(sm) {
+        width: 15em;
+      }
+    }
+  }
+
+  &.health-field--light {
+    .health-field__label {
+      font-weight: normal;
+    }
+  }
+
+  .health-field__label {
+    font-weight: bold;
+  }
+
+  .health-metadata + & {
+    @include AU-space(margin-top, .5unit);
+  }
+}
+
+.health-field__item + .health-field__item {
+  clear: both;
+}
+
+// Special case of multiple addresses in one field.
+.health-maps--google + .health-field__label {
+  @include AU-space(margin-top, 1.5unit);
+}

@@ -1,0 +1,117 @@
+id: sample_paragraphs_tile
+label: Sample Paragraphs - Tile
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_tile_1
+      field_h_image_featured: image_5
+      field_h_link_external_internal: 'https://www.starwars.com/databank/tie-interceptor'
+      field_h_summary: |
+        Faster and better-armed descendents of regular TIE fighters, TIE interceptors defended the second Death Star at the Battle of Endor. The bent-winged fighters swarmed the Rebel fleet in a terrifying display of the Empire's military might.
+      field_h_title: TIE Interceptor
+    -
+      id: para_h_tile_2
+      field_h_image_featured: image_6
+      field_h_link_external_internal: 'https://www.starwars.com/databank/tie-defender'
+      field_h_summary: |
+        The TIE defender is an experimental fighter of the TIE series, armed with heavy cannons and shields, and is equipped with a hyperdrive. A major weapon for the Empire, the TIE defender proves much more difficult to destroy than standard TIE fighters.
+      field_h_title: TIE Defender
+    -
+      id: para_h_tile_3
+      field_h_image_featured: image_7
+      field_h_link_external_internal: 'https://www.starwars.com/databank/a-wing-fighter'
+      field_h_summary: |
+        With its sleek arrowhead shape, streamlined cockpit, and massive twin engines, the A-wing starfighter suggests raw speed even when parked within Alliance hangar bays. Faster than even the TIE interceptor, the A-wing is well suited for lightning strikes.
+      field_h_title: A-wing Fighter
+    -
+      id: para_h_tile_4
+      field_h_image_featured: image_8
+      field_h_link_external_internal: 'https://www.starwars.com/databank/b-wing-fighter'
+      field_h_summary: |
+        Perhaps the oddest-looking starfighter in the Rebel Alliance fleet, the B-wing fighter is as powerful as it is ungainly. The ship's structure is almost entirely taken up by its primary airfoil, which houses a cylindrical cockpit on one end, an engine cluster in the center, and a heavy weapons pod at its base.
+      field_h_title: B-wing Fighter
+    -
+      id: para_h_tile_5
+      field_h_image_featured: image_5
+      field_h_link_external_internal: 'https://www.starwars.com/databank/tie-interceptor'
+      field_h_summary: |
+        Faster and better-armed descendents of regular TIE fighters, TIE interceptors defended the second Death Star at the Battle of Endor. The bent-winged fighters swarmed the Rebel fleet in a terrifying display of the Empire's military might.
+      field_h_title: TIE Interceptor
+    -
+      id: para_h_tile_6
+      field_h_image_featured: image_6
+      field_h_link_external_internal: 'https://www.starwars.com/databank/tie-defender'
+      field_h_summary: |
+        The TIE defender is an experimental fighter of the TIE series, armed with heavy cannons and shields, and is equipped with a hyperdrive. A major weapon for the Empire, the TIE defender proves much more difficult to destroy than standard TIE fighters.
+      field_h_title: TIE Defender
+    -
+      id: para_h_tile_7
+      field_h_image_featured: image_7
+      field_h_link_external_internal: 'https://www.starwars.com/databank/a-wing-fighter'
+      field_h_summary: |
+        With its sleek arrowhead shape, streamlined cockpit, and massive twin engines, the A-wing starfighter suggests raw speed even when parked within Alliance hangar bays. Faster than even the TIE interceptor, the A-wing is well suited for lightning strikes.
+      field_h_title: A-wing Fighter
+    -
+      id: para_h_tile_8
+      field_h_image_featured: image_8
+      field_h_link_external_internal: 'https://www.starwars.com/databank/b-wing-fighter'
+      field_h_summary: |
+        Perhaps the oddest-looking starfighter in the Rebel Alliance fleet, the B-wing fighter is as powerful as it is ungainly. The ship's structure is almost entirely taken up by its primary airfoil, which houses a cylindrical cockpit on one end, an engine cluster in the center, and a heavy weapons pod at its base.
+      field_h_title: B-wing Fighter
+    -
+      id: para_h_tile_9
+      field_h_image_featured: image_5
+      field_h_link_external_internal: 'https://www.starwars.com/databank/tie-interceptor'
+      field_h_summary: |
+        Faster and better-armed descendents of regular TIE fighters, TIE interceptors defended the second Death Star at the Battle of Endor. The bent-winged fighters swarmed the Rebel fleet in a terrifying display of the Empire's military might.
+      field_h_title: TIE Interceptor
+    -
+      id: para_h_tile_10
+      field_h_image_featured: image_6
+      field_h_link_external_internal: 'https://www.starwars.com/databank/tie-defender'
+      field_h_summary: |
+        The TIE defender is an experimental fighter of the TIE series, armed with heavy cannons and shields, and is equipped with a hyperdrive. A major weapon for the Empire, the TIE defender proves much more difficult to destroy than standard TIE fighters.
+      field_h_title: TIE Defender
+    -
+      id: para_h_tile_11
+      field_h_image_featured: image_7
+      field_h_link_external_internal: 'https://www.starwars.com/databank/a-wing-fighter'
+      field_h_summary: |
+        With its sleek arrowhead shape, streamlined cockpit, and massive twin engines, the A-wing starfighter suggests raw speed even when parked within Alliance hangar bays. Faster than even the TIE interceptor, the A-wing is well suited for lightning strikes.
+      field_h_title: A-wing Fighter
+    -
+      id: para_h_tile_12
+      field_h_image_featured: image_8
+      field_h_link_external_internal: 'https://www.starwars.com/databank/b-wing-fighter'
+      field_h_summary: |
+        Perhaps the oddest-looking starfighter in the Rebel Alliance fleet, the B-wing fighter is as powerful as it is ungainly. The ship's structure is almost entirely taken up by its primary airfoil, which houses a cylindrical cockpit on one end, an engine cluster in the center, and a heavy weapons pod at its base.
+      field_h_title: B-wing Fighter
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_image_featured:
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+  'field_h_link_external_internal/uri': field_h_link_external_internal
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_title: field_h_title
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_tile
+migration_dependencies:
+  required:
+    - sample_file_image
+    - sample_media_image

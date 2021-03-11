@@ -1,0 +1,21 @@
+uuid: 41713db3-f51e-46af-b313-dbfa5ba92e88
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_resource_transcript
+    - node.type.h_video
+  module:
+    - text
+id: node.h_video.field_h_resource_transcript
+field_name: field_h_resource_transcript
+entity_type: node
+bundle: h_video
+label: Transcript
+description: 'Enter the transcript text for the video. This is required for accessibility.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

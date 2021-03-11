@@ -1,0 +1,23 @@
+uuid: 49b71c3f-3079-4c94-8685-e9e128423dca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_listing_items_per_page
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+id: paragraph.para_h_listing_embedded.field_h_listing_items_per_page
+field_name: field_h_listing_items_per_page
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: 'Items per page'
+description: "Number of items to display on each page of the listing pagination. \r\nDefault value = 0. This disables pagination so that all items are listed on a single page.\r\nMaximum number of items per page is 100."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 100
+  prefix: ''
+  suffix: ''
+field_type: integer

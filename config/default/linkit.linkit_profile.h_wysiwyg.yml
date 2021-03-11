@@ -1,0 +1,21 @@
+uuid: 54e72d07-dd37-4d0d-80b3-68cc416dc7b5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: h_wysiwyg
+label: WYSIWYG
+description: 'Default WYSIWYG Profile'
+matchers:
+  7cd312cc-4352-4b4e-8c0a-78f4df8ed1fc:
+    uuid: 7cd312cc-4352-4b4e-8c0a-78f4df8ed1fc
+    id: 'entity:node'
+    weight: 0
+    settings:
+      include_unpublished: true
+      metadata: ''
+      bundles: {  }
+      group_by_bundle: true
+      substitution_type: canonical
+      limit: 100

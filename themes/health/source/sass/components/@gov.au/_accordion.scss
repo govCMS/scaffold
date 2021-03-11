@@ -1,0 +1,10 @@
+.au-body--dark {
+
+  .health-video + .au-accordion {
+    background-color: $colour-light;
+
+    .au-accordion__title {
+      color: black;
+    }
+  }
+}

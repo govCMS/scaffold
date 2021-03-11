@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * SVG icon.
+ *
+ * Reads from the Health Design System fontawesome icons.
+ *
+ * @param name
+ *  The name of the icon (eg envelope).
+ * @param category
+ *  The folder name. Defaults to 'solid'.
+ * @param class
+ *  Additional classes on the wrapper span.
+ *
+#}
+
+
+{% apply spaceless %}
+  <span class="svg-inline--fa fa-fw {{ class }}">
+    {% include '@health/../health_design_system/source/icons/fontawesome/all/' ~ category|default('solid') ~ '/' ~ name ~'.svg' %}
+  </span>
+{% endapply %}

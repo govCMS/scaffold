@@ -1,0 +1,21 @@
+uuid: 4f97477c-c8a6-4b3e-bd80-a09ec7808f39
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_h_colour_theme
+    - taxonomy.vocabulary.h_colour
+  module:
+    - options
+id: taxonomy_term.h_colour.field_h_colour_theme
+field_name: field_h_colour_theme
+entity_type: taxonomy_term
+bundle: h_colour
+label: 'Colour theme'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

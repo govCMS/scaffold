@@ -1,0 +1,31 @@
+uuid: 34c771ce-5e44-4b0d-b522-3d7235bd7133
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_telephone_numbers.field_h_label
+    - field.field.paragraph.para_h_telephone_numbers.field_h_telephone_number
+    - paragraphs.paragraphs_type.para_h_telephone_numbers
+id: paragraph.para_h_telephone_numbers.default
+targetEntityType: paragraph
+bundle: para_h_telephone_numbers
+mode: default
+content:
+  field_h_label:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_telephone_number:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,26 @@
+id: sample_paragraphs_telephone
+label: Sample Paragraphs - Telephone
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_telephone_numbers_1
+      field_h_label: Enquiries
+      field_h_telephone_number: '1800 160 401'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_label: field_h_label
+  field_h_telephone_number: field_h_telephone_number
+destination:
+  plugin: entity:paragraph
+  default_bundle: para_h_telephone_numbers
+migration_dependencies: [ ]

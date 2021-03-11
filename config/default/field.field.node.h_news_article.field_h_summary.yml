@@ -1,0 +1,19 @@
+uuid: b9604923-2f39-411b-867a-166f6b2e453b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_summary
+    - node.type.h_news_article
+id: node.h_news_article.field_h_summary
+field_name: field_h_summary
+entity_type: node
+bundle: h_news_article
+label: Summary
+description: 'Summarise this information in 300 characters or less.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

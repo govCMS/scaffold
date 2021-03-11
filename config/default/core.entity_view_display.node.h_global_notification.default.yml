@@ -1,0 +1,98 @@
+uuid: 34fc4efd-7817-42ad-b87f-071e1e2d303b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.h_global_notification.field_h_date_created
+    - field.field.node.h_global_notification.field_h_date_published
+    - field.field.node.h_global_notification.field_h_date_reviewed
+    - field.field.node.h_global_notification.field_h_date_updated
+    - field.field.node.h_global_notification.field_h_description
+    - field.field.node.h_global_notification.field_h_display_date
+    - field.field.node.h_global_notification.field_h_notification_type
+    - node.type.h_global_notification
+  module:
+    - datetime
+    - panelizer
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_global_notification.default
+targetEntityType: node
+bundle: h_global_notification
+mode: default
+content:
+  field_h_date_created:
+    weight: 105
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_published:
+    weight: 103
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_reviewed:
+    weight: 104
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_updated:
+    weight: 106
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_description:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_h_display_date:
+    weight: 101
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_h_notification_type:
+    weight: 107
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  search_api_excerpt: true

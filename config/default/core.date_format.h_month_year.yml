@@ -1,0 +1,8 @@
+uuid: 4e0c692c-8b3a-44fb-a948-f2c7d7c39011
+langcode: en
+status: true
+dependencies: {  }
+id: h_month_year
+label: 'Health - Month Year'
+locked: false
+pattern: 'F Y'

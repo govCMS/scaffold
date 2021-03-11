@@ -1,0 +1,100 @@
+uuid: 1358c45f-48a1-4b4e-9dd7-a888eaebeb7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_content_components
+    - paragraphs.paragraphs_type.para_h_layout_grid
+    - paragraphs.paragraphs_type.para_h_listing_tile
+  module:
+    - entity_reference_revisions
+id: paragraph.para_h_listing_tile.field_h_content_components
+field_name: field_h_content_components
+entity_type: paragraph
+bundle: para_h_listing_tile
+label: Tiles
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_layout_grid: para_h_layout_grid
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: 19
+        enabled: false
+      para_h_band:
+        weight: 26
+        enabled: false
+      para_h_button:
+        weight: 27
+        enabled: false
+      para_h_content_callout:
+        weight: 24
+        enabled: false
+      para_h_content_featured:
+        weight: 29
+        enabled: false
+      para_h_content_html:
+        weight: 25
+        enabled: false
+      para_h_content_iframe:
+        weight: 31
+        enabled: false
+      para_h_content_image:
+        weight: 32
+        enabled: false
+      para_h_content_reference:
+        weight: 33
+        enabled: false
+      para_h_content_table:
+        weight: 26
+        enabled: false
+      para_h_content_text:
+        weight: 27
+        enabled: false
+      para_h_email_addresses:
+        weight: 28
+        enabled: false
+      para_h_fax_numbers:
+        weight: 29
+        enabled: false
+      para_h_form:
+        weight: 38
+        enabled: false
+      para_h_layout_grid:
+        enabled: true
+        weight: 39
+      para_h_layout_three_column:
+        weight: 40
+        enabled: false
+      para_h_layout_two_column:
+        weight: 41
+        enabled: false
+      para_h_listing:
+        weight: 42
+        enabled: false
+      para_h_listing_embedded:
+        weight: 30
+        enabled: false
+      para_h_listing_tile:
+        weight: 31
+        enabled: false
+      para_h_publication_grouping:
+        weight: 45
+        enabled: false
+      para_h_resource_part:
+        weight: 32
+        enabled: false
+      para_h_telephone_numbers:
+        weight: 33
+        enabled: false
+      para_h_tile:
+        weight: 34
+        enabled: false
+field_type: entity_reference_revisions

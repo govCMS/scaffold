@@ -1,0 +1,102 @@
+{#
+/**
+ * @file
+ * Template file for funnelback results.
+ *
+ * Available variables:
+ * - total: The total number of the results.
+ * - summary: Summary block render array.
+ * - query: Search query string.
+ * - breadcrumb: Breadcrumb block render array.
+ * - spell: Spell block render array.
+ * - curator: Curator block render array.
+ * - items: A array of single result render array.
+ * - pager: Pager render array.
+ * - no_result_text: Text string to be displayed when there is no result.
+ */
+#}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-md-3">
+      {{ facets }}
+    </div>
+    <div class="col-sm-8 col-md-9">
+
+    {% if total > 0 %}
+
+      <div class="health-search">
+        <div class="health-search health-search__form">
+          <div class="health-search__form__input-wrapper">
+            <form action="/search/results" method="get">
+              <div class="au-form__item">
+                <label class="sr-only" for="query-inner">Search</label>
+                <input placeholder="Search this website" type="text" id="query-inner" name="query" value="{{ query }}" size="30" maxlength="128" class="health-search__form__input au-text-input au-text-input--block au-text-input au-text-input--block" autocomplete="off">
+              </div>
+              <input class="health-search__form__submit au-btn au-btn button " type="submit" id="query-inner-submit" value="Apply"/>
+            </form>
+          </div>
+        </div>
+        {{ breadcrumb }}
+        {{ curator }}
+        {{ spell }}
+        <ul class="health-listing">
+          {% for item in items %}
+            <li class="health-listing__item">
+              {{ item }}
+            </li>
+          {% endfor %}
+        </ul>
+        {{ pager }}
+      </div>
+
+    {% else %}
+
+      {{ curator }}
+      {{ spell }}
+
+      <h2 class="au-display-lg">No results?</h2>
+
+      <p>We're sorry, we can't seem to find what you were looking for.</p>
+
+      <h2 class="au-display-lg">We suggest you</h2>
+
+      <ul>
+        <li>check the spelling of your search and try again</li>
+        <li>try a similar but different search term</li>
+        <li>shorten your search as it works best with short keywords or descriptions</li>
+      </ul>
+
+      <div class="health-search health-search__form standard-gap">
+        <div class="health-search__form__input-wrapper">
+          <form action="/search/results" method="get">
+            <div class="au-form__item">
+              <label class="sr-only" for="query">Search</label>
+              <input placeholder="Search this website" type="text" id="query" name="query" value="" size="30" maxlength="128" class="health-search__form__input au-text-input au-text-input--block au-text-input au-text-input--block" autocomplete="off">
+            </div>
+            <input class="health-search__form__submit au-btn au-btn button " type="submit" id="edit-submit-h-site-search" value="Apply"/>
+          </form>
+        </div>
+      </div>
+
+      <h2 class="au-display-lg">You can also try browsing our main sections</h2>
+      <ul>
+        <li><a href="/health-topics">Health topics</a></li>
+        <li><a href="/initiatives-and-programs">Initiatives and programs</a></li>
+        <li><a href="/resources">Resources</a></li>
+        <li><a href="/contacts">Contacts</a></li>
+        <li><a href="/about-us">About us</a></li>
+        <li><a href="/ministers">Ministers</a></li>
+        <li><a href="/news">News</a></li>
+      </ul>
+
+
+      <h2 class="au-display-lg">
+        Still can't find what you're looking for?
+      </h2>
+      <p><a href="{{path('entity.node.canonical', {'node': 1})}}" class="au-btn au-btn--secondary">Contact us</a></p>
+
+    {% endif %}
+
+    </div>
+  </div>
+</div>

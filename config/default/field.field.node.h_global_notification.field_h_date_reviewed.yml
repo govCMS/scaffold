@@ -1,0 +1,21 @@
+uuid: 79fd90b4-27d7-4a74-b82b-672088587656
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_reviewed
+    - node.type.h_global_notification
+  module:
+    - datetime
+id: node.h_global_notification.field_h_date_reviewed
+field_name: field_h_date_reviewed
+entity_type: node
+bundle: h_global_notification
+label: 'Date last reviewed'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

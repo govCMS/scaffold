@@ -1,0 +1,29 @@
+uuid: a2238c23-9cb8-40e7-b867-718a0c6f1faa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_subject
+    - node.type.h_app_or_tool
+    - taxonomy.vocabulary.h_subject
+id: node.h_app_or_tool.field_h_subject
+field_name: field_h_subject
+entity_type: node
+bundle: h_app_or_tool
+label: 'Related subjects'
+description: 'Select related subjects from the list. This will help users find related content on the site and filter search results.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_subject: h_subject
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

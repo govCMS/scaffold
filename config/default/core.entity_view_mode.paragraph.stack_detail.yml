@@ -1,0 +1,12 @@
+uuid: fa9fcee8-4558-4fa3-be7d-e71cb1f863f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+_core:
+  default_config_hash: Jz5uYQifyGIhj05sVipobaIvyG8X094D-_nsxQr-Tu4
+id: paragraph.stack_detail
+label: 'Stack Detail'
+targetEntityType: paragraph
+cache: true

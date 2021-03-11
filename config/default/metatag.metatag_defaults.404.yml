@@ -1,0 +1,27 @@
+uuid: ffcd9533-32b1-4e6e-937e-b21ff2243d20
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: puBstSLDz8mbaWU357zaqQDBGMGsJzG0j-TQNQkjg20
+id: '404'
+label: '404 page not found'
+tags:
+  title: '[current-page:title] | [current-page:pager] National Sports Tribunal'
+  canonical_url: '[site:url]'
+  generator: 'Drupal 8 (http://drupal.org) + govCMS (http://govcms.gov.au)'
+  shortlink: '[site:url]'
+  dcterms_identifier: '[site:url]'
+  dcterms_format: text/html
+  dcterms_subject: '[site:slogan]'
+  dcterms_title: 'National Sports Tribunal'
+  dcterms_creator: 'National Sports Tribunal'
+  dcterms_publisher: 'National Sports Tribunal'
+  dcterms_date: '[current-date:custom:Y-m-d\TH:iP]'
+  dcterms_language: en
+  dcterms_description: '[site:slogan]'
+  dcterms_type: other
+  og_title: '[site:name]'
+  og_url: '[site:url]'
+  og_image: '[theme-path]/logo.png'
+  og_site_name: 'National Sports Tribunal'

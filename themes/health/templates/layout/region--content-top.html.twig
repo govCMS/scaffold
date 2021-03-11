@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Theme override to display a region.
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region div.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @see template_preprocess_region()
+ */
+#}
+{% if content %}
+
+  {% if hero %}
+    {{ hero }}
+  {% else %}
+    <div class="health-sub-header {{ modifiers }}">
+      <div class="container">
+        <div class="row rs_skip">
+          <div class="col-xs-12 col-sm-8">
+            {{ breadcrumbs }}
+            {{ page_title }}
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            {{ toolbar }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+{% endif %}

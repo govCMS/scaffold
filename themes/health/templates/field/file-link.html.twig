@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme override for a link to a file.
+ *
+ * Available variables:
+ * - attributes: The HTML attributes for the containing element.
+ * - link: A link to the file.
+ * - file_size: The size of the file.
+ *
+ * @see template_preprocess_file_link()
+ * @see stable_preprocess_image_widget()
+ */
+#}
+
+{% if on_node_page %}
+
+  {% include '@health/custom/health-icon.html.twig' with {'name': icon, 'category': 'regular'} %}
+  <a class="health-file__link" href="{{ file_uri }}">
+    <span class="health-file__link--visible">{{ 'Download'|t }} <span class="sr-only">{{ title ~ ' as'|t }}</span> {{ file_type }}</span> - {{ file_size }}
+  </a>
+
+{% else %}
+
+  <span{{ attributes }}>{{ link }}</span>
+
+{% endif %}

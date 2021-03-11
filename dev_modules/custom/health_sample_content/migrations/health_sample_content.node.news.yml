@@ -1,0 +1,168 @@
+id: sample_node_news
+label: Sample Nodes - News
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: node_h_news_1
+      title: Triple Force Friday Events Are Heading to This Galaxy
+      field_h_summary: |
+        This Friday and throughout the weekend, you will feel the Force.
+      field_h_content_components:
+        -
+          id: para_h_content_text_12
+      field_h_image_featured: image_17
+      field_h_subject: Politics
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_content_owner: Incom
+      field_h_date_created: 04-05-2019
+      field_h_date_published: 04-05-2019
+      field_h_date_reviewed: 04-05-2019
+      field_h_date_updated: 04-05-2019
+      status: '1'
+    -
+      id: node_h_news_2
+      title: Force Friday Event Guide – Updated!
+      field_h_summary: |
+        Celebrate the release of Star Wars: The Force Awakens merchandise with special activities, exclusives, and more!
+      field_h_content_components:
+        -
+          id: para_h_content_text_13
+      field_h_image_featured: image_18
+      field_h_subject: Politics
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_content_owner: Incom
+      field_h_date_created: 06-05-2019
+      field_h_date_published: 06-05-2019
+      field_h_date_reviewed: 06-05-2019
+      field_h_date_updated: 06-05-2019
+      status: '1'
+    -
+      id: node_h_news_3
+      title: Force Friday II Guide to Events, Giveaways, and More!
+      field_h_summary: |
+        Celebrate the launch of Star Wars: The Last Jedi-inspired products!
+      field_h_content_components:
+        -
+          id: para_h_content_text_14
+      field_h_image_featured: image_19
+      field_h_subject: Politics
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_content_owner: Incom
+      field_h_date_created: 08-06-2019
+      field_h_date_published: 08-06-2019
+      field_h_date_reviewed: 08-06-2019
+      field_h_date_updated: 08-06-2019
+      status: '1'
+  ids:
+    id:
+      type: string
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  # created: created
+  # changed: changed
+  # promote: promote
+  # sticky: sticky
+  # revision_uid: revision_uid
+  # revision_log: log
+  # revision_timestamp: timestamp
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: rich_text
+  'field_h_content_components':
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_content_text
+        source: id
+      target_revision_id: '@target_id'
+  'field_h_image_featured/target_id':
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+    no_stub: true
+  field_h_subject:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_subject
+    bundle_key: vid
+    bundle: h_subject
+  field_h_language:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_language
+    bundle_key: vid
+    bundle: h_language
+  field_h_audience:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_audience
+    bundle_key: vid
+    bundle: h_target_audience_group
+  field_h_content_owner:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_content_owner
+    bundle_key: vid
+    bundle: h_content_owner
+  field_h_date_created:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_created
+  field_h_date_published: '@field_h_date_created'
+  field_h_date_reviewed: '@field_h_date_created'
+  field_h_date_updated: '@field_h_date_created'
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: entity:node
+  default_bundle: h_news_article
+migration_dependencies:
+  required:
+    - sample_taxonomy_audience
+    - sample_taxonomy_colour
+    - sample_taxonomy_contact_type
+    - sample_taxonomy_content_owner
+    - sample_taxonomy_country
+    - sample_taxonomy_language
+    - sample_taxonomy_publication_type
+    - sample_taxonomy_resource_availability
+    - sample_taxonomy_state
+    - sample_taxonomy_subject
+    - sample_taxonomy_subject_2
+    - sample_taxonomy_subject_3
+    - sample_taxonomy_video_type
+    - sample_taxonomy_media_type
+    - sample_media_image
+    - sample_paragraphs_content_text

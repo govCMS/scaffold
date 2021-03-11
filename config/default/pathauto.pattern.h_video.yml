@@ -1,0 +1,22 @@
+uuid: a0373fba-7ed6-4b0e-961c-7888f47c5b09
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: h_video
+label: Video
+type: 'canonical_entities:node'
+pattern: 'resources/[node:title]'
+selection_criteria:
+  162f148b-18fa-404b-b7d1-688ba8c73413:
+    id: node_type
+    bundles:
+      h_video: h_video
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 162f148b-18fa-404b-b7d1-688ba8c73413
+selection_logic: and
+weight: -5
+relationships: {  }

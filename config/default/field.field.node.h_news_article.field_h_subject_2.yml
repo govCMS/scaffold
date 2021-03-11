@@ -1,0 +1,29 @@
+uuid: 9b735914-a494-4cf1-9305-2a7001f0fc64
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_subject_2
+    - node.type.h_news_article
+    - taxonomy.vocabulary.h_subject_2
+id: node.h_news_article.field_h_subject_2
+field_name: field_h_subject_2
+entity_type: node
+bundle: h_news_article
+label: 'Subject two'
+description: 'If this information relates to one or more subjects, select them here.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_subject_2: h_subject_2
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,19 @@
+uuid: eeee30ab-582a-41f8-ac11-a683cd9e0823
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_order_id
+    - node.type.h_publication
+id: node.h_publication.field_h_order_id
+field_name: field_h_order_id
+entity_type: node
+bundle: h_publication
+label: 'Order ID'
+description: 'If this publication can be also ordered in hardcopy, enter the National Mail and Marketing order ID here.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

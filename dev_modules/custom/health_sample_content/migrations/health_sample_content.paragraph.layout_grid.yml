@@ -1,0 +1,75 @@
+id: sample_paragraphs_layout_grid
+label: Sample Paragraphs - Layout Grid
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_layout_grid_1
+      field_h_content_components:
+        -
+          id: para_h_tile_5
+        -
+          id: para_h_tile_6
+        -
+          id: para_h_tile_7
+        -
+          id: para_h_tile_8
+        -
+          id: para_h_tile_9
+        -
+          id: para_h_tile_10
+        -
+          id: para_h_tile_11
+        -
+          id: para_h_tile_12
+      field_h_items_per_row: custom
+      field_h_items_per_row_mobile: '2'
+      field_h_items_per_row_tablet: '3'
+      field_h_items_per_row_desktop: '4'
+    -
+      id: para_h_layout_grid_2
+      field_h_content_components:
+        -
+          id: para_h_tile_1
+        -
+          id: para_h_tile_2
+        -
+          id: para_h_tile_3
+        -
+          id: para_h_tile_4
+      field_h_items_per_row: custom
+      field_h_items_per_row_mobile: '2'
+      field_h_items_per_row_tablet: none
+      field_h_items_per_row_desktop: none
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_content_components:
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_tile
+        source: id
+      target_revision_id: '@target_id'
+  field_h_items_per_row: field_h_items_per_row
+  field_h_items_per_row_mobile: field_h_items_per_row_mobile
+  field_h_items_per_row_tablet: field_h_items_per_row_tablet
+  field_h_items_per_row_desktop: field_h_items_per_row_desktop
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_layout_grid
+migration_dependencies:
+  required:
+    - sample_media_image
+    - sample_paragraphs_tile

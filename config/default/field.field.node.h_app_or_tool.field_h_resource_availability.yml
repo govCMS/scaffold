@@ -1,0 +1,33 @@
+uuid: 2ec4fca0-08a2-47a3-a602-55d2e6601a09
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_resource_availability
+    - node.type.h_app_or_tool
+    - taxonomy.vocabulary.h_resource_availability
+  content:
+    - 'taxonomy_term:h_resource_availability:da4f118a-d957-48a7-b16d-90e6a3559aef'
+id: node.h_app_or_tool.field_h_resource_availability
+field_name: field_h_resource_availability
+entity_type: node
+bundle: h_app_or_tool
+label: 'Resource availability'
+description: 'Availability of this resource (online selected by default and cannot be changed).'
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: da4f118a-d957-48a7-b16d-90e6a3559aef
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_resource_availability: h_resource_availability
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

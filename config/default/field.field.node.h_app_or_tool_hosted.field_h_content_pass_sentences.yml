@@ -1,0 +1,23 @@
+uuid: b5405a8a-4b7c-4d4a-8068-e4a512a7baa6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_pass_sentences
+    - node.type.h_app_or_tool_hosted
+id: node.h_app_or_tool_hosted.field_h_content_pass_sentences
+field_name: field_h_content_pass_sentences
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: 'Content % passive sentences'
+description: 'Run content through Visible Thread (VT). Enter the % of passive sentences.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: !!float 100
+  prefix: ''
+  suffix: '%'
+field_type: decimal

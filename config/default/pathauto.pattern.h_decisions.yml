@@ -1,0 +1,22 @@
+uuid: 17900b65-fbaa-4950-b0d3-30dc0abc13bd
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: h_decisions
+label: Decisions
+type: 'canonical_entities:node'
+pattern: 'decisions/[node:title]'
+selection_criteria:
+  47639ff3-ed24-4f38-a5bd-d8bdcd4d0b3e:
+    id: node_type
+    bundles:
+      h_decision: h_decision
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 47639ff3-ed24-4f38-a5bd-d8bdcd4d0b3e
+selection_logic: and
+weight: -5
+relationships: {  }

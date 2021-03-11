@@ -1,0 +1,50 @@
+{% import _self as menus %}
+
+<nav class="au-main-nav {{ modifiers is defined ? modifiers : 'au-main-nav--dark' }}" aria-label="main">
+  <div class="au-main-nav__brand"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="main-nav-default" class="au-main-nav__content">
+          <button aria-controls="main-nav-default" class="au-main-nav__toggle au-main-nav__toggle--open" onclick="return AU.mainNav.Toggle( this )">
+            {% include '@health/custom/health-icon.html.twig' with {'name': 'bars'} %}
+            {{ 'Menu'|t }}
+          </button>
+          <button class="au-main-nav__toggle au-main-nav__toggle--search au-main-nav__toggle--open">
+            {% include '@health/custom/health-icon.html.twig' with {'name': 'search', 'class': 'au-main-nav__toggle--search__closed'} %}
+            {% include '@health/custom/health-icon.html.twig' with {'name': 'times', 'class': 'au-main-nav__toggle--search__open'} %}
+            {{ 'Search'|t }}
+          </button>
+          <div class="au-main-nav__menu">
+            <div class="au-main-nav__menu-inner">
+              <div class="au-main-nav__focus-trap-top"></div>
+              <button aria-controls="main-nav-default" class="au-main-nav__toggle au-main-nav__toggle--close" onclick="return AU.mainNav.Toggle( this )">
+                {% include '@health/custom/health-icon.html.twig' with {'name': 'times'} %}
+                {{ 'Close'|t }}
+              </button>
+              {{ menus.menu_links(items, attributes, 0) }}
+              <div class="au-main-nav__focus-trap-bottom"></div>
+            </div>
+          </div>
+          <div class="au-main-nav__overlay" aria-controls="main-nav-default" onclick="return AU.mainNav.Toggle( this )"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    <ul{{ attributes.addClass('au-link-list') }}>
+    {% for item in items %}
+      <li{{ item.attributes.addClass(item.in_active_trail ? 'active') }}>
+        {{ link(item.title, item.url) }}
+        {% if item.below %}
+          {{ menus.menu_links(item.below, attributes.addClass('au-link-list'), menu_level + 1) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

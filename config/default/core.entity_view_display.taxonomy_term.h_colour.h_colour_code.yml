@@ -1,0 +1,47 @@
+uuid: dffc11b2-288c-49dd-bfcf-d42b3754fc04
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.h_colour_code
+    - field.field.taxonomy_term.h_colour.field_h_colour_hex
+    - field.field.taxonomy_term.h_colour.field_h_colour_theme
+    - taxonomy.vocabulary.h_colour
+  module:
+    - ds
+    - panelizer
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      content:
+        - field_h_colour_hex
+id: taxonomy_term.h_colour.h_colour_code
+targetEntityType: taxonomy_term
+bundle: h_colour
+mode: h_colour_code
+content:
+  field_h_colour_hex:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  description: true
+  field_h_colour_theme: true
+  langcode: true
+  search_api_excerpt: true

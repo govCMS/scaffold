@@ -1,0 +1,21 @@
+uuid: 02b8d355-2210-4cb1-8833-e63cda1a392c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site in maintenance mode'
+  - 'bypass honeypot protection'
+  - 'opt-in or out of google analytics tracking'
+  - 'search content'
+  - 'use text format h_simple'
+  - 'use text format h_simple_rich_text'
+  - 'view media'
+  - 'view own unpublished content'

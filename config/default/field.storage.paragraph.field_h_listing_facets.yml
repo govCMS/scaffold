@@ -1,0 +1,20 @@
+uuid: cd95e2af-3120-4691-b2db-89b11c519043
+langcode: en
+status: true
+dependencies:
+  module:
+    - facets
+    - paragraphs
+id: paragraph.field_h_listing_facets
+field_name: field_h_listing_facets
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: facets_facet
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

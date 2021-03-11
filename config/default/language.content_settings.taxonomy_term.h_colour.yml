@@ -1,0 +1,11 @@
+uuid: f2235231-58e6-4ba0-aee0-6d15618c43a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.h_colour
+id: taxonomy_term.h_colour
+target_entity_type_id: taxonomy_term
+target_bundle: h_colour
+default_langcode: site_default
+language_alterable: false

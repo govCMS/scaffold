@@ -1,0 +1,98 @@
+uuid: 8181dd8d-1f3a-44f4-81b1-f0cfb1b34c68
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_layout_two_column.field_h_content_components_col_1
+    - field.field.paragraph.para_h_layout_two_column.field_h_content_components_col_2
+    - field.field.paragraph.para_h_layout_two_column.field_h_css_classnames
+    - field.field.paragraph.para_h_layout_two_column.field_h_desktop_col1_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_desktop_col2_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_mobile_col1_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_mobile_col2_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_tablet_col1_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_tablet_col2_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_two_column_widths
+    - paragraphs.paragraphs_type.para_h_layout_two_column
+  module:
+    - entity_class_formatter
+    - entity_reference_revisions
+    - options
+id: paragraph.para_h_layout_two_column.default
+targetEntityType: paragraph
+bundle: para_h_layout_two_column
+mode: default
+content:
+  field_h_content_components_col_1:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_h_content_components_col_2:
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_h_css_classnames:
+    weight: 2
+    label: hidden
+    settings:
+      prefix: ''
+      suffix: ''
+      attr: ''
+    third_party_settings: {  }
+    type: entity_class_formatter
+    region: content
+  field_h_desktop_col1_width:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_h_desktop_col2_width:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_h_mobile_col1_width:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_h_mobile_col2_width:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_h_tablet_col1_width:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_h_tablet_col2_width:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden:
+  field_h_two_column_widths: true
+  search_api_excerpt: true

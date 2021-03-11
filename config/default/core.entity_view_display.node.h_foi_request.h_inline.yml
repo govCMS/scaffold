@@ -1,0 +1,76 @@
+uuid: c74e959c-97c7-423c-810c-2a981afba4fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.h_inline
+    - field.field.node.h_foi_request.field_h_audience
+    - field.field.node.h_foi_request.field_h_content_grade_level
+    - field.field.node.h_foi_request.field_h_content_long_sentences
+    - field.field.node.h_foi_request.field_h_content_owner
+    - field.field.node.h_foi_request.field_h_content_pass_sentences
+    - field.field.node.h_foi_request.field_h_content_readability
+    - field.field.node.h_foi_request.field_h_date_published
+    - field.field.node.h_foi_request.field_h_date_reviewed
+    - field.field.node.h_foi_request.field_h_date_updated
+    - field.field.node.h_foi_request.field_h_description
+    - field.field.node.h_foi_request.field_h_foi_number
+    - field.field.node.h_foi_request.field_h_language
+    - field.field.node.h_foi_request.field_h_publication_type
+    - field.field.node.h_foi_request.field_h_resource_date
+    - field.field.node.h_foi_request.field_h_resource_parts
+    - field.field.node.h_foi_request.field_h_subject
+    - field.field.node.h_foi_request.field_h_subject_2
+    - field.field.node.h_foi_request.field_h_subject_3
+    - field.field.node.h_foi_request.field_h_summary
+    - node.type.h_foi_request
+  module:
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_foi_request.h_inline
+targetEntityType: node
+bundle: h_foi_request
+mode: h_inline
+content:
+  field_h_foi_number:
+    type: string
+    weight: 0
+    region: content
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_h_summary:
+    type: basic_string
+    weight: 1
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_h_audience: true
+  field_h_content_grade_level: true
+  field_h_content_long_sentences: true
+  field_h_content_owner: true
+  field_h_content_pass_sentences: true
+  field_h_content_readability: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_description: true
+  field_h_language: true
+  field_h_publication_type: true
+  field_h_resource_date: true
+  field_h_resource_parts: true
+  field_h_subject: true
+  field_h_subject_2: true
+  field_h_subject_3: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

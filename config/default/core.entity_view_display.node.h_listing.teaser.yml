@@ -1,0 +1,41 @@
+uuid: abec6730-1b77-48fd-9d11-321b5c213b94
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.h_listing.field_h_content_components
+    - field.field.node.h_listing.field_h_content_owner
+    - field.field.node.h_listing.field_h_date_created
+    - field.field.node.h_listing.field_h_date_published
+    - field.field.node.h_listing.field_h_date_reviewed
+    - field.field.node.h_listing.field_h_date_updated
+    - field.field.node.h_listing.field_h_summary
+    - node.type.h_listing
+  module:
+    - user
+id: node.h_listing.teaser
+targetEntityType: node
+bundle: h_listing
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_h_content_components: true
+  field_h_content_owner: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_summary: true
+  langcode: true
+  search_api_excerpt: true

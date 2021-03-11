@@ -1,0 +1,19 @@
+features:
+  node_user_picture: true
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: 1
+logo:
+  use_default: 1
+favicon:
+  use_default: 0
+  path: profiles/contrib/govcms/favicon.ico
+  mimetype: image/vnd.microsoft.icon
+custom_css: 0
+disable_google_fonts: 0
+mandatory_revision_comments: 1
+lock_text_formats: 1
+enable: 1
+config: ''
+lock_text_formats_enable: 1
+lock_text_formats_config: "rich_text|.paragraph-type--para-h-content-text .field--name-field-h-body\r\nh_table|.paragraph-type--para-h-content-table .field--name-field-h-body\r\nh_simple|.paragraph-type--para-h-content-table .field--name-field-h-table-source\r\nh_simple_rich_text|.paragraph-type--para-h-content-image .field--name-field-h-body\r\nh_simple_rich_text|.paragraph-type--para-h-content-image .field--name-field-h-table-source\r\nfull_html|.paragraph-type--para-h-content-html .field--name-field-h-body\r\nh_simple_rich_text|.page-node-type-h-video .field--name-field-h-description\r\nh_simple_rich_text|.page-node-type-h-video .field--name-field-h-resource-transcript"

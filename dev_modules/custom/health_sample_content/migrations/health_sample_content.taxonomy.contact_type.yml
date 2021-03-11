@@ -1,0 +1,27 @@
+id: sample_taxonomy_contact_type
+label: Sample Taxomony Terms - Contact Type
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: Individual
+    -
+      name: Group
+    -
+      name: Service
+    -
+      name: Organisation
+  ids:
+    name:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_contact_type

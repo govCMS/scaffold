@@ -1,0 +1,21 @@
+uuid: 61fce9ac-7dce-4d35-ab64-ab255fe9a1b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_body
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+  module:
+    - text
+id: paragraph.para_h_listing_embedded.field_h_body
+field_name: field_h_body
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: Content
+description: 'Add introductory text to appear before the listing.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

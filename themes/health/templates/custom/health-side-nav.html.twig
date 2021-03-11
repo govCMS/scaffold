@@ -1,0 +1,40 @@
+{% import _self as menus %}
+
+{#
+  We call a macro which calls itself to render the full tree.
+  @see https://twig.symfony.com/doc/1.x/tags/macro.html
+#}
+
+<aside class="au-side-nav menu-sidebar" aria-label="side navigation">
+  <h2 class="au-display-lg au-side-nav__header">In this section</h2>
+  <div class="au-side-nav__content">
+    {% if title_link %}
+    <h2 class="au-sidenav__title">
+      {{ title_link }}
+    </h2>
+    {% endif %}
+    <nav>
+      {{ menus.menu_links(items, attributes, 0) }}
+    </nav>
+  </div>
+</aside>
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul{{ attributes.addClass('au-link-list') }}>
+    {% else %}
+      <ul{{ attributes }}>
+    {% endif %}
+    {% for item in items %}
+      <li {{ item.attributes }}>
+        {{ link(item.title, item.url) }}
+        {% if item.below %}
+          {{ menus.menu_links(item.below, attributes.addClass('au-link-list'), menu_level + 1) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

@@ -1,0 +1,257 @@
+{
+  "id": "hsk",
+  "viewports": [
+    {
+      "label": "phone",
+      "width": 320,
+      "height": 480
+    },
+    {
+      "label": "desktop",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "onBeforeScript": "puppet/onBefore.js",
+  "onReadyScript": "puppet/onReady.js",
+  "scenarios": [
+    {
+      "label": "Sample App or Tool content page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/resources/rebel-base-locator/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample collection content page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/collections/technical-specifications/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample FOI Request content page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/foi/holographic-disguise-matrix/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample video content page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/resources/rise-darth-vader/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample contact content page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/contacts/darth-vader/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample news page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/news/force-friday-event-guide-updated/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample Landing page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/star-wars-trilogy/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample Landing page with featured content",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/featured-items/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample listing content page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/resources/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    },
+    {
+      "label": "Sample Standard Page content page",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "http://hsk.govcms.docker.amazee.io/star-wars/",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": "",
+      "delay": 4000,
+      "hideSelectors": [
+        "time"
+      ],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true,
+      "scrollToSelector": "footer"
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "backstop_data/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": [
+    "CI"
+  ],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "args": ["--no-sandbox"]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false
+}

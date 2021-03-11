@@ -1,0 +1,76 @@
+uuid: 511ae9ff-6f88-4f08-a3e4-01844c4a2f26
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_layout_three_column.field_h_content_components
+    - field.field.paragraph.para_h_layout_three_column.field_h_content_components_col_1
+    - field.field.paragraph.para_h_layout_three_column.field_h_content_components_col_2
+    - paragraphs.paragraphs_type.para_h_layout_three_column
+  module:
+    - paragraphs
+id: paragraph.para_h_layout_three_column.default
+targetEntityType: paragraph
+bundle: para_h_layout_three_column
+mode: default
+content:
+  field_h_content_components:
+    weight: 1
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_h_content_components_col_1:
+    weight: 0
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_h_content_components_col_2:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+hidden:
+  created: true
+  status: true

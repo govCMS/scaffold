@@ -1,0 +1,28 @@
+id: sample_taxonomy_language
+label: Sample Taxomony Terms - Language
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: English
+      code: en
+    -
+      name: China
+      code: zh
+  ids:
+    name:
+      type: string
+    code:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+  field_h_language_code: code
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_language

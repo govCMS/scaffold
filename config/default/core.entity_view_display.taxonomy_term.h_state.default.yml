@@ -1,0 +1,25 @@
+uuid: cb89154c-5db2-497a-b112-7f9717cc4541
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.h_state.field_h_abbreviation
+    - taxonomy.vocabulary.h_state
+  module:
+    - panelizer
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: taxonomy_term.h_state.default
+targetEntityType: taxonomy_term
+bundle: h_state
+mode: default
+content: {  }
+hidden:
+  description: true
+  field_h_abbreviation: true
+  langcode: true
+  search_api_excerpt: true

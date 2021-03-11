@@ -1,0 +1,270 @@
+uuid: 33462145-0b2e-40ff-81cd-b90bc8b3b576
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_listing_embedded.field_h_args_audience_enabled
+    - field.field.paragraph.para_h_listing_embedded.field_h_args_audience_term
+    - field.field.paragraph.para_h_listing_embedded.field_h_args_pub_type_enabled
+    - field.field.paragraph.para_h_listing_embedded.field_h_args_pub_type_term
+    - field.field.paragraph.para_h_listing_embedded.field_h_body
+    - field.field.paragraph.para_h_listing_embedded.field_h_content_type
+    - field.field.paragraph.para_h_listing_embedded.field_h_enable_audience_filter
+    - field.field.paragraph.para_h_listing_embedded.field_h_enable_node_type_filter
+    - field.field.paragraph.para_h_listing_embedded.field_h_enable_pub_type_filter
+    - field.field.paragraph.para_h_listing_embedded.field_h_heading_hide
+    - field.field.paragraph.para_h_listing_embedded.field_h_hide_pager
+    - field.field.paragraph.para_h_listing_embedded.field_h_listing_items_per_page
+    - field.field.paragraph.para_h_listing_embedded.field_h_sort_option_default
+    - field.field.paragraph.para_h_listing_embedded.field_h_sort_options_exposed
+    - field.field.paragraph.para_h_listing_embedded.field_h_sort_order_expose
+    - field.field.paragraph.para_h_listing_embedded.field_h_title
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+  module:
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_h_tabs:
+      children:
+        - group_h_general
+        - group_h_sort
+        - group_h_filters
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+      label: Tabs
+    group_h_sort:
+      children:
+        - field_h_sort_option_default
+        - group_h_manual_sort
+      parent_name: group_h_tabs
+      weight: 21
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Sort
+    group_h_filters:
+      children:
+        - group_h_content_types
+        - group_h_audience
+        - group_h_publication_type
+      parent_name: group_h_tabs
+      weight: 22
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Filters
+    group_h_content_types:
+      children:
+        - field_h_enable_node_type_filter
+        - field_h_content_type
+      parent_name: group_h_filters
+      weight: 20
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+      label: 'Content types'
+    group_h_audience:
+      children:
+        - field_h_args_audience_enabled
+        - field_h_enable_audience_filter
+        - field_h_args_audience_term
+      parent_name: group_h_filters
+      weight: 21
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Audience
+    group_h_publication_type:
+      children:
+        - field_h_args_pub_type_enabled
+        - field_h_enable_pub_type_filter
+        - field_h_args_pub_type_term
+      parent_name: group_h_filters
+      weight: 22
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Publication type'
+    group_h_general:
+      children:
+        - field_h_title
+        - field_h_heading_hide
+        - field_h_body
+        - field_h_listing_items_per_page
+        - field_h_hide_pager
+      parent_name: group_h_tabs
+      weight: 20
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: open
+        required_fields: true
+      label: General
+    group_h_manual_sort:
+      children:
+        - field_h_sort_order_expose
+        - field_h_sort_options_exposed
+      parent_name: group_h_sort
+      weight: 26
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+      label: 'Manual sort'
+id: paragraph.para_h_listing_embedded.default
+targetEntityType: paragraph
+bundle: para_h_listing_embedded
+mode: default
+content:
+  field_h_args_audience_enabled:
+    weight: 4
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_args_audience_term:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_args_pub_type_enabled:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_args_pub_type_term:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_body:
+    weight: 29
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_h_content_type:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_enable_audience_filter:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_enable_node_type_filter:
+    weight: 6
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_enable_pub_type_filter:
+    weight: 6
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_heading_hide:
+    weight: 28
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_hide_pager:
+    weight: 31
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_listing_items_per_page:
+    weight: 30
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_sort_option_default:
+    weight: 24
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_sort_options_exposed:
+    weight: 24
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_sort_order_expose:
+    weight: 23
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_h_title:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

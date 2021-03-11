@@ -1,0 +1,220 @@
+id: sample_node_video
+label: Sample Nodes - Video
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: node_h_video_1
+      title: The Rise of Darth Vader
+      field_h_video_youtubeid: DVtNve4qySA
+      field_h_duration: '05:28'
+      field_h_summary: |
+        The saddest part of Vader at least for me, was that he never truly was  a “villain”. Yes he committed atrocities against the younglings,the Jedi he hunted and those Palpatine sent him after; but it’s not like it was him being evil that made him do these things.
+      field_h_description: |
+        <p>The saddest part of Vader at least for me, was that he never truly was  a “villain”. Yes he committed atrocities against the younglings,the Jedi he hunted and those Palpatine sent him after; but it’s not like it was him being evil that made him do these things.</p>
+      field_h_image_featured: image_4
+      field_h_resource_transcript: |
+        <p>what will happen to me now</p>
+        <p>council have granted me permission to</p>
+        <p>train you</p>
+        <p>you will be a Jedi something's happening</p>
+        <p>I'm not the Jedi I should be</p>
+        <p>I want more</p>
+        <p>and I know I shouldn't bother you</p>
+        <p>it was a dream like the ones I used to</p>
+        <p>have about my mother just before she</p>
+        <p>died</p>
+        <p>[Music]</p>
+        <p>and it was about you</p>
+        <p>I wasn't strong enough to save you mom</p>
+        <p>but I promise</p>
+        <p>I won't fail again no one let these</p>
+        <p>visions come true Master Yoda I won't</p>
+        <p>let this one become real never since</p>
+        <p>I've known you you've been searching for</p>
+        <p>a life greater than that of an ordinary</p>
+        <p>Jedi I was once a Jedi Knight the same</p>
+        <p>as your father</p>
+        <p>he was the best star pilot in the galaxy</p>
+        <p>and a cunning warrior you are strong and</p>
+        <p>wise Anakin and I am very proud</p>
+        <p>you have become a far greater Jedi than</p>
+        <p>I could ever hope to be</p>
+        <p>obi-wan may the force be with you and it</p>
+        <p>was a good friend goodbye old friend</p>
+        <p>may the force be with you before Darth</p>
+        <p>Vader</p>
+        <p>trade and murdered your father</p>
+        <p>[Music]</p>
+        <p>only through me can you achieve a Power</p>
+        <p>greater than any Jedi learn to know the</p>
+        <p>dark side the force and you will be able</p>
+        <p>to save your wife from certain</p>
+        <p>I don't just do with all due respect</p>
+        <p>master is he not the chosen one</p>
+        <p>is he not to destroy the Sith and bring</p>
+        <p>balance to the force so the prophecy</p>
+        <p>says a prophecy that misread could have</p>
+        <p>been I know there are things about the</p>
+        <p>force that they're not telling me</p>
+        <p>they don't trust you</p>
+        <p>they see our future they know your power</p>
+        <p>will be too strong to control</p>
+        <p>[Music]</p>
+        <p>done</p>
+        <p>was seduced by the dark side of the</p>
+        <p>force</p>
+        <p>is it possible to learn this power he</p>
+        <p>ceased to be Anakin Skywalker and became</p>
+        <p>Darth Vader</p>
+        <p>not from a Jedi</p>
+        <p>twisted by the dark side young Skywalker</p>
+        <p>I killed them</p>
+        <p>every single one of them who could have</p>
+        <p>done this they're like animals</p>
+        <p>and I slaughtered them like animals</p>
+        <p>don't believe me</p>
+        <p>they're going down I like him follow</p>
+        <p>the boy you trained gone yet is consumed</p>
+        <p>by Darth Vader</p>
+        <p>[Music]</p>
+        <p>a powerful Sith you will become</p>
+        <p>henceforth you shall be known as Darth</p>
+        <p>fada</p>
+        <p>[Music]</p>
+        <p>you said that you'd destroy us and</p>
+        <p>doctor</p>
+        <p>[Music]</p>
+        <p>I know there is good in good it is too</p>
+        <p>late for me</p>
+        <p>I feel the good in you</p>
+        <p>[Music]</p>
+        <p>there is no</p>
+        <p>right you are right about me</p>
+      field_h_resource_availability: Online
+      field_h_resource_date: 01-02-2019
+      field_h_video_type: Presentation
+      field_h_language: English
+      field_h_audience: Everyone
+      field_h_content_owner: Incom
+      field_h_subject: Politics
+      status: '1'
+  ids:
+    id:
+      type: string
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  # created: created
+  # changed: changed
+  # promote: promote
+  # sticky: sticky
+  # revision_uid: revision_uid
+  # revision_log: log
+  # revision_timestamp: timestamp
+  field_h_video_youtubeid: field_h_video_youtubeid
+  field_h_duration: field_h_duration
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  'field_h_description/value': field_h_description
+  'field_h_description/format':
+    plugin: default_value
+    default_value: rich_text
+  'field_h_image_featured/target_id':
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+    no_stub: true
+  'field_h_resource_transcript/value': field_h_resource_transcript
+  'field_h_resource_transcript/format':
+    plugin: default_value
+    default_value: rich_text
+  field_h_resource_availability:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_resource_availability
+    bundle_key: vid
+    bundle: h_resource_availability
+  field_h_resource_date:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d'
+    source: field_h_resource_date
+  field_h_video_type:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_video_type
+    bundle_key: vid
+    bundle: h_video_type
+  field_h_language:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_language
+    bundle_key: vid
+    bundle: h_language
+  field_h_audience:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_audience
+    bundle_key: vid
+    bundle: h_target_audience_group
+  field_h_content_owner:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_content_owner
+    bundle_key: vid
+    bundle: h_content_owner
+  field_h_subject:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_subject
+    bundle_key: vid
+    bundle: h_subject
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: 'entity:node'
+  default_bundle: h_video
+migration_dependencies:
+  required:
+    - sample_taxonomy_audience
+    - sample_taxonomy_colour
+    - sample_taxonomy_contact_type
+    - sample_taxonomy_content_owner
+    - sample_taxonomy_country
+    - sample_taxonomy_language
+    - sample_taxonomy_publication_type
+    - sample_taxonomy_resource_availability
+    - sample_taxonomy_state
+    - sample_taxonomy_subject
+    - sample_taxonomy_subject_2
+    - sample_taxonomy_subject_3
+    - sample_taxonomy_video_type
+    - sample_taxonomy_media_type
+    - sample_media_image

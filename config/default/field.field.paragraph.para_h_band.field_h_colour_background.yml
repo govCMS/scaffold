@@ -1,0 +1,29 @@
+uuid: 50436c0c-ef9b-4743-b117-1586d656fec8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_colour_background
+    - paragraphs.paragraphs_type.para_h_band
+    - taxonomy.vocabulary.h_colour
+id: paragraph.para_h_band.field_h_colour_background
+field_name: field_h_colour_background
+entity_type: paragraph
+bundle: para_h_band
+label: 'Background colour'
+description: 'Select the band background colour.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_colour: h_colour
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

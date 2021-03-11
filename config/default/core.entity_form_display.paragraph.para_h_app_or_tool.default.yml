@@ -1,0 +1,39 @@
+uuid: 9bb026bf-6baa-41d4-bf3a-3ddee43d4a15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_app_or_tool.field_h_app_index_file
+    - field.field.paragraph.para_h_app_or_tool.field_h_app_path
+    - field.field.paragraph.para_h_app_or_tool.field_h_app_width
+    - paragraphs.paragraphs_type.para_h_app_or_tool
+id: paragraph.para_h_app_or_tool.default
+targetEntityType: paragraph
+bundle: para_h_app_or_tool
+mode: default
+content:
+  field_h_app_index_file:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_app_path:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_app_width:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true

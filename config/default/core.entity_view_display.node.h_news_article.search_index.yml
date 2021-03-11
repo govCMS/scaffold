@@ -1,0 +1,111 @@
+uuid: c9a7ed5a-18a2-4910-b6ab-e0d9dd9f8435
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.h_news_article.field_h_audience
+    - field.field.node.h_news_article.field_h_content_components
+    - field.field.node.h_news_article.field_h_content_grade_level
+    - field.field.node.h_news_article.field_h_content_long_sentences
+    - field.field.node.h_news_article.field_h_content_owner
+    - field.field.node.h_news_article.field_h_content_pass_sentences
+    - field.field.node.h_news_article.field_h_content_readability
+    - field.field.node.h_news_article.field_h_date_created
+    - field.field.node.h_news_article.field_h_date_published
+    - field.field.node.h_news_article.field_h_date_reviewed
+    - field.field.node.h_news_article.field_h_date_updated
+    - field.field.node.h_news_article.field_h_image_featured
+    - field.field.node.h_news_article.field_h_language
+    - field.field.node.h_news_article.field_h_related_contact
+    - field.field.node.h_news_article.field_h_subject
+    - field.field.node.h_news_article.field_h_subject_2
+    - field.field.node.h_news_article.field_h_subject_3
+    - field.field.node.h_news_article.field_h_summary
+    - image.style.h_content_max_width_no_upscale
+    - node.type.h_news_article
+  module:
+    - datetime
+    - ds
+    - entity_reference_revisions
+    - media
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_news_article.search_index
+targetEntityType: node
+bundle: h_news_article
+mode: search_index
+content:
+  field_h_audience:
+    weight: 2
+    label: inline
+    settings:
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_content_components:
+    weight: 4
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_h_date_published:
+    type: datetime_default
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: h_day_month_year
+    third_party_settings: {  }
+  field_h_image_featured:
+    type: media_thumbnail
+    weight: 3
+    label: hidden
+    settings:
+      image_style: h_content_max_width_no_upscale
+      image_link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_subject:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: inline
+    settings:
+      link: false
+    third_party_settings:
+      ds:
+        ds_limit: ''
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_h_content_grade_level: true
+  field_h_content_long_sentences: true
+  field_h_content_owner: true
+  field_h_content_pass_sentences: true
+  field_h_content_readability: true
+  field_h_date_created: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_language: true
+  field_h_related_contact: true
+  field_h_subject_2: true
+  field_h_subject_3: true
+  field_h_summary: true
+  langcode: true
+  search_api_excerpt: true

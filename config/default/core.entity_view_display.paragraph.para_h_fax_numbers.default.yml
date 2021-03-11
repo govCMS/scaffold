@@ -1,0 +1,33 @@
+uuid: 584636b1-a51f-4ca2-8f75-c8ed41d23ea7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_fax_numbers.field_h_fax_number
+    - field.field.paragraph.para_h_fax_numbers.field_h_label
+    - paragraphs.paragraphs_type.para_h_fax_numbers
+  module:
+    - telephone
+id: paragraph.para_h_fax_numbers.default
+targetEntityType: paragraph
+bundle: para_h_fax_numbers
+mode: default
+content:
+  field_h_fax_number:
+    weight: 1
+    label: hidden
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_h_label:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

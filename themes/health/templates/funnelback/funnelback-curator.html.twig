@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Curator template for Funnelback.
+ *
+ * Available variables:
+ * - curator: An array of curator information.
+ */
+#}
+{% if curator.exhibits %}
+  {% for exhibit in curator.exhibits %}
+    <div class="au-callout au-callout--tertiary">
+      {% if exhibit.messageHtml %}
+        {{ exhibit.messageHtml|raw }}
+      {% else %}
+        <h3><a href="{{ exhibit.linkUrl }}"
+              title="{{ exhibit.displayUrl }}">{{ exhibit.titleHtml }}</a></h3>
+        <p class="desc">{{ exhibit.descriptionHtml }}</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endif %}

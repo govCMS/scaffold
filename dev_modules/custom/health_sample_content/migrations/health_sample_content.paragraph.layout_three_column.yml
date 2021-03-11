@@ -1,0 +1,88 @@
+id: sample_paragraphs_layout_three_column
+label: Sample Paragraphs - Band Static 3 Column
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_layout_three_column_1
+      field_h_colour_background: teal
+      field_h_content_components_col_1:
+        -
+          id: para_h_content_text_7
+        -
+          id: para_h_content_image_3
+        -
+          id: para_h_content_html_2
+      field_h_content_components:
+        -
+          id: para_h_content_text_8
+        -
+          id: para_h_content_image_4
+        -
+          id: para_h_content_html_3
+      field_h_content_components_col_2:
+        -
+          id: para_h_content_text_9
+        -
+          id: para_h_content_image_5
+        -
+          id: para_h_content_html_4
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_colour_background:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_colour_background
+    bundle_key: vid
+    bundle: h_colour
+  field_h_content_components_col_1:
+    plugin: sub_process
+    source: field_h_content_components_col_1
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_content_html
+          - sample_paragraphs_content_image
+          - sample_paragraphs_content_text
+        source: id
+      target_revision_id: '@target_id'
+  field_h_content_components:
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_content_html
+          - sample_paragraphs_content_image
+          - sample_paragraphs_content_text
+        source: id
+      target_revision_id: '@target_id'
+  field_h_content_components_col_2:
+    plugin: sub_process
+    source: field_h_content_components_col_2
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_content_html
+          - sample_paragraphs_content_image
+          - sample_paragraphs_content_text
+        source: id
+      target_revision_id: '@target_id'
+
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_layout_three_column
+migration_dependencies: null

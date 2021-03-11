@@ -1,0 +1,36 @@
+uuid: f1d92ac5-dcf2-4726-a51e-5764537a4ed7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_band.field_h_colour_background
+    - field.field.paragraph.para_h_band.field_h_content_components
+    - field.field.paragraph.para_h_band.field_h_title
+    - paragraphs.paragraphs_type.para_h_band
+  module:
+    - entity_reference_revisions
+id: paragraph.para_h_band.default
+targetEntityType: paragraph
+bundle: para_h_band
+mode: default
+content:
+  field_h_content_components:
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_h_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  field_h_colour_background: true
+  search_api_excerpt: true

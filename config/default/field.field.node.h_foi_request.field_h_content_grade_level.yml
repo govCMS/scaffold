@@ -1,0 +1,23 @@
+uuid: c92a2c6f-9781-4662-ac96-cc5a4000a62f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_grade_level
+    - node.type.h_foi_request
+id: node.h_foi_request.field_h_content_grade_level
+field_name: field_h_content_grade_level
+entity_type: node
+bundle: h_foi_request
+label: 'Content grade level'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

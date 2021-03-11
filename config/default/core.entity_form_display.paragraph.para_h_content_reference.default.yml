@@ -1,0 +1,25 @@
+uuid: 5fcbf4c7-f3b0-4cb4-90bd-fad29043b897
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_content_reference.field_h_reference
+    - paragraphs.paragraphs_type.para_h_content_reference
+id: paragraph.para_h_content_reference.default
+targetEntityType: paragraph
+bundle: para_h_content_reference
+mode: default
+content:
+  field_h_reference:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden:
+  created: true
+  status: true

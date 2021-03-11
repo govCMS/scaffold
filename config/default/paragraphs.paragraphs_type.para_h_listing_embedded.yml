@@ -1,0 +1,10 @@
+uuid: c33da115-584c-404e-b442-7b6a4a75e715
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_listing_embedded
+label: 'Listing - Embedded'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,41 @@
+uuid: 2c8ab32a-22ab-4b4a-8494-3b6f17083983
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.file
+  module:
+    - dropzonejs_eb_widget
+    - media
+name: h_file_browser
+label: 'Health file browser'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  cfbf004d-6929-4a19-bce6-69849f33e7d5:
+    settings:
+      media_type: file
+      upload_location: 'public://files/[date:custom:Y]-[date:custom:m]'
+      dropzone_description: 'Drop files here to upload them'
+      max_filesize: 2048M
+      extensions: 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pps odt ods odp'
+      clientside_resize: false
+      resize_width: null
+      resize_height: null
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
+      submit_text: 'Select entities'
+      auto_select: false
+    uuid: cfbf004d-6929-4a19-bce6-69849f33e7d5
+    weight: 2
+    label: Upload
+    id: dropzonejs_media_entity

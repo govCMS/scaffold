@@ -1,0 +1,27 @@
+id: sample_paragraphs_button
+label: Sample Paragraphs - Button
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_button_1
+      field_h_link_external_internal: 'https://www.starwars.com'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  'field_h_link_external_internal/uri': field_h_link_external_internal
+  'field_h_link_external_internal/title':
+    plugin: default_value
+    default_value: Start here
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_button
+migration_dependencies: null

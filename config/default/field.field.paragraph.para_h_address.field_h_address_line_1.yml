@@ -1,0 +1,19 @@
+uuid: 82ad4bba-a8ec-4262-8b2a-3951f11a8541
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_address_line_1
+    - paragraphs.paragraphs_type.para_h_address
+id: paragraph.para_h_address.field_h_address_line_1
+field_name: field_h_address_line_1
+entity_type: paragraph
+bundle: para_h_address
+label: 'Address line 1'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

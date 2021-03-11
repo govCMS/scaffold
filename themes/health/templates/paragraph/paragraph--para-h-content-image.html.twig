@@ -1,0 +1,19 @@
+{# {% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  {{ content|without('field_h_image_zoomable') }}
+{% endblock %} #}
+
+{% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  {% if content.field_h_body|render %}
+    {% include "@health/custom/health-figure.html.twig" with {
+      image: content.field_h_image_featured,
+      caption: content.field_h_body,
+      source: content.field_h_table_source
+    }%}
+  {% else %}
+    {{ content.field_h_image_featured }}
+  {% endif %}
+{% endblock %}

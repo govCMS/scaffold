@@ -1,0 +1,18 @@
+{% extends "@health/content/node--teaser.html.twig" %}
+
+{% block column_left %}
+  {%
+    include "@health/custom/health-video-preview.html.twig" with {
+      "video": content.field_h_image_featured,
+      "duration": content.field_h_duration
+    }
+  %}
+{% endblock %}
+
+{% block column_right %}
+  <div class="health-metadata health-metadata--inline au-display-sm--text">
+    {{ content.field_h_resource_date }}
+    {{ content.field_h_video_type }}
+  </div>
+  {{ content|without("field_h_image_featured", "field_h_duration", 'field_h_resource_date', 'field_h_video_type') }}
+{% endblock %}

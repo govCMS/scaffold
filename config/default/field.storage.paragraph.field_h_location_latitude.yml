@@ -1,0 +1,21 @@
+uuid: 867df218-c5fd-413d-9b8a-b4181c1c3b34
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_h_location_latitude
+field_name: field_h_location_latitude
+entity_type: paragraph
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

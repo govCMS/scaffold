@@ -1,0 +1,55 @@
+/**
+ * @file
+ * Site styles.
+ */
+
+/**
+ * Import variables from Health parent theme.
+ */
+@import '../../../health/source/sass/variables';
+
+/**
+ * Sub-theme variables.
+ *
+ * The colours partial is provided by default. Additional partials created in
+ * the `base/` folder should be imported here.
+ */
+@import './base/colours';
+
+/**
+ * Health base theme - components / functions.
+ *
+ * Imports the component styles from the parent Health theme.
+ */
+@import '../../../health/source/sass/components';
+
+/**
+ * GOV.AU component overrides.
+ *
+ * Import styling overrides for DTA Design System provided components. See
+ * following commented code for an example on how to do this.
+ */
+// @import './components/@govau/au-main-nav';
+// @import './components/@govau/au-side-nav';
+
+/**
+ * Health parent theme component overrides.
+ *
+ * Import styling overrides for Health Design System provided components. See
+ * following commented code for an example on how to do this.
+ */
+// @import './components/@health/card';
+// @import './components/@health/hero';
+
+/**
+ * Project theme component styles.
+ *
+ * Import styles for any custom components created specifically for this theme.
+ * See following commented code for an example on how to do this.
+ */
+// @import './components/@MY_THEME/card';
+
+/**
+ * Any hacky styling work arounds (e.g. IE compatibility).
+ */
+@import 'hacks';

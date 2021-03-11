@@ -1,0 +1,15 @@
+max_links: 2000
+cron_generate: true
+cron_generate_interval: 0
+generate_duration: 10000
+remove_duplicates: true
+skip_untranslated: true
+base_url: 'https://www.nationalsportstribunal.gov.au'
+default_variant: default
+custom_links_include_images: false
+excluded_languages: {  }
+enabled_entity_types:
+  - node
+  - menu_link_content
+_core:
+  default_config_hash: FoTCiVMOlTpj9EU5bUJB7lS8JK2gnnvqh-AdIC0ktBQ

@@ -1,0 +1,56 @@
+uuid: ff552ea9-61da-4de3-bd22-ddc4bbb920a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_tile.field_h_image_featured
+    - field.field.paragraph.para_h_tile.field_h_link_external_internal
+    - field.field.paragraph.para_h_tile.field_h_summary
+    - field.field.paragraph.para_h_tile.field_h_title
+    - paragraphs.paragraphs_type.para_h_tile
+  module:
+    - link
+    - media
+id: paragraph.para_h_tile.default
+targetEntityType: paragraph
+bundle: para_h_tile
+mode: default
+content:
+  field_h_image_featured:
+    type: media_thumbnail
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_link_external_internal:
+    weight: 3
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_h_summary:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_title:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

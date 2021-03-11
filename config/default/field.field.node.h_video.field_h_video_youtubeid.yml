@@ -1,0 +1,19 @@
+uuid: 835d3ae3-98f6-4149-b65a-f005f6224aec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_video_youtubeid
+    - node.type.h_video
+id: node.h_video.field_h_video_youtubeid
+field_name: field_h_video_youtubeid
+entity_type: node
+bundle: h_video
+label: 'Youtube Id'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

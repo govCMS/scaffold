@@ -1,0 +1,103 @@
+uuid: e8dd5e0c-b4e9-4b62-a4ec-a082b088d9b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_resource_parts
+    - node.type.h_app_or_tool
+    - paragraphs.paragraphs_type.para_h_resource_part
+  module:
+    - entity_reference_revisions
+id: node.h_app_or_tool.field_h_resource_parts
+field_name: field_h_resource_parts
+entity_type: node
+bundle: h_app_or_tool
+label: 'Downloadable files'
+description: "Add a downloadable app or tool file here. You can add a title and summary for each file you add.\r\nOR, if for adding instruction files etc: Add associated files such as instructions or guidelines here.\""
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_resource_part: para_h_resource_part
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: 21
+        enabled: false
+      para_h_app_or_tool:
+        weight: 27
+        enabled: false
+      para_h_band:
+        weight: 28
+        enabled: false
+      para_h_button:
+        weight: 29
+        enabled: false
+      para_h_content_callout:
+        weight: 28
+        enabled: false
+      para_h_content_featured:
+        weight: 31
+        enabled: false
+      para_h_content_html:
+        weight: 29
+        enabled: false
+      para_h_content_iframe:
+        weight: 33
+        enabled: false
+      para_h_content_image:
+        weight: 30
+        enabled: false
+      para_h_content_reference:
+        weight: 31
+        enabled: false
+      para_h_content_table:
+        weight: 32
+        enabled: false
+      para_h_content_text:
+        weight: 33
+        enabled: false
+      para_h_email_addresses:
+        weight: 34
+        enabled: false
+      para_h_fax_numbers:
+        weight: 35
+        enabled: false
+      para_h_form:
+        weight: 40
+        enabled: false
+      para_h_layout_grid:
+        weight: 41
+        enabled: false
+      para_h_layout_three_column:
+        weight: 42
+        enabled: false
+      para_h_layout_two_column:
+        weight: 43
+        enabled: false
+      para_h_listing:
+        weight: 44
+        enabled: false
+      para_h_listing_embedded:
+        weight: 36
+        enabled: false
+      para_h_listing_tile:
+        weight: 37
+        enabled: false
+      para_h_publication_grouping:
+        weight: 47
+        enabled: false
+      para_h_resource_part:
+        enabled: true
+        weight: 38
+      para_h_telephone_numbers:
+        weight: 39
+        enabled: false
+      para_h_tile:
+        weight: 40
+        enabled: false
+field_type: entity_reference_revisions

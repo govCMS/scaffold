@@ -1,0 +1,78 @@
+uuid: 39ad1415-1227-4647-8059-d3b61a12906c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.h_featured
+    - field.field.node.h_news_article.field_h_audience
+    - field.field.node.h_news_article.field_h_content_components
+    - field.field.node.h_news_article.field_h_content_grade_level
+    - field.field.node.h_news_article.field_h_content_long_sentences
+    - field.field.node.h_news_article.field_h_content_owner
+    - field.field.node.h_news_article.field_h_content_pass_sentences
+    - field.field.node.h_news_article.field_h_content_readability
+    - field.field.node.h_news_article.field_h_date_created
+    - field.field.node.h_news_article.field_h_date_published
+    - field.field.node.h_news_article.field_h_date_reviewed
+    - field.field.node.h_news_article.field_h_date_updated
+    - field.field.node.h_news_article.field_h_image_featured
+    - field.field.node.h_news_article.field_h_language
+    - field.field.node.h_news_article.field_h_related_contact
+    - field.field.node.h_news_article.field_h_subject
+    - field.field.node.h_news_article.field_h_subject_2
+    - field.field.node.h_news_article.field_h_subject_3
+    - field.field.node.h_news_article.field_h_summary
+    - image.style.h_content_max_width_no_upscale
+    - node.type.h_news_article
+  module:
+    - media
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_news_article.h_featured
+targetEntityType: node
+bundle: h_news_article
+mode: h_featured
+content:
+  field_h_image_featured:
+    type: media_thumbnail
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      image_style: h_content_max_width_no_upscale
+      image_link: ''
+    third_party_settings: {  }
+  field_h_summary:
+    type: basic_string
+    weight: 1
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_h_audience: true
+  field_h_content_components: true
+  field_h_content_grade_level: true
+  field_h_content_long_sentences: true
+  field_h_content_owner: true
+  field_h_content_pass_sentences: true
+  field_h_content_readability: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_language: true
+  field_h_related_contact: true
+  field_h_subject: true
+  field_h_subject_2: true
+  field_h_subject_3: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,12 @@
+uuid: ae8a35df-98b1-4f9f-b324-5c3f8371ee67
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: AXvr2g7Oaq4qiZUpyqttc_Kh6c0SRD0pMp44NhwRVnI
+id: node.teaser_small
+label: 'Teaser Small'
+targetEntityType: node
+cache: true

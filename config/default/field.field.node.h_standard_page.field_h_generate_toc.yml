@@ -1,0 +1,23 @@
+uuid: fd3b25f6-3d60-4967-a002-12e36aba7c15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_generate_toc
+    - node.type.h_standard_page
+id: node.h_standard_page.field_h_generate_toc
+field_name: field_h_generate_toc
+entity_type: node
+bundle: h_standard_page
+label: 'Generate table of contents'
+description: 'Select a table of contents whenever you have more than two headings on a page.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Include a table of contents at the top of the page which links to each of the second level headings (H2).'
+  off_label: 'Exclude a table of contents'
+field_type: boolean

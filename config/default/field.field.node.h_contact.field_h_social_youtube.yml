@@ -1,0 +1,23 @@
+uuid: 7a74bcd4-f0d3-4060-ac30-722f57aba2d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_social_youtube
+    - node.type.h_contact
+  module:
+    - link
+id: node.h_contact.field_h_social_youtube
+field_name: field_h_social_youtube
+entity_type: node
+bundle: h_contact
+label: 'Social YouTube channel'
+description: 'Enter a social media link. This must be an external URL in the format https://example.com'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

@@ -1,0 +1,156 @@
+name: Build local environment
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - master
+      - develop
+jobs:
+  coding-standards:
+    name: Drupal coding standards
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout codebase
+        uses: actions/checkout@v2
+      -
+        name: Set up PHP 7.4 with Composer v1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer:v1
+      -
+        name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      -
+        name: Cache Composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      -
+        name: Run Composer
+        run: composer install
+      -
+        name: Check Drupal coding standards
+        run: composer code-check
+  build:
+    needs: coding-standards
+    runs-on: ubuntu-latest
+    env:
+      THEME_PATH: 'themes/health'
+    steps:
+      -
+        name: Checkout codebase
+        uses: actions/checkout@v2
+      -
+        name: Set Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+          check-latest: true
+      -
+        name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      -
+        name: Install project level npm dependencies
+        run: npm install
+      -
+        name: Set up PHP 7.4 with Composer v1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer:v1
+      -
+        name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      -
+        name: Cache Composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      -
+        name: Run Composer
+        run: composer install
+      -
+        name: Install sample react app
+        run: composer -n require healthgovau/sample-react-app
+      -
+        name: Install Health theme dependencies
+        run: |
+          cd $THEME_PATH
+          npm install
+      -
+        name: Import Health Desigh System build assets
+        run: |
+          cd $THEME_PATH
+          npm run hds:import
+      -
+        name: Build Health theme CSS and JS assets
+        run: |
+          cd $THEME_PATH
+          npm run gulp prod
+      -
+        name: Install Pygmy
+        run: sudo gem install pygmy
+      -
+        name: Start Pygmy
+        run: sudo pygmy up
+      -
+        name: Build project
+        run: docker-compose up -d
+      -
+        name: Check status of containers
+        run: docker-compose ps
+      -
+        name: Wait for 10secs to ensure database container is ready
+        uses: jakejarvis/wait-action@master
+        with:
+          time: 10s
+      -
+        name: Check drush version
+        run: docker-compose exec -T cli drush version
+      -
+        name: Install site
+        run: docker-compose exec -T cli drush -v -y site:install --existing-config
+      -
+        name: Install sample content
+        run: |
+          docker-compose exec -T cli drush -y pm:enable health_sample_content
+          docker-compose exec -T cli drush -y mim --all
+      -
+        uses: cypress-io/github-action@v2
+      -
+        name: Run end to end tests
+        uses: percy/exec-action@v0.3.1
+        with:
+          command: "cypress run"
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos

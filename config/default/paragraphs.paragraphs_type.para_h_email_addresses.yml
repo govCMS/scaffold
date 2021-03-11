@@ -1,0 +1,10 @@
+uuid: 8fe129cf-78e9-4ad0-b929-e7e3b5772ae1
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_email_addresses
+label: Email
+icon_uuid: null
+icon_default: null
+description: 'Create email address with optional label.'
+behavior_plugins: {  }

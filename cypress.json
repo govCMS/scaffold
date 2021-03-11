@@ -1,0 +1,5 @@
+{
+  "baseUrl": "http://hsk.govcms.docker.amazee.io",
+  "responseTimeout": 60000,
+  "video": false
+}

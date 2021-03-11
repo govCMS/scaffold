@@ -1,0 +1,25 @@
+uuid: 2a5d632e-2664-4195-8959-848c21a7085b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_button.field_h_link_external_internal
+    - paragraphs.paragraphs_type.para_h_button
+  module:
+    - link
+id: paragraph.para_h_button.default
+targetEntityType: paragraph
+bundle: para_h_button
+mode: default
+content:
+  field_h_link_external_internal:
+    weight: 0
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+hidden:
+  created: true
+  status: true

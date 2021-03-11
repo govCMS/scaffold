@@ -1,0 +1,20 @@
+uuid: 16e5d4a8-087e-4956-9ce2-f00b809fc243
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - paragraphs
+id: paragraph.field_h_content_featured
+field_name: field_h_content_featured
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

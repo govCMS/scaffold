@@ -1,0 +1,10 @@
+uuid: b1f7480d-e5c9-4a01-9796-31656a79b508
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_layout_two_column
+label: 'Layout - two column'
+icon_uuid: null
+icon_default: null
+description: 'Provides left and right content regions into which other components can be added. '
+behavior_plugins: {  }

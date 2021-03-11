@@ -1,0 +1,42 @@
+id: sample_paragraphs_content_html
+label: Sample Paragraphs - Content HTML
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_content_html_2
+      field_h_body: |
+        <p>Luke Skywalker has vanished. In his absence, the sinister FIRST ORDER has risen from the ashes of the Empire and will not rest until Skywalker, the last Jedi, has been destroyed.</p>
+        <p>With the support of the REPUBLIC, General Leia Organa leads a brave RESISTANCE. She is desperate to find her brother Luke and gain his help in restoring peace and justice to the galaxy.</p>
+        <p>Leia has sent her most daring pilot on a secret mission to Jakku, where an old ally has discovered a clue to Luke’s whereabouts…</p>
+    -
+      id: para_h_content_html_3
+      field_h_body: |
+        <p>The FIRST ORDER reigns. Having decimated the peaceful Republic, Supreme Leader Snoke now deploys his merciless legions to seize military control of the galaxy.</p>
+        <p>Only General Leia Organa's band of RESISTANCE fighters stand against the rising tyranny, certain that Jedi Master Luke Skywalker will return and restore a spark of hope to the fight.</p>
+        <p>But the Resistance has been exposed. As the First Order speeds toward the Rebel base, the brave heroes mount a desperate escape</p>
+    -
+      id: para_h_content_html_4
+      field_h_body: |
+        <p>The dead speak! The galaxy has heard a mysterious broadcast, a threat of REVENGE in the sinister voice of the late EMPEROR PALPATINE.</p>
+        <p>GENERAL LEIA ORGANA dispatches secret agents to gather intelligence, while REY, the last hope of the Jedi, trains for battle against the diabolical FIRST ORDER.</p>
+        <p>Meanwhile, Supreme Leader KYLO REN rages in search of the phantom Emperor, determined to destroy any threat to his power…</p>
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  'field_h_body/value': field_h_body
+  'field_h_body/format':
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_content_html
+migration_dependencies: null

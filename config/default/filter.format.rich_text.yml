@@ -1,0 +1,95 @@
+uuid: a50f2642-69ea-4ab4-8bdc-be6c8ae1c5ca
+langcode: en
+status: true
+dependencies:
+  module:
+    - editor
+    - entity_embed
+    - linkit
+    - media
+_core:
+  default_config_hash: Y-ktR9Vf9j6SlO1Uoa9COEhSAJ8CR2KU2vvcowSjF0U
+name: 'Rich text'
+format: rich_text
+weight: -10
+filters:
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: -47
+    settings: {  }
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: -43
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: -48
+    settings:
+      filter_url_length: 72
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -50
+    settings:
+      allowed_html: '<br dir class=""> <strong dir class=""> <li dir class=""> <sup dir class=""> <sub dir class=""> <span dir class=""> <blockquote dir class=""> <cite dir class=""> <h2 dir class=""> <h3 dir class=""> <h4 dir class=""> <h5 dir class=""> <h6 dir class=""> <em> <ul dir class=" list--large list--large--plain list--large--checklist"> <ol type dir class=" list--large list--large--plain"> <p dir class=" au-callout au-introduction text--minor text--number-highlight"> <a href rel target title name id dir class=" au-cta-link au-btn au-btn--secondary au-btn--primary">'
+      filter_html_help: true
+      filter_html_nofollow: false
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: false
+    weight: -41
+    settings: {  }
+  entity_embed:
+    id: entity_embed
+    provider: entity_embed
+    status: false
+    weight: -44
+    settings: {  }
+  filter_html_image_secure:
+    id: filter_html_image_secure
+    provider: filter
+    status: false
+    weight: -40
+    settings: {  }
+  filter_align:
+    id: filter_align
+    provider: filter
+    status: false
+    weight: -46
+    settings: {  }
+  filter_caption:
+    id: filter_caption
+    provider: filter
+    status: false
+    weight: -45
+    settings: {  }
+  filter_html_escape:
+    id: filter_html_escape
+    provider: filter
+    status: false
+    weight: -42
+    settings: {  }
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: -49
+    settings:
+      title: true
+  media_embed:
+    id: media_embed
+    provider: media
+    status: false
+    weight: 100
+    settings:
+      default_view_mode: default
+      allowed_media_types: {  }
+      allowed_view_modes: {  }

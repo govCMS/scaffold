@@ -1,0 +1,43 @@
+uuid: 769a075e-84ee-4fb2-9e0c-60b7db414cce
+langcode: en
+status: true
+dependencies:
+  module:
+    - linkit
+    - media
+name: 'Full HTML'
+format: full_html
+weight: -5
+filters:
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: 0
+    settings:
+      filter_url_length: 72
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: false
+    weight: -10
+    settings:
+      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <div class="au-callout"> <table class="table__no-banding"> <sup> <sub> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button data-langcode alt title> <ul type class="list--large list--large--plain list--large--checklist"> <ol start type class="list--large list--large--plain"> <p class="au-introduction text--minor text--number-highlight au-callout"> <a href hreflang data-entity-substitution data-entity-type data-entity-uuid title class="au-cta-link au-btn au-btn--primary au-btn--secondary">'
+      filter_html_help: true
+      filter_html_nofollow: false
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true
+  media_embed:
+    id: media_embed
+    provider: media
+    status: false
+    weight: 100
+    settings:
+      default_view_mode: default
+      allowed_media_types: {  }
+      allowed_view_modes: {  }

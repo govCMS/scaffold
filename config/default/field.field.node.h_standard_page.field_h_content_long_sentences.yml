@@ -1,0 +1,23 @@
+uuid: 4ad8fe06-88a4-4776-9844-79222ed8f368
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_long_sentences
+    - node.type.h_standard_page
+id: node.h_standard_page.field_h_content_long_sentences
+field_name: field_h_content_long_sentences
+entity_type: node
+bundle: h_standard_page
+label: 'Content % long sentences'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: !!float 100
+  prefix: ''
+  suffix: '%'
+field_type: decimal

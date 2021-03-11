@@ -1,0 +1,10 @@
+uuid: 57cd473c-c75a-4d28-aca7-d2ad747961ac
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_app_or_tool
+label: 'App or tool'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

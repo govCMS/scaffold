@@ -1,0 +1,8 @@
+uuid: bb401a29-f70b-4f5f-b47a-745fde3bacc2
+langcode: en
+status: true
+dependencies: {  }
+id: h_day_month_year
+label: 'Health - Day Month Year'
+locked: false
+pattern: 'j F Y'

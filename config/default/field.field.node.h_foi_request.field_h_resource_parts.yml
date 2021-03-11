@@ -1,0 +1,97 @@
+uuid: bb6ecf06-5f0f-4107-a62e-0122e6c79899
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_resource_parts
+    - node.type.h_foi_request
+    - paragraphs.paragraphs_type.para_h_resource_part
+  module:
+    - entity_reference_revisions
+id: node.h_foi_request.field_h_resource_parts
+field_name: field_h_resource_parts
+entity_type: node
+bundle: h_foi_request
+label: 'FOI documents'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_resource_part: para_h_resource_part
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: 24
+        enabled: false
+      para_h_band:
+        weight: 25
+        enabled: false
+      para_h_button:
+        weight: 26
+        enabled: false
+      para_h_content_callout:
+        weight: 27
+        enabled: false
+      para_h_content_featured:
+        weight: 28
+        enabled: false
+      para_h_content_html:
+        weight: 29
+        enabled: false
+      para_h_content_iframe:
+        weight: 30
+        enabled: false
+      para_h_content_image:
+        weight: 31
+        enabled: false
+      para_h_content_reference:
+        weight: 32
+        enabled: false
+      para_h_content_table:
+        weight: 33
+        enabled: false
+      para_h_content_text:
+        weight: 34
+        enabled: false
+      para_h_email_addresses:
+        weight: 35
+        enabled: false
+      para_h_fax_numbers:
+        weight: 36
+        enabled: false
+      para_h_form:
+        weight: 37
+        enabled: false
+      para_h_layout_three_column:
+        weight: 38
+        enabled: false
+      para_h_layout_two_column:
+        weight: 39
+        enabled: false
+      para_h_listing:
+        weight: 40
+        enabled: false
+      para_h_listing_embedded:
+        weight: 41
+        enabled: false
+      para_h_listing_tile:
+        weight: 42
+        enabled: false
+      para_h_publication_grouping:
+        weight: 43
+        enabled: false
+      para_h_resource_part:
+        enabled: true
+        weight: 44
+      para_h_telephone_numbers:
+        weight: 45
+        enabled: false
+      para_h_tile:
+        weight: 46
+        enabled: false
+field_type: entity_reference_revisions

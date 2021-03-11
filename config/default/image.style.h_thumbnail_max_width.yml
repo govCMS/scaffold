@@ -1,0 +1,15 @@
+uuid: e489569d-0e7a-47f9-880f-107f3716120a
+langcode: en
+status: true
+dependencies: {  }
+name: h_thumbnail_max_width
+label: 'Thumbnail (max width)'
+effects:
+  853b33e2-452e-4fbd-83a9-c21664313c09:
+    uuid: 853b33e2-452e-4fbd-83a9-c21664313c09
+    id: image_scale
+    weight: 1
+    data:
+      width: 360
+      height: null
+      upscale: false

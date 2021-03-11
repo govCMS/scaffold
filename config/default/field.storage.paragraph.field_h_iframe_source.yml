@@ -1,0 +1,19 @@
+uuid: 399ad88d-64e0-44ad-8ca1-440a7ecc26d7
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_h_iframe_source
+field_name: field_h_iframe_source
+entity_type: paragraph
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

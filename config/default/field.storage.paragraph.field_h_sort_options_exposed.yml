@@ -1,0 +1,33 @@
+uuid: bc3e9ad0-c55e-4323-ad2c-9185091c6790
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_h_sort_options_exposed
+field_name: field_h_sort_options_exposed
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: title
+      label: Title
+    -
+      value: field_h_date_created_value
+      label: 'Date created'
+    -
+      value: field_h_date_updated_value
+      label: 'Date updated'
+    -
+      value: field_h_resource_date_value
+      label: 'Date of resource publication'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

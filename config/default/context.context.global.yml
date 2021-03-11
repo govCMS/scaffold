@@ -1,0 +1,173 @@
+uuid: 798d3844-722d-405a-8d5a-f86b81943c41
+langcode: en
+status: true
+dependencies: {  }
+name: global
+label: Global
+group: null
+description: ''
+requireAllConditions: false
+disabled: false
+conditions: {  }
+reactions:
+  blocks:
+    blocks:
+      1b7db8c3-aa4b-4c88-83eb-0e3e18982a47:
+        id: 'system_menu_block:main'
+        label: 'Main navigation'
+        provider: system
+        label_display: '0'
+        level: '1'
+        depth: '1'
+        expand_all_items: 0
+        region: navigation
+        weight: '0'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: 1b7db8c3-aa4b-4c88-83eb-0e3e18982a47
+        custom_id: system_menu_block_main
+      ff2354e4-a029-4faf-84f1-20651e9d7df5:
+        id: system_breadcrumb_block
+        label: Breadcrumbs
+        provider: system
+        label_display: '0'
+        region: content_top
+        weight: '-3'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: ff2354e4-a029-4faf-84f1-20651e9d7df5
+        custom_id: system_breadcrumb_block
+      9178f26b-e96e-4128-b9db-a29dd518cf47:
+        id: page_title_block
+        label: 'Page title'
+        provider: core
+        label_display: '0'
+        region: content_top
+        weight: '-2'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: 9178f26b-e96e-4128-b9db-a29dd518cf47
+        custom_id: page_title_block
+      817a78a1-a730-4991-9e96-dec4a9fd6b97:
+        id: system_main_block
+        label: 'Main page content'
+        provider: system
+        label_display: '0'
+        region: content
+        weight: '-3'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: 817a78a1-a730-4991-9e96-dec4a9fd6b97
+        custom_id: system_main_block
+      290665de-7605-4792-9fa2-02be01b680f6:
+        id: 'system_menu_block:footer'
+        label: Footer
+        provider: system
+        label_display: '0'
+        level: '1'
+        depth: '2'
+        expand_all_items: 0
+        region: footer_top
+        weight: '0'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: 290665de-7605-4792-9fa2-02be01b680f6
+        custom_id: system_menu_block_footer
+      4a3cc762-bffb-4527-a404-a22fb8b7807c:
+        id: 'system_menu_block:h-secondary-navigation'
+        label: 'Secondary navigation'
+        provider: system
+        label_display: '0'
+        level: '1'
+        depth: '0'
+        expand_all_items: 0
+        region: header
+        weight: '-4'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: 4a3cc762-bffb-4527-a404-a22fb8b7807c
+        custom_id: system_menu_block_h_secondary_navigation
+      639a6a7f-6512-4b9b-98e3-964602d2ca0a:
+        id: help_block
+        label: Help
+        provider: help
+        label_display: '0'
+        region: header_top
+        weight: '-3'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: 639a6a7f-6512-4b9b-98e3-964602d2ca0a
+        custom_id: help_block
+      c353e81e-45cd-4812-bbb9-472472f5b0ff:
+        id: 'views_exposed_filter_block:h_site_search-search_page'
+        label: ''
+        provider: views
+        label_display: '0'
+        views_label: ''
+        region: header
+        weight: '-3'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: c353e81e-45cd-4812-bbb9-472472f5b0ff
+        custom_id: views_exposed_filter_block_h_site_search_search_page
+      4289eef5-bfc0-4164-ac5c-a711b5ed0e3f:
+        id: local_tasks_block
+        label: Tabs
+        provider: core
+        label_display: '0'
+        primary: 1
+        secondary: 1
+        region: content
+        weight: '-4'
+        context_mapping: {  }
+        custom_id: local_tasks_block
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: 4289eef5-bfc0-4164-ac5c-a711b5ed0e3f
+      94e0e3c1-01ff-49a9-8313-cb3ca9e45932:
+        id: 'views_block:h_global_notifications-block_1'
+        label: ''
+        provider: views
+        label_display: '0'
+        views_label: ''
+        items_per_page: none
+        region: header_top
+        weight: '-4'
+        context_mapping: {  }
+        custom_id: views_block_h_global_notifications_block_1
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: global
+        uuid: 94e0e3c1-01ff-49a9-8313-cb3ca9e45932
+    id: blocks
+    saved: false
+    uuid: 4021adfc-f96a-4137-a5e5-e586dc56566c
+    include_default_blocks: 0
+weight: 0

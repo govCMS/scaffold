@@ -1,0 +1,17 @@
+.health-footnotes {
+  border-top: $health-borderize--very-thin;
+  @include AU-space('margin-top', 1.5unit);
+  @include AU-space('padding-top', 1.5unit);
+
+  @at-root table & {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
+// Link to the footnote.
+.health-footnotes__link {
+  border-bottom: 1px dotted #CCC;
+  cursor: help;
+}

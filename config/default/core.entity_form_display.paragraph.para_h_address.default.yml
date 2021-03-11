@@ -1,0 +1,123 @@
+uuid: 931e82d2-6d00-4ec3-9a9a-cfea1cb4b9da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_address.field_h_address_line_1
+    - field.field.paragraph.para_h_address.field_h_address_line_2
+    - field.field.paragraph.para_h_address.field_h_city_suburb
+    - field.field.paragraph.para_h_address.field_h_country
+    - field.field.paragraph.para_h_address.field_h_label
+    - field.field.paragraph.para_h_address.field_h_location_latitude
+    - field.field.paragraph.para_h_address.field_h_location_longitude
+    - field.field.paragraph.para_h_address.field_h_postcode
+    - field.field.paragraph.para_h_address.field_h_state
+    - paragraphs.paragraphs_type.para_h_address
+  module:
+    - field_group
+third_party_settings:
+  field_group:
+    group_h_address:
+      children:
+        - field_h_address_line_1
+        - field_h_address_line_2
+        - field_h_city_suburb
+        - field_h_postcode
+        - field_h_state
+        - field_h_country
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Address
+      region: content
+id: paragraph.para_h_address.default
+targetEntityType: paragraph
+bundle: para_h_address
+mode: default
+content:
+  field_h_address_line_1:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_address_line_2:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_city_suburb:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_country:
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_h_label:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_location_latitude:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_location_longitude:
+    weight: 9
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_postcode:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_state:
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

@@ -1,0 +1,23 @@
+uuid: 58b51178-98d1-4048-839f-6d06171e229e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_readability
+    - node.type.h_news_article
+id: node.h_news_article.field_h_content_readability
+field_name: field_h_content_readability
+entity_type: node
+bundle: h_news_article
+label: 'Content readability'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 100
+  prefix: ''
+  suffix: /100
+field_type: integer

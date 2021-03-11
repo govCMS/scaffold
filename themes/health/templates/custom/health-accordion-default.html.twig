@@ -1,0 +1,11 @@
+<section class="au-accordion">
+  <button class="au-accordion__title js-au-accordion au-accordion--closed" aria-controls="accordion-{{ id }}" aria-expanded="false" onclick="return AU.accordion.Toggle(this)">
+    {{ title }}
+  </button>
+
+  <div class="au-accordion__body au-accordion--closed" id="accordion-{{ id }}">
+    <div class="au-accordion__body-wrapper">
+      {{ content }}
+    </div>
+  </div>
+</section>

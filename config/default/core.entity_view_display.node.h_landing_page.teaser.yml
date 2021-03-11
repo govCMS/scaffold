@@ -1,0 +1,45 @@
+uuid: beff0dc2-a97d-4bb0-bc40-4907abcc7fb3
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.h_landing_page.field_h_content_components
+    - field.field.node.h_landing_page.field_h_content_owner
+    - field.field.node.h_landing_page.field_h_date_created
+    - field.field.node.h_landing_page.field_h_date_published
+    - field.field.node.h_landing_page.field_h_date_reviewed
+    - field.field.node.h_landing_page.field_h_date_updated
+    - field.field.node.h_landing_page.field_h_display_as_hero
+    - field.field.node.h_landing_page.field_h_image_featured
+    - field.field.node.h_landing_page.field_h_summary
+    - node.type.h_landing_page
+  module:
+    - user
+id: node.h_landing_page.teaser
+targetEntityType: node
+bundle: h_landing_page
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_h_content_components: true
+  field_h_content_owner: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_display_as_hero: true
+  field_h_image_featured: true
+  field_h_summary: true
+  langcode: true
+  search_api_excerpt: true

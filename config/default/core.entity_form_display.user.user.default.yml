@@ -1,0 +1,40 @@
+uuid: 1d8c4d9a-8689-4d1c-9e1e-7e725bdb5f3a
+langcode: en
+status: true
+dependencies:
+  module:
+    - path
+    - user
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  account:
+    weight: -10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  google_analytics:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  language:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  timezone:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true

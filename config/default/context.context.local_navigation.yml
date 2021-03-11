@@ -1,0 +1,63 @@
+uuid: e5e257ab-95a3-46d5-8078-a544064a87ce
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+name: local_navigation
+label: 'Local navigation'
+group: Navigation
+description: ''
+requireAllConditions: false
+disabled: false
+conditions:
+  node_type:
+    id: node_type
+    bundles:
+      h_standard_page: h_standard_page
+    negate: false
+    uuid: 28ff45b6-7f36-4502-9090-fb4b5eb9dfc8
+    context_mapping:
+      node: '@node.node_route_context:node'
+reactions:
+  blocks:
+    blocks:
+      b3e4d4c2-8e07-4f56-883d-399b0b69f9ff:
+        id: 'system_menu_block:main'
+        label: 'Main navigation - Level 2 +'
+        provider: system
+        label_display: '0'
+        level: '2'
+        depth: '0'
+        expand_all_items: 0
+        region: sidebar_first
+        weight: '0'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: local_navigation
+        uuid: b3e4d4c2-8e07-4f56-883d-399b0b69f9ff
+        custom_id: system_menu_block_main
+      70c32ed4-db32-4f65-8347-b19a685f299a:
+        id: 'system_menu_block:footer'
+        label: 'Footer - Level 2+'
+        provider: system
+        label_display: '0'
+        level: '1'
+        depth: '0'
+        expand_all_items: 0
+        region: sidebar_first
+        weight: '1'
+        context_mapping: {  }
+        theme: health
+        css_class: ''
+        unique: 0
+        context_id: local_navigation
+        uuid: 70c32ed4-db32-4f65-8347-b19a685f299a
+        custom_id: system_menu_block_footer
+    id: blocks
+    saved: false
+    uuid: da2914fc-6967-40dd-9a43-da3207b5dd87
+    include_default_blocks: 0
+weight: 0

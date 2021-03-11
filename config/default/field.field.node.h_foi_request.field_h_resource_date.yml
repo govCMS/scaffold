@@ -1,0 +1,21 @@
+uuid: 1fbff99a-60f7-4484-a7a6-697fb59698c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_resource_date
+    - node.type.h_foi_request
+  module:
+    - datetime
+id: node.h_foi_request.field_h_resource_date
+field_name: field_h_resource_date
+entity_type: node
+bundle: h_foi_request
+label: 'FOI release date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

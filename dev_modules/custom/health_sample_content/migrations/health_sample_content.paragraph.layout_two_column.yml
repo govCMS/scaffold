@@ -1,0 +1,93 @@
+id: sample_paragraphs_layout_two_column
+label: Sample Paragraphs - Layout 2 Column
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_layout_two_column_1
+      field_h_content_components_col_1:
+        -
+          id: para_h_content_image_2
+      field_h_content_components_col_2:
+        -
+          id: para_h_content_text_6
+    -
+      id: para_h_layout_two_column_2
+      field_h_content_components_col_1:
+        -
+          id: para_h_content_text_15
+      field_h_content_components_col_2:
+        -
+          id: para_h_listing_embedded_3
+    -
+      id: para_h_layout_two_column_3
+      field_h_css_classnames: beskar
+      field_h_two_column_widths: custom
+      field_h_mobile_col1_width: '2'
+      field_h_mobile_col2_width: '10'
+      field_h_tablet_col1_width: '4'
+      field_h_tablet_col2_width: '8'
+      field_h_desktop_col1_width: '6'
+      field_h_desktop_col2_width: '6'
+      field_h_content_components_col_1:
+        -
+          id: para_h_content_image_6
+      field_h_content_components_col_2:
+        -
+          id: para_h_content_text_16
+    -
+      id: para_h_layout_two_column_4
+      field_h_css_classnames: millenium-falcon
+      field_h_two_column_widths: '3_9'
+      field_h_content_components_col_1:
+        -
+          id: para_h_content_image_7
+        -
+          id: para_h_content_text_17
+      field_h_content_components_col_2:
+        -
+          id: para_h_content_text_18
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_content_components_col_1:
+    plugin: sub_process
+    source: field_h_content_components_col_1
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_content_image
+          - sample_paragraphs_content_text
+          - sample_paragraphs_listing_embedded
+        source: id
+      target_revision_id: '@target_id'
+  field_h_content_components_col_2:
+    plugin: sub_process
+    source: field_h_content_components_col_2
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_content_image
+          - sample_paragraphs_content_text
+          - sample_paragraphs_listing_embedded
+        source: id
+      target_revision_id: '@target_id'
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_layout_two_column
+migration_dependencies:
+  required:
+    - sample_paragraphs_content_image
+    - sample_paragraphs_content_text
+    - sample_paragraphs_listing_embedded
+    - sample_taxonomy_colour

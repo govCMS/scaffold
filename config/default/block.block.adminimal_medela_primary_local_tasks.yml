@@ -1,0 +1,22 @@
+uuid: c243de14-fc76-46b8-ae1b-dd212570650c
+langcode: en
+status: true
+dependencies:
+  theme:
+    - adminimal_medela
+_core:
+  default_config_hash: bYxOYAzv62tU2xGxkb9V1Fcfq5vgAbyT4YwraMFVLBE
+id: adminimal_medela_primary_local_tasks
+theme: adminimal_medela
+region: header
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: false
+visibility: {  }

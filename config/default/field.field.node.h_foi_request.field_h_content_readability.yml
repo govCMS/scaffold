@@ -1,0 +1,23 @@
+uuid: e44df270-22d7-4a2d-b1d7-8b384de01a2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_readability
+    - node.type.h_foi_request
+id: node.h_foi_request.field_h_content_readability
+field_name: field_h_content_readability
+entity_type: node
+bundle: h_foi_request
+label: 'Content readability'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 100
+  prefix: ''
+  suffix: /100
+field_type: integer

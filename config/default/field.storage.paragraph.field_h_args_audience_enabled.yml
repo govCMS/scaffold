@@ -1,0 +1,18 @@
+uuid: e81f1ab3-4650-4f1a-ae68-020a85114160
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_h_args_audience_enabled
+field_name: field_h_args_audience_enabled
+entity_type: paragraph
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

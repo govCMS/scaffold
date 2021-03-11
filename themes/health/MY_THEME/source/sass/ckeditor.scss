@@ -1,0 +1,19 @@
+/**
+ * @file
+ * CKEditor specific styling.
+ *
+ * Contains styling tweaks to overcome stylng issues which arise when viewing
+ * content in CKEditor.
+ */
+@import 'styles';
+
+.cke_editable {
+  padding: 20px;
+  @extend .au-body !optional;
+  @extend .au-grid !optional;
+
+  // Prevent the ckeditor red line hover from pushing content down.
+  > span:first-of-type + * {
+    margin-top: 0 !important;
+  }
+}

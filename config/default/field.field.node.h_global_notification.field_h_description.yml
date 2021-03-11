@@ -1,0 +1,21 @@
+uuid: 9acf3642-3b7c-4bed-987f-8d516be993da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_description
+    - node.type.h_global_notification
+  module:
+    - text
+id: node.h_global_notification.field_h_description
+field_name: field_h_description
+entity_type: node
+bundle: h_global_notification
+label: Content
+description: 'Provides the content which will appear in the notification.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

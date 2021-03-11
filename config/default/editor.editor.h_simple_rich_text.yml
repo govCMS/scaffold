@@ -1,0 +1,44 @@
+uuid: f88ffc1a-9b6d-4d6d-b667-89a7edd03e0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.h_simple_rich_text
+  module:
+    - ckeditor
+format: h_simple_rich_text
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Tools
+          items:
+            - Source
+  plugins:
+    stylescombo:
+      styles: ''
+    drupallink:
+      linkit_enabled: true
+      linkit_profile: h_wysiwyg
+    language:
+      language_list: un
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

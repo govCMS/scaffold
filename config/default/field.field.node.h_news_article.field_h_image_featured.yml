@@ -1,0 +1,28 @@
+uuid: fe6163be-310b-4d10-8cab-82e2257d52e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_image_featured
+    - media.type.image
+    - node.type.h_news_article
+id: node.h_news_article.field_h_image_featured
+field_name: field_h_image_featured
+entity_type: node
+bundle: h_news_article
+label: 'Image featured'
+description: 'Select the image that will be featured with this News item.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

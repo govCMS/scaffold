@@ -1,0 +1,48 @@
+id: sample_node_search_results
+lable: Sample Nodes - Search results
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: Search
+      field_h_summary: ' '
+      alias: /search/results
+      status: '1'
+  ids:
+    id:
+      type: integer
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  'path/pathauto':
+    plugin: default_value
+    default_value: 0 # Disable pathauto.
+  'path/alias': alias
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: 'entity:node'
+  default_bundle: search_results

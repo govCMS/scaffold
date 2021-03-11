@@ -1,0 +1,11 @@
+uuid: 113edfcf-4fe0-4be8-8e0f-df67d62498af
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.h_subject_2
+id: taxonomy_term.h_subject_2
+target_entity_type_id: taxonomy_term
+target_bundle: h_subject_2
+default_langcode: site_default
+language_alterable: false

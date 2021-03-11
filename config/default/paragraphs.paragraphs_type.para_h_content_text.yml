@@ -1,0 +1,10 @@
+uuid: 064ddd5a-6b1b-40b8-ad5a-83fe1b0f23ef
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_content_text
+label: 'Content - Text'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,19 @@
+uuid: d345d123-12aa-43ff-babd-06678c06d066
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_summary
+    - paragraphs.paragraphs_type.para_h_content_iframe
+id: paragraph.para_h_content_iframe.field_h_summary
+field_name: field_h_summary
+entity_type: paragraph
+bundle: para_h_content_iframe
+label: 'Iframe description'
+description: 'Enter a description of the iFrame content. Assistive technologies will use this description to help users navigate the iFrame. The description will not display on the page.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,19 @@
+uuid: 4749efad-3bac-4467-8dd1-20cde0f7b29e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_location_longitude
+    - paragraphs.paragraphs_type.para_h_address
+id: paragraph.para_h_address.field_h_location_longitude
+field_name: field_h_location_longitude
+entity_type: paragraph
+bundle: para_h_address
+label: 'Location longitude'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

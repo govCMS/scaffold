@@ -1,0 +1,29 @@
+uuid: 4883e2b1-5477-4269-baf2-0c90b8d2eabe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_tags
+    - media.type.video
+_core:
+  default_config_hash: LCflzIhbdTnJsSHqhxBrrXCPwTf--UrpRBUeKnxSrIc
+id: media.video.field_tags
+field_name: field_tags
+entity_type: media
+bundle: video
+label: Tags
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles: {  }
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,104 @@
+.health-listing--notification {
+  margin: 0;
+  padding: 0;
+
+  .health-listing__item--notification {
+    margin: 0;
+    padding: 0;
+    transition: height 2s;
+  }
+}
+
+.health-notification {
+
+  &--dark {
+    .health-notification__icon,
+    .health-notification__date,
+    .health-notification__content,
+    .health-notification__button {
+      color: white;
+      fill: white;
+    }
+  }
+
+
+  &__inner-wrapper {
+    @extend .container;
+    display: flex;
+    flex-direction: row;
+    @include AU-space(padding, 0.625unit 0);
+  }
+
+  &--disease-outbreak {
+    background-color: lighten($colour-accent-orange, 15%);
+    @include AU-space(padding, 0.75unit 0);
+  }
+
+  &--health-emergency {
+    background-color: lighten($colour-accent-red, 40%);
+    @include AU-space(padding, 0.75unit 0);
+  }
+
+  &--other {
+    background-color: #cccccc;
+    @include AU-space(padding, 0.75unit 0);
+  }
+
+  /* A notification always include an icon. */
+  &__icon {
+    @include AU-space(flex, 0 0 2unit);
+
+    /* Wrapper div which solves an IE browser 'disappearing icon' issue. */
+    .alignment-helper {
+      display: inline-block;
+      height: 100%;
+      vertical-align: text-top;
+
+      img, svg {
+        @include AU-space(width, 2unit);
+      }
+    }
+  }
+
+  &__button {
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: block;
+    @include AU-space(flex, 0 0 2unit);
+    padding: 0;
+    transition: border-color 0.2s;
+
+    &:active,
+    &:hover {
+      border-color: $colour-darkest;
+    }
+
+    &--dismiss {
+      background-color: transparent;
+      color: $colour-darkest;
+      @include AU-space(border-radius, 0.3125unit);
+      @include AU-space(height, 2unit);
+      @include AU-space(width, 2unit);
+    }
+  }
+
+  &__content {
+    align-self: center;
+    flex: 1 1;
+    @include AU-space(padding, 0 1unit);
+
+    a:link,
+    a:visited {
+      color: #000099;
+    }
+  }
+
+  &__date {
+    @include AU-space(padding, 0.25unit 0.625unit);
+  }
+}
+
+/* Set top-border of second etc notification in header-top region. */
+.health-listing--item:not(:first-of-type) > article.node-global-notification {
+  border-top: solid 1px #888;
+}

@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Theme override of an image.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the img tag.
+ * - style_name: (optional) The name of the image style applied.
+ *
+ * @see template_preprocess_image()
+ */
+#}
+{{ attach_library('health/lazyload') }}
+<div class="image-outer rs_skip rs_preserve">
+  <div class="image-placeholder" style="max-width: {{ attributes.width }}px">
+    <div style="padding-top: {{ ratio }}%"></div>
+  </div>
+  <div class="image-wrapper image-loading">
+    <div class="image">
+      <img{{ attributes }} />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+uuid: d21d6948-60ab-4734-9f14-c74ca5a63b75
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Video
+type: h_video
+description: 'Use Video to link to a video object on YouTube or another host platform. For webinars, use the Webinar content type.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

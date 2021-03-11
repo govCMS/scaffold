@@ -1,0 +1,23 @@
+{% extends '@paragraphs/paragraph.html.twig' %}
+
+{% set iframe_classes = content.field_h_iframe_classes|render|striptags|trim|e('html') %}
+{% set iframe_title = content.field_h_iframe_title|render|striptags|trim|e('html') %}
+{% set iframe_source = content.field_h_iframe_source|render|striptags|trim|e('html') %}
+
+{% block paragraph %}
+
+  {% if content.field_h_title %}
+    {{ content.field_h_title }}
+  {% endif %}
+
+  {% if content.field_h_summary %}
+    <p>{{ content.field_h_summary }}</p>
+  {% endif %}
+
+  {% include "@health/custom/health-iframe.html.twig" with {
+    "iframe_classes": iframe_classes,
+    "iframe_title": iframe_title,
+    "iframe_source": iframe_source
+  } %}
+
+{% endblock %}

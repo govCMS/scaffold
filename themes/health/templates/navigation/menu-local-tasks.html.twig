@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Theme override to display primary and secondary local tasks.
+ *
+ * Available variables:
+ * - primary: HTML list items representing primary tasks.
+ * - secondary: HTML list items representing primary tasks.
+ *
+ * Each item in these variables (primary and secondary) can be individually
+ * themed in menu-local-task.html.twig.
+ */
+#}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      {% if primary %}
+        <ul class="health-tabs au-link-list au-link-list--inline">{{ primary }}</ul>
+      {% endif %}
+      {% if secondary %}
+        <ul>{{ secondary }}</ul>
+      {% endif %}
+    </div>
+  </div>
+</div>

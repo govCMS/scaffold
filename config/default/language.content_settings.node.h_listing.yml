@@ -1,0 +1,11 @@
+uuid: bf309f50-2418-486a-adb0-f9941dfad4da
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.h_listing
+id: node.h_listing
+target_entity_type_id: node
+target_bundle: h_listing
+default_langcode: site_default
+language_alterable: false

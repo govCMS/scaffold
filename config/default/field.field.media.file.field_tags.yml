@@ -1,0 +1,29 @@
+uuid: 8bbb3ccc-cbfe-4e32-80b2-7f5045455c8d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_tags
+    - media.type.file
+_core:
+  default_config_hash: PTp7Df6pnbrnUwM2AhNsR3w3iRxG4y8Gs_OiiZuqcVg
+id: media.file.field_tags
+field_name: field_tags
+entity_type: media
+bundle: file
+label: Tags
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles: {  }
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

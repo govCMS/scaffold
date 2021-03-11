@@ -1,0 +1,73 @@
+uuid: f1af6314-aac4-477f-9143-9daeabd7056c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.h_search_result
+    - field.field.node.h_landing_page.field_h_content_components
+    - field.field.node.h_landing_page.field_h_content_owner
+    - field.field.node.h_landing_page.field_h_date_created
+    - field.field.node.h_landing_page.field_h_date_published
+    - field.field.node.h_landing_page.field_h_date_reviewed
+    - field.field.node.h_landing_page.field_h_date_updated
+    - field.field.node.h_landing_page.field_h_display_as_hero
+    - field.field.node.h_landing_page.field_h_image_featured
+    - field.field.node.h_landing_page.field_h_summary
+    - node.type.h_landing_page
+  module:
+    - ds
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: true
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      content:
+        - node_title
+        - field_h_summary
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 0
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          wrapper: h2
+          class: 'au-display-md health-search-result__link-title'
+id: node.h_landing_page.h_search_result
+targetEntityType: node
+bundle: h_landing_page
+mode: h_search_result
+content:
+  field_h_summary:
+    type: basic_string
+    weight: 1
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_h_content_components: true
+  field_h_content_owner: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_display_as_hero: true
+  field_h_image_featured: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

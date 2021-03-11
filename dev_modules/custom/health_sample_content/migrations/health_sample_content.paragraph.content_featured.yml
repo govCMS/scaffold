@@ -1,0 +1,106 @@
+id: sample_paragraphs_content_featured
+label: Sample Paragraphs - Content Featured
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_content_featured_1
+      field_h_content_featured: node_h_video_1
+    -
+      id: para_h_content_featured_2
+      field_h_content_featured: node_h_video_1
+    -
+      id: para_h_content_featured_3
+      field_h_content_featured: node_h_publication_2
+    -
+      id: para_h_content_featured_4
+      field_h_content_featured: h_app_or_tool_1
+    -
+      id: para_h_content_featured_5
+      field_h_content_featured: node_h_collection_1
+    -
+      id: para_h_content_featured_6
+      field_h_content_featured: node_h_news_3
+    -
+      id: para_h_content_featured_7
+      field_h_content_featured: node_h_publication_2
+      field_h_title: Overridden Title
+      field_h_label: See overridden link text
+      field_h_summary: |
+        Overriden summary text content.
+      field_h_link_external_internal: https://starwars.com
+      field_h_image_featured: image_13
+    -
+      id: para_h_content_featured_8
+      field_h_content_featured: h_app_or_tool_1
+      field_h_title: Overridden Title
+      field_h_label: See overridden link text
+      field_h_summary: |
+        Overriden summary text content.
+      field_h_link_external_internal: https://starwars.com
+      field_h_image_featured: image_13
+    -
+      id: para_h_content_featured_9
+      field_h_content_featured: node_h_collection_1
+      field_h_title: Overridden Title
+      field_h_label: See overridden link text
+      field_h_summary: |
+        Overriden summary text content.
+      field_h_link_external_internal: https://starwars.com
+      field_h_image_featured: image_13
+    -
+      id: para_h_content_featured_10
+      field_h_content_featured: node_h_video_1
+      field_h_title: Overridden Title
+      field_h_label: See overridden link text
+      field_h_summary: |
+        Overriden summary text content.
+      field_h_link_external_internal: https://starwars.com
+      field_h_image_featured: image_13
+    -
+      id: para_h_content_featured_11
+      field_h_content_featured: node_h_news_3
+      field_h_title: Overridden Title
+      field_h_label: See overridden link text
+      field_h_summary: |
+        Overriden summary text content.
+      field_h_link_external_internal: https://starwars.com
+      field_h_image_featured: image_13
+  ids:
+    id:
+      type: string
+process:
+  'field_h_content_featured/target_id':
+    plugin: migration_lookup
+    migration:
+      - sample_node_app_or_tool
+      - sample_node_collection
+      - sample_node_news
+      - sample_node_publication
+      - sample_node_video
+    source: field_h_content_featured
+  field_h_title: field_h_title
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_image_featured:
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+  'field_h_link_external_internal/uri': field_h_link_external_internal
+  field_h_label: field_h_label
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_content_featured
+migration_dependencies:
+  required:
+    - sample_taxonomy_colour
+    - sample_node_app_or_tool
+    - sample_node_collection
+    - sample_node_news
+    - sample_node_publication
+    - sample_node_video

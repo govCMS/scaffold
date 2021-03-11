@@ -1,0 +1,22 @@
+uuid: 0f3639fa-afbc-4804-9cca-49e023ffc36b
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - adminimal_medela
+_core:
+  default_config_hash: Z9C7NYKY9K2pyqxUkuKoh2RH2VbXoyrFulwsu96P2OM
+id: adminimal_medela_help
+theme: adminimal_medela
+region: help
+weight: 0
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,25 @@
+uuid: c477afed-96b4-4001-85a0-af702b793f56
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_reference
+    - paragraphs.paragraphs_type.para_h_content_reference
+id: paragraph.para_h_content_reference.field_h_reference
+field_name: field_h_reference
+entity_type: paragraph
+bundle: para_h_content_reference
+label: Reference
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: h_content_reference_field
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

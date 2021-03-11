@@ -1,0 +1,27 @@
+id: sample_taxonomy_subject_3
+label: Sample Taxomony Terms - Subject Three
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: Beetroot
+    -
+      name: Carrot
+    -
+      name: Pumpkin
+    -
+      name: Zucchini
+  ids:
+    name:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_subject_3

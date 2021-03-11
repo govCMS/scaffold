@@ -1,0 +1,29 @@
+uuid: c87d2c13-fbba-4648-ba00-dd3b96745f95
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_notification_type
+    - node.type.h_global_notification
+    - taxonomy.vocabulary.h_notification_type
+id: node.h_global_notification.field_h_notification_type
+field_name: field_h_notification_type
+entity_type: node
+bundle: h_global_notification
+label: 'Notification type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_notification_type: h_notification_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

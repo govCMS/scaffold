@@ -1,0 +1,358 @@
+uuid: b0a5649d-3eb0-4f3b-a76c-b346980ef944
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.h_image_browser
+    - field.field.node.h_news_article.field_h_audience
+    - field.field.node.h_news_article.field_h_content_components
+    - field.field.node.h_news_article.field_h_content_grade_level
+    - field.field.node.h_news_article.field_h_content_long_sentences
+    - field.field.node.h_news_article.field_h_content_owner
+    - field.field.node.h_news_article.field_h_content_pass_sentences
+    - field.field.node.h_news_article.field_h_content_readability
+    - field.field.node.h_news_article.field_h_date_created
+    - field.field.node.h_news_article.field_h_date_published
+    - field.field.node.h_news_article.field_h_date_reviewed
+    - field.field.node.h_news_article.field_h_date_updated
+    - field.field.node.h_news_article.field_h_image_featured
+    - field.field.node.h_news_article.field_h_language
+    - field.field.node.h_news_article.field_h_related_contact
+    - field.field.node.h_news_article.field_h_subject
+    - field.field.node.h_news_article.field_h_subject_2
+    - field.field.node.h_news_article.field_h_subject_3
+    - field.field.node.h_news_article.field_h_summary
+    - node.type.h_news_article
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - datetime
+    - entity_browser
+    - field_group
+    - paragraphs
+    - path
+third_party_settings:
+  field_group:
+    group_h_tabs:
+      children:
+        - group_h_content
+        - group_h_metadata
+        - group_h_relationships
+        - group_h_dates
+        - group_h_readability
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+      label: Tabs
+      region: content
+    group_h_content:
+      children:
+        - field_h_summary
+        - field_h_content_components
+        - field_h_image_featured
+      parent_name: group_h_tabs
+      weight: 13
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Content
+      region: content
+    group_h_metadata:
+      children:
+        - field_h_language
+        - field_h_audience
+        - field_h_content_owner
+      parent_name: group_h_tabs
+      weight: 14
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Metadata
+      region: content
+    group_h_relationships:
+      children:
+        - field_h_subject
+        - field_h_subject_2
+        - field_h_subject_3
+        - field_h_related_contact
+      parent_name: group_h_tabs
+      weight: 15
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Related
+      region: content
+    group_h_dates:
+      children:
+        - field_h_date_reviewed
+        - group_h_system_dates
+      parent_name: group_h_tabs
+      weight: 16
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Dates
+      region: content
+    group_h_readability:
+      children:
+        - field_h_content_long_sentences
+        - field_h_content_pass_sentences
+        - field_h_content_readability
+        - field_h_content_grade_level
+      parent_name: group_h_tabs
+      weight: 17
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Readability
+      region: content
+    group_h_system_dates:
+      children:
+        - field_h_date_created
+        - field_h_date_published
+        - field_h_date_updated
+      parent_name: group_h_dates
+      weight: 30
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'System dates'
+      region: content
+id: node.h_news_article.default
+targetEntityType: node
+bundle: h_news_article
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_h_audience:
+    weight: 27
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_content_components:
+    weight: 11
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      closed_mode: preview
+      autocollapse: all
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: para_h_content_text
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_h_content_grade_level:
+    weight: 37
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_long_sentences:
+    weight: 34
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_owner:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_content_pass_sentences:
+    weight: 35
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_content_readability:
+    weight: 36
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_h_date_created:
+    weight: 105
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_published:
+    weight: 106
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_reviewed:
+    weight: 29
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_updated:
+    weight: 107
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_image_featured:
+    type: entity_browser_entity_reference
+    weight: 12
+    settings:
+      entity_browser: h_image_browser
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_h_language:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_related_contact:
+    weight: 104
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject:
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject_2:
+    weight: 102
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject_3:
+    weight: 103
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_summary:
+    weight: 10
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

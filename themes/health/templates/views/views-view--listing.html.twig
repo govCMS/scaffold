@@ -1,0 +1,84 @@
+{#
+/**
+ * @file
+ * Default theme implementation for main view template.
+ *
+ * Available variables:
+ * - attributes: Remaining HTML attributes for the element.
+ * - css_name: A CSS-safe version of the view name.
+ * - css_class: The user-specified classes names, if any.
+ * - header: The optional header.
+ * - footer: The optional footer.
+ * - rows: The results of the view query, if any.
+ * - empty: The content to display if there are no rows.
+ * - pager: The optional pager next/prev links to display.
+ * - exposed: Exposed widget form/info to display.
+ * - feed_icons: Optional feed icons to display.
+ * - more: An optional link to the next page of results.
+ * - title: Title of the view, only used when displaying in the admin preview.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the view title.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the view title.
+ * - attachment_before: An optional attachment view to be displayed before the
+ *   view content.
+ * - attachment_after: An optional attachment view to be displayed after the
+ *   view content.
+ * - dom_id: Unique id for every view being printed to give unique class for
+ *   Javascript.
+ *
+ * @see template_preprocess_views_view()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+  {{ title_prefix }}
+  {{ title }}
+  {{ title_suffix }}
+
+  <header class="row">
+    <div class="col-sm-4 col-md-3 standard-gap--mobile-only">
+      {{ header }}
+    </div>
+    <div class="col-sm-8 col-md-9">
+      {{ exposed }}
+    </div>
+    {% if active_facets %}
+    <div class="health-listing__filters health-listing__filters--inline col-xs-12">
+      <label>Filters applied:</label>
+      <ul class="au-tags">
+        {% for facet in active_facets %}
+          <li>
+            {{ facet }}
+          </li>
+        {% endfor %}
+      </ul>
+      {{ clear_all }}
+    </div>
+    {% endif %}
+  </header>
+
+  {{ attachment_before }}
+
+  {% if rows -%}
+    {{ rows }}
+  {% elseif empty -%}
+    {{ empty }}
+  {% endif %}
+  {{ pager }}
+
+  {{ attachment_after }}
+  {{ more }}
+
+  {% if footer %}
+    <footer>
+      {{ footer }}
+    </footer>
+  {% endif %}
+
+  {{ feed_icons }}

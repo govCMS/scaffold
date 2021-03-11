@@ -1,0 +1,15 @@
+uuid: 31c8316d-8b65-4f6e-a77a-a45f29f0633d
+langcode: en
+status: true
+dependencies: {  }
+name: h_content_max_width_with_upscale
+label: 'Content (max width with upscale)'
+effects:
+  7202b1ae-7e7c-4c27-a57e-a653d4a41db5:
+    uuid: 7202b1ae-7e7c-4c27-a57e-a653d4a41db5
+    id: image_scale
+    weight: 1
+    data:
+      width: 760
+      height: null
+      upscale: true

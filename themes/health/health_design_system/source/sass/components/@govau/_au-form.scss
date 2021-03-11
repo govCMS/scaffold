@@ -1,0 +1,46 @@
+// This is not the Design System Form component.
+// @todo Replace with Design system form component.
+.au-form {
+
+  &__item {
+
+    @include AU-space('margin-top', 1.5unit);
+    label {
+      font-weight: bold;
+      .au-control-input__text {
+        font-weight: normal;
+      }
+    }
+
+    &-description {
+      @include AU-space('margin-top', .5unit);
+    }
+
+    .au-text-input,
+    .au-select {
+      display: block;
+      @include AU-space('margin-top', .5unit);
+      max-width: 42em;
+    }
+
+    .au-control-input {
+      @include AU-space(margin-top, .75unit);
+      label {
+        font-weight: normal;
+      }
+    }
+
+    .form-required {
+      color: $AU-color-error;
+    }
+  }
+
+  .form-element-length-counter {
+    @include AU-space('margin-top', .5unit);
+  }
+
+  &--hidden {
+    display: none;
+  }
+
+}

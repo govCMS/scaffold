@@ -1,0 +1,116 @@
+id: sample_node_app_or_tool_hosted
+label: Sample Nodes - App or Tool - Hosted
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: h_app_or_tool_hosted_1
+      title: Rebel Base Calculator
+      field_h_summary: |
+        Those rebels can calculate
+      field_h_resource_availability: Online
+      field_h_content_components:
+        -
+          id: para_h_app_or_tool_1
+      field_h_audience: Everyone
+      field_h_language: English
+      field_h_content_owner: Incom
+      field_h_subject: Politics
+      status: '1'
+  ids:
+    id:
+      type: string
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_resource_availability:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_resource_availability
+    bundle_key: vid
+    bundle: h_resource_availability
+  field_h_content_components:
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_button
+          - sample_paragraphs_content_text
+          - sample_paragraphs_app_or_tool
+        source: id
+      target_revision_id: '@target_id'
+  field_h_language:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_language
+    bundle_key: vid
+    bundle: h_language
+  field_h_audience:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_audience
+    bundle_key: vid
+    bundle: h_target_audience_group
+  field_h_content_owner:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_content_owner
+    bundle_key: vid
+    bundle: h_content_owner
+  field_h_subject:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_subject
+    bundle_key: vid
+    bundle: h_subject
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+  path/alias:
+    plugin: default_value
+    default_value: '/resources/rebel-base-calculator/app'
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+  default_bundle: h_app_or_tool_hosted
+migration_dependencies:
+  required:
+    - sample_taxonomy_audience
+    - sample_taxonomy_content_owner
+    - sample_taxonomy_language
+    - sample_taxonomy_resource_availability
+    - sample_taxonomy_subject
+    - sample_taxonomy_subject_2
+    - sample_taxonomy_subject_3
+    - sample_paragraphs_app_or_tool
+    - sample_paragraphs_content_text

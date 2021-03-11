@@ -1,0 +1,26 @@
+uuid: 588961d4-91b3-4ca5-9c5d-7387116acea2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_content_text.field_h_body
+    - paragraphs.paragraphs_type.para_h_content_text
+  module:
+    - text
+id: paragraph.para_h_content_text.default
+targetEntityType: paragraph
+bundle: para_h_content_text
+mode: default
+content:
+  field_h_body:
+    weight: 0
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

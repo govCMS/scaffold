@@ -1,0 +1,42 @@
+id: sample_paragraphs_listing
+label: Sample Paragraphs - Listing
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_listing_1
+      field_h_listing_content_types:
+        -
+          type: h_app_or_tool
+        -
+          type: h_publication
+        -
+          type: h_video
+      field_h_listing_facets:
+        -
+          facet: h_content_type
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_listing_content_types:
+    plugin: sub_process
+    source: field_h_listing_content_types
+    process:
+      target_id: type
+  field_h_listing_facets:
+    plugin: sub_process
+    source: field_h_listing_facets
+    process:
+      target_id: facet
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_listing
+migration_dependencies: null

@@ -1,0 +1,23 @@
+uuid: a373056a-80d3-404e-8a53-0db8bf750bbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_app_width
+    - paragraphs.paragraphs_type.para_h_app_or_tool
+  module:
+    - options
+id: paragraph.para_h_app_or_tool.field_h_app_width
+field_name: field_h_app_width
+entity_type: paragraph
+bundle: para_h_app_or_tool
+label: 'App width'
+description: 'This option controls the width of the app on the page.'
+required: true
+translatable: true
+default_value:
+  -
+    value: container
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,21 @@
+uuid: 1897ce3c-fde7-4db2-adb9-873533e5b026
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_resource_file_summary
+    - paragraphs.paragraphs_type.para_h_resource_part
+  module:
+    - text
+id: paragraph.para_h_resource_part.field_h_resource_file_summary
+field_name: field_h_resource_file_summary
+entity_type: paragraph
+bundle: para_h_resource_part
+label: Summary
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,19 @@
+uuid: 0290f66a-1272-4718-a1c7-40fd6b8206ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_label
+    - paragraphs.paragraphs_type.para_h_telephone_numbers
+id: paragraph.para_h_telephone_numbers.field_h_label
+field_name: field_h_label
+entity_type: paragraph
+bundle: para_h_telephone_numbers
+label: 'Contact label'
+description: 'Optional accompanying text to the telephone number.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,14 @@
+uuid: 3203268b-accf-4727-a821-09d283af1972
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.h_migration
+  module:
+    - user
+id: user_add_role_action.h_migration
+label: 'Add the Migration role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: h_migration

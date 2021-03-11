@@ -1,0 +1,28 @@
+uuid: 0f5f1dce-f6ad-481b-b4c2-18f54e1554a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_image_featured
+    - media.type.image
+    - node.type.h_collection
+id: node.h_collection.field_h_image_featured
+field_name: field_h_image_featured
+entity_type: node
+bundle: h_collection
+label: Image
+description: 'Add an image to display on the collection page and in search results. This could be a thumbnail of one of the resources, a program logo or other branding.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

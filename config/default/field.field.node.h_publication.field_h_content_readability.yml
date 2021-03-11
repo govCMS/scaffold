@@ -1,0 +1,23 @@
+uuid: f9173059-c8a5-4584-8e7c-9753819aef99
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_readability
+    - node.type.h_publication
+id: node.h_publication.field_h_content_readability
+field_name: field_h_content_readability
+entity_type: node
+bundle: h_publication
+label: 'Content readability'
+description: 'Run the description field text through a readability tool. Enter the content readability score out of 100.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 100
+  prefix: ''
+  suffix: /100
+field_type: integer

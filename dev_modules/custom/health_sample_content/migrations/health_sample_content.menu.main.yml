@@ -1,0 +1,136 @@
+id: sample_menu_main
+label: Menu links
+audit: true
+migration_tags:
+  - health_sample_content
+  - health_sample_menu
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      plid: 0
+      link_title: Home
+      description: null
+      link_path: '<front>'
+      options: []
+      external: 0
+      weight: 0
+      expanded: 0
+      enabled: 1
+      updated: 1609979636
+    -
+      id: 2
+      plid: 0
+      link_title: Star Wars
+      description: null
+      link_path: '/star-wars'
+      options: []
+      external: 0
+      weight: 1
+      expanded: 0
+      enabled: 1
+      updated: 1609979676
+    -
+      id: 3
+      plid: 0
+      link_title: Resources
+      description: null
+      link_path: '/resources'
+      options: []
+      external: 0
+      weight: 2
+      expanded: 0
+      enabled: 1
+      updated: 1609979676
+    -
+      id: 4
+      plid: 3
+      parent_link_path: '/resources'
+      link_title: Plans
+      description: null
+      link_path: '/resources/death-star-plans'
+      options: []
+      external: 0
+      weight: 0
+      expanded: 0
+      enabled: 1
+      updated: 1609979676
+    -
+      id: 5
+      plid: 3
+      parent_link_path: '/resources'
+      link_title: Jedi Texts
+      description: null
+      link_path: '/resources/jedi-texts'
+      options: []
+      external: 0
+      weight: 1
+      expanded: 0
+      enabled: 1
+      updated: 1609979676
+    -
+      id: 6
+      plid: 3
+      parent_link_path: '/resources'
+      link_title: Code of the Sith
+      description: null
+      link_path: '/resources/code-sith'
+      options: []
+      external: 0
+      weight: 1
+      expanded: 0
+      enabled: 1
+      updated: 1609979676
+  ids:
+    id:
+      type: string
+process:
+  bundle: 'constants/bundle'
+  title: link_title
+  description: description
+  menu_name:
+    plugin: default_value
+    default_value: main
+  'link/uri':
+    plugin: link_uri
+    source: link_path
+  'link/options': options
+  route:
+    plugin: route
+    source:
+      - link_path
+      - options
+  route_name: '@route/route_name'
+  route_parameters: '@route/route_parameters'
+  url: '@route/url'
+  options: '@route/options'
+  external: external
+  weight: weight
+  expanded: expanded
+  enabled: enabled
+  parent:
+    plugin: menu_link_parent
+    source:
+      - plid
+      - '@menu_name'
+      - parent_link_path
+  changed: updated
+destination:
+  plugin: entity:menu_link_content
+  no_stub: true
+migration_dependencies:
+  required:
+    - sample_node_app_or_tool_hosted
+    - sample_node_app_or_tool
+    - sample_node_collection
+    - sample_node_contact
+    - sample_node_foi_request
+    - sample_node_landing_page
+    - sample_node_listing
+    - sample_node_news
+    - sample_node_publication
+    - sample_node_search_results
+    - sample_node_standard_page
+    - sample_node_video
+  optional: []

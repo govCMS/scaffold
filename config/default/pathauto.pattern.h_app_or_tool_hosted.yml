@@ -1,0 +1,22 @@
+uuid: 405baca9-c64a-4898-a073-2c8a87491f8e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: h_app_or_tool_hosted
+label: 'App or tool - hosted'
+type: 'canonical_entities:node'
+pattern: '[node:menu-link:parent:url:path]/app'
+selection_criteria:
+  17ae2be9-d921-4c05-9ea1-1feccaafe2e3:
+    id: node_type
+    bundles:
+      h_app_or_tool_hosted: h_app_or_tool_hosted
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 17ae2be9-d921-4c05-9ea1-1feccaafe2e3
+selection_logic: and
+weight: -5
+relationships: {  }

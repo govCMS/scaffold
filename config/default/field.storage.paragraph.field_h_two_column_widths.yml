@@ -1,0 +1,39 @@
+uuid: ede6f673-06ee-4f3c-9250-fd389b215861
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_h_two_column_widths
+field_name: field_h_two_column_widths
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '3_9'
+      label: '25% / 75%'
+    -
+      value: '4_8'
+      label: '33% / 66%'
+    -
+      value: '6_6'
+      label: '50% / 50%'
+    -
+      value: '8_4'
+      label: '66% / 33%'
+    -
+      value: '9_3'
+      label: '75% / 25%'
+    -
+      value: custom
+      label: Custom
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

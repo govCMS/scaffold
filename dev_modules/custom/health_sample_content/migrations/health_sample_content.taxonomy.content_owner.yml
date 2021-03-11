@@ -1,0 +1,23 @@
+id: sample_taxonomy_content_owner
+label: Sample Taxomony Terms - Content Owner
+migration_tags:
+  - health_sample_content
+  - health_sample_taxonomy
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: Siener Systems
+    -
+      name: Incom
+  ids:
+    name:
+      type: string
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: name
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: h_content_owner

@@ -1,0 +1,56 @@
+id: sample_paragraphs_publication_grouping
+label: Sample Paragraphs - Publication Grouping
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_publication_grouping_1
+      field_h_title: Ways of the force
+      field_h_summary: |
+        The Code of the Sith, also known as Qotsisajak, was a mantra that expressed the core beliefs of the Sith. It was an inversion of the Jedi Code, a set of rules for members of the Jedi Order. It notably taught its followers that it is for the strong to destroy the weak.
+      field_h_reference_publication:
+        -
+          id: node_h_publication_1
+        -
+          id: node_h_publication_2
+    -
+      id: para_h_publication_grouping_2
+      field_h_title: Vital plans
+      field_h_summary: |
+        The Code of the Sith, also known as Qotsisajak, was a mantra that expressed the core beliefs of the Sith. It was an inversion of the Jedi Code, a set of rules for members of the Jedi Order. It notably taught its followers that it is for the strong to destroy the weak.
+      field_h_reference_publication:
+        -
+          id: node_h_publication_3
+        -
+          id: node_h_publication_4
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  field_h_title: field_h_title
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_reference_publication:
+    plugin: sub_process
+    source: field_h_reference_publication
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: sample_node_publication
+        source: id
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_publication_grouping
+migration_dependencies:
+  required:
+    - sample_media_file
+    - sample_node_publication

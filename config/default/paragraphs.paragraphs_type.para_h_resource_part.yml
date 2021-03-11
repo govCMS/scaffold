@@ -1,0 +1,10 @@
+uuid: e3fd079a-3da1-42b6-a24e-6a0d92e9e708
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_resource_part
+label: Part
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

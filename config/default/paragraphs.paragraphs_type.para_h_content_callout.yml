@@ -1,0 +1,10 @@
+uuid: ac94b216-2257-4671-a3fc-27fb27349362
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_content_callout
+label: 'Content - Callout'
+icon_uuid: null
+icon_default: null
+description: 'Create a callout component.'
+behavior_plugins: {  }

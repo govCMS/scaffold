@@ -1,0 +1,10 @@
+uuid: 1f746bdf-120b-48a8-a112-a49d5a2c34af
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_content_featured
+label: 'Content - Featured'
+icon_uuid: null
+icon_default: null
+description: 'Used to feature an existing item of content .'
+behavior_plugins: {  }

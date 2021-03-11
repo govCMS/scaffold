@@ -1,0 +1,19 @@
+uuid: 2207e63b-7774-4b3d-a20a-79a51bbccbf6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_app_path
+    - paragraphs.paragraphs_type.para_h_app_or_tool
+id: paragraph.para_h_app_or_tool.field_h_app_path
+field_name: field_h_app_path
+entity_type: paragraph
+bundle: para_h_app_or_tool
+label: 'App folder path'
+description: 'The name of the app folder that should reside in /sites/default/themes/custom/health/apps/. Should not contain leading or trailing forward slashes ("/").'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

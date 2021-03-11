@@ -1,0 +1,28 @@
+id: sample_paragraphs_app_or_tool
+label: Sample Paragraphs - App or Tool
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_app_or_tool_1
+      field_h_app_path: sample-react-app
+      field_h_app_index_file: "build/index.html"
+      field_h_app_width: container
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_app_path: field_h_app_path
+  field_h_app_index_file: field_h_app_index_file
+  field_h_app_width: field_h_app_width
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_app_or_tool
+migration_dependencies: null

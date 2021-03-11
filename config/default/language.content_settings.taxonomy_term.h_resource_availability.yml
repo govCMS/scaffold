@@ -1,0 +1,11 @@
+uuid: f70c841a-a86e-4091-974d-4ccaf81cb540
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.h_resource_availability
+id: taxonomy_term.h_resource_availability
+target_entity_type_id: taxonomy_term
+target_bundle: h_resource_availability
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,21 @@
+uuid: 5975e1f5-cbd5-40f3-a87f-e2bf9a4ea60c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_published
+    - node.type.h_app_or_tool_hosted
+  module:
+    - datetime
+id: node.h_app_or_tool_hosted.field_h_date_published
+field_name: field_h_date_published
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: 'Date published'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

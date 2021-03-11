@@ -1,0 +1,19 @@
+uuid: c8824596-2ced-45fd-a53c-7c7cf0ec793d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_summary
+    - paragraphs.paragraphs_type.para_h_content_table
+id: paragraph.para_h_content_table.field_h_summary
+field_name: field_h_summary
+entity_type: paragraph
+bundle: para_h_content_table
+label: Summary
+description: "A table summary conveys information about the organization of the data in a table and helps users navigate it. This is required if this table has a complex structure. <a href=\"https://www.w3.org/WAI/tutorials/tables/caption-summary/\">WCAG Caption & Summary</a>\r\n<br/>Note: This information is not shown on screen but is used by assistive technologies."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,22 @@
+uuid: 6b688b2b-f60d-4dc6-9185-9a1e17dbd6d7
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: collection
+label: Collection
+type: 'canonical_entities:node'
+pattern: 'collections/[node:title]'
+selection_criteria:
+  1304d359-9fda-4271-812a-b0d8a4d05599:
+    id: node_type
+    bundles:
+      h_collection: h_collection
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 1304d359-9fda-4271-812a-b0d8a4d05599
+selection_logic: and
+weight: -5
+relationships: {  }

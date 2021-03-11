@@ -1,0 +1,29 @@
+uuid: e566cef4-6785-4bfd-9ef3-13f129ca5b16
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_tags
+    - media.type.image
+_core:
+  default_config_hash: EDSDc1ywMFwruebxjUnnkAAZ8bYo62zqBOL9RTmkLv8
+id: media.image.field_tags
+field_name: field_tags
+entity_type: media
+bundle: image
+label: Tags
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles: {  }
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,18 @@
+{% extends "@health/content/node.html.twig"%}
+
+{% set main_content_classes = (image_featured_present) ? 'col-sm-8' : 'col-xs-12' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      {% if image_featured_present %}
+        <div class="col-sm-4">
+          {{ content.field_h_image_featured }}
+        </div>
+      {% endif %}
+      <div class="{{ main_content_classes }}">
+        {{ content|without('field_h_summary', 'field_h_image_featured', 'field_h_date_updated', 'field_h_subject') }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

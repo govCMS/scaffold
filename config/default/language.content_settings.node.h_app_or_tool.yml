@@ -1,0 +1,11 @@
+uuid: d91e6cf7-64bb-4861-b5e7-ccdd5ba92664
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.h_app_or_tool
+id: node.h_app_or_tool
+target_entity_type_id: node
+target_bundle: h_app_or_tool
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,15 @@
+// This is not the Design System Form component.
+// @todo Replace with Design system form component.
+fieldset.au-form__item {
+  legend {
+    @extend label;
+  }
+}
+
+// Apply error styling to the error message below fields.
+.au-form__item {
+  div.error {
+    @extend .form-required;
+    @include AU-space('margin-top', 0.5unit);
+  }
+}

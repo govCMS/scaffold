@@ -1,0 +1,115 @@
+uuid: 1ef34f4e-6220-490b-970f-312d6563295a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_components
+    - node.type.h_app_or_tool
+    - paragraphs.paragraphs_type.para_h_button
+    - paragraphs.paragraphs_type.para_h_content_callout
+    - paragraphs.paragraphs_type.para_h_content_html
+    - paragraphs.paragraphs_type.para_h_content_image
+    - paragraphs.paragraphs_type.para_h_content_reference
+    - paragraphs.paragraphs_type.para_h_content_table
+    - paragraphs.paragraphs_type.para_h_content_text
+  module:
+    - entity_reference_revisions
+id: node.h_app_or_tool.field_h_content_components
+field_name: field_h_content_components
+entity_type: node
+bundle: h_app_or_tool
+label: 'Content blocks'
+description: "Add page text, tables, images and navigation elements like buttons and callouts here.\r\nFor the selection box: Select the kind of content to add here. You can add more than one block."
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_button: para_h_button
+      para_h_content_callout: para_h_content_callout
+      para_h_content_html: para_h_content_html
+      para_h_content_image: para_h_content_image
+      para_h_content_reference: para_h_content_reference
+      para_h_content_table: para_h_content_table
+      para_h_content_text: para_h_content_text
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: -43
+        enabled: false
+      para_h_app_or_tool:
+        weight: 27
+        enabled: false
+      para_h_band:
+        weight: 28
+        enabled: false
+      para_h_button:
+        enabled: true
+        weight: -36
+      para_h_content_callout:
+        enabled: true
+        weight: -35
+      para_h_content_featured:
+        weight: 31
+        enabled: false
+      para_h_content_html:
+        enabled: true
+        weight: -34
+      para_h_content_iframe:
+        weight: 33
+        enabled: false
+      para_h_content_image:
+        enabled: true
+        weight: -33
+      para_h_content_reference:
+        enabled: true
+        weight: -32
+      para_h_content_table:
+        enabled: true
+        weight: -31
+      para_h_content_text:
+        enabled: true
+        weight: -30
+      para_h_email_addresses:
+        weight: -29
+        enabled: false
+      para_h_fax_numbers:
+        weight: -28
+        enabled: false
+      para_h_form:
+        weight: 40
+        enabled: false
+      para_h_layout_grid:
+        weight: 41
+        enabled: false
+      para_h_layout_three_column:
+        weight: 42
+        enabled: false
+      para_h_layout_two_column:
+        weight: 43
+        enabled: false
+      para_h_listing:
+        weight: 44
+        enabled: false
+      para_h_listing_embedded:
+        weight: -27
+        enabled: false
+      para_h_listing_tile:
+        weight: -26
+        enabled: false
+      para_h_publication_grouping:
+        weight: 47
+        enabled: false
+      para_h_resource_part:
+        weight: -25
+        enabled: false
+      para_h_telephone_numbers:
+        weight: -24
+        enabled: false
+      para_h_tile:
+        weight: -23
+        enabled: false
+field_type: entity_reference_revisions

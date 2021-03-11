@@ -1,0 +1,29 @@
+uuid: debd1ed7-e571-4ac1-8021-90544f9d1362
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_language
+    - node.type.h_app_or_tool_hosted
+    - taxonomy.vocabulary.h_language
+id: node.h_app_or_tool_hosted.field_h_language
+field_name: field_h_language
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: Language
+description: 'Select the language in which this app or tool is written (English is selected by default).'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_language: h_language
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

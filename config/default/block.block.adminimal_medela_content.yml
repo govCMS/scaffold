@@ -1,0 +1,22 @@
+uuid: 134b1d2b-986d-4f43-ab84-a6ff48be086c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - adminimal_medela
+_core:
+  default_config_hash: TvyL6WoJ3vAO4MMYojTMe3Sxxs1sKM0lGe_sq2OU_WU
+id: adminimal_medela_content
+theme: adminimal_medela
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

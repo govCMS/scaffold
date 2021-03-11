@@ -1,0 +1,24 @@
+{#
+/**
+ * Provides general template for app store link field.
+ *
+ * Available variables:
+ * - items: List of field items.
+ * - image: App store image badge.
+ */
+#}
+<div class="image-outer rs_skip standard-gap--mobile-only col-xs-6 col-sm-4 col-md-3">
+  <div class="">
+    <div class="image">
+      {% for item in items %}
+
+        {% block content %}
+          <a href="{{ item.content['#url'] }}">
+            {{ image }}<span class="sr-only">{{ text }}</span>
+          </a>
+        {% endblock %}
+
+      {% endfor %}
+    </div>
+  </div>
+</div>

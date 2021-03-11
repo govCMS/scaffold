@@ -1,0 +1,15 @@
+uuid: fb532ee7-b719-4a4f-a45d-6d2604b4fd7f
+langcode: en
+status: true
+dependencies: {  }
+name: h_video_16_9_featured
+label: 'Video 16:9 - featured'
+effects:
+  799ad9b6-d158-4df9-a081-97486b137a87:
+    uuid: 799ad9b6-d158-4df9-a081-97486b137a87
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 730
+      height: 410
+      anchor: center-center

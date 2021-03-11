@@ -1,0 +1,28 @@
+uuid: 5529f72a-0900-46b8-b804-e317d32ba051
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_files
+    - media.type.file
+    - paragraphs.paragraphs_type.para_h_resource_part
+id: paragraph.para_h_resource_part.field_h_files
+field_name: field_h_files
+entity_type: paragraph
+bundle: para_h_resource_part
+label: 'Downloadable files'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      file: file
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

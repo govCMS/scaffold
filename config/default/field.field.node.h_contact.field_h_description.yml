@@ -1,0 +1,21 @@
+uuid: 68a3b19d-bad4-4fa5-a898-400b49b84c08
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_description
+    - node.type.h_contact
+  module:
+    - text
+id: node.h_contact.field_h_description
+field_name: field_h_description
+entity_type: node
+bundle: h_contact
+label: Description
+description: 'Describe the contact in greater detail if needed. Do not duplicate the summary.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

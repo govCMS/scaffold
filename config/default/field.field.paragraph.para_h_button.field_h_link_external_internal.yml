@@ -1,0 +1,23 @@
+uuid: a3af04c2-af56-4d0a-9482-d0ab4e2bbd3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_link_external_internal
+    - paragraphs.paragraphs_type.para_h_button
+  module:
+    - link
+id: paragraph.para_h_button.field_h_link_external_internal
+field_name: field_h_link_external_internal
+entity_type: paragraph
+bundle: para_h_button
+label: Button
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

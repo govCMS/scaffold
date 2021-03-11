@@ -1,0 +1,29 @@
+uuid: d124e754-0b47-409d-b249-545ab6e659be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_subject_2
+    - node.type.h_standard_page
+    - taxonomy.vocabulary.h_subject_2
+id: node.h_standard_page.field_h_subject_2
+field_name: field_h_subject_2
+entity_type: node
+bundle: h_standard_page
+label: 'Subject two'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_subject_2: h_subject_2
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

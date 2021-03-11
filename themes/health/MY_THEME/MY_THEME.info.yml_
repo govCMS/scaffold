@@ -1,0 +1,27 @@
+name: MY_THEME
+type: theme
+description: 'Custom theme based on Health theme. '
+core: 8.x
+core_version_requirement: ^8
+base theme: health
+logo: logo.png
+libraries:
+  - MY_THEME/global
+ckeditor_stylesheets:
+  - build/css/ckeditor.min.css
+regions:
+  header_top: Header top
+  header: Header
+  navigation: Navigation bar
+  title_core: Title core
+  title_supp: Title supplimentary
+  content_top:  Content top
+  content: Content
+  sidebar_first: Sidebar
+  content_bottom: Content bottom
+  footer_top: Footer top
+libraries-override:
+  health/global:
+    css:
+      theme:
+        build/css/styles.min.css: build/css/styles.min.css

@@ -1,0 +1,33 @@
+uuid: aff3e52b-82c2-4f3a-ab23-291fca0e2207
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_audience
+    - node.type.h_contact
+    - taxonomy.vocabulary.h_target_audience_group
+  content:
+    - 'taxonomy_term:h_target_audience_group:858da699-cf88-4308-921f-b7f4fd0c7a76'
+id: node.h_contact.field_h_audience
+field_name: field_h_audience
+entity_type: node
+bundle: h_contact
+label: Audience
+description: 'The audience for whom the information is intended (everyone by default)'
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: 858da699-cf88-4308-921f-b7f4fd0c7a76
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_target_audience_group: h_target_audience_group
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

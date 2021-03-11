@@ -1,0 +1,13 @@
+uuid: 79b44ab6-5853-419b-a4ec-35ea3c665535
+langcode: en
+status: true
+dependencies: {  }
+id: h_menu_administrator
+label: 'Menu administrator'
+weight: 7
+is_admin: null
+permissions:
+  - 'access site in maintenance mode'
+  - 'access toolbar'
+  - 'administer menu'
+  - 'view the administration theme'

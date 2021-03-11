@@ -1,0 +1,65 @@
+uuid: 60ee2dc4-785a-4324-b05a-67cdf6ea3282
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+  module:
+    - ckeditor
+_core:
+  default_config_hash: B29rUT9YC6aEmy7MnlrgshL9Q85YLgwyvbi-dLBwN84
+format: rich_text
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Superscript
+            - Subscript
+            - '-'
+            - '-'
+            - BulletedList
+            - NumberedList
+            - JustifyLeft
+            - JustifyRight
+            - RemoveFormat
+            - '-'
+            - Undo
+            - '-'
+            - Format
+            - Styles
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: Media
+          items:
+            - SpecialChar
+            - Blockquote
+        -
+          name: Tools
+          items:
+            - Source
+            - Maximize
+  plugins:
+    stylescombo:
+      styles: "ul.list--large|List large (ul)\r\nol.list--large|List large (ol)\r\nul.list--large--plain|List large plain (ul)\r\nol.list--large--plain|List large plain (ol)\r\nul.list--large--checklist|Checklist\r\np.au-callout|Call out\r\na.au-cta-link|Call to action link\r\na.au-btn.au-btn--primary|Primary action button\r\na.au-btn.au-btn--secondary|Secodary action button\r\np.au-introduction|Introduction\r\np.text--minor|Minor text\r\np.text--number-highlight|Highlighted number"
+    drupallink:
+      linkit_enabled: true
+      linkit_profile: h_wysiwyg
+    language:
+      language_list: un
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

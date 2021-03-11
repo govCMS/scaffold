@@ -1,0 +1,31 @@
+// Reset toolbar to regular colours when inside a dark region.
+.au-body--dark {
+  .health-toolbar {
+    a {
+      @extend a;
+    }
+    a:hover {
+      @extend a:hover;
+    }
+    a:active {
+      @extend a:active;
+    }
+  }
+}
+
+.health-toolbar {
+
+  &--desktop {
+    display: none;
+    @include AU-media(sm) {
+      display: block;
+    }
+  }
+
+  &--mobile {
+    display: block;
+    @include AU-media(sm) {
+      display: none;
+    }
+  }
+}

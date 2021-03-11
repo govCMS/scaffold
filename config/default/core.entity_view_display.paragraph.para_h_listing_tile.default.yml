@@ -1,0 +1,42 @@
+uuid: a1732bb8-97a8-41b8-a60d-f9f8f8c0c0f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_listing_tile.field_h_content_components
+    - field.field.paragraph.para_h_listing_tile.field_h_summary
+    - field.field.paragraph.para_h_listing_tile.field_h_title
+    - paragraphs.paragraphs_type.para_h_listing_tile
+  module:
+    - entity_reference_revisions
+id: paragraph.para_h_listing_tile.default
+targetEntityType: paragraph
+bundle: para_h_listing_tile
+mode: default
+content:
+  field_h_content_components:
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_h_summary:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

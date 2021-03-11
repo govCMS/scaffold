@@ -1,0 +1,11 @@
+uuid: a1caef4c-c18f-4363-93ca-80e3efe563b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.h_subject_3
+id: taxonomy_term.h_subject_3
+target_entity_type_id: taxonomy_term
+target_bundle: h_subject_3
+default_langcode: site_default
+language_alterable: false

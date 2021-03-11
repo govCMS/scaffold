@@ -1,0 +1,26 @@
+uuid: 2c4d2720-7193-4902-a898-15ceaeb546d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.search_results.field_h_summary
+    - node.type.search_results
+  module:
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.search_results.default
+targetEntityType: node
+bundle: search_results
+mode: default
+content: {  }
+hidden:
+  field_h_summary: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,29 @@
+uuid: 2e82e309-8726-42dc-b358-69e5745f14b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_video_type
+    - node.type.h_video
+    - taxonomy.vocabulary.h_video_type
+id: node.h_video.field_h_video_type
+field_name: field_h_video_type
+entity_type: node
+bundle: h_video
+label: 'Video type'
+description: 'To capture different types of video for filtering and presentation.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_video_type: h_video_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

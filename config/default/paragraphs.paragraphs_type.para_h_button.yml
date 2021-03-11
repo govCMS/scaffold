@@ -1,0 +1,10 @@
+uuid: 55c75a13-5ff1-4fbf-ac0b-c005a0ec3275
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_button
+label: Button
+icon_uuid: null
+icon_default: null
+description: 'Button with customisable text.'
+behavior_plugins: {  }

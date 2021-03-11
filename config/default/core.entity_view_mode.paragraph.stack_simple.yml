@@ -1,0 +1,12 @@
+uuid: 068f209f-8ea0-4725-a295-0c78648965c7
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+_core:
+  default_config_hash: bl4dxed_jnPxJGXjRnGDmkCBonwcVU4GWV2aV77wwes
+id: paragraph.stack_simple
+label: 'Stack Simple'
+targetEntityType: paragraph
+cache: true

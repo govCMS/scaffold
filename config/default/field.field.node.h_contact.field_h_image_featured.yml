@@ -1,0 +1,28 @@
+uuid: 141dd7f1-d91c-40fd-af17-8a5093d20ea1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_image_featured
+    - media.type.image
+    - node.type.h_contact
+id: node.h_contact.field_h_image_featured
+field_name: field_h_image_featured
+entity_type: node
+bundle: h_contact
+label: 'Image featured'
+description: 'Add an image to display on the contact page and in search results. This could be the office holder, a program logo or other branding. Images must have an aspect ratio of 16:9 and be at least 800 x 450 pixels in size.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

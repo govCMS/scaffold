@@ -1,0 +1,11 @@
+// Search bar.
+.health-search {
+  // The search form.
+  &__form {
+    &__input {
+      &-wrapper {
+        padding-right: 0px;
+      }
+    }
+  }
+}

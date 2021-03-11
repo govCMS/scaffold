@@ -1,0 +1,69 @@
+{{ attach_library("health/toolbar") }}
+
+<div class="health-toolbar rs_preserve {{ css_classes }}">
+	<ul class="health-toolbar__items au-link-list au-link-list--inline">
+		{% if buttons.listen %}
+      <li>
+        <button
+          id="health-toolbar__listen"
+          href="{{ readspeaker_url }}"
+          class="health-toolbar__listen au-btn au-btn--tertiary {{ btn_modifiers is defined ? btn_modifiers : '' }}"
+        >
+          {% include '@health/custom/health-icon.html.twig' with {'name': 'volume-up', 'class': 'fa-left'} %}
+          {{- "Listen"|t -}}
+        </button>
+      </li>
+    {% endif %}
+    {% if buttons.print %}
+      <li>
+        <button
+          id="health-toolbar__print"
+          class="health-toolbar__print au-btn au-btn--tertiary {{ btn_modifiers is defined ? btn_modifiers : '' }}"
+        >
+          {% include '@health/custom/health-icon.html.twig' with {'name': 'print', 'class': 'fa-left'} %}
+          {{- "Print"|t -}}
+        </button>
+      </li>
+    {% endif %}
+		{% if buttons.share %}
+      <li>
+        <button
+          id="health-toolbar__share"
+          class="health-toolbar__share au-btn au-btn--tertiary {{ btn_modifiers is defined ? btn_modifiers : '' }}"
+        >
+          {% include '@health/custom/health-icon.html.twig' with {'name': 'share-alt', 'category': 'solid', 'class': 'fa-left'} %}
+          {{- "Share"|t -}}
+        </button>
+        <div class="health-share-menu">
+          <ul class="au-link-list">
+            <li>
+              {% include '@health/custom/health-icon.html.twig' with {'name': 'twitter', 'category': 'brands'} %}
+              <a href="{{ twitter_url }}">{{ "Twitter"|t }}</a>
+            </li>
+            <li>
+              {% include '@health/custom/health-icon.html.twig' with {'name': 'facebook-f', 'category': 'brands'} %}
+              <a href="{{ facebook_url }}">{{ "Facebook"|t }}</a>
+            </li>
+            <li>
+              {% include '@health/custom/health-icon.html.twig' with {'name': 'envelope'} %}
+              <a href="{{ email_url }}">{{ "Email"|t }}</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    {% endif %}
+	</ul>
+  <div class="col-xs-12">
+    <div class="health-readspeaker-wrapper">
+      <div
+        id="health-readspeaker-loading"
+        class="health-readspeaker-loading"
+        style="display: none;"
+      >Loading...</div>
+      <div
+        id="health-readspeaker"
+        class="health-readspeaker rs_addtools rs_splitbutton rs_skip rs_exp"
+      ></div>
+    </div>
+  </div>
+</div>

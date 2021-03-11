@@ -1,0 +1,11 @@
+country:
+  default: AU
+first_day: 1
+timezone:
+  default: Australia/Sydney
+  user:
+    configurable: true
+    warn: false
+    default: 0
+_core:
+  default_config_hash: gc3jZ4YUkgl36IM6KuMGKt2FkE6YDPcILuGSYKkb6bg

@@ -1,0 +1,110 @@
+id: sample_file_image
+label: Sample Files - Image
+migration_tags:
+  - health_sample_content
+  - health_sample_file
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: image_1
+      image: 'https://lumiere-a.akamaihd.net/v1/images/Darth-Vader_6bda9114.jpeg'
+    -
+      id: image_2
+      image: 'https://lumiere-a.akamaihd.net/v1/images/sith-holocron_fa76c67c.jpeg'
+    -
+      id: image_3
+      image: 'https://starwarsblog.starwars.com/wp-content/uploads/2020/04/star-wars-backgrounds-25.jpg'
+    -
+      id: image_4
+      image: 'https://img.youtube.com/vi/DVtNve4qySA/hqdefault.jpg'
+    -
+      id: image_5
+      image: 'https://lumiere-a.akamaihd.net/v1/images/tie-interceptor-2_b2250e79.jpeg'
+    -
+      id: image_6
+      image: 'https://lumiere-a.akamaihd.net/v1/images/tie-defender_43d5e0ab.jpeg'
+    -
+      id: image_7
+      image: 'https://lumiere-a.akamaihd.net/v1/images/screen_shot_2015-05-26_at_5_16a39e17.png'
+    -
+      id: image_8
+      image: 'https://lumiere-a.akamaihd.net/v1/images/databank_bwingfighter_01_169_460cc528.jpeg'
+    -
+      id: image_9
+      image: 'https://lumiere-a.akamaihd.net/v1/images/alderaan-2_f3a91795.jpeg'
+    -
+      id: image_10
+      image: 'https://lumiere-a.akamaihd.net/v1/images/image_583439de.jpeg'
+    -
+      id: image_11
+      image: 'https://lumiere-a.akamaihd.net/v1/images/image_38ebc130.jpeg'
+    -
+      id: image_12
+      image: 'https://lumiere-a.akamaihd.net/v1/images/mace-windus-lightsaber_96a893e2.jpeg'
+    -
+      id: image_13
+      image: 'https://lumiere-a.akamaihd.net/v1/images/X-Wing-Fighter_47c7c342.jpeg'
+    -
+      id: image_14
+      image: 'https://lumiere-a.akamaihd.net/v1/images/Falcon-Gallery-1_copy_3d552e45.jpeg'
+    -
+      id: image_15
+      image: 'https://lumiere-a.akamaihd.net/v1/images/jedi-texts-main_7eaa62ab.jpeg'
+    -
+      id: image_16
+      image: 'https://lumiere-a.akamaihd.net/v1/images/screen_shot_2015-05-26_at_5_16a39e17.png'
+    -
+      id: image_17
+      image: 'https://starwarsblog.starwars.com/wp-content/uploads/2019/09/triple-force-friday-events-tall.jpg'
+    -
+      id: image_18
+      image: 'https://starwarsblog.starwars.com/wp-content/uploads/2015/01/kylo-ren-1536x864-184294066438.jpg'
+    -
+      id: image_19
+      image: 'https://starwarsblog.starwars.com/wp-content/uploads/2017/08/ffii-retailers-tall.jpg'
+    -
+      id: image_20
+      image: 'https://lumiere-a.akamaihd.net/v1/images/death-star-plans-main_1225d91c.jpeg'
+    -
+      id: image_21
+      image: 'https://starwarsblog.starwars.com/wp-content/uploads/2017/03/death-star-plans-notebook.jpg'
+    -
+      id: image_22
+      image: 'https://lumiere-a.akamaihd.net/v1/images/beskar-main_a95f957f.jpeg'
+  ids:
+    id:
+      type: string
+  constants:
+    DRUPAL_FILE_DIRECTORY: 'public://image/'
+process:
+  pseudo_destination_filename:
+    -
+      plugin: callback
+      callable: basename
+      source: image
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Cannot import empty image filename.'
+  pseudo_destination_path:
+    -
+      plugin: concat
+      source:
+        - constants/DRUPAL_FILE_DIRECTORY
+        - '@pseudo_destination_filename'
+  uri:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: image
+    -
+      plugin: file_copy
+      source:
+        - image
+        - '@pseudo_destination_path'
+      file_exists: rename
+      move: false
+destination:
+  plugin: 'entity:file'
+migration_dependencies: null

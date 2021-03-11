@@ -1,0 +1,19 @@
+uuid: a1b076e1-9c1d-4696-aa1d-f6d1f26ba226
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_summary
+    - paragraphs.paragraphs_type.para_h_listing_tile
+id: paragraph.para_h_listing_tile.field_h_summary
+field_name: field_h_summary
+entity_type: paragraph
+bundle: para_h_listing_tile
+label: Summary
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,19 @@
+uuid: 36f9ccc9-0c33-4949-8a2c-4a8672060653
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_summary
+    - node.type.h_landing_page
+id: node.h_landing_page.field_h_summary
+field_name: field_h_summary
+entity_type: node
+bundle: h_landing_page
+label: Summary
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

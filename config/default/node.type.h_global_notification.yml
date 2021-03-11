@@ -1,0 +1,17 @@
+uuid: 7637b00d-1ddd-4b82-afe5-15be9a3adced
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Global notification'
+type: h_global_notification
+description: 'A site wide notification which is dismissible by site visitors.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

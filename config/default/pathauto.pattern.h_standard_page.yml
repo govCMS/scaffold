@@ -1,0 +1,22 @@
+uuid: 4729ac12-f09c-4d29-91ed-e725cf49225d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: h_standard_page
+label: 'Standard page'
+type: 'canonical_entities:node'
+pattern: '[node:menu-link:parent:url:path]/[node:title]'
+selection_criteria:
+  4f73a694-1b8f-402c-9c87-ce1d8d2b059f:
+    id: node_type
+    bundles:
+      h_standard_page: h_standard_page
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 4f73a694-1b8f-402c-9c87-ce1d8d2b059f
+selection_logic: and
+weight: -5
+relationships: {  }

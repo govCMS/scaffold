@@ -1,0 +1,19 @@
+name: Adminimal Medela
+type: theme
+description: 'An administration theme based on the Adminimal theme.'
+core: 8.x
+base theme: adminimal_theme
+libraries:
+  - adminimal_medela/global
+regions:
+  header: 'Header'
+  pre_content: 'Pre-content'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  sidebar_first: 'First sidebar'
+regions_hidden:
+  - sidebar_first

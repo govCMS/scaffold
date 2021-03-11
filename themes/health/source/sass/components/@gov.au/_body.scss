@@ -1,0 +1,6 @@
+.au-body {
+  // Apply a standard gap but only if it has content before it.
+  * + .standard-gap--after {
+    @include AU-space('margin-top', 1.5unit);
+  }
+}

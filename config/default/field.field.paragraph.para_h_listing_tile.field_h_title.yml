@@ -1,0 +1,19 @@
+uuid: 21ccf8bc-5c56-40e6-a122-7bc04e8054b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_title
+    - paragraphs.paragraphs_type.para_h_listing_tile
+id: paragraph.para_h_listing_tile.field_h_title
+field_name: field_h_title
+entity_type: paragraph
+bundle: para_h_listing_tile
+label: Title
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,29 @@
+uuid: 3013ab25-a234-43eb-9f37-e1d75e5d0e59
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_args_audience_term
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+    - taxonomy.vocabulary.h_target_audience_group
+id: paragraph.para_h_listing_embedded.field_h_args_audience_term
+field_name: field_h_args_audience_term
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: Audience
+description: 'Select relevant audiences for this listing.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_target_audience_group: h_target_audience_group
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

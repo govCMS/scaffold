@@ -1,0 +1,29 @@
+id: sample_paragraphs_content_callout
+label: Sample Paragraphs - Content Callout
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_content_callout_1
+      title: Revenge of the Sith
+      body_text: |
+        <p>War! The Republic is crumbling under attacks by the ruthless Sith Lord, Count Dooku. There are heroes on both sides. Evil is everywhere. In a stunning move, the fiendish droid leader, General Grievous, has swept into the Republic capital and kidnapped Chancellor Palpatine, leader of the Galactic Senate. As the Separatist Droid Army attempts to flee the besieged capital with their valuable hostage, two Jedi Knights lead a desperate mission to rescue the captive Chancellor...</p>
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_title: title
+  'field_h_body/value': body_text
+  'field_h_body/format':
+    plugin: default_value
+    default_value: rich_text
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_content_callout

@@ -1,0 +1,64 @@
+// Generic responsive iframe (16x9 aspect ratio)
+// https://benmarshall.me/responsive-iframes/
+.iframe-container {
+  overflow: hidden;
+  padding-top: 56.25%;
+  position: relative;
+
+  // All iframes in container
+  iframe {
+      border: 0;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+  }
+
+  // Custom full screen app
+  &#{&}--fullscreen {
+      margin-left: -12px;
+      margin-right: -12px;
+      box-shadow: 0 5px 10px #ddd;
+      height: 577px; //fallback
+      height: calc(100vh - 50px) !important;
+
+      // Above mobile only
+      @include AU-media(sm) {
+          padding-top: 0; //overrides 16x9 deafult
+          height: 800px; //fallback
+          height: calc(100vh - 150px) !important;
+      }
+  }
+}
+
+// iframe variants
+@mixin generateRatios($width, $height, $breakpoint: "", $prefix: "iframe-container--") {
+  $class-name: $prefix + $width + "x" + $height;
+  .#{$class-name}#{$breakpoint} {
+      padding-top: ($height / $width) * 100%;
+  }
+}
+
+// Generate ratios from wider to taller
+@include generateRatios(5,1);
+@include generateRatios(4,1);
+@include generateRatios(3,1);
+@include generateRatios(5,2);
+@include generateRatios(16,9);
+@include generateRatios(4,3);
+@include generateRatios(1,1);
+@include generateRatios(3,4);
+@include generateRatios(9,16);
+
+@include AU-media('sm'){
+  @include generateRatios(5,1,'sm');
+  @include generateRatios(4,1,'sm');
+  @include generateRatios(3,1,'sm');
+  @include generateRatios(5,2,'sm');
+  @include generateRatios(16,9,'sm');
+  @include generateRatios(4,3,'sm');
+  @include generateRatios(1,1,'sm');
+  @include generateRatios(3,4,'sm');
+  @include generateRatios(9,16,'sm');
+}

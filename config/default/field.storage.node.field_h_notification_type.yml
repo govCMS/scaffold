@@ -1,0 +1,20 @@
+uuid: 4b9f1c20-7074-41bb-8b43-074ba9d5f61e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_h_notification_type
+field_name: field_h_notification_type
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,27 @@
+uuid: 643096db-a8fd-4479-9a13-feaad211e3a9
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 1noCXlegCr5HFehQRF1ViXy1jhU1jZ_sNN99a8Sj5jo
+id: front
+label: 'Front page'
+tags:
+  title: 'National Sports Tribunal'
+  canonical_url: 'https://nationalsportstribunal.gov.au/'
+  shortlink: '[site:url]'
+  dcterms_identifier: '[site:url]'
+  dcterms_format: text/html
+  dcterms_subject: '[site:slogan]'
+  dcterms_title: 'National Sports Tribunal'
+  dcterms_creator: 'National Sports Tribunal'
+  dcterms_publisher: 'National Sports Tribunal'
+  dcterms_date: '[current-date:custom:Y-m-d\TH:iP]'
+  dcterms_language: en
+  dcterms_description: '[site:slogan]'
+  dcterms_type: other
+  og_description: '[node:field_h_summary]'
+  og_title: 'National Sports Tribunal'
+  og_url: '[current-page:url:absolute]'
+  og_site_name: 'National Sports Tribunal'
+  og_type: article

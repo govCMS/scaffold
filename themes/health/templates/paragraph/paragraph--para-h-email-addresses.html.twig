@@ -1,0 +1,14 @@
+{% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  {% set label = content.field_h_label %}
+  {% set value = email %}
+
+  <div class="health-field health-field--inline health-field--light">
+    <div class="health-field__label">{{ label }}</div>
+    <div class="health-field__item">
+      {% include '@health/custom/health-icon.html.twig' with {'name': 'envelope', 'class': 'fa-left'} %}
+      <a href="mailto:{{ value }}" class="">{{ value }}</a>
+    </div>
+  </div>
+{% endblock %}

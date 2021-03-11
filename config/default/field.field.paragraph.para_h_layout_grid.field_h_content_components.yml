@@ -1,0 +1,118 @@
+uuid: d285e02c-74f2-4dcf-82ec-10cb680f954d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_content_components
+    - paragraphs.paragraphs_type.para_h_content_callout
+    - paragraphs.paragraphs_type.para_h_content_featured
+    - paragraphs.paragraphs_type.para_h_content_html
+    - paragraphs.paragraphs_type.para_h_content_image
+    - paragraphs.paragraphs_type.para_h_content_reference
+    - paragraphs.paragraphs_type.para_h_content_text
+    - paragraphs.paragraphs_type.para_h_layout_grid
+    - paragraphs.paragraphs_type.para_h_layout_three_column
+    - paragraphs.paragraphs_type.para_h_layout_two_column
+    - paragraphs.paragraphs_type.para_h_publication_grouping
+    - paragraphs.paragraphs_type.para_h_tile
+  module:
+    - entity_reference_revisions
+id: paragraph.para_h_layout_grid.field_h_content_components
+field_name: field_h_content_components
+entity_type: paragraph
+bundle: para_h_layout_grid
+label: 'Content blocks'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_content_callout: para_h_content_callout
+      para_h_content_featured: para_h_content_featured
+      para_h_content_html: para_h_content_html
+      para_h_content_image: para_h_content_image
+      para_h_content_reference: para_h_content_reference
+      para_h_content_text: para_h_content_text
+      para_h_layout_three_column: para_h_layout_three_column
+      para_h_layout_two_column: para_h_layout_two_column
+      para_h_publication_grouping: para_h_publication_grouping
+      para_h_tile: para_h_tile
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: 25
+        enabled: false
+      para_h_band:
+        weight: 26
+        enabled: false
+      para_h_button:
+        weight: 27
+        enabled: false
+      para_h_content_callout:
+        enabled: true
+        weight: 28
+      para_h_content_featured:
+        enabled: true
+        weight: 29
+      para_h_content_html:
+        enabled: true
+        weight: 30
+      para_h_content_iframe:
+        weight: 31
+        enabled: false
+      para_h_content_image:
+        enabled: true
+        weight: 32
+      para_h_content_reference:
+        enabled: true
+        weight: 33
+      para_h_content_table:
+        weight: 34
+        enabled: false
+      para_h_content_text:
+        enabled: true
+        weight: 35
+      para_h_email_addresses:
+        weight: 36
+        enabled: false
+      para_h_fax_numbers:
+        weight: 37
+        enabled: false
+      para_h_form:
+        weight: 38
+        enabled: false
+      para_h_layout_grid:
+        weight: 39
+        enabled: false
+      para_h_layout_three_column:
+        enabled: true
+        weight: 40
+      para_h_layout_two_column:
+        enabled: true
+        weight: 41
+      para_h_listing:
+        weight: 42
+        enabled: false
+      para_h_listing_embedded:
+        weight: 43
+        enabled: false
+      para_h_listing_tile:
+        weight: 44
+        enabled: false
+      para_h_publication_grouping:
+        enabled: true
+        weight: 45
+      para_h_resource_part:
+        weight: 46
+        enabled: false
+      para_h_telephone_numbers:
+        weight: 47
+        enabled: false
+      para_h_tile:
+        enabled: true
+        weight: 48
+field_type: entity_reference_revisions

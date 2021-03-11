@@ -1,0 +1,33 @@
+uuid: dbb97fa0-df34-4fd1-86b3-332073299f0f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_audience
+    - node.type.h_app_or_tool
+    - taxonomy.vocabulary.h_target_audience_group
+  content:
+    - 'taxonomy_term:h_target_audience_group:b7d83117-3935-4b0e-871a-f9d1873bf587'
+id: node.h_app_or_tool.field_h_audience
+field_name: field_h_audience
+entity_type: node
+bundle: h_app_or_tool
+label: Audience
+description: 'Select the audience for whom the app or tool is intended.'
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: b7d83117-3935-4b0e-871a-f9d1873bf587
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_target_audience_group: h_target_audience_group
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

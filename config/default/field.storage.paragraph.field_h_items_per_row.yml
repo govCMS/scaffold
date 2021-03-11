@@ -1,0 +1,48 @@
+uuid: de6f6899-7f00-4739-87d2-d7e66a21c76a
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_h_items_per_row
+field_name: field_h_items_per_row
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '1'
+      label: '1'
+    -
+      value: '2'
+      label: '2'
+    -
+      value: '3'
+      label: '3'
+    -
+      value: '4'
+      label: '4'
+    -
+      value: '5'
+      label: '5'
+    -
+      value: '6'
+      label: '6'
+    -
+      value: '7'
+      label: '7'
+    -
+      value: '8'
+      label: '8'
+    -
+      value: custom
+      label: Custom
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

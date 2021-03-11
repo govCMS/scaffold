@@ -1,0 +1,23 @@
+uuid: f28a2e39-7b35-41d2-9a00-c3a052addf06
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_sort_order_expose
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+id: paragraph.para_h_listing_embedded.field_h_sort_order_expose
+field_name: field_h_sort_order_expose
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: 'Allow site visitors to change the sort order'
+description: 'Allow site visitors to change the change the order of list items.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

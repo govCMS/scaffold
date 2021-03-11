@@ -1,0 +1,18 @@
+uuid: f55c52c1-f280-4d7e-8ce0-275999b09b0d
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_h_heading_hide
+field_name: field_h_heading_hide
+entity_type: paragraph
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

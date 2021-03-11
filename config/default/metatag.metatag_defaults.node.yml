@@ -1,0 +1,28 @@
+uuid: 16cd80f7-9262-4a2c-ad5f-2c9ad5b2cbaf
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: rpwvgyEURXLz_JjgMCrkS1rUv-0k3L79BpO-ReN7fDI
+id: node
+label: Content
+tags:
+  canonical_url: 'https://nationalsportstribunal.gov.au[current-page:url:path]'
+  description: '[node:field_h_summary]'
+  dcterms_identifier: '[current-page:url:absolute]'
+  dcterms_format: text/html
+  dcterms_subject: '[site:slogan]'
+  dcterms_title: '[node:title]'
+  dcterms_creator: 'National Sports Tribunal'
+  dcterms_publisher: 'National Sports Tribunal'
+  dcterms_date: '[current-date:custom:Y-m-d\TH:iP]'
+  dcterms_language: en
+  dcterms_description: '[node:field_h_summary]'
+  dcterms_type: text
+  og_updated_time: '[node:changed:custom:c]'
+  og_description: '[node:field_h_summary]'
+  og_url: '[current-page:url:absolute]'
+  og_image: '[theme-path]/logo.png'
+  article_modified_time: '[node:changed:custom:c]'
+  og_type: article
+  article_published_time: '[node:created:custom:c]'

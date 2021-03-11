@@ -1,0 +1,101 @@
+uuid: 91c7f11a-85a4-4aee-8cd9-c3e51cc0b41f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.h_standard_page.field_h_audience
+    - field.field.node.h_standard_page.field_h_content_components
+    - field.field.node.h_standard_page.field_h_content_grade_level
+    - field.field.node.h_standard_page.field_h_content_long_sentences
+    - field.field.node.h_standard_page.field_h_content_owner
+    - field.field.node.h_standard_page.field_h_content_pass_sentences
+    - field.field.node.h_standard_page.field_h_content_readability
+    - field.field.node.h_standard_page.field_h_date_created
+    - field.field.node.h_standard_page.field_h_date_published
+    - field.field.node.h_standard_page.field_h_date_reviewed
+    - field.field.node.h_standard_page.field_h_date_updated
+    - field.field.node.h_standard_page.field_h_generate_toc
+    - field.field.node.h_standard_page.field_h_language
+    - field.field.node.h_standard_page.field_h_subject
+    - field.field.node.h_standard_page.field_h_subject_2
+    - field.field.node.h_standard_page.field_h_subject_3
+    - field.field.node.h_standard_page.field_h_summary
+    - node.type.h_standard_page
+  module:
+    - datetime
+    - ds
+    - entity_reference_revisions
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_standard_page.full
+targetEntityType: node
+bundle: h_standard_page
+mode: full
+content:
+  field_h_content_components:
+    type: entity_reference_revisions_entity_view
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_date_updated:
+    type: datetime_default
+    weight: 3
+    region: content
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: h_day_month_year
+    third_party_settings: {  }
+  field_h_generate_toc:
+    weight: 1
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_h_subject:
+    type: entity_reference_label
+    weight: 4
+    region: content
+    label: inline
+    settings:
+      link: false
+    third_party_settings:
+      ds:
+        ds_limit: ''
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_h_audience: true
+  field_h_content_grade_level: true
+  field_h_content_long_sentences: true
+  field_h_content_owner: true
+  field_h_content_pass_sentences: true
+  field_h_content_readability: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_language: true
+  field_h_subject_2: true
+  field_h_subject_3: true
+  field_h_summary: true
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,78 @@
+id: sample_paragraphs_content_table
+label: Sample Paragraphs - Content Table
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_content_table_1
+      field_h_title: National Sports Tribunal Statistics
+      field_h_table_source: |
+        <p>[[1]] Source ABS 2019</p>
+        <p>[[2]] Source ABS 2019</p>
+      field_h_summary: |
+        This is a really awesome table.
+      field_h_body: |
+        <table>
+          <thead>
+            <tr>
+              <th>Dispute type</th>
+              <th>NST division[[1]]</th>
+              <th>Methods[[2]]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a data-entity-substitution="canonical" data-entity-type="node" data-entity-uuid="79dbccde-02aa-4374-befe-092cea6051c7" href="/node/9">Anti-doping rule violations</a></td>
+              <td>Anti-doping and Appeals</td>
+              <td>Arbitration</td>
+            </tr>
+            <tr>
+              <td><a data-entity-substitution="canonical" data-entity-type="node" data-entity-uuid="afbd773d-147a-4e0c-9a8c-cdee913668e4" href="/node/11">Disciplinary</a></td>
+              <td>General and Appeals</td>
+              <td>Arbitration, case appraisal, mediation, conciliation</td>
+            </tr>
+            <tr>
+              <td><a data-entity-substitution="canonical" data-entity-type="node" data-entity-uuid="cc55aa61-ee9f-4a21-86cb-298369ec859d" href="/node/12">Selection and eligibility</a></td>
+              <td>General and Appeals</td>
+              <td>Arbitration, case appraisal, mediation, conciliation</td>
+            </tr>
+            <tr>
+              <td><a data-entity-substitution="canonical" data-entity-type="node" data-entity-uuid="82ac0bbd-157d-4b85-b052-9d9d45abef14" href="/node/13">Bullying, harassment and discrimination</a></td>
+              <td>General</td>
+              <td>Case appraisal, mediation, conciliation</td>
+            </tr>
+            <tr>
+              <td><a data-entity-substitution="canonical" data-entity-type="node" data-entity-uuid="d1c897e2-1fc9-43fc-a1a6-dcd374a2e699" href="/node/14">Other (CEO approved) disputes</a></td>
+              <td>General and Appeals</td>
+              <td>Arbitration, case appraisal, mediation, conciliation</td>
+            </tr>
+          </tbody>
+        </table>
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_title: field_h_title
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  'field_h_body/value': field_h_body
+  'field_h_body/format':
+    plugin: default_value
+    default_value: h_table
+  'field_h_table_source/value': field_h_table_source
+  'field_h_table_source/format':
+    plugin: default_value
+    default_value: rich_text
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_content_table
+migration_dependencies: null

@@ -1,0 +1,26 @@
+id: sample_paragraphs_email_addresses
+label: Sample Paragraphs - Email Addresses
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_email_addresses_1
+      field_h_label: General
+      field_h_email_address: 'd.vader@galacticempire.gov.au'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_label: field_h_label
+  field_h_email_address: field_h_email_address
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_email_addresses
+migration_dependencies: null

@@ -1,0 +1,8 @@
+uuid: ac2c120c-dab0-427f-83ec-1e046a7946ee
+langcode: en
+status: true
+dependencies: {  }
+name: 'Publication type'
+vid: h_publication_type
+description: 'The type of publication'
+weight: 0

@@ -1,0 +1,21 @@
+uuid: d1b3490b-29cc-444a-8b50-0c11c91e9159
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_description
+    - node.type.h_video
+  module:
+    - text
+id: node.h_video.field_h_description
+field_name: field_h_description
+entity_type: node
+bundle: h_video
+label: Description
+description: 'Describe the video (provide an executive summary of what is covered).'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

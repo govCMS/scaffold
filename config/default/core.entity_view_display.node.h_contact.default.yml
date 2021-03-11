@@ -1,0 +1,313 @@
+uuid: e7f4f47b-429e-4b14-9bda-d2ae65ef9ac3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.h_contact.field_h_audience
+    - field.field.node.h_contact.field_h_contact_organisation
+    - field.field.node.h_contact.field_h_contact_postal_addresses
+    - field.field.node.h_contact.field_h_contact_street_addresses
+    - field.field.node.h_contact.field_h_contact_title_role
+    - field.field.node.h_contact.field_h_contact_type
+    - field.field.node.h_contact.field_h_content_owner
+    - field.field.node.h_contact.field_h_date_created
+    - field.field.node.h_contact.field_h_date_published
+    - field.field.node.h_contact.field_h_date_reviewed
+    - field.field.node.h_contact.field_h_date_updated
+    - field.field.node.h_contact.field_h_description
+    - field.field.node.h_contact.field_h_email_addresses
+    - field.field.node.h_contact.field_h_fax_numbers
+    - field.field.node.h_contact.field_h_image_featured
+    - field.field.node.h_contact.field_h_language
+    - field.field.node.h_contact.field_h_link_external
+    - field.field.node.h_contact.field_h_social_facebook
+    - field.field.node.h_contact.field_h_social_instagram
+    - field.field.node.h_contact.field_h_social_linkedin
+    - field.field.node.h_contact.field_h_social_twitter
+    - field.field.node.h_contact.field_h_social_youtube
+    - field.field.node.h_contact.field_h_subject
+    - field.field.node.h_contact.field_h_subject_2
+    - field.field.node.h_contact.field_h_subject_3
+    - field.field.node.h_contact.field_h_summary
+    - field.field.node.h_contact.field_h_telephone_numbers
+    - node.type.h_contact
+  module:
+    - datetime
+    - entity_reference_revisions
+    - link
+    - media
+    - panelizer
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_contact.default
+targetEntityType: node
+bundle: h_contact
+mode: default
+content:
+  content_moderation_control:
+    weight: -20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_h_audience:
+    weight: 118
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_contact_organisation:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_contact_postal_addresses:
+    type: entity_reference_revisions_entity_view
+    weight: 110
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_contact_street_addresses:
+    type: entity_reference_revisions_entity_view
+    weight: 109
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_contact_title_role:
+    weight: 127
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_contact_type:
+    weight: 116
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_content_owner:
+    weight: 119
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_date_created:
+    weight: 131
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_published:
+    weight: 121
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_reviewed:
+    weight: 122
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_updated:
+    weight: 123
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_description:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_h_email_addresses:
+    type: entity_reference_revisions_entity_view
+    weight: 106
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_fax_numbers:
+    type: entity_reference_revisions_entity_view
+    weight: 108
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_image_featured:
+    weight: 125
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: media_thumbnail
+    region: content
+  field_h_language:
+    weight: 117
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_link_external:
+    weight: 128
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_h_social_facebook:
+    weight: 111
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_h_social_instagram:
+    weight: 112
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_h_social_linkedin:
+    weight: 113
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_h_social_twitter:
+    weight: 114
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_h_social_youtube:
+    weight: 115
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_h_subject:
+    weight: 126
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_subject_2:
+    weight: 129
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_subject_3:
+    weight: 130
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_summary:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_telephone_numbers:
+    type: entity_reference_revisions_entity_view
+    weight: 107
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  search_api_excerpt: true

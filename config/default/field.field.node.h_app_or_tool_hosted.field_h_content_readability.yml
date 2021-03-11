@@ -1,0 +1,23 @@
+uuid: b8ce5705-7c6f-464d-8c4d-a7299b31568e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_readability
+    - node.type.h_app_or_tool_hosted
+id: node.h_app_or_tool_hosted.field_h_content_readability
+field_name: field_h_content_readability
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: 'Content readability'
+description: 'Run content through Visible Thread (VT). Enter the readability score out of 100.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 100
+  prefix: ''
+  suffix: /100
+field_type: integer

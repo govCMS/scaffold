@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Provides template for global notifications view listing.
+ */
+#}
+<section
+  {% if title %}
+    aria-labelledby="health-notification-section-label"
+  {% endif %}
+>
+
+  {% if title %}
+    <h2 id="health-notification-section-label" class="sr-only">{{ title }}</h2>
+  {% endif %}
+
+  <{{ list.type }}{{ list.attributes }}>
+    {% for row in rows %}
+      <li{{ row.attributes.addClass("hidden") }}>
+        {{- row.content -}}
+      </li>
+    {% endfor %}
+  </{{ list.type }}>
+
+</section>

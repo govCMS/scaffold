@@ -1,0 +1,61 @@
+uuid: 3085afdd-792a-4cd9-9194-bcbeae164ee8
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - ckeditor
+format: full_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Styles
+            - Bold
+            - JustifyLeft
+            - JustifyRight
+            - Superscript
+            - Subscript
+            - RemoveFormat
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Media
+          items:
+            - Blockquote
+            - SpecialChar
+        -
+          name: Tools
+          items:
+            - Undo
+            - Maximize
+            - Source
+  plugins:
+    stylescombo:
+      styles: "ul.list--large|List large (ul)\r\nol.list--large|List large (ol)\r\nul.list--large--plain|List large plain (ul)\r\nol.list--large--plain|List large plain (ol)\r\nul.list--large--checklist|Checklist\r\np.au-callout|Call out\r\na.au-cta-link|Call to action link\r\na.au-btn.au-btn--primary|Primary action button\r\na.au-btn.au-btn--secondary|Secondary action button\r\np.au-introduction|Introduction\r\np.text--minor|Minor text\r\np.text--number-highlight|Highlighted number\r\ntable.table__no-banding|No banding"
+    drupallink:
+      linkit_enabled: true
+      linkit_profile: h_wysiwyg
+    language:
+      language_list: un
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

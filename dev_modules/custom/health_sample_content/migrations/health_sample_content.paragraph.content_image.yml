@@ -1,0 +1,47 @@
+id: sample_paragraphs_content_image
+label: Sample Paragraphs - Content Image
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_content_image_1
+      field_h_image_featured: image_9
+    -
+      id: para_h_content_image_2
+      field_h_image_featured: image_10
+    -
+      id: para_h_content_image_3
+      field_h_image_featured: image_12
+    -
+      id: para_h_content_image_4
+      field_h_image_featured: image_13
+    -
+      id: para_h_content_image_5
+      field_h_image_featured: image_14
+    -
+      id: para_h_content_image_6
+      field_h_image_featured: image_22
+    -
+      id: para_h_content_image_7
+      field_h_image_featured: image_14
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_image_featured:
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_content_image
+migration_dependencies:
+  required:
+    - sample_media_image

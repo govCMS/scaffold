@@ -1,0 +1,35 @@
+uuid: 61449e66-15cf-4b53-9287-05d9d3efa34c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.embed
+    - media.type.audio
+    - media.type.file
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+  module:
+    - entity_embed
+    - media
+_core:
+  default_config_hash: vWVxoXCJS4M-f-idZ8Dc-6VkzJRQEZUtWcZ22evpIjo
+label: 'Media Entity Embed'
+id: media_entity_embed
+type_id: entity
+type_settings:
+  entity_type: media
+  bundles:
+    - audio
+    - file
+    - image
+    - remote_video
+    - video
+  display_plugins:
+    - 'view_mode:media.embed'
+    - 'entity_reference:media_thumbnail'
+  entity_browser: govcms_media_editor_browser
+  entity_browser_settings:
+    display_review: false
+icon: {  }
+icon_uuid: null

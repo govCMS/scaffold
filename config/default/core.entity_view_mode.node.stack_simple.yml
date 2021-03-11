@@ -1,0 +1,12 @@
+uuid: a75f8bc1-21ad-4434-ab0f-a3ae56e3a2bf
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: Mur2IAGCRlUmTUfoXKM4rcrv7tYDkJtDMmKMK7mzTVU
+id: node.stack_simple
+label: 'Stack Simple'
+targetEntityType: node
+cache: true

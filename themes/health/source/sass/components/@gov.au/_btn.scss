@@ -1,0 +1,12 @@
+// Remove background colours for dark secondary and tertiary buttons.
+.au-btn,
+a.au-btn  {
+  &--tertiary, &--secondary {
+    &.au-btn--dark {
+      &:hover:not(:disabled) {
+        background-color: transparent;
+        border-color: transparent;
+      }
+    }
+  }
+}

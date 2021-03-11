@@ -1,0 +1,58 @@
+uuid: cdc8e3d5-5d89-429c-b772-96426eb1ec26
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_contact_street_addresses
+    - node.type.h_contact
+    - paragraphs.paragraphs_type.para_h_address
+  module:
+    - entity_reference_revisions
+id: node.h_contact.field_h_contact_street_addresses
+field_name: field_h_contact_street_addresses
+entity_type: node
+bundle: h_contact
+label: 'Street addresses'
+description: 'If available enter one or more street addresses for this contact. You can add labels (e.g. Central Office) if needed.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_address: para_h_address
+    target_bundles_drag_drop:
+      para_h_address:
+        enabled: true
+        weight: 7
+      para_h_content_callout:
+        weight: 12
+        enabled: false
+      para_h_content_html:
+        weight: 13
+        enabled: false
+      para_h_content_table:
+        weight: 14
+        enabled: false
+      para_h_content_text:
+        weight: 15
+        enabled: false
+      para_h_email_addresses:
+        weight: 8
+        enabled: false
+      para_h_fax_numbers:
+        weight: 9
+        enabled: false
+      para_h_listing_embedded:
+        weight: 18
+        enabled: false
+      para_h_resource_part:
+        weight: 19
+        enabled: false
+      para_h_telephone_numbers:
+        weight: 10
+        enabled: false
+field_type: entity_reference_revisions

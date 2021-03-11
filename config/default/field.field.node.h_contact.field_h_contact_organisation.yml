@@ -1,0 +1,29 @@
+uuid: 9f8c1db7-b7c6-45aa-888b-d34d61919a33
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_contact_organisation
+    - node.type.h_contact
+    - taxonomy.vocabulary.h_organisation
+id: node.h_contact.field_h_contact_organisation
+field_name: field_h_contact_organisation
+entity_type: node
+bundle: h_contact
+label: Organisation
+description: 'Provide the name of the organisation.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_organisation: h_organisation
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

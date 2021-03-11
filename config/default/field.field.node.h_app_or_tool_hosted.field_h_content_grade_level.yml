@@ -1,0 +1,23 @@
+uuid: 86f32ecf-469b-4959-873d-e22c4f8167cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_grade_level
+    - node.type.h_app_or_tool_hosted
+id: node.h_app_or_tool_hosted.field_h_content_grade_level
+field_name: field_h_content_grade_level
+entity_type: node
+bundle: h_app_or_tool_hosted
+label: 'Content grade level'
+description: 'Run content through Visible Thread (VT). Enter grade level.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

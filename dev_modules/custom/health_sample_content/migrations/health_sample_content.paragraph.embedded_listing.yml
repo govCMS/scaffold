@@ -1,0 +1,106 @@
+id: sample_paragraphs_listing_embedded
+label: Sample Paragraphs - Embedded Listing
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_listing_embedded_1
+      field_h_title: Ships of the Imperial Navy
+      field_h_heading_hide: 0
+      field_h_body: |
+        <p>The Imperial fleet was created in the wake of the Clone Wars, when Chancellor Sheev Palpatine transformed the Galactic Republic he led into an authoritarian Empire. Consisting mainly of Star Destroyers and TIE fighters, the Imperial Navy was tasked with maintaining order in the galaxy.</p>
+      field_h_args_audience_term: 0
+      field_h_content_type:
+        -
+          target_id: h_app_or_tool
+        -
+          target_id: h_publication
+        -
+          target_id: h_video
+      field_h_args_audience_enabled: 0
+      field_h_args_pub_type_enabled: 0
+      field_h_enable_audience_filter: 0
+      field_h_enable_node_type_filter: 1
+      field_h_listing_items_per_page: 3
+      field_h_args_pub_type_term: []
+      field_h_listing_sort_order: title
+    -
+      id: para_h_listing_embedded_2
+      field_h_title: Ships of the Rebel Alliance
+      field_h_heading_hide: 1
+      field_h_body: |
+        <p>The Alliance Fleet, also called the Rebel Fleet, referred to the various spacecraft operated jointly by the Rebel Alliance in their struggle against the Galactic Empire. Although it was minuscule in size compared to the Imperial Navy, and in many cases its ships were of non-military design, the fleet proved to be a thorn in the Empire's side throughout the Galactic Civil War.</p>
+      field_h_args_audience_term: 0
+      field_h_content_type:
+        -
+          target_id: h_app_or_tool
+        -
+          target_id: h_publication
+        -
+          target_id: h_video
+      field_h_args_audience_enabled: 0
+      field_h_args_pub_type_enabled: 0
+      field_h_enable_audience_filter: 0
+      field_h_enable_node_type_filter: 1
+      field_h_listing_items_per_page: 3
+      field_h_args_pub_type_term: []
+      field_h_listing_sort_order: title
+    -
+      id: para_h_listing_embedded_3
+      field_h_title: Ships of the Imperial Navy
+      field_h_heading_hide: 1
+      field_h_body: ''
+      field_h_args_audience_term: 0
+      field_h_content_type:
+        -
+          target_id: h_app_or_tool
+        -
+          target_id: h_publication
+        -
+          target_id: h_video
+      field_h_args_audience_enabled: 0
+      field_h_args_pub_type_enabled: 0
+      field_h_enable_audience_filter: 0
+      field_h_enable_node_type_filter: 0
+      field_h_listing_items_per_page: 3
+      field_h_args_pub_type_term: []
+      field_h_listing_sort_order: title
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_title: field_h_title
+  field_h_heading_hide: field_h_heading_hide
+  'field_h_body/value': field_h_body
+  'field_h_body/format':
+    plugin: default_value
+    default_value: rich_text
+  field_h_args_audience_term:
+    plugin: default_value
+    default_value: 0
+  field_h_content_type:
+    plugin: sub_process
+    source: field_h_content_type
+    process:
+      target_id: target_id
+  field_h_args_audience_enabled: field_h_args_audience_enabled
+  field_h_args_pub_type_enabled: field_h_args_pub_type_enabled
+  field_h_enable_audience_filter: field_h_enable_audience_filter
+  field_h_enable_node_type_filter: field_h_enable_node_type_filter
+  field_h_listing_items_per_page: field_h_listing_items_per_page
+  field_h_args_pub_type_term:
+    plugin: sub_process
+    source: field_h_args_pub_type_term
+    process:
+      target_id: target_id
+  field_h_listing_sort_order: title
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_listing_embedded

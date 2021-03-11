@@ -1,0 +1,33 @@
+uuid: bcdf1e2d-c247-45b2-8df9-44d2d00fa38f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_owner
+    - node.type.h_news_article
+    - taxonomy.vocabulary.h_content_owner
+  content:
+    - 'taxonomy_term:h_content_owner:98c0004d-3d42-4552-951e-6d7472bcc20c'
+id: node.h_news_article.field_h_content_owner
+field_name: field_h_content_owner
+entity_type: node
+bundle: h_news_article
+label: 'Content owner'
+description: 'Select the entity, branch or division responsible for this information.'
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: 98c0004d-3d42-4552-951e-6d7472bcc20c
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_content_owner: h_content_owner
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,30 @@
+id: sample_user
+label: Sample Users
+migration_tags:
+  - health_sample_content
+  - health_sample_user
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      user_id: user_1
+      name: author
+      mail: author@localhost
+      pw_plain: author
+      roles: content_author
+      status: 1
+  ids:
+    user_id:
+      type: string
+process:
+  name: name
+  mail: mail
+  pass:
+    plugin: callback
+    callable: md5
+    source: pw_plain
+  status: status
+  roles: roles
+destination:
+  plugin: entity:user
+  md5_passwords: true

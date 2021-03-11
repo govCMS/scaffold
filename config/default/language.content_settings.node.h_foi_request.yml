@@ -1,0 +1,11 @@
+uuid: a20c42ef-64e9-458a-9594-de751b4d4fd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.h_foi_request
+id: node.h_foi_request
+target_entity_type_id: node
+target_bundle: h_foi_request
+default_langcode: site_default
+language_alterable: false

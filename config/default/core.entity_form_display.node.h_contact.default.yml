@@ -1,0 +1,514 @@
+uuid: 437fd6af-f05c-4b66-9677-2ff18f225841
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.h_image_browser
+    - field.field.node.h_contact.field_h_audience
+    - field.field.node.h_contact.field_h_contact_organisation
+    - field.field.node.h_contact.field_h_contact_postal_addresses
+    - field.field.node.h_contact.field_h_contact_street_addresses
+    - field.field.node.h_contact.field_h_contact_title_role
+    - field.field.node.h_contact.field_h_contact_type
+    - field.field.node.h_contact.field_h_content_owner
+    - field.field.node.h_contact.field_h_date_created
+    - field.field.node.h_contact.field_h_date_published
+    - field.field.node.h_contact.field_h_date_reviewed
+    - field.field.node.h_contact.field_h_date_updated
+    - field.field.node.h_contact.field_h_description
+    - field.field.node.h_contact.field_h_email_addresses
+    - field.field.node.h_contact.field_h_fax_numbers
+    - field.field.node.h_contact.field_h_image_featured
+    - field.field.node.h_contact.field_h_language
+    - field.field.node.h_contact.field_h_link_external
+    - field.field.node.h_contact.field_h_social_facebook
+    - field.field.node.h_contact.field_h_social_instagram
+    - field.field.node.h_contact.field_h_social_linkedin
+    - field.field.node.h_contact.field_h_social_twitter
+    - field.field.node.h_contact.field_h_social_youtube
+    - field.field.node.h_contact.field_h_subject
+    - field.field.node.h_contact.field_h_subject_2
+    - field.field.node.h_contact.field_h_subject_3
+    - field.field.node.h_contact.field_h_summary
+    - field.field.node.h_contact.field_h_telephone_numbers
+    - node.type.h_contact
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - datetime
+    - entity_browser
+    - field_group
+    - link
+    - paragraphs
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_h_tabs:
+      children:
+        - group_h_content
+        - group_h_contact_info
+        - group_h_social_media_channel
+        - group_h_metadata
+        - group_h_relationships
+        - group_h_dates
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+      label: Tabs
+      region: content
+    group_h_content:
+      children:
+        - field_h_summary
+        - field_h_description
+        - field_h_image_featured
+        - field_h_contact_title_role
+        - field_h_contact_organisation
+      parent_name: group_h_tabs
+      weight: 10
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Content
+      region: content
+    group_h_contact_info:
+      children:
+        - field_h_email_addresses
+        - field_h_telephone_numbers
+        - field_h_fax_numbers
+        - field_h_contact_street_addresses
+        - field_h_contact_postal_addresses
+        - field_h_link_external
+      parent_name: group_h_tabs
+      weight: 11
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: 'Contact information'
+      region: content
+    group_h_social_media_channel:
+      children:
+        - field_h_social_facebook
+        - field_h_social_instagram
+        - field_h_social_linkedin
+        - field_h_social_twitter
+        - field_h_social_youtube
+      parent_name: group_h_tabs
+      weight: 12
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: 'Social media'
+      region: content
+    group_h_metadata:
+      children:
+        - field_h_contact_type
+        - field_h_language
+        - field_h_audience
+        - field_h_content_owner
+      parent_name: group_h_tabs
+      weight: 13
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Metadata
+      region: content
+    group_h_relationships:
+      children:
+        - field_h_subject
+        - field_h_subject_2
+        - field_h_subject_3
+      parent_name: group_h_tabs
+      weight: 14
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Related
+      region: content
+    group_h_dates:
+      children:
+        - field_h_date_reviewed
+        - group_h_system_dates
+      parent_name: group_h_tabs
+      weight: 15
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Dates
+      region: content
+    group_h_system_dates:
+      children:
+        - field_h_date_created
+        - field_h_date_updated
+        - field_h_date_published
+      parent_name: group_h_dates
+      weight: 54
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'System dates'
+      region: content
+id: node.h_contact.default
+targetEntityType: node
+bundle: h_contact
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_h_audience:
+    weight: 49
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_contact_organisation:
+    weight: 37
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+    region: content
+  field_h_contact_postal_addresses:
+    type: paragraphs
+    weight: 41
+    settings:
+      title: 'postal address'
+      title_plural: 'postal addresses'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_h_contact_street_addresses:
+    type: paragraphs
+    weight: 40
+    settings:
+      title: 'street address'
+      title_plural: 'street addresses'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_h_contact_title_role:
+    weight: 35
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_contact_type:
+    weight: 47
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_h_content_owner:
+    weight: 50
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_date_created:
+    weight: 104
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_published:
+    weight: 106
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_reviewed:
+    weight: 53
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_date_updated:
+    weight: 105
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_h_description:
+    weight: 33
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_h_email_addresses:
+    type: paragraphs
+    weight: 37
+    settings:
+      title: 'email address'
+      title_plural: 'email addresses'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_h_fax_numbers:
+    type: paragraphs
+    weight: 39
+    settings:
+      title: 'fax number'
+      title_plural: 'fax numbers'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_h_image_featured:
+    weight: 34
+    settings:
+      entity_browser: h_image_browser
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_h_language:
+    weight: 48
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_link_external:
+    weight: 42
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_h_social_facebook:
+    weight: 42
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_h_social_instagram:
+    weight: 43
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_h_social_linkedin:
+    weight: 44
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_h_social_twitter:
+    weight: 45
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_h_social_youtube:
+    weight: 46
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_h_subject:
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject_2:
+    weight: 102
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_subject_3:
+    weight: 103
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_summary:
+    weight: 32
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_h_telephone_numbers:
+    type: paragraphs
+    weight: 38
+    settings:
+      title: 'telephone number'
+      title_plural: 'telephone numbers'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

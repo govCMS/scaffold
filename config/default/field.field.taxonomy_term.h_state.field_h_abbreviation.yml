@@ -1,0 +1,19 @@
+uuid: 94f21f24-e6f0-451f-9e6a-b126e7613b20
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_h_abbreviation
+    - taxonomy.vocabulary.h_state
+id: taxonomy_term.h_state.field_h_abbreviation
+field_name: field_h_abbreviation
+entity_type: taxonomy_term
+bundle: h_state
+label: Abbreviation
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

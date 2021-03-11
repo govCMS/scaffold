@@ -1,0 +1,23 @@
+uuid: 543e3e76-d574-4a77-91ad-7d0346182302
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_sort_option_default
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+  module:
+    - options
+id: paragraph.para_h_listing_embedded.field_h_sort_option_default
+field_name: field_h_sort_option_default
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: 'Sort order'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'title:asc'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,20 @@
+uuid: a1515fc7-b092-447b-8857-b9a77f53a484
+langcode: en
+status: true
+dependencies:
+  theme:
+    - adminimal_medela
+_core:
+  default_config_hash: I-ndKVAPDv1WhNsi-auhG0FJPClCVPLemiqWDd6opjc
+id: adminimal_medela_page_title
+theme: adminimal_medela
+region: header
+weight: -30
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

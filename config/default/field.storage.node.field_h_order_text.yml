@@ -1,0 +1,19 @@
+uuid: e9399658-d610-478c-a751-64e73748c9d5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_h_order_text
+field_name: field_h_order_text
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,15 @@
+{% set svg %}
+  {% include "@health/svg/health-svg--google-app-store.html.twig" %}
+{% endset %}
+
+{% set text %}
+  {% trans %}Get it on Google Play{% endtrans %}
+{% endset %}
+
+{%
+  embed "@health/field/includes/health-field-link-app-store.html.twig" with {
+    "text": text,
+    "image": svg
+  }
+%}
+{% endembed %}

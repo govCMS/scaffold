@@ -1,0 +1,143 @@
+id: sample_node_app_or_tool
+label: Sample Nodes - App or Tool
+migration_tags:
+  - health_sample_content
+  - health_sample_node
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: h_app_or_tool_1
+      title: Rebel Base Locator
+      field_h_summary: |
+        Those rebel scum will have nowhere to hide now
+      field_h_image_featured: image_11
+      field_h_resource_date: 04-05-2019
+      field_h_resource_availability: Online
+      field_h_link_apple_app: 'https://www.starwars.com'
+      field_h_link_google_app: 'https://www.starwars.com'
+      field_h_link_microsoft_app: 'https://www.starwars.com'
+      field_h_content_components:
+        -
+          id: para_h_content_text_10
+        -
+          id: para_h_button_1
+      field_h_audience: Everyone
+      field_h_language: English
+      field_h_content_owner: Incom
+      field_h_subject: Politics
+      field_h_date_created: 04-05-2019
+      field_h_date_published: 04-05-2019
+      field_h_date_reviewed: 04-05-2019
+      field_h_date_updated: 04-05-2019
+      status: '1'
+  ids:
+    id:
+      type: string
+process:
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    source: status
+    default_value: 1
+  'field_h_summary/value': field_h_summary
+  'field_h_summary/format':
+    plugin: default_value
+    default_value: plain_text
+  field_h_image_featured:
+    plugin: migration_lookup
+    migration: sample_media_image
+    source: field_h_image_featured
+    no_stub: true
+  field_h_resource_availability:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_resource_availability
+    bundle_key: vid
+    bundle: h_resource_availability
+  field_h_resource_date:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d'
+    source: field_h_resource_date
+  field_h_date_created:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d H:i:s'
+    source: field_h_date_created
+  field_h_date_published: '@field_h_date_created'
+  field_h_date_reviewed: '@field_h_date_created'
+  field_h_date_updated: '@field_h_date_created'
+  'field_h_link_apple_app/uri': field_h_link_apple_app
+  'field_h_link_google_app/uri': field_h_link_google_app
+  'field_h_link_microsoft_app/uri': field_h_link_microsoft_app
+  field_h_content_components:
+    plugin: sub_process
+    source: field_h_content_components
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - sample_paragraphs_button
+          - sample_paragraphs_content_text
+        source: id
+      target_revision_id: '@target_id'
+  field_h_language:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_language
+    bundle_key: vid
+    bundle: h_language
+  field_h_audience:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_audience
+    bundle_key: vid
+    bundle: h_target_audience_group
+  field_h_content_owner:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_content_owner
+    bundle_key: vid
+    bundle: h_content_owner
+  field_h_subject:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_subject
+    bundle_key: vid
+    bundle: h_subject
+  moderation_state:
+    plugin: static_map
+    source: '@status'
+    default_value: draft
+    map:
+      '0': draft
+      '1': published
+destination:
+  plugin: 'entity:node'
+  default_bundle: h_app_or_tool
+migration_dependencies:
+  required:
+    - sample_taxonomy_audience
+    - sample_taxonomy_content_owner
+    - sample_taxonomy_language
+    - sample_taxonomy_resource_availability
+    - sample_taxonomy_subject
+    - sample_taxonomy_subject_2
+    - sample_taxonomy_subject_3
+    - sample_media_image
+    - sample_paragraphs_button
+    - sample_paragraphs_content_text
+    - sample_node_app_or_tool_hosted

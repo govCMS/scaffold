@@ -1,0 +1,21 @@
+uuid: 322606bc-e4fd-4364-a908-de5bff5498af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_table_source
+    - paragraphs.paragraphs_type.para_h_content_image
+  module:
+    - text
+id: paragraph.para_h_content_image.field_h_table_source
+field_name: field_h_table_source
+entity_type: paragraph
+bundle: para_h_content_image
+label: Footnotes
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

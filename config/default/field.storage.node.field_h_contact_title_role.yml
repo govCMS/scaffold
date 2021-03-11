@@ -1,0 +1,21 @@
+uuid: fe415af4-0fa4-46db-8635-aff8b4d2e424
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_h_contact_title_role
+field_name: field_h_contact_title_role
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

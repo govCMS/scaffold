@@ -1,0 +1,45 @@
+uuid: 29f6ef03-a9fc-449c-ab72-3bdd4a8a92ee
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_h_sort_option_default
+field_name: field_h_sort_option_default
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'title:asc'
+      label: 'Title (A => Z)'
+    -
+      value: 'title:desc'
+      label: 'Title (Z => A)'
+    -
+      value: 'field_h_date_created_value:desc'
+      label: 'Date created (Newest => Oldest)'
+    -
+      value: 'field_h_date_created_value:asc'
+      label: 'Date created (Oldest => Newest)'
+    -
+      value: 'field_h_date_updated_value:desc'
+      label: 'Date updated (Newest => Oldest)'
+    -
+      value: 'field_h_date_updated_value:asc'
+      label: 'Date updated (Oldest => Newest)'
+    -
+      value: 'field_h_resource_date_value:desc'
+      label: 'Date of resource publication (Newest => Oldest)'
+    -
+      value: 'field_h_resource_date_value:asc'
+      label: 'Date of resource publication (Oldest=> Newest)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

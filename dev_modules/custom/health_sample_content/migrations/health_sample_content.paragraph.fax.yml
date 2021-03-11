@@ -1,0 +1,26 @@
+id: sample_paragraphs_fax
+label: Sample Paragraphs - Fax
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_fax_numbers_1
+      field_h_label: Enquiries
+      field_h_fax_number: '(02) 5550 6890'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_label: field_h_label
+  field_h_fax_number: field_h_fax_number
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: para_h_fax_numbers
+migration_dependencies: null

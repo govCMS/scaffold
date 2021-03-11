@@ -1,0 +1,2841 @@
+<?php
+
+/**
+ * @file
+ * Contains custom functionality for the Health theme.
+ */
+
+use Drupal\Core\Link;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\file\FileInterface;
+use Drupal\Core\Form\FormState;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\link\Plugin\Field\FieldType\LinkItem;
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
+use Drupal\taxonomy\TermInterface;
+use Drupal\Core\Url;
+use Drupal\views\Views;
+use Drupal\views\ViewExecutable;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Serialization\Json;
+use GuzzleHttp\Exception\RequestException;
+use Drupal\media\Entity\Media;
+use Drupal\file\Entity\File;
+
+/**
+ * Check if field contains data.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Instance of a fieldable entity.
+ * @param string $field_name
+ *   Maching name of field to check.
+ *
+ * @return bool
+ *   The field of this entity instance contains data.
+ *
+ * @throws \InvalidArgumentException
+ *   Throws exception if the entity does not contain the specified field.
+ */
+function _health_check_field_contains_data(EntityInterface $entity, $field_name) {
+  $field_contains_content = $entity->get($field_name)->isEmpty() ? FALSE : TRUE;
+
+  return $field_contains_content;
+}
+
+/**
+ * Get request accessible document form link.
+ *
+ * @return array
+ *   Drupal render array for the descriptive text including embedded link to
+ *   the request accessible document form.
+ */
+function _health_get_accessible_doc_request_form_link() {
+  // Add link to accessible document request form.
+  $current_path = \Drupal::service('path.current')->getPath();
+  $uri = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  $output = [
+    '#theme' => 'health_document_accessibility_link',
+    '#current_page' => $uri,
+  ];
+
+  return $output;
+}
+
+/**
+ * Replace footnote tokens eg [[1]] with markup and link.
+ *
+ * @param string $markup
+ *   HTML markup.
+ *
+ * @return string
+ *   Modified markup
+ */
+function _health_footnote_links($markup) {
+  if (preg_match_all("/(\[\[)(.+?)(\]\])/", $markup, $matches) > 0) {
+    foreach ($matches[2] as $delta => $match) {
+      $split = explode(',', $match);
+      $items = [];
+      foreach ($split as $ref) {
+        $clean = _health_prepare_filename($ref);
+        $items[$clean] = $ref;
+      }
+      $replacement_render_array = [
+        '#theme' => 'health_footnote_link',
+        '#items' => $items,
+      ];
+      $replacement = Drupal::service('renderer')
+        ->render($replacement_render_array);
+      $markup = str_replace($matches[0][$delta], $replacement, $markup);
+    }
+  }
+
+  return $markup;
+}
+
+/**
+ * Add markup to footnote sources so they can be linked to the footnote links.
+ *
+ * Converts <p>[[1]] Footnote source information</p> into
+ * <a class="health-footnotes__footnote-anchor" name="footnote-1"></a>
+ * <span class="health-footnotes__footnote-number">1</span>
+ * <span id="footnote-1__description">Footnote source information</span>
+ * wrapped in a list.
+ *
+ * @param string $markup
+ *   Markup.
+ *
+ * @return string
+ *   Converted markup if applicable.
+ */
+function _health_footnote_source($markup) {
+  $output = [];
+
+  // Split up the footnotes by p tags.
+  if (preg_match_all("/<p\b[^>]*>(.+?)<\/p>/", $markup, $matches) > 0) {
+    $footnotes_list = [];
+    foreach ($matches[1] as $match) {
+      // Pull out the reference token and apply markup replacement.
+      if (preg_match_all("/[\s(&nbsp;)]*\[\[(.+?)\]\][\s(&nbsp;)]*(.*)/", $match, $matches2) > 0) {
+        foreach ($matches2[1] as $delta2 => $match2) {
+          $id = $match2;
+          $footnote = [
+            '#theme' => 'health_footnote',
+            '#id' => $id,
+            '#text' => $matches2[2][$delta2],
+            '#description_id' => 'footnote-' . _health_prepare_filename($id) . '__description',
+          ];
+          $footnotes_list[] = Drupal::service('renderer')->render($footnote);
+        }
+      }
+      // No reference token found, just use the whole string.
+      else {
+        $footnotes_list[] = $match;
+      }
+    }
+
+    $output = [
+      '#theme' => 'item_list',
+      '#list_type' => 'ul',
+      '#title' => '',
+      '#items' => $footnotes_list,
+      '#attributes' => [
+        'class' => [
+          'health-footnotes',
+          'list--remove',
+          'text--minor',
+        ],
+      ],
+      '#wrapper_attributes' => [],
+    ];
+
+    return $output;
+  }
+}
+
+/**
+ * Get Google Tag Manager ID.
+ *
+ * @return string
+ *   Google Tag Manager ID or an empty string if the GTM ID has not been set.
+ */
+function _health_get_gtm_id() {
+  $id = theme_get_setting('health_gtm_id', \Drupal::service('theme.manager')
+    ->getActiveTheme()
+    ->getName());
+  if ($id === NULL) {
+    $id = '';
+  }
+
+  return $id;
+}
+
+/**
+ * Get menu render array.
+ *
+ * @param string $menu_name
+ *   Machine name of menu.
+ * @param int $max_depth
+ *   Maximum menu depth to display.
+ * @param bool $relative_to_parent
+ *   When TRUE the menu root will be set to the parent menu item of the current
+ *   page. The default value is FALSE which means the menu root will be set to
+ *   the beginning of the menu (i.e. will display all parent items in the menu).
+ * @param string $theme_alter
+ *   Theme hook name. Used to set an alternative theme function for menu
+ *   rendering.
+ *
+ * @return array
+ *   Drupal render array.
+ */
+function _health_get_menu_render_array($menu_name, $max_depth = 0, $relative_to_parent = FALSE, $theme_alter = '') {
+  $menu = [];
+
+  $menu_tree = \Drupal::service('menu.link_tree');
+  // Build the typical default set of menu tree parameters.
+  $parameters = $menu_tree->getCurrentRouteMenuTreeParameters($menu_name);
+  if ($max_depth > 0) {
+    $parameters->setMaxDepth($max_depth);
+  }
+
+  // Only display siblings and children menu items of the current page.
+  if ($relative_to_parent) {
+    $active_trail = array_keys($parameters->activeTrail);
+    $parent_link_id = isset($active_trail[1]) ? $active_trail[1] : $active_trail[0];
+    $parameters->setRoot($parent_link_id);
+    $parameters->excludeRoot();
+  }
+
+  // Load the tree based on this set of parameters.
+  $tree = $menu_tree->load($menu_name, $parameters);
+  // Transform the tree using the manipulators you want.
+  $manipulators = [
+    [
+      'callable' => 'menu.default_tree_manipulators:checkAccess',
+    ],
+    [
+      'callable' => 'menu.default_tree_manipulators:generateIndexAndSort',
+    ],
+  ];
+  $tree = $menu_tree->transform($tree, $manipulators);
+  // Finally, build a renderable array from the transformed tree.
+  $menu = $menu_tree->build($tree);
+  if (!empty($theme_alter)) {
+    $menu['#theme'] = $theme_alter;
+  }
+
+  return $menu;
+}
+
+/**
+ * Get table of contents.
+ *
+ * @param string $content_type
+ *   The content type of the entity containing the table of contents.
+ *
+ * @return array
+ *   Drupal render array for table of content component.
+ */
+function health_get_table_of_contents($content_type) {
+  $build = [
+    '#theme' => 'health_toc',
+  ];
+  // Determine table of contents width.
+  $full_width_content_types = theme_get_setting('health_full_width_layout');
+  if (!empty($full_width_content_types[$content_type])) {
+    $build['#full_width'] = TRUE;
+  }
+  // Set table of contents label.
+  $collection_content_types = [
+    'h_collection',
+  ];
+  $issue_content_types = [];
+  if (in_array($content_type, $collection_content_types)) {
+    $build['#label'] = t('In this collection');
+  }
+  elseif (in_array($content_type, $issue_content_types)) {
+    $build['#label'] = t('In this issue');
+  }
+  else {
+    $build['#label'] = t('On this page');
+  }
+
+  return $build;
+}
+
+/**
+ * Convert a mimetype into a human readable format.
+ *
+ * @param string $mimetype
+ *   Mime type.
+ *
+ * @return string
+ *   Human readable mime type.
+ */
+function _health_get_friendly_mime($mimetype) {
+  $descriptions = [
+    'application/pdf' => 'PDF',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'Word',
+    'application/msword' => 'Word',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'PowerPoint',
+    'text/plain' => 'plain text',
+    'image/jpeg' => 'JPEG',
+    'image/png' => 'PNG',
+    'image/gif' => 'GIF',
+    'audio/mpeg' => 'MP3',
+    'audio/x-wav' => 'WAVE',
+  ];
+  if (array_key_exists($mimetype, $descriptions)) {
+    return $descriptions[$mimetype];
+  }
+
+  return $mimetype;
+}
+
+/**
+ * Get CSS class name for health grid items.
+ *
+ * @param int $items_per_row
+ *   Number of items to display per row.
+ * @param string $device
+ *   Type of device the number of items per row applies to. The device
+ *   type is a proxy for screen width breakpoints.
+ *
+ * @return string
+ *   CSS class name.
+ */
+function _health_get_health_grid_flex_class($items_per_row, $device) {
+  $class = [];
+  foreach (['1', '2', '3', '4', '5', '6', '7', '8'] as $delta) {
+    $class['mobile'][$delta] = 'health-grid--' . $delta . 'col-xs';
+    $class['tablet'][$delta] = 'health-grid--' . $delta . 'col-md';
+    $class['desktop'][$delta] = 'health-grid--' . $delta . 'col-lg';
+  }
+
+  return $class[$device][(string) $items_per_row];
+}
+
+/**
+ * Get footer component.
+ *
+ * @param array $variables
+ *   Preprocess page function variables.
+ *
+ * @return array
+ *   Drupal render array for Footer component.
+ */
+function _health_get_footer(array $variables) {
+  $footer = [
+    '#theme' => 'health_footer',
+    '#content' => $variables['page']['footer_top'],
+  ];
+
+  return $footer;
+}
+
+/**
+ * Generate instance of embedded listing.
+ *
+ * @param array $variables
+ *   Drupal preprocess variables from template_preprocess_HOOK().
+ *
+ * @return array
+ *   Drupal render array of the listing to be displayed.
+ *
+ * @todo I am certain there are more opportunities to make this code more DRY
+ * particularly in the separation of content type and other filters given the
+ * similar functionality.
+ */
+function _health_generate_embedded_listing(array &$variables) {
+  $build = [];
+  $paragraph = $variables['paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+    // Load view.
+    $view_id = 'h_embedded_listing';
+    $display_mode = 'embed_1';
+    $args = [];
+    $view = Views::getView($view_id);
+
+    if ($view instanceof ViewExecutable) {
+      // Generate a unique ID for each instance of this view on a page.
+      $view_delta = &drupal_static(__FUNCTION__);
+      if (!isset($view_delta)) {
+        $view_delta = 0;
+      }
+      else {
+        $view_delta++;
+      }
+
+      $view->setDisplay($display_mode);
+      $view->health_embedded_listing_anchor_id = 'health-embedded-listing-' . $view_delta;
+
+      // Set pagination.
+      $items_per_page = $paragraph->get('field_h_listing_items_per_page')->value;
+      $view->setItemsPerPage($items_per_page);
+
+      // Get URL query parameters.
+      $url_query_parameters = Drupal::service('request_stack')
+        ->getCurrentRequest()
+        ->query
+        ->all();
+      $exposed_input = [];
+      $exposted_raw_input = [];
+
+      // Define filters.
+      $filters = [
+        'content_type' => [
+          'arg' => [
+            'items_field_name' => 'field_h_content_type',
+            'target' => 'type',
+          ],
+          'filter' => [
+            'enabled' => 'field_h_enable_node_type_filter',
+            'handler_id' => 'type',
+          ],
+        ],
+        'audience' => [
+          'arg' => [
+            'enabled' => 'field_h_args_audience_enabled',
+            'items_field_name' => 'field_h_args_audience_term',
+            'target' => 'field_h_audience_target_id',
+          ],
+          'filter' => [
+            'enabled' => 'field_h_enable_audience_filter',
+            'handler_id' => 'field_h_audience_target_id',
+          ],
+        ],
+        'publication_type' => [
+          'arg' => [
+            'enabled' => 'field_h_args_pub_type_enabled',
+            'items_field_name' => 'field_h_args_pub_type_term',
+            'target' => 'field_h_publication_type_target_id',
+          ],
+          'filter' => [
+            'enabled' => 'field_h_enable_pub_type_filter',
+            'handler_id' => 'field_h_publication_type_target_id',
+          ],
+        ],
+      ];
+
+      foreach ($filters as $delta => $filter) {
+        switch ($delta) {
+
+          case 'content_type':
+            // Process content type contextual filters.
+            $content_type_values = $paragraph->get($filter['arg']['items_field_name'])
+              ->getValue();
+            $enabled_content_types = [];
+            if (!empty($content_type_values)) {
+              foreach ($content_type_values as $value) {
+                $enabled_content_types[] = $value['target_id'];
+              }
+            }
+            $args[] = (!empty($enabled_content_types)) ? implode('+', $enabled_content_types) : NULL;
+
+            // Process content type filters.
+            $exposed_filter_enabled = (!empty($paragraph->get($filter['filter']['enabled'])->value)) ? TRUE : FALSE;
+            if ($exposed_filter_enabled === FALSE) {
+              // Remove filter if not enabled.
+              $view->removeHandler($display_mode, 'filter', $filter['filter']['handler_id']);
+            }
+            else {
+              // If filter is enabled then perform any required processing of
+              // filter options.
+              $filter_options = [];
+              $handler_id = $filter['filter']['handler_id'];
+              // User can only filter by the same content types enabled in the
+              // embedded listing configuration.
+              if (empty($enabled_content_types)) {
+                // No content types were selected for this embedded listing so
+                // remove content type filter.
+                $view->removeHandler($display_mode, 'filter', $handler_id);
+              }
+              else {
+                $filter_handler = $view->getHandler($display_mode, 'filter', $handler_id);
+                if ($filter_handler !== NULL && isset($filter_handler['expose'])) {
+                  $exposed_filter_config = $filter_handler['expose'];
+                  // Exposed filter identifier should use the pattern
+                  // {indentifier}_N where N represents the index of the
+                  // embedded listing.
+                  $exposed_filter_identifier = $exposed_filter_config['identifier'] . '_' . $view_delta;
+                  $exposed_filter_config['identifier'] = $exposed_filter_identifier;
+                  $view->setHandlerOption($display_mode, 'filter', $handler_id, 'expose', $exposed_filter_config);
+                }
+                // Only allow users to filter by content types enabled on this
+                // embedded listing.
+                $filter_options = array_combine($enabled_content_types, $enabled_content_types);
+                $view->setHandlerOption($display_mode, 'filter', $handler_id, 'value', $filter_options);
+
+                // Filter list by option selected in exposed filter form.
+                if (isset($url_query_parameters[$exposed_filter_identifier])) {
+                  $exposed_input[$exposed_filter_identifier] = $url_query_parameters[$exposed_filter_identifier];
+                  $exposted_raw_input[$exposed_filter_identifier] = $url_query_parameters[$exposed_filter_identifier];
+                }
+              }
+            }
+            break;
+
+          default:
+            // Process contextual filters excluding content type contextual
+            // filter. This generic solution should work for all taxonomy
+            // term based fields.
+            $contextual_filter_enabled = $paragraph->get($filter['arg']['enabled'])->value;
+            $items = [];
+
+            if ($contextual_filter_enabled) {
+              // Check if any terms have been selected.
+              $item_values = $paragraph->get($filter['arg']['items_field_name'])
+                ->getValue();
+              foreach ($item_values as $value) {
+                $items[] = $value['target_id'];
+              }
+            }
+
+            if (empty($items)) {
+              // Remove contextual filter from the view.
+              $view->removeHandler($display_mode, 'argument', $filter['arg']['target']);
+            }
+            else {
+              // Process contextual filter arguments.
+              $args[] = implode('+', $items);
+            }
+
+            // Process filters excluding content type filters.
+            $exposed_filter_enabled = (!empty($paragraph->get($filter['filter']['enabled'])->value)) ? TRUE : FALSE;
+            if ($exposed_filter_enabled === FALSE) {
+              // Remove filter if not enabled.
+              $view->removeHandler($display_mode, 'filter', $filter['filter']['handler_id']);
+            }
+            else {
+              $handler_id = $filter['filter']['handler_id'];
+              $filter_handler = $view->getHandler($display_mode, 'filter', $handler_id);
+              if ($filter_handler !== NULL && isset($filter_handler['expose'])) {
+                $exposed_filter_config = $filter_handler['expose'];
+                // Exposed filter identifier should use the pattern
+                // {indentifier}_N where N represents the index of the
+                // embedded listing.
+                $exposed_filter_identifier = $exposed_filter_config['identifier'] . '_' . $view_delta;
+                $exposed_filter_config['identifier'] = $exposed_filter_identifier;
+                $view->setHandlerOption($display_mode, 'filter', $handler_id, 'expose', $exposed_filter_config);
+              }
+              // Only allow users to filter by content types enabled on this
+              // embedded listing.
+              $enabled_items_values = $paragraph->get($filter['arg']['items_field_name'])
+                ->getValue();
+              $enabled_items = [];
+              foreach ($enabled_items_values as $value) {
+                $enabled_items[$value['target_id']] = $value['target_id'];
+              }
+              $view->setHandlerOption($display_mode, 'filter', $handler_id, 'value', $enabled_items);
+
+              // Filter list by option selected in exposed filter form.
+              if (isset($url_query_parameters[$exposed_filter_identifier])) {
+                $exposed_input[$exposed_filter_identifier] = $url_query_parameters[$exposed_filter_identifier];
+                $exposted_raw_input[$exposed_filter_identifier] = $url_query_parameters[$exposed_filter_identifier];
+              }
+            }
+            break;
+        }
+      }
+
+      $view->setArguments($args);
+
+      // Process sort handlers.
+      $sort_handlers = $view->getHandlers('sort');
+
+      // Get default sort option and order.
+      $default_sort_value = explode(':', $paragraph->get('field_h_sort_option_default')->value);
+      $default_sort_option_machine_name = $default_sort_value[0];
+      $default_order = (!empty($default_sort_value[1])) ? strtoupper($default_sort_value[1]) : '';
+      $sort_options[$default_sort_option_machine_name] = $default_order;
+
+      // Process exposed sort handlers.
+      $sort_order_is_exposed = $paragraph->get('field_h_sort_order_expose')->value;
+      if ($sort_order_is_exposed && $paragraph->get('field_h_sort_options_exposed')
+        ->isEmpty() !== TRUE) {
+        foreach ($paragraph->get('field_h_sort_options_exposed')
+          ->getValue() as $value) {
+          $exposed_sort_option_machine_name = $value['value'];
+          if ($exposed_sort_option_machine_name !== $default_sort_option_machine_name) {
+            $sort_options[$exposed_sort_option_machine_name] = '';
+          }
+        }
+      }
+
+      foreach ($sort_handlers as $delta => $handler) {
+        $sort_option_names = array_keys($sort_options);
+        if (in_array($delta, $sort_option_names) === FALSE) {
+          // Remove any sort handlers not used by this embedded listing.
+          $view->removeHandler($display_mode, 'sort', $delta);
+        }
+        else {
+          if (!empty($sort_options[$delta])) {
+            // Set the order on the default sort handler.
+            $view->setHandlerOption($display_mode, 'sort', $delta, 'order', $sort_options[$delta]);
+          }
+          if ($sort_order_is_exposed) {
+            // Set the sort handler to be exposed.
+            $view->setHandlerOption($display_mode, 'sort', $delta, 'exposed', TRUE);
+          }
+        }
+      }
+
+      // Get sort by and sort order URL query parameters.
+      if (isset($url_query_parameters['sort_by_' . $view_delta])) {
+        $exposed_input['sort_by'] = $url_query_parameters['sort_by_' . $view_delta];
+        $exposted_raw_input['sort_by'] = $url_query_parameters['sort_by_' . $view_delta];
+      }
+      else {
+        // No "sort by" option previously selected so set "sort by" form
+        // field to default.
+        $exposed_input['sort_by'] = $default_sort_option_machine_name;
+        $exposted_raw_input['sort_by'] = $default_sort_option_machine_name;
+      }
+      if (isset($url_query_parameters['sort_order_' . $view_delta])) {
+        $exposed_input['sort_order'] = $url_query_parameters['sort_order_' . $view_delta];
+        $exposted_raw_input['sort_order'] = $url_query_parameters['sort_order_' . $view_delta];
+      }
+      else {
+        // No "order by" option previously selected so set "order by" form
+        // field to default.
+        $exposed_input['sort_order'] = $default_order;
+        $exposted_raw_input['sort_order'] = $default_order;
+      }
+
+      // Set exposed filter and sort options provided by URL query parameters.
+      $view->setExposedInput($exposed_input);
+      $view->exposed_raw_input = $exposted_raw_input;
+
+      // Give a unique ID to each instance of a pager element on a page.
+      $pager = $view->getPager();
+      $pager->options['id'] = $view_delta;
+      // Set correct pagination page.
+      if (isset($url_query_parameters['page'])) {
+        $pages = explode(',', $url_query_parameters['page']);
+        if (is_numeric($pages[$view_delta])) {
+          $pager->setCurrentPage($pages[$view_delta]);
+        }
+      }
+
+      // Execute view.
+      $view->preExecute();
+      $view->execute();
+      if ($paragraph->hasField('field_h_hide_pager') &&
+        $paragraph->get('field_h_hide_pager')->first() &&
+        $paragraph->get('field_h_hide_pager')
+          ->first()
+          ->getValue()['value'] == 1) {
+        unset($view->pager);
+      }
+      $build = $view->buildRenderable($display_mode, $args);
+      // Make default sort settings for listing available to JavaScript.
+      $build['#attached']['drupalSettings']['health_embedded_listings'][$view_delta]['default']['sort_by'] = $default_sort_option_machine_name;
+      $build['#attached']['drupalSettings']['health_embedded_listings'][$view_delta]['default']['sort_order'] = $default_order;
+    }
+  }
+
+  return $build;
+}
+
+/**
+ * Get column width class.
+ *
+ * @param string $column_width_value
+ *   Width value of 1-12 based on 12 point grid system.
+ * @param string $device
+ *   The device is a proxy for breakpoints corresponding to screen widths for
+ *   "mobile", "tablet", and "desktop" devices.
+ *
+ * @return string
+ *   CSS classname corresponding to the given column width and viewing device.
+ */
+function _health_get_column_width_class($column_width_value, $device) {
+  $size_mobile = 'xs';
+  $size_tablet = 'sm';
+  $size_desktop = 'md';
+
+  $grid_classes = [
+    'mobile' => [
+      '1' => 'col-' . $size_mobile . '-1',
+      '2' => 'col-' . $size_mobile . '-2',
+      '3' => 'col-' . $size_mobile . '-3',
+      '4' => 'col-' . $size_mobile . '-4',
+      '5' => 'col-' . $size_mobile . '-5',
+      '6' => 'col-' . $size_mobile . '-6',
+      '7' => 'col-' . $size_mobile . '-7',
+      '8' => 'col-' . $size_mobile . '-8',
+      '9' => 'col-' . $size_mobile . '-9',
+      '10' => 'col-' . $size_mobile . '-10',
+      '11' => 'col-' . $size_mobile . '-11',
+      '12' => 'col-' . $size_mobile . '-12',
+    ],
+    'tablet' => [
+      '1' => 'col-' . $size_tablet . '-1',
+      '2' => 'col-' . $size_tablet . '-2',
+      '3' => 'col-' . $size_tablet . '-3',
+      '4' => 'col-' . $size_tablet . '-4',
+      '5' => 'col-' . $size_tablet . '-5',
+      '6' => 'col-' . $size_tablet . '-6',
+      '7' => 'col-' . $size_tablet . '-7',
+      '8' => 'col-' . $size_tablet . '-8',
+      '9' => 'col-' . $size_tablet . '-9',
+      '10' => 'col-' . $size_tablet . '-10',
+      '11' => 'col-' . $size_tablet . '-11',
+      '12' => 'col-' . $size_tablet . '-12',
+    ],
+    'desktop' => [
+      '1' => 'col-' . $size_desktop . '-1',
+      '2' => 'col-' . $size_desktop . '-2',
+      '3' => 'col-' . $size_desktop . '-3',
+      '4' => 'col-' . $size_desktop . '-4',
+      '5' => 'col-' . $size_desktop . '-5',
+      '6' => 'col-' . $size_desktop . '-6',
+      '7' => 'col-' . $size_desktop . '-7',
+      '8' => 'col-' . $size_desktop . '-8',
+      '9' => 'col-' . $size_desktop . '-9',
+      '10' => 'col-' . $size_desktop . '-10',
+      '11' => 'col-' . $size_desktop . '-11',
+      '12' => 'col-' . $size_desktop . '-12',
+    ],
+  ];
+
+  return $grid_classes[$device][$column_width_value];
+}
+
+/**
+ * Get entity object associated with current route.
+ *
+ * @param string $entity_type
+ *   Name of the entity type object to retrieve.
+ *
+ * @return \Drupal\Core\Entity\EntityInterface|null
+ *   The entity object associated with the current route or null if there is no
+ *   entity associated with the route.
+ */
+function _health_get_current_route_entity_object($entity_type) {
+  $current_route_match = \Drupal::service('current_route_match')
+    ->getCurrentRouteMatch();
+  $object = $current_route_match->getParameter($entity_type);
+
+  return $object;
+}
+
+/**
+ * Create a version of a string for file names or ids.
+ *
+ * @param string $text
+ *   The text to convert.
+ * @param string $separator
+ *   String used to replace removed stuff.
+ *
+ * @return string
+ *   Converted text.
+ */
+function _health_prepare_filename($text, $separator = '-') {
+  // Replace anything not normal with a hyphen.
+  $clean = strtolower(preg_replace('/[^a-zA-Z\d-]+/', $separator, $text));
+  // Remove any hyphens at the start.
+  $clean = preg_replace('/^-/', '', $clean);
+  // Remove any hyphens at the end.
+  $clean = preg_replace('/-$/', '', $clean);
+  // If this was only special characters, base 64 encode it so it is usable.
+  if (empty($clean)) {
+    return base64_encode($text);
+  }
+  return $clean;
+}
+
+/**
+ * Process featured content field overrides.
+ *
+ * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+ *   Instance of Paragraph entity.
+ * @param array $variables
+ *   Drupal preprocess variables.
+ */
+function _health_process_featured_content_overrides(ParagraphInterface $paragraph, array &$variables) {
+  // Get instance of referenced node.
+  $node = $paragraph
+    ->get('field_h_content_featured')
+    ->entity;
+
+  if ($node instanceof NodeInterface) {
+    // Process title.
+    if ($paragraph->get('field_h_title')->isEmpty() === FALSE) {
+      // Override title with value set in the paragraph.
+      $title = $paragraph->get('field_h_title')->value;
+    }
+    else {
+      // Use original title.
+      $title = $node->getTitle();
+    }
+    // Process summary.
+    if ($paragraph->get('field_h_summary')->isEmpty() === FALSE) {
+      // Override summary with the value set in the paragraph.
+      $summary = $paragraph->get('field_h_summary')->value;
+    }
+    else {
+      // Use the original summary.
+      $summary = $node->get('field_h_summary')->value;
+    }
+    // Process href.
+    if ($paragraph->get('field_h_link_external_internal')
+      ->isEmpty() === FALSE) {
+      // Override the link with the value set in the paragraph.
+      $href = $paragraph->get('field_h_link_external_internal')->uri;
+    }
+    else {
+      // Use the original link.
+      $path_alias_manager = \Drupal::service('path_alias.manager');
+      $raw_path = '/node/' . $node->id();
+      $href = $path_alias_manager->getAliasByPath($raw_path);
+    }
+    // Process link text.
+    if ($paragraph->get('field_h_label')->isEmpty() === FALSE) {
+      // Override the link text with the value set in the paragraph.
+      $link_text = $paragraph->get('field_h_label')->value;
+    }
+    else {
+      // Use the original node title as the link text.
+      $link_text = $node->getTitle();
+    }
+    // Process featured image. In the case of a video this will be a playable
+    // video. For other content types the image will display as an image.
+    if ($paragraph->get('field_h_image_featured')->isEmpty() === FALSE) {
+      if ($node->bundle() === 'h_video') {
+        // Use the image supplied by the paragraph as the video cover image.
+        $image_style = 'default';
+        $original_video_cover_image_build = $node->get('field_h_image_featured')
+          ->view('h_featured');
+        if (!empty($original_video_cover_image_build[0]['#image_style'])) {
+          $image_style = $original_video_cover_image_build[0]['#image_style'];
+        }
+
+        $image_uri = NULL;
+        if (isset($paragraph->get('field_h_image_featured')->entity)) {
+          $image_uri = $paragraph
+            ->get('field_h_image_featured')
+            ->entity
+            ->get('field_media_image')
+            ->entity
+            ->getFileUri();
+        }
+
+        $video_cover_image = [
+          '#theme' => 'image_style',
+          '#style_name' => $image_style,
+          '#uri' => $image_uri,
+        ];
+
+        $image_featured = [
+          '#theme' => 'health_video',
+          '#youtube_id' => $node->get('field_h_video_youtubeid')->value,
+          '#cover_image' => $video_cover_image,
+          '#duration' => $node->get('field_h_duration')->value,
+        ];
+      }
+      else {
+        // For non-video content override the original featured image with
+        // the one supplied by the paragraph.
+        $image_featured = $paragraph->get('field_h_image_featured')
+          ->view('h_featured');
+      }
+    }
+    else {
+      if ($node->bundle() === 'h_video') {
+        // Use the original video cover image.
+        $image_featured = [
+          '#theme' => 'health_video',
+          '#youtube_id' => $node->get('field_h_video_youtubeid')->value,
+          '#cover_image' => $node->get('field_h_image_featured')
+            ->view('h_featured'),
+          '#duration' => $node->get('field_h_duration')->value,
+        ];
+      }
+      else {
+        // Use the original image for non-video content.
+        $image_featured = $node->get('field_h_image_featured')
+          ->view('h_featured');
+      }
+    }
+  }
+
+  // Make variables available to template file.
+  $variables['image_featured'] = $image_featured;
+  $variables['title'] = $title;
+  $variables['summary'] = $summary;
+  $variables['href'] = $href;
+  $variables['link_text'] = $link_text;
+}
+
+/**
+ * Process health layout grid paragraph.
+ *
+ * @param array $variables
+ *   Drupal preprocess variables.
+ */
+function _health_process_health_layout_grid(array &$variables) {
+  $paragraph = $variables['paragraph'];
+
+  if ($paragraph instanceof ParagraphInterface) {
+    $variables['attributes']['class'][] = 'health-grid';
+    $variables['attributes']['class'][] = 'health-listing';
+    // Check if general items per row setting is set to custom.
+    $items_per_row = $paragraph->get('field_h_items_per_row')->value;
+    if ($items_per_row === 'custom') {
+      // Remove general items per row class.
+      $delta = array_search('custom', $variables['attributes']['class']);
+      if ($delta !== FALSE) {
+        unset($variables['attributes']['class'][$delta]);
+      }
+      // Get custom items per row for each device.
+      $items_per_row_mobile = $paragraph->get('field_h_items_per_row_mobile')->value;
+      $items_per_row_tablet = $paragraph->get('field_h_items_per_row_tablet')->value;
+      $items_per_row_desktop = $paragraph->get('field_h_items_per_row_desktop')->value;
+      if (!empty($items_per_row_mobile) && $items_per_row_mobile !== 'none') {
+        $variables['attributes']['class'][] = _health_get_health_grid_flex_class($items_per_row_mobile, 'mobile');
+      }
+      if (!empty($items_per_row_tablet && $items_per_row_tablet !== 'none')) {
+        $variables['attributes']['class'][] = _health_get_health_grid_flex_class($items_per_row_tablet, 'tablet');
+      }
+      if (!empty($items_per_row_desktop && $items_per_row_desktop !== 'none')) {
+        $variables['attributes']['class'][] = _health_get_health_grid_flex_class($items_per_row_desktop, 'desktop');
+      }
+    }
+    else {
+      // Apply general items per row class.
+      $variables['attributes']['class'][] = _health_get_health_grid_flex_class($items_per_row, 'desktop');
+    }
+  }
+}
+
+/**
+ * Get the toolbar.
+ *
+ * @param Drupal\node\NodeInterface $node
+ *   Instance of Drupal node entity.
+ * @param array $variables
+ *   Template preprocess variables.
+ *
+ * @return array
+ *   Drupal render array.
+ */
+function _health_get_toolbar(NodeInterface $node, array &$variables, array $classes = []) {
+
+  $button_options = theme_get_setting('health_toolbar_item');
+  if (empty($button_options)) {
+    // Set default button configuration.
+    $button_options = [
+      'listen' => FALSE,
+      'print' => 'print',
+      'share' => 'share',
+    ];
+  }
+  $build = [
+    '#theme' => 'health_toolbar',
+    '#buttons' => $button_options,
+    '#current_node' => $node,
+    '#css_classes' => implode(' ', $classes),
+  ];
+
+  return $build;
+}
+
+/**
+ * Get exposed filter form for given view.
+ *
+ * @param string $view_id
+ *   Machine name of the view.
+ * @param string $display_id
+ *   Machine name of the view display mode.
+ *
+ * @return array
+ *   Drupal form render array.
+ */
+function _health_get_views_exposed_form($view_id, $display_id) {
+  $form = [];
+
+  $view = Views::getView($view_id);
+
+  if ($view instanceof ViewExecutable) {
+    $view->setDisplay($display_id);
+    $view->initHandlers();
+
+    $form_state = (new FormState())
+      ->setStorage([
+        'view' => $view,
+        'display' => $view->display_handler->display,
+        'rerender' => TRUE,
+      ])
+      ->setMethod('get')
+      ->setAlwaysProcess()
+      ->disableRedirect();
+    $form_state->set('rerender', NULL);
+    $form = \Drupal::service('form_builder')
+      ->buildForm('\Drupal\views\Form\ViewsExposedForm', $form_state);
+  }
+
+  return $form;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function health_form_views_exposed_form_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
+  // Apply Health Design System styles to search form.
+  $storage = $form_state->getStorage();
+  if (isset($storage['view']) && $storage['view'] instanceof ViewExecutable) {
+    $view = $storage['view'];
+    $field_name = 'search_api_fulltext';
+
+    if (isset($form[$field_name])) {
+
+      // Set additional classes and placeholder text.
+      $search_classes = 'health-search health-search__form';
+      $placeholder = t('Search this list');
+      if ($view->id() == 'h_site_search') {
+        $search_classes .= ' health-search--global';
+        $placeholder = t('Search this website');
+      }
+
+      $form[$field_name]['#attributes']['placeholder'] = $placeholder;
+
+      $form['#attributes']['class'][] = 'au-form';
+
+      $form['#prefix'] = '<div class="' . $search_classes . '"><div class="health-search__form__input-wrapper">';
+      $form['#suffix'] = '<div class="health-loading"></div></div></div>';
+
+      $form['actions']['submit']['#attributes']['class'][] = 'health-search__form__submit';
+      $form['actions']['submit']['#attributes']['class'][] = 'au-btn au-btn';
+    }
+  }
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function health_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
+  // Work-around for a core bug affecting admin themes. See issue #943212.
+  if (isset($form_id)) {
+    return;
+  }
+
+  $form['health_layout'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Layout'),
+  ];
+
+  $entity_type_manager = Drupal::service('entity_type.manager');
+  $node_types = $entity_type_manager->getStorage('node_type')->loadMultiple();
+  $options = [];
+  foreach ($node_types as $node_type) {
+    $options[$node_type->id()] = $node_type->label();
+  }
+  $default_values = theme_get_setting('health_full_width_layout') ? theme_get_setting('health_full_width_layout') : [];
+
+  // Define which content types should use full width layout.
+  $form['health_layout']['health_full_width_layout'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('Use full width layout'),
+    '#options' => $options,
+    '#default_value' => $default_values,
+    '#description' => t('Select which content type should use full width grid.'),
+  ];
+
+  $form['health_google'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Google'),
+  ];
+
+  // Google Maps client id.
+  $form['health_google']['health_google_maps_client'] = [
+    '#type' => 'textfield',
+    '#title' => t('Google Maps client ID'),
+    '#default_value' => theme_get_setting('health_google_maps_client'),
+  ];
+
+  // Google Tag Manager (GTM) id.
+  $form['health_google']['health_gtm_id'] = [
+    '#type' => 'textfield',
+    '#title' => t('Google Tag Manager ID'),
+    '#description' => t('Google Tag Manager ID. Should include <em>GTM-</em> prefix (e.g. GTM-1234).'),
+    '#default_value' => theme_get_setting('health_gtm_id'),
+  ];
+
+  $form['health_search'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Search'),
+  ];
+
+  $form['health_search']['health_funnelback'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Funnelback'),
+  ];
+
+  $form['health_search']['health_funnelback']['health_funnelback_enable'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable Funnelback'),
+    '#description' => t('See instructions in README.md on how to setup Funnelback.'),
+    '#default_value' => theme_get_setting('health_funnelback_enable') ? theme_get_setting('health_funnelback_enable') : FALSE,
+  ];
+
+  $form['health_search']['health_funnelback']['health_funnelback_url'] = [
+    '#type' => 'textfield',
+    '#title' => t('URL'),
+    '#default_value' => theme_get_setting('health_funnelback_url'),
+  ];
+
+  $form['health_search']['health_funnelback']['health_funnelback_collection'] = [
+    '#type' => 'textfield',
+    '#title' => t('Collection'),
+    '#default_value' => theme_get_setting('health_funnelback_collection'),
+  ];
+
+  $form['health_search']['health_funnelback']['health_funnelback_profile'] = [
+    '#type' => 'textfield',
+    '#title' => t('Profile'),
+    '#default_value' => theme_get_setting('health_funnelback_profile'),
+  ];
+
+  $form['health_search']['health_funnelback']['health_funnelback_results_url'] = [
+    '#type' => 'textfield',
+    '#title' => t('Search results URL'),
+    '#default_value' => theme_get_setting('health_funnelback_results_url'),
+  ];
+
+  $form['health_search']['health_funnelback']['health_funnelback_view_mode'] = [
+    '#type' => 'textfield',
+    '#title' => t('Use a view mode to render results'),
+    '#description' => t('This has a performance impact as Drupal has to render results rather than using the data from Funnelback.'),
+    '#default_value' => theme_get_setting('health_funnelback_view_mode'),
+  ];
+
+  // Old health website URL.
+  $form['health_search']['health_old_health_website_url'] = [
+    '#type' => 'textfield',
+    '#title' => t('Old health website URL'),
+    '#description' => t('When searching, any records that come from this domain will be visually identified as the "Old health website"'),
+    '#default_value' => theme_get_setting('health_old_health_website_url'),
+  ];
+
+  // Breadcrumb settings.
+  $form['health_breadcrumb'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Breadcrumb'),
+  ];
+
+  $form['health_breadcrumb']['health_mobile_breadcrumb'] = [
+    '#type' => 'radios',
+    '#title' => t('Mobile breadcrumb link'),
+    '#description' => t('The mobile breadcrumb provides a single link. By default it will link to the parent of the current page. Selecting <em>Top level page</em> will provide a link to the top level parent. The latter can be useful if you wish to return to a "Section" page rather than the direct parent.'),
+    '#options' => [
+      'parent' => t('Parent page'),
+      'top' => t('Top level page'),
+    ],
+    '#default_value' => (theme_get_setting('health_mobile_breadcrumb') !== NULL) ? theme_get_setting('health_mobile_breadcrumb') : 'parent',
+  ];
+
+  // Toolbar settings.
+  $form['health_toolbar'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Toolbar'),
+  ];
+
+  $toolbar_item_default_options = [
+    'print',
+    'share',
+  ];
+  $toolbar_item_default_value = (theme_get_setting('health_toolbar_item') !== NULL) ? theme_get_setting('health_toolbar_item') : $toolbar_item_default_options;
+  $form['health_toolbar']['health_toolbar_item'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('Enabled items'),
+    '#options' => [
+      'listen' => t('Listen (Readspeaker)'),
+      'print' => t('Print'),
+      'share' => t('Share'),
+    ],
+    '#default_value' => $toolbar_item_default_value,
+  ];
+
+  $form['health_toolbar']['health_readspeaker'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Readspeaker'),
+    '#description' => t('If using the listen button, these must be filled out'),
+  ];
+
+  $form['health_toolbar']['health_readspeaker']['health_readspeaker_custid'] = [
+    '#type' => 'textfield',
+    '#title' => t('Customer ID'),
+    '#default_value' => theme_get_setting('health_readspeaker_custid'),
+  ];
+
+  $form['health_toolbar']['health_readspeaker']['health_readspeaker_stattype'] = [
+    '#type' => 'textfield',
+    '#title' => t('Log identifier'),
+    '#description' => t('Enter a site name or identifier to categorise the listens for this site in the Readspeaker logs.'),
+    '#default_value' => theme_get_setting('health_readspeaker_stattype'),
+  ];
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function health_page_attachments_alter(array &$attachments) {
+
+  // Set no index for user login pages.
+  $current_path = \Drupal::service('path.current')->getPath();
+  $patterns = '/user/*';
+  $match = \Drupal::service('path.matcher')
+    ->matchPath($current_path, $patterns);
+
+  $noindex = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'name' => 'robots',
+      'content' => 'noindex, nofollow',
+    ],
+  ];
+
+  if ($match) {
+    $attachments['#attached']['html_head'][] = [$noindex, 'description'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function health_preprocess_block(array &$variables) {
+  // Pass block region value to content so this can be used in
+  // health_theme_suggestions_menu_alter.
+  if (isset($variables['elements']['#configuration']['region'])) {
+    $variables['content']['#attributes']['data-region'] = $variables['elements']['#configuration']['region'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function health_preprocess_menu(array &$variables) {
+
+  if (isset($variables['attributes']['data-region'])) {
+    $region = $variables['attributes']['data-region'];
+
+    // Depending on the region that the menu is in, we need to add/customise
+    // certain elements for the HDS.
+    switch ($region) {
+
+      case 'sidebar_first':
+        // Add a title that links to the parent.
+        // Get the first link in the current menu.
+        $link = reset($variables['items'])['original_link'];
+        // If there is no parent, this page is probably not in a menu.
+        if (!empty($link->getParent())) {
+          // Create an instance of the menu item.
+          $parent_link = \Drupal::service('plugin.manager.menu.link')
+            ->createInstance($link->getParent());
+          // The URL object.
+          $url = $parent_link->getUrlObject();
+
+          // Add an active class if link is the current page.
+          // The current route.
+          $route = \Drupal::routeMatch();
+          // Make sure these are both node routes.
+          if ($route->getRouteName() == $parent_link->getRouteName()) {
+            // Check if the current route node is the same as the parent link
+            // parameters.
+            if ($route->getParameter('node')
+              ->id() == $parent_link->getRouteParameters()['node']) {
+              // Set the active class on the link.
+              $url->setOption('attributes', ['class' => 'active']);
+            }
+          }
+          // Create the link so it can be rendered.
+          $variables['title_link'] = Link::fromTextAndUrl($parent_link->getTitle(), $url);
+        }
+        break;
+
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function health_preprocess_block__local_tasks_block(array &$variables) {
+  $variables['attributes']['class'][] = 'block--tabs';
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function health_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  // Provide region based menu suggestions.
+  if (isset($variables['attributes']['data-region'])) {
+    $suggestions[] = 'menu__' . $variables['attributes']['data-region'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_alter() for contact form container.
+ */
+function health_theme_suggestions_container_alter(array &$suggestions, array &$variables) {
+  $prefix = 'container__';
+  if (!empty($variables['element']['#type'])) {
+    $suggestions[] = $prefix . $variables['element']['#type'];
+    if (!empty($variables['element']['#name'])) {
+      $suggestions[] = $prefix . $variables['element']['#type'] . '__' . $variables['element']['#name'];
+      if (!empty($variables['element']['#display_id'])) {
+        $suggestions[] = $prefix . $variables['element']['#type'] . '__' . $variables['element']['#name'] . '__' . $variables['element']['#display_id'];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function health_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
+  $paragraph = $variables['elements']['#paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+    // Create template suggestion "paragraph__PARAGRAPH_TYPE__node_NODE_TYPE"
+    // for paragraph types which reference node content.
+    if ($paragraph->hasField('field_h_content_featured') && $paragraph->get('field_h_content_featured')
+      ->isEmpty() !== TRUE) {
+      $node = $paragraph->get('field_h_content_featured')->first()->entity;
+      if ($node instanceof NodeInterface) {
+        $suggestions[] = 'paragraph__' . $paragraph->getType() . '__node_' . $node->bundle();
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function health_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Get the route.
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $route_parts = explode('.', $route_name);
+
+  // Is it system.4xx?.
+  if (count($route_parts) == 2 && $route_parts[0] === 'system') {
+    $code = $route_parts[1];
+    if (is_numeric($code) && $code >= 400 and $code < 500) {
+      // Suggest template page--4xx.html.twig (e.g., page--404.html.twig)
+      $suggestions[] = 'page__' . $route_parts[1];
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function health_preprocess_page_title(array &$variables) {
+  // Make page title and summary available to template.
+  $variables['page_title'] = (!empty($variables['title'])) ? $variables['title'] : NULL;
+  $variables['page_summary'] = NULL;
+
+  // Get page title and summary.
+  $node = _health_get_current_route_entity_object('node');
+  if ($node instanceof NodeInterface) {
+    $variables['page_title'] = $node->getTitle();
+    if ($node->hasField('field_h_summary')) {
+      $variables['page_summary'] = $node->get('field_h_summary')->value;
+    }
+  }
+
+  // Set mobile breadcrumb link title and url.
+  if ($active = \Drupal::service('menu.active_trail')->getActiveLink()) {
+    $link = \Drupal::service('menu.tree_storage')->load($active->getPluginId());
+    if (!empty($link['parent'])) {
+      $mobile_breadcrumb_link = (theme_get_setting('health_mobile_breadcrumb') !== NULL) ? theme_get_setting('health_mobile_breadcrumb') : 'parent';
+      if ($mobile_breadcrumb_link === 'parent') {
+        $link = \Drupal::service('menu.tree_storage')->load($link['parent']);
+      }
+      else {
+        // Get menu top level parent.
+        while (!empty($link['parent'])) {
+          $link = \Drupal::service('menu.tree_storage')->load($link['parent']);
+        }
+      }
+      $variables['mobile_breadcrumb_title'] = $link['title'];
+      $variables['mobile_breadcrumb_url'] = new URL($link['route_name'], $link['route_parameters']);
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_field__field_h_resource_date(array &$variables) {
+  // Provides custom date formatting for Date of Resource Publication field.
+  foreach ($variables['items'] as $index => $item) {
+    $date_pattern = '';
+    $date_time = new DateTime($item['content']['#text']);
+    $day = $date_time->format('j');
+    $month = $date_time->format('n');
+
+    if ($day !== '1') {
+      // Only display day of the month if it is not the first day of the month.
+      $date_pattern .= 'j ';
+    }
+    if ($month !== '1' || ($month === '1' && $day !== '1')) {
+      // Only display month if it is not January or in the case it is January
+      // then it is not the 1st of january.
+      $date_pattern .= 'F ';
+    }
+    // Alway display year.
+    $date_pattern .= 'Y';
+
+    $variables['items'][$index]['content']['#text'] = $date_time->format($date_pattern);
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_field__field_h_collection_grouping(array &$variables) {
+  $variables['health_document_accessibility_link'] = _health_get_accessible_doc_request_form_link();
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_field__field_h_resource_parts(array &$variables) {
+  $variables['health_document_accessibility_link'] = _health_get_accessible_doc_request_form_link();
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_field__node__field_h_resource_parts__h_foi_request(array &$variables) {
+  $variables['health_document_accessibility_link'] = _health_get_accessible_doc_request_form_link();
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function health_preprocess_field__field_h_files(array &$variables) {
+  $paragraph = $variables['element']['#object'];
+  if ($paragraph instanceof ParagraphInterface) {
+    $resource_file_title = $paragraph->get('field_h_resource_file_title')->value;
+    foreach ($variables['items'] as $index => $item) {
+      $media = $variables['items'][$index]['content']['#media'];
+      if ($media->hasField('field_media_file')) {
+        $file = $media->get('field_media_file')->entity;
+        if ($file instanceof FileInterface) {
+          // Pass the resource file title to the file_link theme function.
+          // Ideally should be able to pass this using "context" (@see
+          // https://www.drupal.org/node/2971707); however, it does not work.
+          // As a work around we are passing the value via the attributes
+          // variable instead.
+          // @todo We should look for a better way of handling this.
+          $variables['items'][$index]['content'] = [
+            '#theme' => 'file_link',
+            '#file' => $file,
+            '#attributes' => [
+              'data-health-resource-file-title' => $resource_file_title,
+            ],
+            '#context' => [
+              'resource_file_title' => $resource_file_title,
+            ],
+          ];
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function health_preprocess_field__field_h_generate_toc(array &$variables) {
+  $variables['content'] = NULL;
+  $entity = $variables['element']['#object'];
+
+  if ($entity instanceof NodeInterface) {
+    $display_toc = (boolean) $entity->get('field_h_generate_toc')->value;
+
+    if ($display_toc) {
+      $content_type = $entity->getType();
+      $variables['content'] = health_get_table_of_contents($content_type);
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_form_element().
+ */
+function health_preprocess_form_element(array &$variables) {
+  if (isset($variables['name']) && $variables['name'] === 'search_api_fulltext') {
+    $variables['label']['#attributes']['class'][] = 'sr-only';
+    $variables['label']['#attributes']['for'] = $variables['element']['#id'];
+  }
+  // Add the form type to the label. This is because the design system uses
+  // classes on the label for checkboxes and radio buttons.
+  $variables['label']['#attributes']['data-type'] = $variables['type'];
+
+  // Webform element counter. Include our class overrides for text counter.
+  if (isset($variables['element']['#counter_type']) && $variables['element']['#counter_type'] == 'character') {
+    $variables['label']['#attached']['library'][] = 'health/webform-element-counter';
+  }
+}
+
+/**
+ * Implements template_preprocess_image().
+ */
+function health_preprocess_image(array &$variables) {
+  // Lazy load images.
+  $variables['attributes']['data-src'] = $variables['attributes']['src'];
+  unset($variables['attributes']['src']);
+
+  // Calculate ratio for space reservation.
+  if (isset($variables['width']) && isset($variables['height'])) {
+    $variables['ratio'] = round(($variables['height'] / $variables['width']) * 100, 2);
+  }
+
+  // Set image alt property to null for decorative images.
+  $token = '<decorative>';
+  if (isset($variables['attributes']['alt']) && $variables['attributes']['alt'] === $token) {
+    $variables['alt'] = '';
+    $variables['attributes']['alt'] = '';
+  }
+}
+
+/**
+ * Implements template_preprocess_input().
+ */
+function health_preprocess_input(array &$variables) {
+  if (isset($variables['element']['#name']) && $variables['element']['#name'] === 'search_api_fulltext') {
+    $variables['attributes']['class'][] = 'health-search__form__input';
+    $variables['attributes']['class'][] = 'au-text-input';
+    $variables['attributes']['class'][] = 'au-text-input--block';
+    $variables['attributes']['class'][] = 'ui-autocomplete-input';
+    $variables['attributes']['autocomplete'] = 'off';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function health_preprocess_health_toolbar(array &$variables) {
+  $node = $variables['current_node'];
+  $url_generator = Drupal::service('url_generator');
+  $uri_options = [
+    'absolute' => TRUE,
+    'query' => \Drupal::request()->query->all(),
+  ];
+  $absolute_url = $url_generator->generateFromRoute('entity.node.canonical', ['node' => $node->id()], $uri_options);
+
+  // Listen.
+  if (isset($variables['buttons']['listen'])) {
+    $variables['readspeaker_url'] = "//app-oc.readspeaker.com/cgi-bin/rsent?customerid=" . theme_get_setting('health_readspeaker_custid') . "&amp;lang=en_au&amp;readclass=health-sub-header,region--content&amp;stattype=" . theme_get_setting('health_readspeaker_stattype') . "&amp;url=" . $absolute_url;
+  }
+
+  // Share.
+  if (isset($variables['buttons']['share'])) {
+    $node_title = $node->getTitle();
+    $variables['twitter_url'] = "https://twitter.com/share?text=" . $node_title . "&amp;url=" . $absolute_url;
+    $variables['facebook_url'] = "https://facebook.com/sharer.php?u=" . $absolute_url;
+    $variables['email_url'] = "mailto:?subject=" . $node_title . "&amp;body=" . $absolute_url;
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_html(array &$variables) {
+  // Embed Google Tag Manager functionality.
+  $gtm_id = _health_get_gtm_id();
+  if (!empty($gtm_id)) {
+    $variables['health_gtm_container'] = [
+      '#theme' => 'health_gtm_container',
+      '#gtm_id' => $gtm_id,
+    ];
+    $variables['health_gtm_script'] = [
+      '#theme' => 'health_gtm_script',
+      '#gtm_id' => $gtm_id,
+    ];
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_node(array &$variables) {
+  $node = $variables['node'];
+  if ($node instanceof NodeInterface) {
+    // Make information on whether Image Featured is present available to node
+    // templates.
+    try {
+      $image_featured_present = $node->get('field_h_image_featured')
+        ->isEmpty() ? FALSE : TRUE;
+      $variables['image_featured_present'] = $image_featured_present;
+    }
+    catch (\InvalidArgumentException $e) {
+      // Set variables passed to templates as NULL if the relevant field doesn't
+      // exist.
+      $variables['image_featured_present'] = NULL;
+    }
+
+    // Hide date updated if it is the same as date of resource publication.
+    if ($variables['view_mode'] == 'full') {
+      if ($node->hasField('field_h_date_updated') && $node->hasField('field_h_resource_date')) {
+        $last_updated = new DateTime($node->field_h_date_updated->getValue()[0]['value'], new DateTimeZone('+0'));
+        $last_updated->setTimezone(new DateTimeZone(date_default_timezone_get()));
+        $publication_date = new DateTime($node->field_h_resource_date->getValue()[0]['value'], new DateTimeZone('+0'));
+        $publication_date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+        if ($last_updated->format('ymd') == $publication_date->format('ymd')) {
+          // Do not render date updated.
+          $variables['content']['field_h_date_updated']['#access'] = FALSE;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_node__h_card(array &$variables) {
+  $node = $variables['node'];
+  if ($node instanceof NodeInterface) {
+    $variables['title'] = $variables['label'];
+    $variables['metadata_content'] = $node->get('field_h_date_published')
+      ->view('h_card');
+    $variables['image'] = $node->get('field_h_image_featured')->view('h_card');
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_node__h_featured(array &$variables) {
+  // Make title and image data available to Featured view mode template.
+  $node = $variables['node'];
+  if ($node instanceof NodeInterface) {
+    // Process title.
+    $variables['title'] = $node->getTitle();
+
+    // Process image.
+    try {
+      if ($node->get('field_h_image_featured')->isEmpty() === FALSE) {
+        $field_settings = [
+          'label' => 'hidden',
+          'type' => 'image_url',
+          'settings' => [],
+          'weight' => 0,
+        ];
+        $image_data_source = $node
+          ->get('field_h_image_featured')
+          ->entity
+          ->get('field_media_image')
+          ->view($field_settings);
+        $variables['image_data_source'] = $image_data_source;
+      }
+    }
+    catch (\InvalidArgumentException $e) {
+      // This content type doesn't contain field so does not support display as
+      // hero functionality.
+      $variables['image_data_source'] = NULL;
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_node__h_global_notification(array &$variables) {
+  $node = $variables['node'];
+  if ($node instanceof NodeInterface) {
+    $variables['health_notification_id'] = $node->getRevisionId();
+    // Optionally display date the notification was last updated.
+    if ($node->hasField('field_h_display_date') && $node->get('field_h_display_date')->isEmpty() !== TRUE) {
+      $display_date = (empty($node->get('field_h_display_date')->value)) ? FALSE : TRUE;
+      $variables['health_display_notification_date'] = $display_date;
+    }
+
+    // Process notification background colour.
+    if ($node->hasField('field_h_notification_type')) {
+      /** @var \Drupal\taxonomy\TermInterface $colour. */
+      $colour = $node
+        ->get('field_h_notification_type')
+        ->entity
+        ->get('field_h_colour')
+        ->entity;
+      $colour_hex = $colour
+        ->get('field_h_colour_hex')
+        ->value;
+      $variables['health_notification_bg_colour'] = $colour_hex;
+      $variables['health_dark_theme'] = ($colour->get('field_h_colour_theme')->value === 'dark') ? TRUE : FALSE;
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ *
+ * Funnelback search results.
+ */
+function health_preprocess_node__search_results(array &$variables) {
+
+  if (theme_get_setting('health_funnelback_enable')) {
+
+    // Contruct URL to query the funnelback service.
+    $base_url = theme_get_setting('health_funnelback_url') . '/s/search.json?';
+
+    // Use the current request URL (facets, pagination is already set).
+    $request = \Drupal::request()->getRequestUri();
+    $request = str_replace(theme_get_setting('health_funnelback_results_url'), '', $request);
+    $request = str_replace('?', '', $request);
+
+    // If this is the first time we are using search, add the defaults.
+    if (strpos($request, 'profile=') === FALSE) {
+      $base_url .= 'collection=' . theme_get_setting('health_funnelback_collection') . '&profile=' . theme_get_setting('health_funnelback_profile');
+    }
+    $url = $base_url . '&' . $request;
+
+    // Query Funnelback.
+    try {
+      $response = \Drupal::httpClient()->request('get', $url);
+    }
+    catch (RequestException $e) {
+      \Drupal::messenger()
+        ->addError(t('We could not complete your search at this time. Please try again later.'));
+      return;
+    }
+    $body = Json::decode($response->getBody());
+
+    // Search term.
+    $variables['query'] = $body['response']['resultPacket']['query'];
+
+    // Total count.
+    $variables['total'] = $body['response']['resultPacket']['resultsSummary']['totalMatching'];
+
+    // Curator.
+    $curator = $body['response']['curator'];
+    foreach ($curator['exhibits'] as &$exhibit) {
+      if (isset($exhibit['linkUrl'])) {
+        $exhibit['linkUrl'] = _funnelback_filter_curator_link($exhibit['linkUrl']);
+      }
+    }
+    $variables['curator'] = [
+      '#theme' => 'funnelback_curator',
+      '#curator' => $curator,
+    ];
+
+    // Spell.
+    if ($spell = $body['response']['resultPacket']['spell']) {
+      $variables['spell'] = [
+        '#theme' => 'funnelback_spell',
+        '#spell' => [$spell],
+      ];
+    }
+
+    // Facets.
+    $facets = $body['response']['facets'];
+    $selected = FALSE;
+    foreach ($facets as &$facet) {
+      if ($facet['selected'] == TRUE) {
+        $selected = TRUE;
+      }
+      foreach ($facet['selectedValues'] as &$selectedValue) {
+        $selectedValue['toggleUrl'] = _funnelback_filter_query_string($selectedValue['toggleUrl']);
+      }
+    }
+
+    $variables['facets'] = [
+      '#theme' => 'funnelback_facets_block',
+      '#facets' => $facets,
+      '#query' => $body['response']['resultPacket']['query'],
+      "#attached" => [
+        'library' => [
+          'health/funnelback.facet',
+        ],
+      ],
+    ];
+
+    // Facet extras.
+    $facet_extras = $body['response']['facetExtras'];
+    $facet_extras['unselectAllFacetsUrl'] = _funnelback_filter_query_string($facet_extras['unselectAllFacetsUrl']);
+
+    // Filters applied.
+    $variables['breadcrumb'] = [
+      '#theme' => 'funnelback_breadcrumb',
+      '#facets' => $facets,
+      '#facet_extras' => $facet_extras,
+      '#selected' => $selected,
+    ];
+
+    // Results.
+    $results = $body['response']['resultPacket']['results'];
+    $items = [];
+    if ($results) {
+      foreach ($results as $result) {
+        // Use funnelback summary by default.
+        $item = [
+          '#theme' => 'funnelback_result',
+          '#display_url' => $result['displayUrl'],
+          '#live_url' => $result['liveUrl'],
+          '#title' => isset($result['metaData']['healthSearchTitle']) ? $result['metaData']['healthSearchTitle'] : $result['title'],
+          '#date' => $result['date'],
+          '#summary' => $result['summary'],
+          '#metadata' => $result['metaData'],
+        ];
+        // Add an 'Old health website' tag to records coming from the
+        // old health website.
+        $old_url = theme_get_setting('health_old_health_website_url');
+        if ($old_url) {
+          $url = parse_url($result['displayUrl']);
+          $old_url = parse_url($old_url);
+          if ($url['host'] == $old_url['host']) {
+            $item['#old_health'] = TRUE;
+          }
+        }
+
+        // Use view mode if local node.
+        $view_mode = theme_get_setting('health_funnelback_view_mode');
+        if ($view_mode && isset($result['metaData']['nodeId'])) {
+          $node = Drupal::service('entity_type.manager')
+            ->getStorage('node')
+            ->load($result['metaData']['nodeId']);
+          if ($node) {
+            $item = Drupal::service('entity_type.manager')
+              ->getStorage('node')
+              ->view($node, $view_mode);
+          }
+        }
+
+        $items[] = $item;
+      }
+    }
+    $variables['items'] = $items;
+
+    // Pager.
+    \Drupal::service('pager.manager')->createPager($variables['total'], 10);
+    $variables['pager'] = [
+      '#type' => 'pager',
+    ];
+  }
+}
+
+/**
+ * Find redirect url from curator link and decode it.
+ *
+ * @param string $linkUrl
+ *   Requested url.
+ *
+ * @return string
+ *   Decoded url.
+ */
+function _funnelback_filter_curator_link($linkUrl) {
+  $url = '';
+  $querySegments = explode('&', $linkUrl);
+  foreach ($querySegments as $segment) {
+    if (strpos($segment, 'url=') === 0) {
+      $url = urldecode(substr($segment, 4, strlen($segment)));
+    }
+  }
+  return $url;
+}
+
+/**
+ * Remove system default query strings from link.
+ *
+ * @param string $strQuery
+ *   Query string.
+ *
+ * @return string
+ *   Filtered query string.v
+ */
+function _funnelback_filter_query_string($strQuery) {
+  $strQuery = str_replace('?', '', $strQuery);
+  $strQuerys = explode('&', $strQuery);
+  foreach ($strQuerys as $key => $segment) {
+    if (strpos($segment, 'remote_ip=') === 0 ||
+      strpos($segment, 'profile=') === 0 ||
+      strpos($segment, 'collection=') === 0 ||
+      strpos($segment, 'form=') === 0) {
+      // Remove system query strings.
+      unset($strQuerys[$key]);
+    }
+  }
+
+  return '?' . implode('&', $strQuerys);
+}
+
+/**
+ * Implements template_preprocess_page().
+ */
+function health_preprocess_page(array &$variables) {
+  $variables['logo'] = '/' . \Drupal::service('theme.manager')
+    ->getActiveTheme()
+    ->getPath() . '/logo.png';
+
+  // Set footer.
+  $variables['footer'] = _health_get_footer($variables);
+
+  // Funnelback search.
+  if (theme_get_setting('health_funnelback_enable')) {
+    $variables['funnelback'] = TRUE;
+    $variables['funnelback_results_url'] = theme_get_setting('health_funnelback_results_url');
+  }
+
+  // Custom functionality for Node content pages.
+  if (isset($variables['node']) && $variables['node'] instanceof NodeInterface) {
+    $node = $variables['node'];
+
+    // Make full width indicator and layout row values available in template.
+    $full_width_content_types = theme_get_setting('health_full_width_layout');
+    $variables['full_width'] = !empty($full_width_content_types[$node->getType()]);
+  }
+
+  // Load the site name out of configuration.
+  $config = \Drupal::config('system.site');
+  $variables['site_name'] = $config->get('name');
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ *
+ * Was not able to access field_h_email_address from within the template so have
+ * to pass it as a separate variable.
+ *
+ * @todo Look into bug preventing accessing email field directly from template.
+ */
+function health_preprocess_paragraph__para_h_email_addresses(&$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+    $variables['email'] = $variables['paragraph']->get('field_h_email_address')->value;
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_content_featured(array &$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+    _health_process_featured_content_overrides($paragraph, $variables);
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_content_featured__node_h_video(array &$variables) {
+  $paragraph = $variables['paragraph'];
+  $transcript = NULL;
+
+  if ($paragraph instanceof ParagraphInterface) {
+    _health_process_featured_content_overrides($paragraph, $variables);
+    $node = $paragraph->get('field_h_content_featured')->entity;
+    if ($node instanceof NodeInterface) {
+      $transcript = $node->get('field_h_resource_transcript')->view('full');
+    }
+  }
+
+  $variables['transcript'] = $transcript;
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ *
+ * @todo Add file icon.
+ *
+ * @todo Add file size and number of pages parameters.
+ *
+ * @todo Add link URI.
+ *
+ * @todo Uses Attribute object get resource file title. For some reason many of
+ * the Attribute methods throwing method not found errors. As result have had
+ * to use a less ideal way processing the 'data-health-resource-file-title'
+ * attribute. Need to work out why those methods are not working and remove the
+ * 'data-health-resource-file-title' attribute after using it.
+ */
+function health_preprocess_file_link(array &$variables) {
+  // Apply specific styling when displayed within a node page.
+  $node = _health_get_current_route_entity_object('node');
+  if ($node instanceof NodeInterface) {
+    $variables['on_node_page'] = TRUE;
+
+    // Make URI to file available to template.
+    $file = $variables['file'];
+    $file_uri = $file->getFileUri();
+    $file_path = file_url_transform_relative(file_create_url($file_uri));
+    $variables['file_uri'] = $file_path;
+
+    // Make file size available to template.
+    $file_size = format_size($file->getSize());
+    $variables['file_size'] = $file_size;
+
+    // Get file title to use in analytics and accessibility. Default is the
+    // resource title.
+    $title = $node->getTitle();
+    if ($node->hasField('field_h_resource_parts')) {
+      $attributes = $variables['attributes'];
+      if ($attributes instanceof Attribute) {
+        $attribute_values = $attributes->toArray();
+        if (isset($attribute_values['data-health-resource-file-title'])) {
+          $resource_file_title = $attribute_values['data-health-resource-file-title'];
+          if ($title !== $resource_file_title) {
+            $title = $title . ': ' . $resource_file_title;
+          }
+        }
+      }
+    }
+    $variables['title'] = $title;
+
+    // Get user friendly file type name.
+    $variables['file_type'] = _health_get_friendly_mime($file->getMimeType());
+
+    // File icon.
+    switch ($file->getMimeType()) {
+      case 'application/pdf':
+        $icon = 'file-pdf';
+        break;
+
+      case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+      case 'application/msword':
+        $icon = 'file-word';
+        break;
+
+      case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+        $icon = 'file-excel';
+        break;
+
+      case 'image/jpeg':
+      case 'image/png':
+      case 'image/gif':
+        $icon = 'file-image';
+        break;
+
+      case 'audio/mpeg':
+      case 'audio/x-wav':
+        $icon = 'file-audio';
+        break;
+
+      default:
+        $icon = 'file';
+        break;
+    }
+    $variables['icon'] = $icon;
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ *
+ * Make values of fields used across multiple paragraph types (e.g. title,
+ * summary, background_colour, etc.) available to all paragraph templates. If
+ * a field is not present in a given paragraph type the template variable is
+ * set to NULL.
+ */
+function health_preprocess_paragraph(array &$variables) {
+  $paragraph = $variables['paragraph'];
+  // Make background colour information available to template. Include colour's
+  // hexcode and correspondin light/dark theme information.
+  try {
+    $term = $paragraph->get('field_h_colour_background')->entity;
+    $variables['health_use_dark_colour_theme'] = FALSE;
+    if ($term instanceof TermInterface) {
+      // Process background colour theme.
+      $color_theme = $term->get('field_h_colour_theme')->value;
+      if ($color_theme === 'dark') {
+        $variables['health_use_dark_colour_theme'] = TRUE;
+      }
+      // Process background colour hexcode.
+      $variables['background_colour'] = $term->get('field_h_colour_hex')->value;
+    }
+  }
+  catch (\InvalidArgumentException $e) {
+    // Set variables passed to templates as NULL if the relevant data doesn't
+    // exist.
+    $variables['background_colour'] = NULL;
+    $variables['health_use_dark_colour_theme'] = TRUE;
+  }
+
+  // Get raw title value. Used for things link band titles.
+  try {
+    $title = $paragraph->get('field_h_title')->value;
+    $variables['title'] = $title;
+  }
+  catch (\InvalidArgumentException $e) {
+    // Set variables passed to templates as NULL if the relevant data doesn't
+    // exist.
+    $variables['title'] = NULL;
+  }
+
+  // Make raw summary field value available to template.
+  try {
+    $summary = $paragraph->get('field_h_summary')->value;
+    $variables['summary'] = $summary;
+  }
+  catch (\InvalidArgumentException $e) {
+    // Set variables passed to templates as NULL if the relevant data doesn't
+    // exist.
+    $variables['summary'] = NULL;
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_address(array &$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+    // Process Address line 2.
+    $variables['address_line_2_present'] = _health_check_field_contains_data($paragraph, 'field_h_address_line_2');
+
+    // Process longitude and latitude to generate Google static map api URL.
+    $generate_map = ($paragraph->get('field_h_location_longitude')
+      ->isEmpty() === FALSE && $paragraph->get('field_h_location_latitude')
+      ->isEmpty() === FALSE) ? TRUE : FALSE;
+    if ($generate_map) {
+      $gmap_key = theme_get_setting('health_google_maps_client');
+      if (!empty($gmap_key)) {
+        $gmap_api_endpoint = 'https://maps.googleapis.com/maps/api/staticmap';
+        $map_title = t('Location map');
+        $long = $paragraph->get('field_h_location_longitude')->value;
+        $lat = $paragraph->get('field_h_location_latitude')->value;
+        $src = $gmap_api_endpoint . '?center=' . $lat . ',' . $long . '&zoom=13&size=400x400&maptype=roadmap&key=' . $gmap_key . '&markers=color:red%7C' . $lat . ',' . $long;
+        $variables['content']['map']['src'] = $src;
+        $variables['content']['map']['alt'] = $map_title;
+        $variables['content']['map']['title'] = $map_title;
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_content_table(array &$variables) {
+  $paragraph = $variables['paragraph'];
+
+  // Move the title and summary into the table <caption> element.
+  $title = $paragraph->get('field_h_title')->value;
+  $table = $paragraph->get('field_h_body')->value;
+  $replacement = '$1<caption><p class="au-display-sm">' . $title . '</p>';
+  if (array_key_exists('field_h_summary', $variables['content'])) {
+    $replacement .= '<span class="au-sronly">' . $paragraph->get('field_h_summary')->value . '</span>';
+  }
+  $replacement .= '</caption>$2';
+  $table = preg_replace('/(<table.*?>)(.*)/s', $replacement, $table);
+  $table = _health_footnote_links($table);
+
+  // Add footer content to <tfoot> element.
+  if (array_key_exists('field_h_table_source', $variables['content'])) {
+    $footer_render_array = _health_footnote_source($paragraph->get('field_h_table_source')->value);
+    $footer = Drupal::service('renderer')->render($footer_render_array);
+    if (!empty($footer)) {
+      $table = preg_replace('/(.*)<\/table>/s', '$1<tfoot><tr><td>' . $footer . '</td></tr></tfoot></table>', $table);
+    }
+    $variables['#attached']['library'][] = 'health/table';
+  }
+
+  // Add a div around tables so they can be made responsive.
+  $table_wrapper_style_classes = [
+    'health-table__responsive',
+  ];
+  $table = str_replace('<table', '<div class="' . implode(' ', $table_wrapper_style_classes) . '"><table', $table);
+  $table = str_replace('</table>', '</table></div>', $table);
+
+  // Create an anchor so it can be deep linked to.
+  $variables['content']['table']['#prefix'] = '<a name="' . _health_prepare_filename($title) . '"></a>';
+
+  // Update content to use modified table markup.
+  $variables['content']['table'][0]['#markup'] = $table;
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_layout_grid(array &$variables) {
+  _health_process_health_layout_grid($variables);
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_layout_two_column(array &$variables) {
+  $paragraph = $variables['paragraph'];
+  $column_left_width_classes = 'col-md-6';
+  $column_right_width_classes = 'col-md-6';
+
+  if ($paragraph instanceof ParagraphInterface) {
+    $column_width_ratio = $paragraph->get('field_h_two_column_widths')->value;
+
+    switch ($column_width_ratio) {
+
+      case '3_9':
+        $column_left_width_classes = 'col-md-3';
+        $column_right_width_classes = 'col-md-9';
+        break;
+
+      case '4_8':
+        $column_left_width_classes = 'col-md-4';
+        $column_right_width_classes = 'col-md-8';
+        break;
+
+      case '6_6':
+        $column_left_width_classes = 'col-md-6';
+        $column_right_width_classes = 'col-md-6';
+        break;
+
+      case '8_4':
+        $column_left_width_classes = 'col-md-8';
+        $column_right_width_classes = 'col-md-4';
+        break;
+
+      case '9_3':
+        $column_left_width_classes = 'col-md-9';
+        $column_right_width_classes = 'col-md-3';
+        break;
+
+      case 'custom':
+        $custom_column_width_classes = [];
+        $custom_column_widths = [
+          [
+            'field' => 'field_h_mobile_col1_width',
+            'device' => 'mobile',
+            'col' => 'left',
+          ],
+          [
+            'field' => 'field_h_mobile_col2_width',
+            'device' => 'mobile',
+            'col' => 'right',
+          ],
+          [
+            'field' => 'field_h_tablet_col1_width',
+            'device' => 'tablet',
+            'col' => 'left',
+          ],
+          [
+            'field' => 'field_h_tablet_col2_width',
+            'device' => 'tablet',
+            'col' => 'right',
+          ],
+          [
+            'field' => 'field_h_desktop_col1_width',
+            'device' => 'desktop',
+            'col' => 'left',
+          ],
+          [
+            'field' => 'field_h_desktop_col2_width',
+            'device' => 'desktop',
+            'col' => 'right',
+          ],
+        ];
+
+        foreach ($custom_column_widths as $item) {
+          $column_width_value = (!$paragraph->get($item['field'])
+            ->isEmpty()) ? $paragraph->get($item['field'])->value : '';
+          $custom_column_width_classes[$item['col']][] = _health_get_column_width_class($column_width_value, $item['device']);
+        }
+        $column_left_width_classes = implode(' ', $custom_column_width_classes['left']);
+        $column_right_width_classes = implode(' ', $custom_column_width_classes['right']);
+        break;
+    }
+  }
+
+  $variables['column_left_width_classes'] = $column_left_width_classes;
+  $variables['column_right_width_classes'] = $column_right_width_classes;
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_listing_embedded(array &$variables) {
+  // Create the renderable elements making up the embedding listing component.
+  $paragraph = $variables['paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+    $listing = _health_generate_embedded_listing($variables);
+    $title = ($paragraph->get('field_h_title')->isEmpty()) ? [] : $variables['content']['field_h_title'];
+    $introduction = ($paragraph->get('field_h_body')->isEmpty()) ? [] : $variables['content']['field_h_body'];
+    // Reset the Content variable and attach fields relevant to the embedded
+    // listing component.
+    $variables['content'] = [];
+    $variables['content']['field_h_title'] = $title;
+    $variables['content']['field_h_body'] = $introduction;
+    $variables['content']['listing'] = $listing;
+  }
+}
+
+/**
+ * Implements template_proprocess_HOOK().
+ */
+function health_preprocess_field__paragraph__field_h_title(array &$variables) {
+  $paragraph = $variables['element']['#object'];
+  // Determine whether the title should only be visible to screen readers.
+  if ($paragraph instanceof ParagraphInterface && $paragraph->hasField('field_h_heading_hide')) {
+    $hide_title = empty($paragraph->get('field_h_heading_hide')->value) ? FALSE : TRUE;
+    if ($hide_title) {
+      foreach ($variables['items'] as $item) {
+        $item['attributes']->addClass('sr-only');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_app_or_tool(array &$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+    // Make CSS class for app width available to template.
+    $variables['app_width_class'] = '';
+    if ($paragraph->hasField('field_h_app_width') && $paragraph->get('field_h_app_width')
+      ->isEmpty() === FALSE) {
+      $variables['app_width_class'] = $paragraph->get('field_h_app_width')->value;
+    }
+
+    // Make the app/tool markup as well as CSS and JavaScript assets available
+    // to template.
+    if ($paragraph->hasField('field_h_app_path') && $paragraph->get('field_h_app_path')
+      ->isEmpty() === FALSE) {
+      $path = str_replace('../', '', $paragraph->get('field_h_app_path')->value);
+      // Remove any leading or trailing slashes.
+      $location = drupal_get_path('theme', 'health') . '/apps/' . $path;
+      $index_file = $paragraph->get('field_h_app_index_file')->value;
+
+      if ($realpath = realpath($location . '/' . $index_file)) {
+        $html = file_get_contents($realpath);
+        if ($html !== FALSE) {
+          $dom = new DOMDocument();
+          // Load HTML but suppress warnings (it throws warnings on HTML5 tags).
+          libxml_use_internal_errors(TRUE);
+          $dom->loadHTML($html);
+
+          // Get all the scripts, include them in our page.
+          $scripts = $dom->getElementsByTagName('script');
+          foreach ($scripts as $script) {
+            if ($src = $script->getAttribute('src')) {
+              // For some dumb reason leading slashes cause the aggregation to
+              // not find the files. However you must have the slashes for
+              // drupal_add_css to work...
+              $variables['app_assets'][] = [
+                '#type' => 'inline_template',
+                '#template' => '<script type="text/javascript" src="{{ source|raw }}"></script>',
+                '#context' => [
+                  'source' => $src,
+                ],
+              ];
+            }
+            else {
+              // Add inline script to page.
+              $variables['app_assets'][] = [
+                '#type' => 'inline_template',
+                '#template' => '<script type="text/javascript">{{ script_content|raw }}</script>',
+                '#context' => [
+                  'script_content' => $script->textContent,
+                ],
+              ];
+            }
+          }
+
+          // Get all the links, include them in our page.
+          $links = $dom->getElementsByTagName('link');
+          foreach ($links as $link) {
+            if ($link->getAttribute('rel') == 'stylesheet') {
+              $variables['app_assets'][] = [
+                '#type' => 'inline_template',
+                '#template' => '<link href="{{ href }}" rel="stylesheet"></link>',
+                '#context' => [
+                  'href' => $link->getAttribute('href'),
+                ],
+              ];
+            }
+          }
+
+          // Grab all the html under body excluding styles and scripts.
+          $bodies = $dom->getElementsByTagName('body');
+          $variables['app_markup'] = [];
+          foreach ($bodies as $body) {
+            foreach ($body->childNodes as $child) {
+              if ($child->nodeName !== 'script') {
+                $variables['app_markup'][] = [
+                  '#type' => 'inline_template',
+                  '#template' => '{{ content|raw }}',
+                  '#context' => [
+                    'content' => $dom->saveXML($child),
+                  ],
+                ];
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_button(array &$variables) {
+  // Make link URL and text values available to template.
+  $links = [];
+  $items = $variables['content']['field_h_link_external_internal']['#items'];
+  foreach ($items as $item) {
+    if ($item instanceof LinkItem) {
+      $link_values = $item->getValue();
+      $text = $link_values['title'];
+      $url = $item->getUrl()->toString();
+      $links[] = [
+        'text' => $text,
+        'url' => $url,
+      ];
+    }
+  }
+  $variables['health_links'] = $links;
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_content_image(array &$variables) {
+  // Zoomable images.
+  if ($variables['content']['field_h_image_zoomable']['#items']->getValue()[0]['value'] == 1) {
+    $variables['zoomable'] = TRUE;
+    // Load the file.
+    $media = Media::load($variables['content']['field_h_image_featured']['#items']->getValue()[0]['target_id']);
+    $fid = $media->field_media_image->target_id;
+    $file = File::load($fid);
+    // Get the path to the full image for zoomable.
+    $variables['large_image_path'] = $file->url();
+    $variables['#attached']['library'][] = 'health/zoomable-image';
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_tile(array &$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+    // Check if paragraph is embeded in Tile Listing paragraph and whehter the
+    // tile listing paragraph contains any title or summary content.
+    $parent_paragraph = $paragraph->getParentEntity();
+    $parent_has_summary_info = FALSE;
+    if ($parent_paragraph instanceof ParagraphInterface && $parent_paragraph->getType() === 'para_h_listing_tile') {
+      $parent_has_title = ($parent_paragraph->hasField('field_h_title') && !$parent_paragraph->get('field_h_title')
+        ->isEmpty()) ? TRUE : FALSE;
+      $parent_has_summary = ($parent_paragraph->hasField('field_h_summary') && !$parent_paragraph->get('field_h_summary')
+        ->isEmpty()) ? TRUE : FALSE;
+
+      if ($parent_has_title || $parent_has_summary) {
+        $parent_has_summary_info = TRUE;
+      }
+    }
+    $variables['parent_has_summary_info'] = $parent_has_summary_info;
+
+    // Image.
+    if (isset($variables['content']['field_h_image_featured'][0])) {
+      $variables['image'] = $variables['content']['field_h_image_featured'][0];
+    }
+
+    // Pass URL of link to template if it is set.
+    $variables['url'] = NULL;
+    if (isset($variables['content']['field_h_link_external_internal'][0]['#url'])) {
+      $url = $variables['content']['field_h_link_external_internal'][0]['#url'];
+      $variables['url'] = $url->toString();
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_paragraph__para_h_listing(array &$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph instanceof ParagraphInterface) {
+
+    // Generate the view.
+    $view = Views::getView('listing');
+
+    if ($view instanceof ViewExecutable) {
+      $view->setDisplay('listing');
+
+      // Argument: Content types.
+      $content_type_values = $paragraph->get('field_h_listing_content_types')
+        ->getValue();
+      $content_types = [];
+      if (!empty($content_type_values)) {
+        foreach ($content_type_values as $value) {
+          $content_types[] = $value['target_id'];
+        }
+        $args[] = (!empty($content_types)) ? implode('+', $content_types) : NULL;
+      }
+
+      // Set all arguments.
+      $view->setArguments($args);
+
+      // Custom variables we need later on when rendering the view.
+      // Disable ajax.
+      $view->embedded_no_ajax = TRUE;
+      if ($paragraph->get('field_h_listing_facets')) {
+        // There are active facets.
+        $view->display_active_facets = TRUE;
+      }
+
+      // Render view.
+      $view->preExecute();
+      $view->execute();
+
+      // Generate facets.
+      $variables['facets'] = [];
+      $active_facets = [];
+      if ($items = $paragraph->get('field_h_listing_facets')) {
+        $block_manager = \Drupal::service('plugin.manager.block');
+        foreach ($items->referencedEntities() as $facet) {
+          if ($plugin_block = $block_manager->createInstance('facet_block:' . $facet->id(), [])) {
+            $access_result = $plugin_block->access(\Drupal::currentUser());
+            if ($access_result instanceof AccessResultInterface && $access_result->isForbidden() !== TRUE || is_bool($access_result) && $access_result !== FALSE) {
+              $built = $plugin_block->build();
+              $variables['facets'][] = $built;
+              // Grab the active facets for the Filters bar.
+              if (isset($built[0]['#facet'])) {
+                $active_items = $built[0]['#facet']->getActiveItems();
+                foreach ($active_items as $active) {
+                  foreach ($built[0]['#items'] as $link) {
+                    if ($link['#title']['#raw_value'] == $active) {
+                      // Remove the count and (-) text.
+                      $link['#title']['#show_count'] = FALSE;
+                      $link['#title']['#is_active'] = FALSE;
+                      $link['#title']['#value'] .= Markup::create('<span class="svg-inline--fa fa-fw"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path></svg></span>');
+                      $active_facets[] = $link;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Active facets.
+      $view->active_facets = $active_facets;
+
+      // Render the view.
+      $build = $view->buildRenderable('listing');
+      $variables['view'] = $build;
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_region(array &$variables) {
+  // Add .region--REGION_NAME CSS class to regions.
+  $class_name = 'region--' . $variables['region'];
+  if (isset($variables['attributes']['class']) === FALSE || in_array($class_name, $variables['attributes']['class']) === FALSE) {
+    $variables['attributes']['class'][] = $class_name;
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_region__content_top(array &$variables) {
+  $node = _health_get_current_route_entity_object('node');
+  if ($node instanceof NodeInterface) {
+    // Check if the content supports display as hero functionality.
+    if ($node->hasField('field_h_display_as_hero')) {
+      // Process hero background image.
+      $image = NULL;
+      if ($node->get('field_h_image_featured')->isEmpty() !== TRUE) {
+        $field_settings = [
+          'label' => 'hidden',
+          'type' => 'media_thumbnail',
+          'settings' => [],
+          'weight' => 0,
+        ];
+        $image = $node->get('field_h_image_featured')->view($field_settings);
+        $image[0]['#item_attributes']['class'][] = 'health-hero__image';
+      }
+      // Make Hero component available to template.
+      $variables['hero'] = [
+        '#theme' => 'health_hero',
+        '#title' => $node->getTitle(),
+        '#summary' => $node->get('field_h_summary')->value,
+        '#image' => $image,
+      ];
+      // Disable breadcrumbs.
+      if (isset($variables['elements']['system_breadcrumb_block'])) {
+        unset($variables['elements']['system_breadcrumb_block']);
+      }
+    }
+    else {
+      $variables['hero'] = NULL;
+
+      // Set toolbar.
+      $variables['toolbar'] = _health_get_toolbar($node, $variables);
+
+      // Set breadcrumb.
+      $variables['breadcrumbs'] = NULL;
+      if (isset($variables['elements']['system_breadcrumb_block'])) {
+        $variables['breadcrumbs'] = $variables['elements']['system_breadcrumb_block'];
+      }
+
+      // Set page title.
+      $variables['page_title'] = NULL;
+      if (isset($variables['elements']['page_title_block'])) {
+        $variables['page_title'] = $variables['elements']['page_title_block'];
+      }
+    }
+  }
+  else {
+    $variables['toolbar'] = NULL;
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_views_view(array &$variables) {
+  $view = $variables['view'];
+  if (property_exists($view, 'display_active_facets') && $view->display_active_facets) {
+    $variables['active_facets'] = $view->active_facets;
+    $variables['clear_all'] = Link::fromTextAndUrl('Clear all', Url::fromRoute('<current>'));
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_views_view__h_embedded_listing(array &$variables) {
+  $view = $variables['view'];
+  // Make the anchor element name available to the template. Enables the
+  // browser to jump to correct listing on the page.
+  $variables['anchor_id'] = $view->health_embedded_listing_anchor_id;
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function health_preprocess_views_view_list__h_global_notifications(array &$variables) {
+  $view = $variables['view'];
+  if ($view instanceof ViewExecutable) {
+    // Get the view title to use as <section> heading in template.
+    $variables['title'] = $view->getTitle();
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function health_theme(array $existing, $type, $theme, $path) {
+  return [
+    'health_document_accessibility_link' => [
+      'variables' => [
+        'current_page' => NULL,
+      ],
+      'template' => 'custom/health-document-accessibility-link',
+    ],
+    'health_facet' => [
+      'variables' => [
+        'id' => NULL,
+        'title' => NULL,
+        'items' => [],
+      ],
+      'template' => 'custom/health-facet',
+    ],
+    'health_footer' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'custom/health-footer',
+    ],
+    'health_footnote' => [
+      'variables' => [
+        'id' => NULL,
+        'text' => NULL,
+        'description_id' => NULL,
+      ],
+      'template' => 'custom/health-footnote',
+    ],
+    'health_footnote_link' => [
+      'variables' => [
+        'items' => [],
+      ],
+      'template' => 'custom/health-footnote-link',
+    ],
+    'health_gtm_container' => [
+      'variables' => [
+        'gtm_id' => NULL,
+      ],
+      'template' => 'custom/health-gtm-container',
+    ],
+    'health_header' => [
+      'variables' => [
+        'logo' => NULL,
+        'site_name' => NULL,
+        'header' => NULL,
+        'modifiers' => NULL,
+      ],
+      'template' => 'custom/health-header',
+    ],
+    'health_hero' => [
+      'variables' => [
+        'title' => NULL,
+        'summary' => NULL,
+        'image' => NULL,
+      ],
+      'template' => 'custom/health-hero',
+    ],
+    'health_icon' => [
+      'variables' => [
+        'class' => NULL,
+        'icon' => NULL,
+      ],
+      'template' => 'custom/health-icon',
+    ],
+    'health_main_nav' => [
+      'variables' => [
+        'items' => NULL,
+        'attributes' => NULL,
+        'modifiers' => NULL,
+      ],
+      'template' => 'custom/health-main-nav',
+    ],
+    [
+      'health_notification' => [
+        'variables' => [
+          'content' => NULL,
+          'data_id' => NULL,
+        ],
+      ],
+      'template' => 'custom/health-notification',
+    ],
+    'health_gtm_script' => [
+      'variables' => [
+        'gtm_id' => NULL,
+      ],
+      'template' => 'custom/health-gtm-script',
+    ],
+    'health_side-nav' => [
+      'variables' => [
+        'title_link' => NULL,
+        'items' => NULL,
+        'attributes' => NULL,
+      ],
+      'template' => 'custom/health-toc',
+    ],
+    'health_toc' => [
+      'variables' => [
+        'full_width' => FALSE,
+        'label' => NULL,
+      ],
+      'template' => 'custom/health-toc',
+    ],
+    'health_toolbar' => [
+      'variables' => [
+        'buttons' => [],
+        'current_node' => NULL,
+        'btn_modifiers' => NULL,
+        'css_classes' => NULL,
+      ],
+      'template' => 'custom/health-toolbar',
+    ],
+    'health_video' => [
+      'variables' => [
+        'youtube_id' => NULL,
+        'cover_image' => NULL,
+        'duration' => NULL,
+      ],
+      'template' => 'custom/health-video-default',
+    ],
+    // FUNNELBACK.
+    'funnelback_breadcrumb' => [
+      'variables' => [
+        'facets' => NULL,
+        'facet_extras' => NULL,
+        'selected' => FALSE,
+      ],
+      'template' => 'funnelback/funnelback-breadcrumb',
+    ],
+    'funnelback_contextual_nav_block' => [
+      'variables' => [
+        'summary' => NULL,
+        'contextual_nav' => NULL,
+      ],
+      'template' => 'funnelback/funnelback-contextual-nav-block',
+    ],
+    'funnelback_curator' => [
+      'variables' => [
+        'curator' => NULL,
+      ],
+      'template' => 'funnelback/funnelback-curator',
+    ],
+    'funnelback_facets_block' => [
+      'variables' => [
+        'facets' => NULL,
+        'query' => NULL,
+      ],
+      'template' => 'funnelback/funnelback-facets-block',
+    ],
+    'funnelback_pager' => [
+      'variables' => [
+        'summary' => NULL,
+      ],
+      'template' => 'funnelback/funnelback-pager',
+    ],
+    'funnelback_result' => [
+      'variables' => [
+        'display_url' => NULL,
+        'live_url' => NULL,
+        'title' => NULL,
+        'date' => NULL,
+        'summary' => NULL,
+        'metadata' => [],
+        'old_health' => FALSE,
+      ],
+      'template' => 'funnelback/funnelback-result',
+    ],
+    'funnelback_results' => [
+      'variables' => [
+        'items' => [],
+        'query' => NULL,
+        'total' => NULL,
+        'pager' => NULL,
+        'curator' => NULL,
+        'summary' => NULL,
+        'breadcrumb' => NULL,
+        'spell' => NULL,
+        'no_result_text' => NULL,
+      ],
+      'template' => 'funnelback/funnelback-results',
+    ],
+    'funnelback_spell' => [
+      'variables' => [
+        'spell' => NULL,
+      ],
+      'template' => 'funnelback/funnelback-spell',
+    ],
+    'funnelback_summary' => [
+      'variables' => [
+        'summary' => NULL,
+      ],
+      'template' => 'funnelback/funnelback-summary',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function health_views_pre_render(&$view) {
+  // If we have added the embedded_no_ajax property, it means it has been
+  // created via a paragraph that generates a view. We disable ajax so that
+  // we can reload the current page.
+  if (property_exists($view, 'embedded_no_ajax') && $view->embedded_no_ajax) {
+    $view->setAjaxEnabled(FALSE);
+    unset($view->element['#attached']['drupalSettings']['views']['ajax_path']);
+    unset($view->element['#attached']['drupalSettings']['views']['ajaxViews']);
+  }
+}

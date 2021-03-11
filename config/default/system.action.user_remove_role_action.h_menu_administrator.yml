@@ -1,0 +1,14 @@
+uuid: 8d6c7439-1ced-4752-a12c-d895adb090db
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.h_menu_administrator
+  module:
+    - user
+id: user_remove_role_action.h_menu_administrator
+label: 'Remove the Menu administrator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: h_menu_administrator

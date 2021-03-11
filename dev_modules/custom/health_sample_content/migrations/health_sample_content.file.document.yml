@@ -1,0 +1,66 @@
+id: sample_file_document
+label: Sample Content - Document
+migration_tags:
+  - health_sample_content
+  - health_sample_file
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      file: 'https://health.govcms.gov.au/sites/default/files/documents/2020/07/when-should-masks-be-worn-in-the-community-in-australia.pdf'
+    -
+      id: 2
+      file: 'https://health.govcms.gov.au/sites/default/files/documents/2020/07/when-should-masks-be-worn-in-the-community-in-australia.docx'
+    -
+      id: 3
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/09/coronavirus-covid-19-common-operating-picture-coronavirus-covid-19-common-operating-picture-3-september-2020.pdf'
+    -
+      id: 4
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/08/coronavirus-covid-19-common-operating-picture-coronavirus-covid-19-common-operating-picture-27-august-2020.pdf'
+    -
+      id: 5
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/11/coronavirus-covid-19-at-a-glance-16-november-2020_0.pdf'
+    -
+      id: 6
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/11/how-to-become-a-representative-for-someone-in-my-aged-care.pdf'
+    -
+      id: 7
+      file: 'https://www.health.gov.au/sites/default/files/documents/2020/11/how-to-become-a-representative-for-someone-in-my-aged-care.docx'
+  ids:
+    id:
+      type: integer
+  constants:
+    DRUPAL_FILE_DIRECTORY: 'public://file/'
+process:
+  pseudo_destination_filename:
+    -
+      plugin: callback
+      callable: basename
+      source: file
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Cannot import empty file filename.'
+  pseudo_destination_path:
+    -
+      plugin: concat
+      source:
+        - constants/DRUPAL_FILE_DIRECTORY
+        - '@pseudo_destination_filename'
+  uri:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: file
+    -
+      plugin: file_copy
+      source:
+        - file
+        - '@pseudo_destination_path'
+      file_exists: rename
+      move: false
+
+destination:
+  plugin: 'entity:file'
+migration_dependencies: null

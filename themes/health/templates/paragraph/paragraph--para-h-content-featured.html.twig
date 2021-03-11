@@ -1,0 +1,28 @@
+{% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-6">
+        {% block column_left %}
+          {{ image_featured }}
+        {% endblock %}
+      </div>
+      <div class="col-sm-6 standard-gap--mobile-only">
+        {% block column_right %}
+          {% if title %}
+            <h2>{{- title -}}</h2>
+          {% endif %}
+          {% if summary %}
+            <p>{{- summary -}}</p>
+          {% endif %}
+          <div class="au-cta-link">
+            <a href="{{ href }}">{{ link_text }}</a>
+          </div>
+        {% endblock %}
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

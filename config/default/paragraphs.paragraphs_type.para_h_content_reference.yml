@@ -1,0 +1,10 @@
+uuid: 38ceaccb-4efe-48c1-8654-6758efc9b8d6
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_content_reference
+label: 'Content - Reference'
+icon_uuid: null
+icon_default: null
+description: 'Embed reference to another piece of content. The referenced content will be displayed as a callout.'
+behavior_plugins: {  }

@@ -1,0 +1,23 @@
+uuid: 886652ab-e3ed-4756-83e9-b6c338e7283b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_enable_node_type_filter
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+id: paragraph.para_h_listing_embedded.field_h_enable_node_type_filter
+field_name: field_h_enable_node_type_filter
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: 'Expose to site visitors'
+description: 'Display the filter to site visitors so they can manually filter the list.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

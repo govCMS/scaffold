@@ -1,0 +1,5 @@
+.health-sub-header {
+  @include AU-media('sm') {
+    @include AU-space('padding', 2unit 0unit 3unit 0unit);
+  }
+}

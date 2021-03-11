@@ -1,0 +1,29 @@
+uuid: 3e26233b-244c-4cb4-9e5b-2521950c8d32
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_subject
+    - node.type.h_video
+    - taxonomy.vocabulary.h_subject
+id: node.h_video.field_h_subject
+field_name: field_h_subject
+entity_type: node
+bundle: h_video
+label: 'Related subjects'
+description: 'Select the subject(s) to which this information relates.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_subject: h_subject
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

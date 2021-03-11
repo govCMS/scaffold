@@ -1,0 +1,150 @@
+uuid: 6b67a458-f046-47bf-b8f2-11b0208c8805
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.h_contact.field_h_audience
+    - field.field.node.h_contact.field_h_contact_organisation
+    - field.field.node.h_contact.field_h_contact_postal_addresses
+    - field.field.node.h_contact.field_h_contact_street_addresses
+    - field.field.node.h_contact.field_h_contact_title_role
+    - field.field.node.h_contact.field_h_contact_type
+    - field.field.node.h_contact.field_h_content_owner
+    - field.field.node.h_contact.field_h_date_created
+    - field.field.node.h_contact.field_h_date_published
+    - field.field.node.h_contact.field_h_date_reviewed
+    - field.field.node.h_contact.field_h_date_updated
+    - field.field.node.h_contact.field_h_description
+    - field.field.node.h_contact.field_h_email_addresses
+    - field.field.node.h_contact.field_h_fax_numbers
+    - field.field.node.h_contact.field_h_image_featured
+    - field.field.node.h_contact.field_h_language
+    - field.field.node.h_contact.field_h_link_external
+    - field.field.node.h_contact.field_h_social_facebook
+    - field.field.node.h_contact.field_h_social_instagram
+    - field.field.node.h_contact.field_h_social_linkedin
+    - field.field.node.h_contact.field_h_social_twitter
+    - field.field.node.h_contact.field_h_social_youtube
+    - field.field.node.h_contact.field_h_subject
+    - field.field.node.h_contact.field_h_subject_2
+    - field.field.node.h_contact.field_h_subject_3
+    - field.field.node.h_contact.field_h_summary
+    - field.field.node.h_contact.field_h_telephone_numbers
+    - node.type.h_contact
+  module:
+    - entity_reference_revisions
+    - panelizer
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_contact.search_index
+targetEntityType: node
+bundle: h_contact
+mode: search_index
+content:
+  field_h_contact_organisation:
+    weight: 3
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_h_contact_postal_addresses:
+    type: entity_reference_revisions_entity_view
+    weight: 8
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_contact_street_addresses:
+    type: entity_reference_revisions_entity_view
+    weight: 7
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_contact_title_role:
+    weight: 2
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_description:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_h_email_addresses:
+    type: entity_reference_revisions_entity_view
+    weight: 4
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings:
+      ds:
+        ds_limit: ''
+    region: content
+  field_h_fax_numbers:
+    type: entity_reference_revisions_entity_view
+    weight: 6
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_h_summary:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_telephone_numbers:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_h_audience: true
+  field_h_contact_type: true
+  field_h_content_owner: true
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  field_h_date_updated: true
+  field_h_image_featured: true
+  field_h_language: true
+  field_h_link_external: true
+  field_h_social_facebook: true
+  field_h_social_instagram: true
+  field_h_social_linkedin: true
+  field_h_social_twitter: true
+  field_h_social_youtube: true
+  field_h_subject: true
+  field_h_subject_2: true
+  field_h_subject_3: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

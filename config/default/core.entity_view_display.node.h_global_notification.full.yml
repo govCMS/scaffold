@@ -1,0 +1,76 @@
+uuid: 54aa0171-aa69-458e-b369-c634908d534d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.h_global_notification.field_h_date_created
+    - field.field.node.h_global_notification.field_h_date_published
+    - field.field.node.h_global_notification.field_h_date_reviewed
+    - field.field.node.h_global_notification.field_h_date_updated
+    - field.field.node.h_global_notification.field_h_description
+    - field.field.node.h_global_notification.field_h_display_date
+    - field.field.node.h_global_notification.field_h_notification_type
+    - node.type.h_global_notification
+  module:
+    - datetime
+    - panelizer
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.h_global_notification.full
+targetEntityType: node
+bundle: h_global_notification
+mode: full
+content:
+  field_h_date_updated:
+    type: datetime_default
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: h_day_month_year
+    third_party_settings: {  }
+  field_h_description:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_h_display_date:
+    type: boolean
+    weight: 3
+    region: content
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+  field_h_notification_type:
+    type: entity_reference_entity_view
+    weight: 4
+    region: content
+    label: hidden
+    settings:
+      view_mode: h_colour_code
+      link: false
+    third_party_settings: {  }
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_h_date_created: true
+  field_h_date_published: true
+  field_h_date_reviewed: true
+  langcode: true
+  search_api_excerpt: true

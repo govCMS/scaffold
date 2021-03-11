@@ -1,0 +1,103 @@
+uuid: 0ee52a62-b6dd-409a-82e1-68d669e04b9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_email_addresses
+    - node.type.h_contact
+    - paragraphs.paragraphs_type.para_h_email_addresses
+  module:
+    - entity_reference_revisions
+id: node.h_contact.field_h_email_addresses
+field_name: field_h_email_addresses
+entity_type: node
+bundle: h_contact
+label: 'Email addresses'
+description: 'Enter a label (eg Switchboard, General enquiries) if needed. You can enter more than one.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_email_addresses: para_h_email_addresses
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: 11
+        enabled: false
+      para_h_app_or_tool:
+        weight: 27
+        enabled: false
+      para_h_band:
+        weight: 28
+        enabled: false
+      para_h_button:
+        weight: 29
+        enabled: false
+      para_h_content_callout:
+        weight: 12
+        enabled: false
+      para_h_content_featured:
+        weight: 31
+        enabled: false
+      para_h_content_html:
+        weight: 13
+        enabled: false
+      para_h_content_iframe:
+        weight: 33
+        enabled: false
+      para_h_content_image:
+        weight: 34
+        enabled: false
+      para_h_content_reference:
+        weight: 35
+        enabled: false
+      para_h_content_table:
+        weight: 14
+        enabled: false
+      para_h_content_text:
+        weight: 15
+        enabled: false
+      para_h_email_addresses:
+        enabled: true
+        weight: -9
+      para_h_fax_numbers:
+        weight: -8
+        enabled: false
+      para_h_form:
+        weight: 40
+        enabled: false
+      para_h_layout_grid:
+        weight: 41
+        enabled: false
+      para_h_layout_three_column:
+        weight: 42
+        enabled: false
+      para_h_layout_two_column:
+        weight: 43
+        enabled: false
+      para_h_listing:
+        weight: 44
+        enabled: false
+      para_h_listing_embedded:
+        weight: 18
+        enabled: false
+      para_h_listing_tile:
+        weight: 46
+        enabled: false
+      para_h_publication_grouping:
+        weight: 47
+        enabled: false
+      para_h_resource_part:
+        weight: 19
+        enabled: false
+      para_h_telephone_numbers:
+        weight: -6
+        enabled: false
+      para_h_tile:
+        weight: 50
+        enabled: false
+field_type: entity_reference_revisions

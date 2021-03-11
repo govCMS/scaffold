@@ -1,0 +1,10 @@
+uuid: 93eb33f1-7044-4ece-867a-1c1e7310b685
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_layout_grid
+label: 'Layout - grid'
+icon_uuid: null
+icon_default: null
+description: 'Add items to display in a grid layout on the page.'
+behavior_plugins: {  }

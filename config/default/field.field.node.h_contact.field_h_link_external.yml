@@ -1,0 +1,23 @@
+uuid: 493aefdf-be0a-4aee-98da-5c7d04e15793
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_link_external
+    - node.type.h_contact
+  module:
+    - link
+id: node.h_contact.field_h_link_external
+field_name: field_h_link_external
+entity_type: node
+bundle: h_contact
+label: Website
+description: 'If available enter a link to the website for this contact.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

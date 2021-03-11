@@ -1,0 +1,10 @@
+uuid: d5d863d6-8c1c-46ee-8fd5-af0b1939c14b
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_telephone_numbers
+label: Telephone
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

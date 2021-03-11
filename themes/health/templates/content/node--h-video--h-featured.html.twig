@@ -1,0 +1,11 @@
+{% extends "@health/content/node--h-video.html.twig" %}
+
+{% block content %}
+  {%
+    include "@health/custom/health-video-default.html.twig" with {
+      "youtube_id": content.field_h_video_youtubeid,
+      "cover_image": content.field_h_image_featured,
+      "duration": content.field_h_duration
+    }
+  %}
+{% endblock %}

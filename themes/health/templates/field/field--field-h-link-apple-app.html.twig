@@ -1,0 +1,15 @@
+{% set svg %}
+  {% include "@health/svg/health-svg--apple-app-store.html.twig" %}
+{% endset %}
+
+{% set text %}
+  {% trans %}Download on the App Store{% endtrans %}
+{% endset %}
+
+{%
+  embed "@health/field/includes/health-field-link-app-store.html.twig" with {
+    "text": text,
+    "image": svg
+  }
+%}
+{% endembed %}

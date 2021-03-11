@@ -1,0 +1,15 @@
+{{ attach_library('health/facets') }}
+
+{% embed "@health/custom/health-facet.html.twig" with {"title": facet.name, "id": "facet_" ~ facet.id } %}
+  {% block items %}
+    {%- if items -%}
+      <div class="js-facets-checkbox-links">
+        {%- for item in items -%}
+          <div{{ item.attributes }}>{{ item.value }}</div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      {{- empty -}}
+    {%- endif -%}
+  {% endblock %}
+{% endembed %}

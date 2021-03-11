@@ -1,0 +1,21 @@
+uuid: cf32423d-16a9-496d-9187-5a60c87543be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_published
+    - node.type.h_standard_page
+  module:
+    - datetime
+id: node.h_standard_page.field_h_date_published
+field_name: field_h_date_published
+entity_type: node
+bundle: h_standard_page
+label: 'Date published'
+description: 'The date this information was first published on the website.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

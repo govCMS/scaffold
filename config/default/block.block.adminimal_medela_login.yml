@@ -1,0 +1,22 @@
+uuid: b2832d01-546e-493a-bb76-1e05965bdb30
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+  theme:
+    - adminimal_medela
+_core:
+  default_config_hash: kuUws6FZwDsApkLhVHkJHDycjbLagbURV_bFLu55bsw
+id: adminimal_medela_login
+theme: adminimal_medela
+region: content
+weight: 10
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  provider: user
+  label_display: visible
+visibility: {  }

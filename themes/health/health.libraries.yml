@@ -1,0 +1,186 @@
+global:
+  version: 1.0.0
+  css:
+    theme:
+      build/css/styles.min.css: {}
+  dependencies:
+    - health/helpers
+    - health/health-design-system
+    - health/anchors
+    - health/equal-height
+anchors:
+  version: 1.0.0
+  js:
+    build/js/health.anchors.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+embedded-listing:
+  version: 1.0.0
+  js:
+    build/js/health-embedded-listing.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - health/jerrybendy.url-search-params-polyfill
+    - health/kumarharsh.custom-event-polyfill
+equal-height:
+  version: 1.0.0
+  js:
+    build/js/health.match-height.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - health/liabru.jquery-match-height
+facets:
+  version: 1.0.0
+  js:
+    build/js/facets/checkbox-widget.min.js: {}
+    build/js/health.search.min.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - facets/drupal.facets.checkbox-widget
+footnote:
+  version: 1.0.0
+  js:
+    build/js/health.footnote.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+global-notification:
+  version: 1.0.0
+  js:
+    build/js/health.global_notification.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - health/js-cookie
+health-design-system:
+  version: 1.0.0
+  js:
+    health_design_system/build/js/libraries/tippy.all.min.js: { minified: true }
+    health_design_system/build/js/libraries/anchorific.min.js: { minified: true }
+    health_design_system/build/js/hds.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+helpers:
+  version: 1.0.0
+  js:
+    build/js/health.helpers.min.js: { minified: true }
+in-page-nav:
+  version: 1.0.0
+  js:
+    build/js/health.in-page-nav.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - health/health-design-system
+lazyload:
+  version: 1.0.0
+  js:
+    build/js/health.lazyload.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - health/verlok.vanilla-lazyload
+readspeaker:
+  version: 1.0.0
+  js:
+    build/js/health.readspeaker.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - health/js-cookie
+table:
+  version: 1.0.0
+  js:
+    build/js/health.table.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
+table-of-contents:
+  version: 1.0.0
+  js:
+    build/js/health.table-of-contents.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - health/in-page-nav
+toolbar:
+  version: 1.0.0
+  js:
+    build/js/health.toolbar.min.js: { minified: true }
+    build/js/health.print.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - health/health-design-system
+    - health/readspeaker
+webform-element-counter:
+  version: 1.0.0
+  js:
+    build/js/webform/webform.element.counter.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - webform/webform.element.counter
+zoomable-image:
+  version: 1.0.0
+  js:
+    health_design_system/build/js/libraries/jquery.fancybox.min.js: { minified: true }
+  css:
+    theme:
+      health_design_system/build/js/libraries/jquery.fancybox.min.css: { minified: true }
+
+###
+# Third party libraries.
+##
+
+jerrybendy.url-search-params-polyfill:
+  remote: https://github.com/jerrybendy/url-search-params-polyfill
+  version: 8.1.0
+  license:
+    name: MIT
+    url: https://github.com/jerrybendy/url-search-params-polyfill/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    build/js/polyfills/url-search-params.polyfill.min.js: { minified: true }
+js-cookie:
+  version: 2.2.1
+  license:
+  js:
+    source/js/libraries/js.cookie-2.2.1.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+liabru.jquery-match-height:
+  version: 0.7.2
+  remote: https://github.com/liabru/jquery-match-height
+  license:
+    name: MIT
+    url: https://github.com/liabru/jquery-match-height/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    build/js/libraries/jquery.matchHeight.min.js: { minified: true }
+kumarharsh.custom-event-polyfill:
+  remote: https://github.com/kumarharsh/custom-event-polyfill
+  version: 1.0.7
+  license:
+    name: MIT
+    url: https://github.com/kumarharsh/custom-event-polyfill/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    build/js/polyfills/custom-event.polyfill.min.js: { minified: true }
+verlok.vanilla-lazyload:
+  remote: https://github.com/verlok/vanilla-lazyload
+  version: 8.6.0
+  license:
+    name: MIT
+    url: https://github.com/verlok/vanilla-lazyload/blob/license.md
+    gpl-compatible: true
+  js:
+    health_design_system/build/js/libraries/lazyload.min.js: { minified: true }
+funnelback.facet:
+  version: 1.x
+  js:
+    source/js/libraries/funnelback.facet.js: {}

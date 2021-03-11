@@ -1,0 +1,14 @@
+{% extends "@health/content/node.html.twig" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      {{ content.field_h_image_featured }}
+    </div>
+    <div class="col-sm-9 standard-gap--mobile-only">
+      {{ content|without('field_h_image_featured', 'field_h_date_updated', 'field_h_subject') }}
+    </div>
+  </div>
+</div>
+{% endblock %}

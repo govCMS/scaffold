@@ -1,0 +1,57 @@
+uuid: cff1c418-a5f3-428b-8f26-bcd4c8ae21af
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.para_h_content_iframe.field_h_iframe_classes
+    - field.field.paragraph.para_h_content_iframe.field_h_iframe_source
+    - field.field.paragraph.para_h_content_iframe.field_h_iframe_title
+    - field.field.paragraph.para_h_content_iframe.field_h_summary
+    - field.field.paragraph.para_h_content_iframe.field_h_title
+    - paragraphs.paragraphs_type.para_h_content_iframe
+id: paragraph.para_h_content_iframe.preview
+targetEntityType: paragraph
+bundle: para_h_content_iframe
+mode: preview
+content:
+  field_h_iframe_classes:
+    weight: 4
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_iframe_source:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_iframe_title:
+    weight: 3
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_summary:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

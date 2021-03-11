@@ -1,0 +1,9 @@
+credential_provider: shield
+credentials:
+  shield:
+    user: ''
+    pass: ''
+print: 'This website is currently unavailable to all user. Please login to access.'
+allow_cli: true
+_core:
+  default_config_hash: c1dcnGFDXTeMq2-Z8e7H6Qxp6TTJe-ZhSA126E3bQJ4

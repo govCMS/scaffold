@@ -1,0 +1,29 @@
+uuid: b13e776a-beba-4b02-a18e-431a7d6cfe18
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_country
+    - paragraphs.paragraphs_type.para_h_address
+    - taxonomy.vocabulary.h_country
+id: paragraph.para_h_address.field_h_country
+field_name: field_h_country
+entity_type: paragraph
+bundle: para_h_address
+label: Country
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_country: h_country
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

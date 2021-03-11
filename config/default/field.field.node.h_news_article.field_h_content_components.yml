@@ -1,0 +1,94 @@
+uuid: 6052aae3-f158-4243-be1b-8235f8e0f0ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_components
+    - node.type.h_news_article
+    - paragraphs.paragraphs_type.para_h_content_callout
+    - paragraphs.paragraphs_type.para_h_content_image
+    - paragraphs.paragraphs_type.para_h_content_table
+    - paragraphs.paragraphs_type.para_h_content_text
+  module:
+    - entity_reference_revisions
+id: node.h_news_article.field_h_content_components
+field_name: field_h_content_components
+entity_type: node
+bundle: h_news_article
+label: 'Content blocks'
+description: 'Enter page content using text (or other) content blocks.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      para_h_content_text: para_h_content_text
+      para_h_content_callout: para_h_content_callout
+      para_h_content_image: para_h_content_image
+      para_h_content_table: para_h_content_table
+    target_bundles_drag_drop:
+      para_h_address:
+        weight: -35
+        enabled: false
+      para_h_band_featured:
+        weight: -28
+        enabled: false
+      para_h_band_listing:
+        weight: -27
+        enabled: false
+      para_h_band_static:
+        weight: -26
+        enabled: false
+      para_h_band_static_2_column:
+        weight: -25
+        enabled: false
+      para_h_band_static_3_column:
+        weight: -24
+        enabled: false
+      para_h_band_tile:
+        weight: -23
+        enabled: false
+      para_h_content_callout:
+        enabled: true
+        weight: -38
+      para_h_content_html:
+        weight: -30
+        enabled: false
+      para_h_content_image:
+        enabled: true
+        weight: -37
+      para_h_content_reference:
+        weight: 31
+        enabled: false
+      para_h_content_table:
+        enabled: true
+        weight: -36
+      para_h_content_text:
+        enabled: true
+        weight: -39
+      para_h_email_addresses:
+        weight: -33
+        enabled: false
+      para_h_fax_numbers:
+        weight: -32
+        enabled: false
+      para_h_listing_embedded:
+        weight: -29
+        enabled: false
+      para_h_listing_tile:
+        weight: -22
+        enabled: false
+      para_h_resource_part:
+        weight: -34
+        enabled: false
+      para_h_telephone_numbers:
+        weight: -31
+        enabled: false
+      para_h_tile:
+        weight: -21
+        enabled: false
+field_type: entity_reference_revisions

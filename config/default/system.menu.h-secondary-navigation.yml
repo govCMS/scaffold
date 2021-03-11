@@ -1,0 +1,8 @@
+uuid: 52988404-936f-49c8-9a71-ef872ed1e022
+langcode: en
+status: true
+dependencies: {  }
+id: h-secondary-navigation
+label: 'Secondary navigation'
+description: ''
+locked: false

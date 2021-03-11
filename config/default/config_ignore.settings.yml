@@ -1,0 +1,7 @@
+ignored_config_entities:
+  0: login_security.settings
+  2: 'password_policy.*'
+  4: seckit.settings
+  6: shield.settings
+_core:
+  default_config_hash: wkcuoFmlPvO6vAZlHjmW0x_dpmKg1XZWLWckYA5GPhw

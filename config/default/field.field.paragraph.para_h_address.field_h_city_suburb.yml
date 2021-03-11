@@ -1,0 +1,19 @@
+uuid: 6f70019b-c2cc-4f48-bdaf-45f9aad841d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_city_suburb
+    - paragraphs.paragraphs_type.para_h_address
+id: paragraph.para_h_address.field_h_city_suburb
+field_name: field_h_city_suburb
+entity_type: paragraph
+bundle: para_h_address
+label: 'City or suburb'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

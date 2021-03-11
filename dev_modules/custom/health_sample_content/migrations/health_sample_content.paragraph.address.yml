@@ -1,0 +1,68 @@
+id: sample_paragraphs_address
+label: Sample Paragraphs - Address
+migration_tags:
+  - health_sample_content
+  - health_sample_paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: para_h_address_1
+      field_h_address_line_1: Fortress Vader
+      field_h_address_line_2: 1 Lava Avenue
+      field_h_city_suburb: Cockburn
+      field_h_label: Home
+      field_h_country: Australia
+      field_h_location_latitude: '-35.306779'
+      field_h_location_longitude: '149.1167963'
+      field_h_postcode: 2907
+      field_h_state: Australian Capital Territory
+    -
+      id: para_h_address_2
+      field_h_address_line_1: Senate Building
+      field_h_address_line_2: 1 Constitution Avenue
+      field_h_city_suburb: Coruscant City
+      field_h_label: Work
+      field_h_country: Australia
+      field_h_location_latitude: '-35.3082193'
+      field_h_location_longitude: '149.1222036'
+      field_h_postcode: 2901
+      field_h_state: Australian Capital Territory
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "en"
+  field_h_address_line_1: field_h_address_line_1
+  field_h_address_line_2: field_h_address_line_2
+  field_h_city_suburb: field_h_city_suburb
+  field_h_label: field_h_label
+  field_h_country:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_country
+    bundle_key: vid
+    bundle: h_country
+    access_check: false
+  field_h_location_latitude: field_h_location_latitude
+  field_h_location_longitude: field_h_location_longitude
+  field_h_postcode: field_h_postcode
+  field_h_state:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    source: field_h_state
+    bundle_key: vid
+    bundle: h_postcode
+    access_check: false
+destination:
+  plugin: entity:paragraph
+  default_bundle: para_h_address
+migration_dependencies:
+  required:
+    - sample_taxonomy_country
+    - sample_taxonomy_state

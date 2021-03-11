@@ -1,0 +1,23 @@
+uuid: ef3ebce8-0968-4969-a26b-5a656500007a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_image_zoomable
+    - paragraphs.paragraphs_type.para_h_content_image
+id: paragraph.para_h_content_image.field_h_image_zoomable
+field_name: field_h_image_zoomable
+entity_type: paragraph
+bundle: para_h_content_image
+label: Zoomable
+description: 'If this is a detailed image that would be difficult to see on mobile or desktop, enable this feature.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

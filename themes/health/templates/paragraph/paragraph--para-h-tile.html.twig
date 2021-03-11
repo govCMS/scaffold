@@ -1,0 +1,28 @@
+{% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  <div>
+    <a class="
+      health-card
+      health-card--shadow
+      health-card--top-highlight
+      colour1
+      " href="{{ url }}">
+      {% if image %}
+        <div class="health-card__image health-card__image--full-width image--link">
+          {{ image }}
+        </div>
+      {% endif %}
+      {% if title %}
+        <h3 class="health-card__title au-display-md au-display--heavy">
+          {{ title }}
+        </h3>
+      {% endif %}
+      {% if summary %}
+        <p class="health-card__text">
+          {{ summary }}
+        </p>
+      {% endif %}
+    </a>
+  </div>
+{% endblock %}

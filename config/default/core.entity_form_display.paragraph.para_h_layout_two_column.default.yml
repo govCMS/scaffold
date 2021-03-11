@@ -1,0 +1,163 @@
+uuid: 25286c3d-048b-4043-b23a-817b5c7e6eed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_layout_two_column.field_h_content_components_col_1
+    - field.field.paragraph.para_h_layout_two_column.field_h_content_components_col_2
+    - field.field.paragraph.para_h_layout_two_column.field_h_css_classnames
+    - field.field.paragraph.para_h_layout_two_column.field_h_desktop_col1_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_desktop_col2_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_mobile_col1_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_mobile_col2_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_tablet_col1_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_tablet_col2_width
+    - field.field.paragraph.para_h_layout_two_column.field_h_two_column_widths
+    - paragraphs.paragraphs_type.para_h_layout_two_column
+  module:
+    - field_group
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_h_custom:
+      children:
+        - field_h_css_classnames
+        - group_h_left_column
+        - group_h_right_column
+      parent_name: ''
+      weight: 1
+      format_type: details
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: layout-custom-column-widths-details
+        open: false
+      label: Custom
+    group_h_left_column:
+      children:
+        - field_h_mobile_col1_width
+        - field_h_tablet_col1_width
+        - field_h_desktop_col1_width
+      parent_name: group_h_custom
+      weight: 5
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: layout-column-widths-custom
+      label: 'Left column'
+    group_h_right_column:
+      children:
+        - field_h_mobile_col2_width
+        - field_h_tablet_col2_width
+        - field_h_desktop_col2_width
+      parent_name: group_h_custom
+      weight: 6
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: layout-column-widths-custom
+      label: 'Right column'
+id: paragraph.para_h_layout_two_column.default
+targetEntityType: paragraph
+bundle: para_h_layout_two_column
+mode: default
+content:
+  field_h_content_components_col_1:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_h_content_components_col_2:
+    weight: 3
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_h_css_classnames:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_h_desktop_col1_width:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_desktop_col2_width:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_mobile_col1_width:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_mobile_col2_width:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_tablet_col1_width:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_tablet_col2_width:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_two_column_widths:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true

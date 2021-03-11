@@ -1,0 +1,21 @@
+uuid: 4d9f2070-63aa-4920-ae80-f9619abd9397
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_updated
+    - node.type.h_foi_request
+  module:
+    - datetime
+id: node.h_foi_request.field_h_date_updated
+field_name: field_h_date_updated
+entity_type: node
+bundle: h_foi_request
+label: 'Last updated'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

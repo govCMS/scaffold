@@ -1,0 +1,15 @@
+uuid: 740f37fa-94fa-4144-bb86-032ce72f97e2
+langcode: en
+status: true
+dependencies: {  }
+name: h_content_max_width_mobile
+label: 'Content (max width) - mobile'
+effects:
+  410ccba8-085e-445f-8ff1-ce31c7e54131:
+    uuid: 410ccba8-085e-445f-8ff1-ce31c7e54131
+    id: image_scale
+    weight: 1
+    data:
+      width: 390
+      height: null
+      upscale: false

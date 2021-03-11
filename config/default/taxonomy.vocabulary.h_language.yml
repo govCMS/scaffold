@@ -1,0 +1,8 @@
+uuid: 06fb99d6-b4f3-43f3-97ec-2151cbf0cdac
+langcode: en
+status: true
+dependencies: {  }
+name: Language
+vid: h_language
+description: 'The language in which the information is written.'
+weight: 0

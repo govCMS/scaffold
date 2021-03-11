@@ -1,0 +1,23 @@
+uuid: 945efb84-f69d-430a-a1dc-274c53f20e0a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_long_sentences
+    - node.type.h_news_article
+id: node.h_news_article.field_h_content_long_sentences
+field_name: field_h_content_long_sentences
+entity_type: node
+bundle: h_news_article
+label: 'Content % long sentences'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: !!float 100
+  prefix: ''
+  suffix: '%'
+field_type: decimal

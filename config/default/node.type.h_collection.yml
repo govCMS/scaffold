@@ -1,0 +1,17 @@
+uuid: 65164406-1c28-4b37-b0f3-a05c61043d71
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Collection
+type: h_collection
+description: "Use Collection to create a group of related\_resources\_in a single language."
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

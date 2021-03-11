@@ -1,0 +1,21 @@
+uuid: 3e1e7eec-726a-4d96-8f7d-8366255037a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_description
+    - node.type.h_publication
+  module:
+    - text
+id: node.h_publication.field_h_description
+field_name: field_h_description
+entity_type: node
+bundle: h_publication
+label: Description
+description: 'Describe the publication and its contents in greater detail. Do not duplicate the summary.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

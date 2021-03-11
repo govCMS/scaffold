@@ -1,0 +1,41 @@
+uuid: 29d378ec-08ab-40e9-beb4-d724acdfaefd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_app_or_tool.field_h_app_index_file
+    - field.field.paragraph.para_h_app_or_tool.field_h_app_path
+    - field.field.paragraph.para_h_app_or_tool.field_h_app_width
+    - paragraphs.paragraphs_type.para_h_app_or_tool
+  module:
+    - options
+id: paragraph.para_h_app_or_tool.default
+targetEntityType: paragraph
+bundle: para_h_app_or_tool
+mode: default
+content:
+  field_h_app_index_file:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_app_path:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_h_app_width:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden:
+  search_api_excerpt: true

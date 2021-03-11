@@ -1,0 +1,29 @@
+uuid: 913b6187-1fec-464a-8cb3-2dc4182d0649
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_language
+    - node.type.h_foi_request
+    - taxonomy.vocabulary.h_language
+id: node.h_foi_request.field_h_language
+field_name: field_h_language
+entity_type: node
+bundle: h_foi_request
+label: Language
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_language: h_language
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

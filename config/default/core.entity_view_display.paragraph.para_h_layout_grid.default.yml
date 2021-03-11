@@ -1,0 +1,33 @@
+uuid: 31082ab8-4153-4b6b-8c2f-330b834c2cc3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_layout_grid.field_h_content_components
+    - field.field.paragraph.para_h_layout_grid.field_h_items_per_row
+    - field.field.paragraph.para_h_layout_grid.field_h_items_per_row_desktop
+    - field.field.paragraph.para_h_layout_grid.field_h_items_per_row_mobile
+    - field.field.paragraph.para_h_layout_grid.field_h_items_per_row_tablet
+    - paragraphs.paragraphs_type.para_h_layout_grid
+  module:
+    - entity_reference_revisions
+id: paragraph.para_h_layout_grid.default
+targetEntityType: paragraph
+bundle: para_h_layout_grid
+mode: default
+content:
+  field_h_content_components:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  field_h_items_per_row: true
+  field_h_items_per_row_desktop: true
+  field_h_items_per_row_mobile: true
+  field_h_items_per_row_tablet: true
+  search_api_excerpt: true

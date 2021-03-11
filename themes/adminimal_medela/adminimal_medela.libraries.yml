@@ -1,0 +1,36 @@
+global:
+  version: 1.0.0
+  css:
+    theme:
+      build/css/styles.min.css: { minified: true }
+col-width-edit:
+  version: 1.0.0
+  js:
+    build/js/col-width-edit.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+layout-grid-custom-settings:
+  version: 1.0.0
+  js:
+    build/js/layout-grid-custom-settings.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+moderation:
+  version: 1.0.0
+  js:
+    build/js/moderation.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+lock-text-formats:
+  version: 1.0.0
+  js:
+    build/js/lock-text-formats.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings

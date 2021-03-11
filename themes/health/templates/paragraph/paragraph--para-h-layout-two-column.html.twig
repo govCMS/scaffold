@@ -1,0 +1,15 @@
+
+{% extends "@paragraphs/paragraph.html.twig" %}
+
+{% block paragraph %}
+  <div{{ attributes }}>
+    <div class="row">
+      <div class="{{ column_left_width_classes }}">
+        {{ content.field_h_content_components_col_1 }}
+      </div>
+      <div class="{{ column_right_width_classes }} standard-gap--mobile-only">
+        {{ content.field_h_content_components_col_2 }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

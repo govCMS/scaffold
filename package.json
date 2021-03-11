@@ -1,0 +1,35 @@
+{
+  "name": "hsk",
+  "version": "1.0.0-alpha.10",
+  "description": "Health Starter Kit project. Is a fork of the govcms/govcms8-scaffold project.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "backstop:run": "backstop test",
+    "backstop:open": "backstop openReport",
+    "backstop:approve": "backstop approve",
+    "backstop:accept": "backstop approve",
+    "code:check": "./vendor/bin/phpcs",
+    "code:fix": "./vendor/bin/phpcbf",
+    "cypress:browser": "npx cypress run --headed --no-exit",
+    "cypress:browser:chrome": "npx cypress run --no-exit --browser chrome",
+    "cypress:browser:edge": "npx cypress run --no-exit --browser edge",
+    "cypress:browser:firefox": "npx cypress run --no-exit --browser firefox",
+    "cypress:open": "npx cypress run",
+    "cypress:run": "percy exec -t 10000 -- cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Benjen/hsk.git"
+  },
+  "author": "Department of Health",
+  "license": "MIT",
+  "devDependencies": {
+    "@percy/cypress": "^2.3.1",
+    "backstopjs": "^5.0.4",
+    "cypress": "^4.10.0"
+  },
+  "dependencies": {}
+}

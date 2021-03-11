@@ -1,0 +1,19 @@
+uuid: 3f6e4e71-7be1-4796-bc8d-ff8d9b724217
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_duration
+    - node.type.h_video
+id: node.h_video.field_h_duration
+field_name: field_h_duration
+entity_type: node
+bundle: h_video
+label: 'Video duration'
+description: 'Enter the duration of the video in the format: HH:MM:SS or MM:SS. For example 1:02:26 for 1 hour 2 minutes and 26 seconds.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

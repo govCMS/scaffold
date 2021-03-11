@@ -1,0 +1,23 @@
+uuid: 0e88b303-aa71-4ac8-a8ab-0c645f4c74ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_content_grade_level
+    - node.type.h_video
+id: node.h_video.field_h_content_grade_level
+field_name: field_h_content_grade_level
+entity_type: node
+bundle: h_video
+label: 'Content grade level'
+description: 'Run the description field text through a readability tool. Enter the content grade level.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

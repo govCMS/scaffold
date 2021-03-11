@@ -1,0 +1,100 @@
+{
+  "title": "Card",
+  "default": "Image",
+  "context": {
+    "title": "Dinosaurs to be crowned the earths greatest extinct animal",
+    "date": "20 July 2019",
+    "icon": "phone",
+    "colour": "colour1",
+    "content": "Protect yourself and your baby by getting the right vaccines before and during your pregnancy."
+  },
+  "variants": [
+    {
+      "name": "Resource",
+      "context": {
+        "title": "Dinosaur factsheet",
+        "type": "Publication"
+      }
+    },
+    {
+      "name": "Simple",
+      "context": {
+        "title": "Title with a few words",
+        "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis repellendus ipsum quisquam, omnis fugit sed dolore eos numquam rem temporibus nihil quibusdam possimus earum commodi aliquid perferendis itaque pariatur incidunt?"
+      }
+    },
+    {
+      "name": "Call to action",
+      "context": {
+        "title": "Find your favourite dinosaur"
+      }
+    },
+    {
+      "name": "Call to action - Colour 2",
+      "hidden": true,
+      "view": "card--call-to-action.hbs",
+      "context": {
+        "colour": "health-card--colour2",
+        "icon": "envelope",
+        "title": "Compare yourself to the largest dinosaur"
+      }
+    },
+    {
+      "name": "Call to action - Colour 3",
+      "hidden": true,
+      "view": "card--call-to-action.hbs",
+      "context": {
+        "colour": "health-card--colour3",
+        "icon": "youtube",
+        "title": "Take our dinosaur quiz"
+      }
+    },
+    {
+      "name": "Call to action - Colour 4",
+      "hidden": true,
+      "view": "card--call-to-action.hbs",
+      "context": {
+        "colour": "health-card--colour4",
+        "icon": "search",
+        "title": "Learn more about dinosaurs"
+      }
+    },
+    {
+      "name": "Audience",
+      "context": {
+        "title": "Children",
+        "content": "Activities for children to learn about dinosaurs."
+      }
+    },
+    {
+      "name": "Audience - Colour 2",
+      "hidden": true,
+      "view": "card--audience.hbs",
+      "context": {
+        "colour": "colour2",
+        "title": "Teenages",
+        "content": "Get your teenager out of the house with a trip to your local dinosaur museum"
+      }
+    },
+    {
+      "name": "Audience - Colour 3",
+      "hidden": true,
+      "view": "card--audience.hbs",
+      "context": {
+        "colour": "colour3",
+        "title": "Adults",
+        "content": "When was the last time you watched Jurrasic Park?"
+      }
+    },
+    {
+      "name": "Audience - Colour 4",
+      "hidden": true,
+      "view": "card--audience.hbs",
+      "context": {
+        "colour": "colour4",
+        "title": "Seniors",
+        "content": "Dinosaurs are for people of all ages."
+      }
+    }
+  ]
+}

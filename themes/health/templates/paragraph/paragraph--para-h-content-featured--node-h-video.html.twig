@@ -1,0 +1,13 @@
+{% extends "@health/paragraph/paragraph--para-h-content-featured.html.twig" %}
+
+{% block column_left %}
+  {% set id = paragraph.id() %}
+  {{ image_featured }}
+  {%
+    include "@health/custom/health-accordion-default.html.twig" with {
+      "title": "Transcript"|t,
+      "content": transcript,
+      "id": id
+    }
+  %}
+{% endblock %}

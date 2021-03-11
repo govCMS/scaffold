@@ -1,0 +1,7 @@
+---
+ahoyapi: v2
+
+commands:
+  rebuild:
+    usage: Re-build project.
+    cmd: docker-compose up -d --build "$@" && ahoy info

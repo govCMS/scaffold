@@ -1,0 +1,18 @@
+<footer class="au-footer au-footer--dark au-body au-body--dark" role="contentinfo">
+  <div class="container">
+    {% block footer_content %}
+      <div class="row">
+        {{ content }}
+      </div>
+      <div class="au-footer__end">
+        <div class="row">
+          <div class="col-xs-12">
+            <p>
+              <small>{{ '© Commonwealth of Australia'|t }}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+  </div>
+</footer>

@@ -1,0 +1,8 @@
+uuid: 809ff1d6-6d5a-4f4d-acd3-145a6b898244
+langcode: en
+status: true
+dependencies: {  }
+name: 'Resource availability'
+vid: h_resource_availability
+description: ''
+weight: 0

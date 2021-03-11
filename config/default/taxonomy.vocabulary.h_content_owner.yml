@@ -1,0 +1,8 @@
+uuid: 77e61cd4-e6bc-465d-9789-d3689a06372e
+langcode: en
+status: true
+dependencies: {  }
+name: 'Content owner'
+vid: h_content_owner
+description: ''
+weight: 0

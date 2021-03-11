@@ -1,0 +1,11 @@
+uuid: 98119b22-7bfb-4090-a92a-2f10d5ce36f8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.h_contact
+id: node.h_contact
+target_entity_type_id: node
+target_bundle: h_contact
+default_langcode: site_default
+language_alterable: false

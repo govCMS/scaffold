@@ -1,0 +1,82 @@
+uuid: 722b2e14-d2d2-4a1f-88d2-3b528ced9c3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_layout_grid.field_h_content_components
+    - field.field.paragraph.para_h_layout_grid.field_h_items_per_row
+    - field.field.paragraph.para_h_layout_grid.field_h_items_per_row_desktop
+    - field.field.paragraph.para_h_layout_grid.field_h_items_per_row_mobile
+    - field.field.paragraph.para_h_layout_grid.field_h_items_per_row_tablet
+    - paragraphs.paragraphs_type.para_h_layout_grid
+  module:
+    - field_group
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_h_custom:
+      children:
+        - field_h_items_per_row_mobile
+        - field_h_items_per_row_tablet
+        - field_h_items_per_row_desktop
+      parent_name: ''
+      weight: 1
+      format_type: details
+      region: content
+      format_settings:
+        description: 'Customise the number of items per row based on device used. If a particular device is set to <em>none</em>, then that device will inherit the setting of the next smallest device. For example, if desktop is set to <em>none</em> and tablet is set to <em>2</em>, then desktop will display <em>2</em> items per row. If all devices are set to <em>none</em> then all devices will display a single item per row.'
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Custom
+id: paragraph.para_h_layout_grid.default
+targetEntityType: paragraph
+bundle: para_h_layout_grid
+mode: default
+content:
+  field_h_content_components:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_h_items_per_row:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_items_per_row_desktop:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_items_per_row_mobile:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_h_items_per_row_tablet:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true

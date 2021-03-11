@@ -1,0 +1,19 @@
+uuid: f36adb1a-ba12-4ab0-9918-414f9d060292
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_title
+    - paragraphs.paragraphs_type.para_h_content_iframe
+id: paragraph.para_h_content_iframe.field_h_title
+field_name: field_h_title
+entity_type: paragraph
+bundle: para_h_content_iframe
+label: 'Iframe heading'
+description: 'Enter a heading for the iFrame content here.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

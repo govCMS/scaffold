@@ -1,0 +1,28 @@
+health.health.xs:
+  label: xs
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+  group: health.health
+health.health.sm:
+  label: sm
+  mediaQuery: '(min-width: 576px)'
+  weight: 0
+  multipliers:
+    - 1x
+  group: health.health
+health.health.md:
+  label: md
+  mediaQuery: '(min-width: 768px)'
+  weight: 0
+  multipliers:
+    - 1x
+  group: health.health
+health.health.lg:
+  label: lg
+  mediaQuery: '(min-width: 992px)'
+  weight: 0
+  multipliers:
+    - 1x
+  group: health.health

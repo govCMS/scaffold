@@ -1,0 +1,19 @@
+version: '2.3'
+
+services:
+  cli:
+    volumes:
+      - ./dev_modules:/app/web/modules/dev_modules:${VOLUME_FLAGS:-delegated}
+      - ./app/web/profiles/contrib/govcms/modules:/app/web/modules/govcms:${VOLUME_FLAGS:-delegated}
+  php:
+    volumes:
+      - ./dev_modules:/app/web/modules/dev_modules:${VOLUME_FLAGS:-delegated}
+      - ./app/web/profiles/contrib/govcms/modules:/app/web/modules/govcms:${VOLUME_FLAGS:-delegated}
+  test:
+    volumes:
+      - ./dev_modules:/app/web/modules/dev_modules:${VOLUME_FLAGS:-delegated}
+      - ./app/web/profiles/contrib/govcms/modules:/app/web/modules/govcms:${VOLUME_FLAGS:-delegated}
+  nginx:
+    volumes:
+      - ./dev_modules:/app/web/modules/dev_modules:${VOLUME_FLAGS:-delegated}
+      - ./app/web/profiles/contrib/govcms/modules:/app/web/modules/govcms:${VOLUME_FLAGS:-delegated}

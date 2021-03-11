@@ -1,0 +1,19 @@
+uuid: a2ff4247-d65d-48e1-8b56-af339c124633
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_title
+    - paragraphs.paragraphs_type.para_h_band
+id: paragraph.para_h_band.field_h_title
+field_name: field_h_title
+entity_type: paragraph
+bundle: para_h_band
+label: 'Band heading'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

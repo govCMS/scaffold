@@ -1,0 +1,10 @@
+uuid: 517d28e4-f32c-4636-8ca3-3879ee1c6cf5
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_band
+label: Band
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

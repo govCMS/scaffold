@@ -1,0 +1,29 @@
+uuid: ee84aed6-841f-4b79-91c1-130d6cb059fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_args_pub_type_term
+    - paragraphs.paragraphs_type.para_h_listing_embedded
+    - taxonomy.vocabulary.h_publication_type
+id: paragraph.para_h_listing_embedded.field_h_args_pub_type_term
+field_name: field_h_args_pub_type_term
+entity_type: paragraph
+bundle: para_h_listing_embedded
+label: 'Publication type'
+description: 'Select the publication types to display.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      h_publication_type: h_publication_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

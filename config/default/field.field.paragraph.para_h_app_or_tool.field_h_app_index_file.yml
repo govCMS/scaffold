@@ -1,0 +1,19 @@
+uuid: 0867794c-21f7-4154-82e1-055412c46d28
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_app_index_file
+    - paragraphs.paragraphs_type.para_h_app_or_tool
+id: paragraph.para_h_app_or_tool.field_h_app_index_file
+field_name: field_h_app_index_file
+entity_type: paragraph
+bundle: para_h_app_or_tool
+label: 'App index file'
+description: 'The name of the built HTML file which resides in the app folder. This should be relative to the root folder of the app and should not include any leading or trailing forward slashes ("/"). In a React based app this value would typically be <em>build/index.html</em>.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

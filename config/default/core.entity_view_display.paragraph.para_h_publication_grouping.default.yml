@@ -1,0 +1,44 @@
+uuid: 466ac16b-46b3-4720-a5dc-0b3812d48a50
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_publication_grouping.field_h_reference_publication
+    - field.field.paragraph.para_h_publication_grouping.field_h_summary
+    - field.field.paragraph.para_h_publication_grouping.field_h_title
+    - paragraphs.paragraphs_type.para_h_publication_grouping
+  module:
+    - ds
+id: paragraph.para_h_publication_grouping.default
+targetEntityType: paragraph
+bundle: para_h_publication_grouping
+mode: default
+content:
+  field_h_reference_publication:
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: h_collection_item
+      link: false
+    third_party_settings:
+      ds:
+        ds_limit: ''
+    type: entity_reference_entity_view
+    region: content
+  field_h_summary:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

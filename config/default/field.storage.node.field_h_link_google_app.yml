@@ -1,0 +1,19 @@
+uuid: d3f7cdd7-1bb2-4e64-8bd0-b8c8738128a1
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - node
+id: node.field_h_link_google_app
+field_name: field_h_link_google_app
+entity_type: node
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

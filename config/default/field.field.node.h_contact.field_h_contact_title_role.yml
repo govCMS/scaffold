@@ -1,0 +1,19 @@
+uuid: e8adbad7-45f1-4701-b070-4149c04639f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_contact_title_role
+    - node.type.h_contact
+id: node.h_contact.field_h_contact_title_role
+field_name: field_h_contact_title_role
+entity_type: node
+bundle: h_contact
+label: 'Contact title, role or position'
+description: 'Note a title, role, or contact position if appropriate.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

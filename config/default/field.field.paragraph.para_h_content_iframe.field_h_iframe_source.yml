@@ -1,0 +1,19 @@
+uuid: d478bc86-668c-4976-83d4-e22c244625b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_iframe_source
+    - paragraphs.paragraphs_type.para_h_content_iframe
+id: paragraph.para_h_content_iframe.field_h_iframe_source
+field_name: field_h_iframe_source
+entity_type: paragraph
+bundle: para_h_content_iframe
+label: 'Iframe source'
+description: 'Enter the URL to embed in the iFrame here.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

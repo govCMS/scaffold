@@ -1,0 +1,31 @@
+//--------------------------------------------------------------
+// Main nav
+//--------------------------------------------------------------
+
+.au-main-nav {
+  .au-main-nav__toggle {
+    color: $AU-color-foreground-text;
+    font-weight: bold;
+    font-size: 1.25rem;
+    @include AU-space(padding, .5unit 0);
+    &:hover, &:focus {
+      background-color: transparent;
+    }
+    &:before {
+      content: ""
+    }
+    i {
+      font-size: 1.25rem;
+    }
+
+    &--search {
+      float: right;
+      @include AU-media($AU-main-nav-breakpoint) {
+        display: none;
+      }
+      &__open {
+        display: none;
+      }
+    }
+  }
+}

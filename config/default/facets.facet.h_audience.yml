@@ -1,0 +1,48 @@
+uuid: 6aa46fc5-09aa-4a6f-8ae0-bf35295512b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.all
+    - views.view.listing
+  module:
+    - search_api
+id: h_audience
+name: Audience
+url_alias: h_audience
+weight: 0
+min_count: 1
+show_only_one_result: true
+field_identifier: name_4
+facet_source_id: 'search_api:views_block__listing__listing'
+widget:
+  type: checkbox
+  config:
+    show_numbers: true
+    soft_limit: 0
+    soft_limit_settings:
+      show_less_label: 'Show less'
+      show_more_label: 'Show more'
+query_operator: and
+use_hierarchy: false
+expand_hierarchy: false
+enable_parent_when_child_gets_disabled: true
+hard_limit: 0
+exclude: false
+only_visible_when_facet_source_is_visible: false
+processor_configs:
+  display_value_widget_order:
+    processor_id: display_value_widget_order
+    weights:
+      sort: 40
+    settings:
+      sort: ASC
+  url_processor_handler:
+    processor_id: url_processor_handler
+    weights:
+      pre_query: 50
+      build: 15
+    settings: {  }
+empty_behavior:
+  behavior: none
+show_title: false

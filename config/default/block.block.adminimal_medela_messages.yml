@@ -1,0 +1,22 @@
+uuid: 1db7b341-f640-48cf-baf3-a69601c4a122
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - adminimal_medela
+_core:
+  default_config_hash: _2vdr_9v-7Br6olLaQQe31rKD6XGfTeD3R_hU6nZbc0
+id: adminimal_medela_messages
+theme: adminimal_medela
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }
