@@ -3,14 +3,14 @@ version: '2.3'
 # This value intentionally matches the project name on Lagoon.
 # It is used to name the CLI_IMAGE to use as a build arg locally.
 x-lagoon-project:
-  &lagoon-project {{ GOVCMS_PROJECT_NAME }}
+  &lagoon-project ask
 
 x-lagoon-local-dev-url:
-  &lagoon-local-dev-url http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
+  &lagoon-local-dev-url http://ask.docker.amazee.io
 
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
 x-govcms-image-version:
-  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
+  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-8.x-latest}
 
 x-volumes:
   &default-volumes
@@ -32,8 +32,8 @@ x-environment:
     STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
     LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
     LAGOON_PROJECT: *lagoon-project
-    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io}
-    GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
+    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://ask.docker.amazee.io}
+    GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-8.x-latest}
     DEV_MODE: ${DEV_MODE:-false}
     XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
     DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
@@ -118,10 +118,10 @@ services:
       << : *default-environment
 
   mariadb:
-    image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
+    image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:8.x-latest}
     labels:
       lagoon.type: mariadb
-      lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
+      lagoon.image: govcms/mariadb-drupal:8.x-latest
     ports:
       - "3306" # Find port on host with `docker-compose port mariadb 3306`
     environment:

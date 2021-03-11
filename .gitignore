@@ -26,3 +26,7 @@ console
 
 # Current location where audit application runs from, required so drush works with drutiny.
 audit-site
+# Added by the scaffold provisioner.
+web/
+scripts/
+drush/

@@ -3,6 +3,6 @@
 # It's used to identify the type and version of a PaaS or SaaS project.
 # Automated GovCMS tasks read this file to determine which processes to run -
 # e.g. site audits, automated backups.
-version: {{ GOVCMS_VERSION }}
-type: {{ GOVCMS_TYPE }}
+version: 8
+type: saas
 scaffold: 2.0.0

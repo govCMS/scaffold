@@ -1,7 +1,0 @@
-##
-# @see /.docker/README.md
-#
-
-ARG GOVCMS_IMAGE_VERSION={{ GOVCMS_VERSION }}.x-latest
-
-FROM govcms/solr:${GOVCMS_IMAGE_VERSION}
