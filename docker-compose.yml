@@ -128,20 +128,20 @@ services:
       << : *default-environment
 
   # Uncomment to enable solr.
-  # solr:
-  #   build:
-  #     context: .
-  #     dockerfile: .docker/Dockerfile.solr
-  #     args:
-  #       GOVCMS_IMAGE_VERSION: *govcms-image-version
-  #   labels:
-  #     lagoon.type: solr
-  #   ports:
-  #     - "8983" # Find port on host with `docker-compose port solr 8983`
-  #   depends_on:
-  #     - cli
-  #   environment:
-  #     << : *default-environment
+  solr:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.solr
+      args:
+        GOVCMS_IMAGE_VERSION: *govcms-image-version
+    labels:
+      lagoon.type: solr
+    ports:
+      - "8983" # Find port on host with `docker-compose port solr 8983`
+    depends_on:
+      - cli
+    environment:
+      << : *default-environment
 
   chrome:
     image: selenium/standalone-chrome
