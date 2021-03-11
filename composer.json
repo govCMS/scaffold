@@ -1,7 +1,7 @@
 {
-    "name": "healthgovau/hsk",
-    "description": "Provides a starter kit for Health projects. This project is a fork of the GovCMS8-scaffold project.",
-    "version": "1.0.0-alpha10",
+    "name": "healthgovau/ask",
+    "description": "Provides a starter kit for Health projects. This project is a fork of the govcms/scaffold project.",
+    "version": "v1.0.0-alpha1",
     "type": "project",
     "authors": [
         {
