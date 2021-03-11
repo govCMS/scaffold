@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94950cf9a086d629dae97e0fd5f48ccb",
+    "content-hash": "fff0c509b5a66ff46a39ca35b39c4832",
     "packages": [
         {
             "name": "drupal/adminimal_theme",

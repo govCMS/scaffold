@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Implements hook_preprocess_HOOK() for HTML document templates.
@@ -33,7 +34,7 @@ function adminimal_theme_preprocess_html(&$variables) {
 /**
  * Implements hook_form_system_theme_settings_alter().
  */
-function adminimal_theme_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
+function adminimal_theme_form_system_theme_settings_alter(&$form, FormStateInterface &$form_state, $form_id = NULL) {
   // Work-around for a core bug affecting admin themes. See issue #943212.
   if (isset($form_id)) {
     return;
@@ -50,20 +51,22 @@ function adminimal_theme_form_system_theme_settings_alter(&$form, \Drupal\Core\F
   // Try to create the adminimal-custom.css file automatically.
   if (!file_exists($custom_css_path)) {
 
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
     // Try to migrate from the old css.
     if (file_exists($old_css_path)) {
-      file_unmanaged_copy($old_css_path, $custom_css_path, FILE_EXISTS_ERROR);
+      $file_system->copy($old_css_path, $custom_css_path, FileSystemInterface::EXISTS_ERROR);
     }
     // Else create a new blank css file.
     else {
-      file_unmanaged_save_data("", $custom_css_path, FILE_EXISTS_ERROR);
+      $file_system->saveData("", $custom_css_path, FileSystemInterface::EXISTS_ERROR);
     }
 
   }
 
   // Notify user to remove his old css file.
   if (file_exists($old_css_path)) {
-    drupal_set_message(t('Please delete the old @css_location file, as its no longer used.', ['@css_location file' => $old_css_path]), 'warning');
+    \Drupal::messenger()->addWarning(t('Please delete the old @css_location file, as its no longer used.', ['@css_location file' => $old_css_path]));
   }
 
   $form['adminimal_custom'] = [
