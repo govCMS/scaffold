@@ -1,11 +1,11 @@
-# Health Starter Kit (HSK)
+# Awesome Starter Kit (ASK)
 
 This documentation assumes you are using MacOS or Linux as your host environment.
 
 ## Table of contents
 
   - [Prerequistes](#prerequisites)
-  - [Create new project based on HSK](#create-new-project-based-on-hsk)
+  - [Create new project based on ASK](#create-new-project-based-on-ask)
     - [Create new Git project](#create-new-git-project)
     - [Installation](#installation)
     - [Post installation tasks](#post-installation-tasks)
@@ -16,7 +16,7 @@ This documentation assumes you are using MacOS or Linux as your host environment
     - [Add app to site codebase](#add-app-to-site-codebase)
     - [Update an app](#update-an-app)
   - [GovCMS integration](#govcms-integration)
-  - [HSK development](#hsk-development)
+  - [ASK development](#ask-development)
     - [Adding modules](#adding-modules)
       - [Contrib modules](#contrib-modules)
       - [Custom modules](#custom-modules)
@@ -62,7 +62,7 @@ This documentation assumes you are using MacOS or Linux as your host environment
 - [Pygmy](https://pygmy.readthedocs.io/en/master/)
 - [Ahoy](https://github.com/ahoy-cli/ahoy)
 
-## Create new project based on HSK
+## Create new project based on ASK
 
 ### Create new Git project
 
@@ -70,19 +70,19 @@ This documentation assumes you are using MacOS or Linux as your host environment
 
 1. Clone starter kit repository locally.
 
-        git clone git@github.com:healthgovau/hsk.git MYPROJECT
+        git clone https://github.com/healthgovau/ask.git MYPROJECT
 
 1. Change to new project directory
 
         cd MYPROJECT
 
-1. Unlink the remote HSK repository from your project
+1. Unlink the remote ASK repository from your project
 
         git remote remove origin
 
 1. Add the new remote repository created in step 1 as a remote
 
-        git remote add origin git@github.com:healthgovau/MYPROJECT.git
+        git remote add origin https://github.com:healthgovau/MYPROJECT.git
 
 
 ### Installation
@@ -242,7 +242,7 @@ composer require healthgovau/out-of-pocket
 1. Push these changes back to repo on Gitlab.
 
 
-## HSK development
+## ASK development
 
 The following sections describe various workflows used when developing for the HSK.
 
@@ -297,6 +297,8 @@ We have made it easy for you to create a new subtheme. Detailed instructions on 
 [TODO (e.g. custom content types, views, etc.)]
 
 #### GovCMS8 distribution updates
+
+> **@TODO**: This needs to be rewritten since GovCMS8 Scaffold project has been replaced by Scaffold project.
 
 The GovCMS8 distribution is periodically updated. It is important that any site configuration changes due to dustribution updates are incorporated into the starter kit codebase. The workflow for GovCMS8 distribution updates is as follows:
 
@@ -355,9 +357,9 @@ The GovCMS8 distribution is periodically updated. It is important that any site 
 
         drush cex sync
 
-#### GovCMS8 scaffolding change management
+#### Scaffolding change management
 
-> **@TODO**: In the future there may be conflicts between Git tags used by upstream GovCMS8 Scaffolding project and the HSK project. Need to look into this.
+> **@TODO**: This needs to be rewritten since GovCMS8 Scaffold project has been replaced by Scaffold project.
 
 1. Add upstream remote if you have not done so already.
 
@@ -367,13 +369,13 @@ The GovCMS8 distribution is periodically updated. It is important that any site 
 
         git merge --no-ff upstream/release/1.3.1
 
-1. Confirm that no custom changes to the HSK codebase has been overridden and commit any changes.
+1. Confirm that no custom changes to the ASK codebase has been overridden and commit any changes.
 
 1. Remove the upstream repository.
 
         git remote remove upstream
 
-1. Remove any Gits tags added from the upstream project from your local environment. This is necessary as we don't want to add any Git tags from the scaffolding project to the HSK project.
+1. Remove any Gits tags added from the upstream project from your local environment. This is necessary as we don't want to add any Git tags from the scaffolding project to the ASK project.
 
         // Get list of tags.
         git tag
@@ -385,11 +387,11 @@ The GovCMS8 distribution is periodically updated. It is important that any site 
 
 > These notes are a duplication of those from the README within the health_sample_content module.
 
-Generates sample content for a site using the Health Starter Kit (HSK).
+Generates sample content for a site using the Awesome Starter Kit (ASK).
 
 ### Prerequisites <a id="sample-content-prerequisites"></a>
 
-Assumes you have an instance of the Drupal site which was provisioned using the HSK configuraiton. Sample content is generated via Drupal's migration system and relies on several contributed modules which are not including in the GovCMS8 distribution. These modules will need to be installed in your local development environment by running `composer install` from your project's root directory (see the [HSK installation instructions](#installation) for more details).
+Assumes you have an instance of the Drupal site which was provisioned using the HSK configuraiton. Sample content is generated via Drupal's migration system and relies on several contributed modules which are not including in the GovCMS8 distribution. These modules will need to be installed in your local development environment by running `composer install` from your project's root directory (see the [ASK installation instructions](#installation) for more details).
 
 ### <a id="sample-content-installation"></a>Installation
 
@@ -413,7 +415,7 @@ Assumes you have an instance of the Drupal site which was provisioned using the 
 
         drush mr --all
 
-It should be noted that when sample content is removed using this method the Solr search index is not updated. This can lead to issues where search result counts are greater than the amount of content in the site. To rectify this you may need to destroy and then rebuild your  `hsk_solr_1` docker container
+It should be noted that when sample content is removed using this method the Solr search index is not updated. This can lead to issues where search result counts are greater than the amount of content in the site. To rectify this you may need to destroy and then rebuild your  `ask_solr_1` docker container
 
 ## Functional tests
 
@@ -511,7 +513,7 @@ Add `XDEBUG_ENABLE` and `DOCKERHOST` variables to the end of the project's `.env
 
 > **Note for Linux users**
 >
-> You will need to add the IP address of the Docker host instead of `docker.for.mac.localhost`. To get the IP address run `ip a` and then note the IP address of `docker0` adapter. Set `DOCKERHOST` to this IP address.
+> You will need to add the IP address of the Docker host instead of `host.docker.internal`. To get the IP address run `ip a` and then note the IP address of `docker0` adapter. Set `DOCKERHOST` to this IP address.
 
 Start your local containers.
 
@@ -528,7 +530,7 @@ Below we offer instructions for the 2 most popular IDEs - VSCode and PHPStorm
 
 1. Copy `/app` directory from the container to you project.
 
-        docker cp hsk_cli_1:/app ./
+        docker cp ask_cli_1:/app ./
 
 2. Delete the custom the directory from the app directory.
 
@@ -579,8 +581,8 @@ Copy remote /app folder into a local.
 *If the [distribution changes](Development/GovCMS-updates), this will need to be redone.*
 
 In PHPStorm, go to Language and Frameworks > PHP > Servers
-* Name: hsk.govcms.docker.amazee.io
-* Host: hsk.govcms.docker.amazee.io
+* Name: ask.docker.amazee.io
+* Host: ask.docker.amazee.io
 * Port: 80
 * Debugger: Xdebug
 * Check 'Use path mappings'
