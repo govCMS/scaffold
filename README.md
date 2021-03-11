@@ -27,7 +27,7 @@ This documentation assumes you are using MacOS or Linux as your host environment
     - [Configuration management](#configuration-management)
       - [Custom config changes](#custom-config-changes)
       - [GovCMS8 distribution updates](#govcms8-distribution-updates)
-      - [GovCMS8 scaffolding change management](#govcms8-scaffolding-change-management)
+      - [Scaffolding change management](#scaffolding-change-management)
   - [Functional tests](#functional-tests)
   - [Generating Sample Content](#generating-sample-content)
     - [Prerequisites](#sample-content-prerequisites)
@@ -43,6 +43,7 @@ This documentation assumes you are using MacOS or Linux as your host environment
     - [Edit the codebase](#edit-the-codebase)
     - [Configure your IDE to use Xdebug](#configure-your-ide-to-use-xdebug)
     - [VSCode setup](#vscode-setup)
+      - [Configure Edge Chromium browser to work with Xdebug and VSCode](#configure-edge-chromium-browser-to-work-with-xdebug-and-vscode)
   - [PHPStorm setup](#phpstorm-setup)
   - [Funnelback](#funnelback)
   - [Troubleshooting](#troubleshooting)
@@ -526,17 +527,17 @@ If your local containers are already running, then you will need to restart them
 ### Configure your IDE to use Xdebug
 Below we offer instructions for the 2 most popular IDEs - VSCode and PHPStorm
 
-### VSCode setup
+#### VSCode setup
 
 1. Copy `/app` directory from the container to you project.
 
         docker cp ask_cli_1:/app ./
 
-2. Delete the custom the directory from the app directory.
+1. Delete the custom the directory from the app directory.
 
         rm -Rf ./app/web/themes/custom
 
-3. Edit `launch.json` file as per the following:
+1. Edit `launch.json` file as per the following:
 
         {
           // Use IntelliSense to learn about possible attributes.
@@ -569,8 +570,15 @@ Below we offer instructions for the 2 most popular IDEs - VSCode and PHPStorm
           ]
         }
 
+1. Configure your browser to work with Xdebug.
 
-## PHPStorm setup
+#### Configure Edge Chromium browser to work with Xdebug and VSCode
+
+- Install the [Xdebug Helper](https://microsoftedge.microsoft.com/addons/detail/xdebug-helper/ggnngifabofaddiejjeagbaebkejomen) browser extension from the Microsoft store.
+- Right mouse click on the Xdebug Helper icon in the browser toolbar and select "Extension options".
+- Set the value of IDE Key to "other", enter "VSCODE" in the text field and then press "Save".
+
+### PHPStorm setup
 
 *Tested on PHPStorm v2019.x*
 
@@ -595,7 +603,6 @@ These are the original instructions for reference:
 https://www.drupal.org/docs/7/modules/govcms/how-to-setup-xdebug-with-phpstorm
 
 Note that this simply allows PHPStorm to add breakpoints and view variables, any changes made to the files in /app locally are not synced to the remote.
-
 
 ## Funnelback
 
