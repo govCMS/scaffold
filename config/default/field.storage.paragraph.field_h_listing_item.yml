@@ -1,0 +1,23 @@
+uuid: 49adc3c2-d76d-42dc-86c5-b1884f5cd628
+langcode: en
+status: true
+dependencies:
+  module:
+    - dynamic_entity_reference
+    - node
+    - paragraphs
+id: paragraph.field_h_listing_item
+field_name: field_h_listing_item
+entity_type: paragraph
+type: dynamic_entity_reference
+settings:
+  exclude_entity_types: false
+  entity_type_ids:
+    node: node
+module: dynamic_entity_reference
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

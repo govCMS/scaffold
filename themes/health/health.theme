@@ -1370,26 +1370,27 @@ function health_preprocess_page_title(array &$variables) {
  * Implements template_preprocess_HOOK().
  */
 function health_preprocess_field__field_h_resource_date(array &$variables) {
-  // Provides custom date formatting for Date of Resource Publication field.
-  foreach ($variables['items'] as $index => $item) {
-    $date_pattern = '';
-    $date_time = new DateTime($item['content']['#text']);
-    $day = $date_time->format('j');
-    $month = $date_time->format('n');
 
-    if ($day !== '1') {
-      // Only display day of the month if it is not the first day of the month.
-      $date_pattern .= 'j ';
-    }
-    if ($month !== '1' || ($month === '1' && $day !== '1')) {
-      // Only display month if it is not January or in the case it is January
-      // then it is not the 1st of january.
-      $date_pattern .= 'F ';
-    }
-    // Alway display year.
-    $date_pattern .= 'Y';
+  // Apply to all dates in the node if publication date format exists.
+  if ($variables['element']['#object']->hasField('field_h_date_format')) {
+    switch ($variables['element']['#object']->field_h_date_format->value) {
+      case "daymonthyear":
+        $dateformat = 'j F Y';
+        break;
 
-    $variables['items'][$index]['content']['#text'] = $date_time->format($date_pattern);
+      case "monthyear":
+        $dateformat = 'F Y';
+        break;
+
+      default:
+        $dateformat = 'Y';
+        break;
+    }
+
+    foreach ($variables['items'] as $index => $item) {
+      $date = new DateTime($item['content']['#attributes']['datetime']);
+      $variables['items'][$index]['content']['#text'] = $date->format($dateformat);
+    }
   }
 }
 
@@ -1652,7 +1653,8 @@ function health_preprocess_node__h_global_notification(array &$variables) {
   if ($node instanceof NodeInterface) {
     $variables['health_notification_id'] = $node->getRevisionId();
     // Optionally display date the notification was last updated.
-    if ($node->hasField('field_h_display_date') && $node->get('field_h_display_date')->isEmpty() !== TRUE) {
+    if ($node->hasField('field_h_display_date') && $node->get('field_h_display_date')
+      ->isEmpty() !== TRUE) {
       $display_date = (empty($node->get('field_h_display_date')->value)) ? FALSE : TRUE;
       $variables['health_display_notification_date'] = $display_date;
     }
@@ -2253,8 +2255,10 @@ function health_preprocess_paragraph__para_h_listing_embedded(array &$variables)
   $paragraph = $variables['paragraph'];
   if ($paragraph instanceof ParagraphInterface) {
     $listing = _health_generate_embedded_listing($variables);
-    $title = ($paragraph->get('field_h_title')->isEmpty()) ? [] : $variables['content']['field_h_title'];
-    $introduction = ($paragraph->get('field_h_body')->isEmpty()) ? [] : $variables['content']['field_h_body'];
+    $title = ($paragraph->get('field_h_title')
+      ->isEmpty()) ? [] : $variables['content']['field_h_title'];
+    $introduction = ($paragraph->get('field_h_body')
+      ->isEmpty()) ? [] : $variables['content']['field_h_body'];
     // Reset the Content variable and attach fields relevant to the embedded
     // listing component.
     $variables['content'] = [];

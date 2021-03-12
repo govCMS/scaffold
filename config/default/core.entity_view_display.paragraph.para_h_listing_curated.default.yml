@@ -1,0 +1,95 @@
+uuid: 92e2dfd0-f05d-4219-a47c-961113ed1b8d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.para_h_listing_curated.field_h_heading_hide
+    - field.field.paragraph.para_h_listing_curated.field_h_listing_item
+    - field.field.paragraph.para_h_listing_curated.field_h_summary
+    - field.field.paragraph.para_h_listing_curated.field_h_title
+    - paragraphs.paragraphs_type.para_h_listing_curated
+  module:
+    - ds
+    - dynamic_entity_reference
+id: paragraph.para_h_listing_curated.default
+targetEntityType: paragraph
+bundle: para_h_listing_curated
+mode: default
+content:
+  field_h_listing_item:
+    weight: 2
+    label: hidden
+    settings:
+      node:
+        view_mode: teaser
+      content_moderation_state:
+        view_mode: default
+        link: false
+      crop:
+        view_mode: default
+        link: false
+      block_content:
+        view_mode: default
+        link: false
+      menu_link_content:
+        view_mode: default
+        link: false
+      entity_embed_fake_entity:
+        view_mode: default
+        link: false
+      file:
+        view_mode: default
+        link: false
+      media:
+        view_mode: default
+        link: false
+      paragraph:
+        view_mode: default
+        link: false
+      redirect:
+        view_mode: default
+        link: false
+      search_api_task:
+        view_mode: default
+        link: false
+      shortcut:
+        view_mode: default
+        link: false
+      taxonomy_term:
+        view_mode: default
+        link: false
+      path_alias:
+        view_mode: default
+        link: false
+      user:
+        view_mode: default
+        link: false
+      webform_submission:
+        view_mode: default
+        link: false
+      scheduled_transition:
+        view_mode: default
+        link: false
+    third_party_settings:
+      ds:
+        ds_limit: ''
+    type: dynamic_entity_reference_entity_view
+    region: content
+  field_h_summary:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_h_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  field_h_heading_hide: true
+  search_api_excerpt: true

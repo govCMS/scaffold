@@ -1,0 +1,23 @@
+uuid: cc3d3fb7-9c48-4369-aad8-4eeac2866021
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_heading_hide
+    - paragraphs.paragraphs_type.para_h_listing_curated
+id: paragraph.para_h_listing_curated.field_h_heading_hide
+field_name: field_h_heading_hide
+entity_type: paragraph
+bundle: para_h_listing_curated
+label: 'Hide heading'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

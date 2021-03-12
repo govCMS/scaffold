@@ -1,0 +1,10 @@
+uuid: 3cf46ac8-1a30-4d17-a5eb-50a04bbf276e
+langcode: en
+status: true
+dependencies: {  }
+id: para_h_listing_curated
+label: 'Listing - Curated'
+icon_uuid: null
+icon_default: null
+description: 'A curated listing'
+behavior_plugins: {  }

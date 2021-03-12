@@ -213,13 +213,13 @@ content:
     type: number
     region: content
   field_h_date_created:
-    weight: 105
+    weight: 113
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_h_date_published:
-    weight: 107
+    weight: 115
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -231,7 +231,7 @@ content:
     type: datetime_default
     region: content
   field_h_date_updated:
-    weight: 106
+    weight: 114
     settings: {  }
     third_party_settings: {  }
     type: datetime_default

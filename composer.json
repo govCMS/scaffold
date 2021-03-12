@@ -1,7 +1,7 @@
 {
     "name": "healthgovau/ask",
     "description": "Provides a starter kit for Health projects. This project is a fork of the govcms/scaffold project.",
-    "version": "v1.0.0-alpha1",
+    "version": "v1.0.0-alpha2",
     "type": "project",
     "authors": [
         {
@@ -59,6 +59,9 @@
         "oomphinc/composer-installers-extender": "^2.0"
     },
     "scripts": {
+        "post-install-cmd": [
+            "cat .githooks/pre-commit >> .git/hooks/pre-commit && chmod a+x .git/hooks/pre-commit"
+        ],
         "post-package-install": [
             "Health\\Helper::postPackageInstall",
             "Health\\App::postPackageInstall"
