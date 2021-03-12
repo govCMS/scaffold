@@ -1,7 +1,7 @@
 {
     "name": "healthgovau/ask",
     "description": "Provides a starter kit for Health projects. This project is a fork of the govcms/scaffold project.",
-    "version": "v1.0.0-alpha2",
+    "version": "v1.0.0-beta1",
     "type": "project",
     "authors": [
         {
