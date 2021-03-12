@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.h_publication.field_h_content_pass_sentences
     - field.field.node.h_publication.field_h_content_readability
     - field.field.node.h_publication.field_h_date_created
+    - field.field.node.h_publication.field_h_date_format
     - field.field.node.h_publication.field_h_date_published
     - field.field.node.h_publication.field_h_date_reviewed
     - field.field.node.h_publication.field_h_date_updated
@@ -67,6 +68,7 @@ third_party_settings:
         - field_h_image_featured
         - field_h_resource_availability
         - field_h_resource_date
+        - field_h_date_format
         - field_h_order_id
         - field_h_order_text
       parent_name: group_h_tabs
@@ -128,8 +130,6 @@ third_party_settings:
       region: content
     group_h_dates:
       children:
-        - field_h_publication_date
-        - field_h_publication_date_display
         - field_h_date_reviewed
         - group_h_system_dates
       parent_name: group_h_tabs
@@ -246,6 +246,12 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_h_date_format:
+    weight: 16
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_h_date_published:
     weight: 37
     settings: {  }
@@ -301,7 +307,7 @@ content:
     type: link_default
     region: content
   field_h_order_id:
-    weight: 16
+    weight: 17
     settings:
       size: 60
       placeholder: ''
@@ -309,7 +315,7 @@ content:
     type: string_textfield
     region: content
   field_h_order_text:
-    weight: 17
+    weight: 18
     settings:
       rows: 5
       placeholder: ''

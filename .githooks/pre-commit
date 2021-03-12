@@ -1,0 +1,37 @@
+#!/bin/sh
+#
+
+PHPCS_BIN="./vendor/bin/phpcs"
+PHPCBF_BIN="./vendor/bin/phpcbf"
+
+#### Code Sniffer
+
+drupalfiles=$(git diff --cached --name-only  --diff-filter=ACM HEAD | grep -E '\.php$|\.module$|\.inc$|\.install$|\.test$|\.profile$|\.theme$|\.css$|\.info$|\.txt$|\.md$|\.yml$|\.theme$')
+
+if [ "$drupalfiles" != "" ]
+then
+    drupalfailed=0
+    echo "Running Code Sniffer..."
+    $PHPCS_BIN $drupalfiles >/dev/null
+    if [ $? != 0 ]
+    then
+        $PHPCBF_BIN $drupalfiles >/dev/null
+        git add $drupalfiles
+        $PHPCS_BIN  $drupalfiles >/dev/null
+        if [ $? != 0 ]
+        then
+            $PHPCS_BIN $drupalfiles
+            drupalfailed=1
+        fi
+    fi
+
+    if [ $drupalfailed != 0 ]
+    then
+        echo "PHPCS failed, errors found not fixable automatically, git commit denied!"
+        commitfailed=$drupalfailed
+    fi
+fi
+
+#### End of Code Sniffer
+
+exit $commitfailed

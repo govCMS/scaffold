@@ -1,0 +1,21 @@
+uuid: 9ee53156-d082-4cd2-93d5-770a59ed012f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_format
+    - node.type.h_publication
+  module:
+    - options
+id: node.h_publication.field_h_date_format
+field_name: field_h_date_format
+entity_type: node
+bundle: h_publication
+label: 'Publication date format'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

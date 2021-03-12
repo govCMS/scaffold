@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.h_publication.field_h_content_pass_sentences
     - field.field.node.h_publication.field_h_content_readability
     - field.field.node.h_publication.field_h_date_created
+    - field.field.node.h_publication.field_h_date_format
     - field.field.node.h_publication.field_h_date_published
     - field.field.node.h_publication.field_h_date_reviewed
     - field.field.node.h_publication.field_h_date_updated
@@ -33,6 +34,7 @@ dependencies:
     - entity_reference_revisions
     - link
     - media
+    - options
     - panelizer
     - text
     - user
@@ -118,6 +120,13 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_h_date_format:
+    weight: 34
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_h_date_published:
     weight: 15

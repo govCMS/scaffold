@@ -1,0 +1,91 @@
+uuid: 9679cf45-c116-43cd-99f3-e831af0054ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_h_listing_item
+    - node.type.h_app_or_tool
+    - node.type.h_collection
+    - node.type.h_contact
+    - node.type.h_foi_request
+    - node.type.h_news_article
+    - node.type.h_publication
+    - node.type.h_video
+    - paragraphs.paragraphs_type.para_h_listing_curated
+  module:
+    - dynamic_entity_reference
+id: paragraph.para_h_listing_curated.field_h_listing_item
+field_name: field_h_listing_item
+entity_type: paragraph
+bundle: para_h_listing_curated
+label: 'Listing item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  node:
+    handler: 'default:node'
+    handler_settings:
+      target_bundles:
+        h_app_or_tool: h_app_or_tool
+        h_collection: h_collection
+        h_contact: h_contact
+        h_foi_request: h_foi_request
+        h_news_article: h_news_article
+        h_publication: h_publication
+        h_video: h_video
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: h_app_or_tool
+  content_moderation_state:
+    handler: 'default:content_moderation_state'
+    handler_settings: {  }
+  crop:
+    handler: 'default:crop'
+    handler_settings: {  }
+  block_content:
+    handler: 'default:block_content'
+    handler_settings: {  }
+  menu_link_content:
+    handler: 'default:menu_link_content'
+    handler_settings: {  }
+  entity_embed_fake_entity:
+    handler: 'default:entity_embed_fake_entity'
+    handler_settings: {  }
+  file:
+    handler: 'default:file'
+    handler_settings: {  }
+  media:
+    handler: 'default:media'
+    handler_settings: {  }
+  paragraph:
+    handler: 'default:paragraph'
+    handler_settings: {  }
+  redirect:
+    handler: 'default:redirect'
+    handler_settings: {  }
+  search_api_task:
+    handler: 'default:search_api_task'
+    handler_settings: {  }
+  shortcut:
+    handler: 'default:shortcut'
+    handler_settings: {  }
+  taxonomy_term:
+    handler: 'default:taxonomy_term'
+    handler_settings: {  }
+  path_alias:
+    handler: 'default:path_alias'
+    handler_settings: {  }
+  user:
+    handler: 'default:user'
+    handler_settings: {  }
+  webform_submission:
+    handler: 'default:webform_submission'
+    handler_settings: {  }
+  scheduled_transition:
+    handler: 'default:scheduled_transition'
+    handler_settings: {  }
+field_type: dynamic_entity_reference

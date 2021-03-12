@@ -79,3 +79,7 @@ themes/medela/
 web/
 scripts/
 drush/
+
+# Ignore modules and settings we tend to enable on our locals
+config/default/dblog.settings.yml
+config/default/views.view.watchdog.yml

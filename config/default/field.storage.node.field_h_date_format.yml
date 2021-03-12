@@ -1,0 +1,30 @@
+uuid: 7a6abed9-11ee-4302-bad3-2b699e42d0d9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_h_date_format
+field_name: field_h_date_format
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: daymonthyear
+      label: 'Day month year'
+    -
+      value: monthyear
+      label: 'Month year'
+    -
+      value: year
+      label: Year
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
