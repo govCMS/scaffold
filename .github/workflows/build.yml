@@ -18,11 +18,11 @@ jobs:
         name: Checkout codebase
         uses: actions/checkout@v2
       -
-        name: Set up PHP 7.4 with Composer v1
+        name: Set up PHP 7.4 with Composer v2.0
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          tools: composer:v1
+          tools: composer:v2
       -
         name: Get Composer Cache Directory
         id: composer-cache
@@ -69,11 +69,11 @@ jobs:
         name: Install project level npm dependencies
         run: npm install
       -
-        name: Set up PHP 7.4 with Composer v1
+        name: Set up PHP 7.4 with Composer v2.0
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          tools: composer:v1
+          tools: composer:v2
       -
         name: Get Composer Cache Directory
         id: composer-cache
