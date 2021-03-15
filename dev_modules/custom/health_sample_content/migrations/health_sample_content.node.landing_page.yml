@@ -33,6 +33,10 @@ source:
       content_owner: Incom
       field_h_image_featured: image_3
       field_h_display_as_hero: 1
+      field_h_date_created: '06-05-2019'
+      field_h_date_published: '06-05-2019'
+      field_h_date_reviewed: '06-05-2019'
+      field_h_date_updated: '06-05-2019'
       status: '1'
     -
       id: 2
@@ -63,6 +67,10 @@ source:
       content_owner: Incom
       field_h_image_featured: image_3
       field_h_display_as_hero: 1
+      field_h_date_created: '07-05-2019'
+      field_h_date_published: '07-05-2019'
+      field_h_date_reviewed: '07-05-2019'
+      field_h_date_updated: '07-05-2019'
       status: '1'
   ids:
     id:
@@ -115,6 +123,26 @@ process:
     bundle_key: vid
     bundle: h_content_owner
     access_ckeck: false
+  field_h_date_created:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_created
+  field_h_date_updated:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_updated
+  field_h_date_reviewed:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_reviewed
+  field_h_date_published:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_published
   moderation_state:
     plugin: static_map
     source: '@status'

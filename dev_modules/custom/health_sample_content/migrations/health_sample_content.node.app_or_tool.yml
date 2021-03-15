@@ -71,11 +71,23 @@ process:
   field_h_date_created:
     plugin: format_date
     from_format: 'd-m-Y'
-    to_format: 'Y-m-d H:i:s'
+    to_format: 'Y-m-d\TH:i:s'
     source: field_h_date_created
-  field_h_date_published: '@field_h_date_created'
-  field_h_date_reviewed: '@field_h_date_created'
-  field_h_date_updated: '@field_h_date_created'
+  field_h_date_updated:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_updated
+  field_h_date_reviewed:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_reviewed
+  field_h_date_published:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_published
   'field_h_link_apple_app/uri': field_h_link_apple_app
   'field_h_link_google_app/uri': field_h_link_google_app
   'field_h_link_microsoft_app/uri': field_h_link_microsoft_app

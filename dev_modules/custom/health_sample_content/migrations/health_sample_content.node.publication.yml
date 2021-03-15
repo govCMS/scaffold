@@ -28,6 +28,10 @@ source:
       field_h_audience: Everyone
       field_h_content_owner: Incom
       field_h_subject: Politics
+      field_h_date_created: '06-05-2019'
+      field_h_date_published: '06-05-2019'
+      field_h_date_reviewed: '06-05-2019'
+      field_h_date_updated: '06-05-2019'
       status: '1'
     -
       id: node_h_publication_2
@@ -51,6 +55,10 @@ source:
       field_h_audience: Everyone
       field_h_content_owner: Incom
       field_h_subject: Politics
+      field_h_date_created: '07-05-2019'
+      field_h_date_published: '07-05-2019'
+      field_h_date_reviewed: '07-05-2019'
+      field_h_date_updated: '07-05-2019'
       status: '1'
     -
       id: node_h_publication_3
@@ -75,6 +83,10 @@ source:
       field_h_audience: Everyone
       field_h_content_owner: Incom
       field_h_subject: Politics
+      field_h_date_created: '08-05-2019'
+      field_h_date_published: '08-05-2019'
+      field_h_date_reviewed: '08-05-2019'
+      field_h_date_updated: '08-05-2019'
       status: '1'
     -
       id: node_h_publication_4
@@ -100,6 +112,10 @@ source:
       field_h_audience: Everyone
       field_h_content_owner: Incom
       field_h_subject: Politics
+      field_h_date_created: '09-05-2019'
+      field_h_date_published: '09-05-2019'
+      field_h_date_reviewed: '09-05-2019'
+      field_h_date_updated: '09-05-2019'
       status: '1'
   ids:
     id:
@@ -187,6 +203,26 @@ process:
     source: field_h_subject
     bundle_key: vid
     bundle: h_subject
+  field_h_date_created:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_created
+  field_h_date_updated:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_updated
+  field_h_date_reviewed:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_reviewed
+  field_h_date_published:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_published
   moderation_state:
     plugin: static_map
     source: '@status'
