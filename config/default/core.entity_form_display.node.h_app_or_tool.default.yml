@@ -159,12 +159,13 @@ third_party_settings:
         - field_h_date_updated
       parent_name: group_h_dates
       weight: 27
-      format_type: fieldset
+      format_type: details
       format_settings:
         id: ''
         classes: ''
         description: ''
         required_fields: true
+        open: false
       label: 'System dates'
       region: content
 id: node.h_app_or_tool.default
