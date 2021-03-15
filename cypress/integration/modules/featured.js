@@ -51,9 +51,7 @@ const tests = (cy) => {
             }
           })
           .then(() => {
-            const percyOptions = {
-              percyCSS: `time { visibility: hidden; }`
-            }
+            const percyOptions = {};
             cy.percySnapshot("health_starter_kit_sample_featured_content_landing_page", percyOptions);
           });
         });

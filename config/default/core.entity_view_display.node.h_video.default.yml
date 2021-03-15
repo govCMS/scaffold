@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.h_video.field_h_content_pass_sentences
     - field.field.node.h_video.field_h_content_readability
     - field.field.node.h_video.field_h_date_created
+    - field.field.node.h_video.field_h_date_format
     - field.field.node.h_video.field_h_date_published
     - field.field.node.h_video.field_h_date_reviewed
     - field.field.node.h_video.field_h_date_updated
@@ -29,6 +30,7 @@ dependencies:
     - node.type.h_video
   module:
     - datetime
+    - options
     - panelizer
     - text
     - user
@@ -56,6 +58,13 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_h_date_format:
+    weight: 13
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_h_date_reviewed:
     weight: 7

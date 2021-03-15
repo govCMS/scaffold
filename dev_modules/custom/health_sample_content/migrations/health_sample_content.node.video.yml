@@ -96,11 +96,16 @@ source:
         <p>right you are right about me</p>
       field_h_resource_availability: Online
       field_h_resource_date: 01-02-2019
+      field_h_date_format: monthyear
       field_h_video_type: Presentation
       field_h_language: English
       field_h_audience: Everyone
       field_h_content_owner: Incom
       field_h_subject: Politics
+      field_h_date_created: '06-05-2019'
+      field_h_date_published: '06-05-2019'
+      field_h_date_reviewed: '06-05-2019'
+      field_h_date_updated: '06-05-2019'
       status: '1'
   ids:
     id:
@@ -156,6 +161,7 @@ process:
     from_format: 'd-m-Y'
     to_format: 'Y-m-d'
     source: field_h_resource_date
+  field_h_date_format: field_h_date_format
   field_h_video_type:
     plugin: entity_lookup
     entity_type: taxonomy_term
@@ -191,6 +197,26 @@ process:
     source: field_h_subject
     bundle_key: vid
     bundle: h_subject
+  field_h_date_created:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_created
+  field_h_date_updated:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_updated
+  field_h_date_reviewed:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_reviewed
+  field_h_date_published:
+    plugin: format_date
+    from_format: 'd-m-Y'
+    to_format: 'Y-m-d\TH:i:s'
+    source: field_h_date_published
   moderation_state:
     plugin: static_map
     source: '@status'

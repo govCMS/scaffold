@@ -18,9 +18,7 @@ const tests = (cy) => {
      */
      it("renders correctly", () => {
        // Take a snapshot for visual diffing.
-       const percyOptions = {
-         percyCSS: `time { visibility: hidden; }`
-       }
+       const percyOptions = {};
        cy
          .visit(landingPageUri)
          .scrollTo("bottom")
