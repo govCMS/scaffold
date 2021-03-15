@@ -96,6 +96,7 @@ source:
         <p>right you are right about me</p>
       field_h_resource_availability: Online
       field_h_resource_date: 01-02-2019
+      field_h_date_format: monthyear
       field_h_video_type: Presentation
       field_h_language: English
       field_h_audience: Everyone
@@ -160,6 +161,7 @@ process:
     from_format: 'd-m-Y'
     to_format: 'Y-m-d'
     source: field_h_resource_date
+  field_h_date_format: field_h_date_format
   field_h_video_type:
     plugin: entity_lookup
     entity_type: taxonomy_term
