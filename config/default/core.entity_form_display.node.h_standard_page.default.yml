@@ -136,10 +136,10 @@ third_party_settings:
       format_type: details
       format_settings:
         description: ''
-        open: true
         required_fields: true
         id: ''
         classes: ''
+        open: false
       label: 'System dates'
       region: content
 id: node.h_standard_page.default
