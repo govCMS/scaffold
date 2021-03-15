@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.h_video.field_h_content_pass_sentences
     - field.field.node.h_video.field_h_content_readability
     - field.field.node.h_video.field_h_date_created
+    - field.field.node.h_video.field_h_date_format
     - field.field.node.h_video.field_h_date_published
     - field.field.node.h_video.field_h_date_reviewed
     - field.field.node.h_video.field_h_date_updated
@@ -60,6 +61,8 @@ third_party_settings:
         - field_h_description
         - field_h_video_youtubeid
         - field_h_duration
+        - field_h_resource_date
+        - field_h_date_format
         - field_h_image_featured
         - field_h_resource_transcript
       parent_name: group_h_tabs
@@ -109,7 +112,6 @@ third_party_settings:
       region: content
     group_h_dates:
       children:
-        - field_h_resource_date
         - field_h_date_reviewed
         - group_h_system_dates
       parent_name: group_h_tabs
@@ -146,7 +148,7 @@ third_party_settings:
         - field_h_date_updated
         - field_h_date_published
       parent_name: group_h_dates
-      weight: 127
+      weight: 126
       format_type: details
       format_settings:
         id: ''
@@ -213,6 +215,12 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_h_date_format:
+    weight: 121
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_h_date_published:
     weight: 123
     settings: {  }
@@ -220,7 +228,7 @@ content:
     type: datetime_default
     region: content
   field_h_date_reviewed:
-    weight: 124
+    weight: 125
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -248,7 +256,7 @@ content:
     type: string_textfield
     region: content
   field_h_image_featured:
-    weight: 120
+    weight: 122
     settings:
       entity_browser: h_image_browser
       field_widget_display: label
@@ -274,13 +282,13 @@ content:
     type: options_select
     region: content
   field_h_resource_date:
-    weight: 123
+    weight: 120
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_h_resource_transcript:
-    weight: 121
+    weight: 123
     settings:
       rows: 5
       placeholder: ''

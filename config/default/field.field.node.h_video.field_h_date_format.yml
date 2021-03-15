@@ -1,0 +1,21 @@
+uuid: cf6efb20-6fb7-46a3-8129-20ca7bf0fe45
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_h_date_format
+    - node.type.h_video
+  module:
+    - options
+id: node.h_video.field_h_date_format
+field_name: field_h_date_format
+entity_type: node
+bundle: h_video
+label: 'Publication date format'
+description: "Enter the date the publication was published or released by the publisher - you can backdate this if you need to. Otherwise leave as the default, which will be the date published to our site.\r\nUpdate this field when a new version is made available."
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
