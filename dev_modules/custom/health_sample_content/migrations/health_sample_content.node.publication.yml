@@ -17,6 +17,7 @@ source:
       field_h_image_featured: image_2
       field_h_resource_availability: Online
       field_h_resource_date: 01-02-2019
+      field_h_date_format: monthyear
       field_h_order_id: 134-92345-00
       field_h_order_text: |
         Sign up for our emails to get the inside scoop on special offers and new products.
@@ -44,6 +45,7 @@ source:
       field_h_image_featured: image_15
       field_h_resource_availability: Online
       field_h_resource_date: 01-02-2019
+      field_h_date_format: monthyear
       field_h_order_id: 134-12345-00
       field_h_order_text: |
         Sign up for our emails to get the inside scoop on special offers and new products.
@@ -64,7 +66,7 @@ source:
       id: node_h_publication_3
       title: A-wing
       field_h_summary: |
-        The A-wing was a wedge-shaped strike fighter that took design inspiration from Republic starfighters of the Clone Wars. The Empire passed on the earliest A-wing model, Kuat Systems Engineering’s R-22, but rebel cells modified the seemingly failed fighter into a blazingly fast but temperamental attack craft, dubbed the RZ-1.
+        The A-wing was a wedge-shaped strike fighter that took design inspiration from Republic starfighters of the Clone Wars. The Empire passed on the earliest A-wing model, Kuat Systems Engineering’s R-22, but rebel cells modified the seemingly failed fighter into a blazingly fast attack craft, dubbed the RZ-1.
       field_h_description: |
         <p>One of the earliest rebel units to use these quick, powerful fighters was Phoenix Squadron, whose pilots would tragically meet their match in an encounter with Darth Vader. Several of the fighters entered the fray when Vader tracked the Ghost crew to the rebel fleet. The Imperial enforcer methodically wiped the craft out, showing expert piloting skills and a ruthlessness that the A-wing pilots could not equal.</p>
         <p>As the Empire ramped up production of both standard TIE fighters and experimental models, the Alliance sought to turn the A-wing into a starfighter that could outfly them all. Alliance techs stripped away shields, armor and heavy weapons to create a fighter that was tough to maintain and fly, but could outrun even a TIE interceptor. These reworked RZ-1s played an important role in the Battle of Endor, the rebels' greatest victory over the Empire.</p>
@@ -72,6 +74,7 @@ source:
       field_h_image_featured: image_16
       field_h_resource_availability: Online
       field_h_resource_date: 01-02-2019
+      field_h_date_format: year
       field_h_order_id: 134-12375-00
       field_h_order_text: |
         Sign up for our emails to get the inside scoop on special offers and new products.
@@ -92,7 +95,7 @@ source:
       id: node_h_publication_4
       title: Death Star Plans
       field_h_summary: |
-        The plans for the Empire’s ultimate weapon reside in a electromagnetic cartridge in the Structural Engineering node of the Scarif vault’s datatree. The plans contain the Death Star’s entire design history, including the flaw introduced into its reactor system. Stolen by Jyn Erso, they are beamed to the Profundity, copied and hidden in the memory systems of a humble astromech droid.
+        The plans for the Empire’s ultimate weapon reside in a electromagnetic cartridge in the Structural Engineering node of the Scarif vault’s datatree. The plans contain the Death Star’s entire design history, including the flaw introduced into its reactor system.
       field_h_description: |
         <p>One of the earliest rebel units to use these quick, powerful fighters was Phoenix Squadron, whose pilots would tragically meet their match in an encounter with Darth Vader. Several of the fighters entered the fray when Vader tracked the Ghost crew to the rebel fleet. The Imperial enforcer methodically wiped the craft out, showing expert piloting skills and a ruthlessness that the A-wing pilots could not equal.</p>
         <p>With the New Republic victorious over the Empire’s fragments, Kuat Systems Engineering revived the R-22 design as the basis for the RZ-2, a streamlined model that incorporated years of Alliance field modifications and customizations. After the New Republic slashed A-wing production, the RZ-2 lived on as a mainstay of the Resistance, which used A-wings for many different missions.</p>
@@ -101,6 +104,7 @@ source:
         - Online
         - Orderable
       field_h_resource_date: 01-02-2019
+      field_h_date_format: daymonthyear
       field_h_order_id: 134-12375-00
       field_h_order_text: |
         Sign up for our emails to get the inside scoop on special offers and new products.
@@ -156,6 +160,7 @@ process:
     from_format: 'd-m-Y'
     to_format: 'Y-m-d'
     source: field_h_resource_date
+  field_h_date_format: field_h_date_format
   field_h_order_id: field_h_order_id
   'field_h_order_text/value': field_h_order_text
   'field_h_order_text/format': plain_text
