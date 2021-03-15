@@ -104,7 +104,7 @@ source:
         - Online
         - Orderable
       field_h_resource_date: 01-02-2019
-      field_h_date_format: daymonthyear
+      field_h_date_format: year
       field_h_order_id: 134-12375-00
       field_h_order_text: |
         Sign up for our emails to get the inside scoop on special offers and new products.
