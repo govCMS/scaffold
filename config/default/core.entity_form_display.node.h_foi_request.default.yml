@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.h_foi_request.field_h_subject_3
     - field.field.node.h_foi_request.field_h_summary
     - node.type.h_foi_request
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - datetime
@@ -114,10 +115,9 @@ third_party_settings:
       label: Related
     group_h_dates:
       children:
-        - field_h_date_published
-        - field_h_date_reviewed
-        - field_h_date_updated
         - field_h_resource_date
+        - field_h_date_reviewed
+        - group_system_dates
       parent_name: group_h_tabs
       weight: 24
       format_type: tab
@@ -146,6 +146,21 @@ third_party_settings:
         formatter: closed
         required_fields: true
       label: Readability
+    group_system_dates:
+      children:
+        - field_h_date_published
+        - field_h_date_updated
+      parent_name: group_h_dates
+      weight: 28
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'System dates'
 id: node.h_foi_request.default
 targetEntityType: node
 bundle: h_foi_request
@@ -199,19 +214,19 @@ content:
     third_party_settings: {  }
   field_h_date_published:
     type: datetime_default
-    weight: 0
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
   field_h_date_reviewed:
     type: datetime_default
-    weight: 0
+    weight: 27
     region: content
     settings: {  }
     third_party_settings: {  }
   field_h_date_updated:
     type: datetime_default
-    weight: 0
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -245,7 +260,7 @@ content:
     third_party_settings: {  }
   field_h_resource_date:
     type: datetime_default
-    weight: 0
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }
