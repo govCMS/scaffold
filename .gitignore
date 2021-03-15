@@ -26,6 +26,7 @@ console
 
 # Current location where audit application runs from, required so drush works with drutiny.
 audit-site
+
 # Added by the scaffold provisioner.
 web/
 scripts/
@@ -75,10 +76,9 @@ cypress/video/*
 
 # Medela theme is not ready for inclusion in the HSK.
 themes/medela/
-# Added by the scaffold provisioner.
-web/
-scripts/
-drush/
+
+# Include Health theme scripts/ directory in repo.
+!/themes/health/scripts
 
 # Ignore modules and settings we tend to enable on our locals
 config/default/dblog.settings.yml
