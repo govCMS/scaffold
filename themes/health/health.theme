@@ -1661,7 +1661,7 @@ function health_preprocess_node__h_global_notification(array &$variables) {
 
     // Process notification background colour.
     if ($node->hasField('field_h_notification_type')) {
-      /** @var \Drupal\taxonomy\TermInterface $colour. */
+      /** @var \Drupal\taxonomy\TermInterface $colour . */
       $colour = $node
         ->get('field_h_notification_type')
         ->entity
@@ -1672,6 +1672,12 @@ function health_preprocess_node__h_global_notification(array &$variables) {
         ->value;
       $variables['health_notification_bg_colour'] = $colour_hex;
       $variables['health_dark_theme'] = ($colour->get('field_h_colour_theme')->value === 'dark') ? TRUE : FALSE;
+
+      if ($node->get('field_h_notification_type')->entity->hasField('field_h_icon')) {
+        if ($icon = $node->get('field_h_notification_type')->entity->get('field_h_icon')->referencedEntities()[0]) {
+          $variables['health_notification_icon_url'] = Url::fromUri(file_create_url($icon->field_media_file->entity->getFileUri()))->toString();
+        }
+      }
     }
   }
 }

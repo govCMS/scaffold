@@ -1,51 +1,41 @@
-uuid: 992261d5-aaa2-4ce9-81b9-1b410211988f
+uuid: f7b62d00-aaf8-4969-982c-97eb9d273152
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.h_notification_type.field_h_colour
-    - field.field.taxonomy_term.h_notification_type.field_h_icon
-    - taxonomy.vocabulary.h_notification_type
+    - field.field.media.h_svg.field_media_file
+    - media.type.h_svg
   module:
-    - media_library
+    - file
     - path
-    - text
-id: taxonomy_term.h_notification_type.default
-targetEntityType: taxonomy_term
-bundle: h_notification_type
+id: media.h_svg.default
+targetEntityType: media
+bundle: h_svg
 mode: default
 content:
-  description:
-    type: text_textarea
-    weight: 2
+  created:
+    type: datetime_timestamp
+    weight: 10
     region: content
-    settings:
-      placeholder: ''
-      rows: 5
-    third_party_settings: {  }
-  field_h_colour:
-    weight: 1
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
-  field_h_icon:
-    type: media_library_widget
-    weight: 6
+  field_media_file:
+    weight: 0
     settings:
-      media_types: {  }
+      progress_indicator: throbber
     third_party_settings: {  }
+    type: file_generic
     region: content
   langcode:
     type: language_select
-    weight: 3
+    weight: 2
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   name:
     type: string_textfield
-    weight: 0
+    weight: -5
     region: content
     settings:
       size: 60
@@ -53,7 +43,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -61,7 +51,17 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
+    weight: 100
+    region: content
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
     weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
     region: content
     third_party_settings: {  }
 hidden: {  }

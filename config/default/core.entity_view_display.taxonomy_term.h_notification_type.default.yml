@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.h_notification_type.field_h_colour
+    - field.field.taxonomy_term.h_notification_type.field_h_icon
     - taxonomy.vocabulary.h_notification_type
   module:
     - panelizer
@@ -26,6 +27,15 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
+  field_h_icon:
+    type: entity_reference_entity_view
+    weight: 1
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
     region: content
 hidden:
   description: true
