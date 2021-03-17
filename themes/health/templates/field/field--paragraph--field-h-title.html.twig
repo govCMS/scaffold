@@ -36,6 +36,7 @@
  * @see template_preprocess_field()
  */
 #}
+
 {% for item in items %}
-  <h2 {{ item.attributes }}>{{ item.content }}</h2>
+  <h2 {{ item.attributes.addClass('paragraph-title') }}>{{ item.content }}</h2>
 {% endfor %}
