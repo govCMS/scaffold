@@ -8,8 +8,8 @@ third_party_settings:
   crop:
     image_field: _none
 id: h_svg
-label: Svg
-description: 'Svg files.'
+label: SVG
+description: 'Contains a SVG file.'
 source: file
 queue_thumbnail_downloads: false
 new_revision: false
