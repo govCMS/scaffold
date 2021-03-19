@@ -1,0 +1,41 @@
+uuid: 68dee19a-be2c-42cd-a039-47ac146ecffb
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.h_svg
+  module:
+    - dropzonejs_eb_widget
+    - media
+name: h_svg_browser
+label: 'SVG Browser'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  b17dba3f-64ab-4040-90e2-1395ab207aff:
+    settings:
+      media_type: h_svg
+      upload_location: 'public://[date:custom:Y]-[date:custom:m]'
+      dropzone_description: 'Drop files here to upload them'
+      max_filesize: 256M
+      extensions: svg
+      clientside_resize: false
+      resize_width: null
+      resize_height: null
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
+      submit_text: 'Select entities'
+      auto_select: false
+    uuid: b17dba3f-64ab-4040-90e2-1395ab207aff
+    weight: 1
+    label: Upload
+    id: dropzonejs_media_entity

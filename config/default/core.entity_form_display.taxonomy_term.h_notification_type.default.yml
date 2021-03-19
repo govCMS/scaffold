@@ -3,11 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.h_svg_browser
     - field.field.taxonomy_term.h_notification_type.field_h_colour
     - field.field.taxonomy_term.h_notification_type.field_h_icon
     - taxonomy.vocabulary.h_notification_type
   module:
-    - media_library
+    - entity_browser
     - path
     - text
 id: taxonomy_term.h_notification_type.default
@@ -17,7 +18,7 @@ mode: default
 content:
   description:
     type: text_textarea
-    weight: 2
+    weight: 3
     region: content
     settings:
       placeholder: ''
@@ -30,15 +31,22 @@ content:
     type: options_select
     region: content
   field_h_icon:
-    type: media_library_widget
-    weight: 6
+    type: entity_browser_entity_reference
+    weight: 2
     settings:
-      media_types: {  }
+      entity_browser: h_svg_browser
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
     third_party_settings: {  }
     region: content
   langcode:
     type: language_select
-    weight: 3
+    weight: 4
     region: content
     settings:
       include_locked: true
@@ -53,7 +61,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -61,7 +69,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 5
+    weight: 6
     region: content
     third_party_settings: {  }
 hidden: {  }
