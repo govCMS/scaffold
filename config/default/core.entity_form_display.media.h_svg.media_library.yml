@@ -6,11 +6,20 @@ dependencies:
     - core.entity_form_mode.media.media_library
     - field.field.media.h_svg.field_media_file
     - media.type.h_svg
+  module:
+    - file
 id: media.h_svg.media_library
 targetEntityType: media
 bundle: h_svg
 mode: media_library
 content:
+  field_media_file:
+    type: file_generic
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
   name:
     type: string_textfield
     settings:
@@ -21,7 +30,6 @@ content:
     region: content
 hidden:
   created: true
-  field_media_file: true
   langcode: true
   path: true
   status: true

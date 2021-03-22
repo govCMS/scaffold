@@ -7,6 +7,7 @@ dependencies:
     - media.type.h_svg
   module:
     - file
+    - image
 id: media.h_svg.default
 targetEntityType: media
 bundle: h_svg
@@ -20,10 +21,18 @@ content:
     third_party_settings: {  }
     type: file_default
     region: content
+  thumbnail:
+    type: image
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
 hidden:
   created: true
   langcode: true
   name: true
   search_api_excerpt: true
-  thumbnail: true
   uid: true

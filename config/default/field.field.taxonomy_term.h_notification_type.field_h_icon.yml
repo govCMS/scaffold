@@ -22,7 +22,8 @@ settings:
     target_bundles:
       h_svg: h_svg
     sort:
-      field: _none
+      field: name
+      direction: ASC
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference
