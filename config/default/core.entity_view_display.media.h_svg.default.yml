@@ -1,0 +1,38 @@
+uuid: 2c4dc9a4-2853-4659-8583-017f466586e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.h_svg.field_media_file
+    - media.type.h_svg
+  module:
+    - file
+    - image
+id: media.h_svg.default
+targetEntityType: media
+bundle: h_svg
+mode: default
+content:
+  field_media_file:
+    label: visually_hidden
+    weight: 0
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  thumbnail:
+    type: image
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true

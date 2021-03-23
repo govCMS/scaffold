@@ -1,0 +1,36 @@
+uuid: a75bbef6-ba1e-4f54-a4ca-566421b8b8cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.h_svg.field_media_file
+    - media.type.h_svg
+  module:
+    - file
+id: media.h_svg.media_library
+targetEntityType: media
+bundle: h_svg
+mode: media_library
+content:
+  field_media_file:
+    type: file_generic
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    settings:
+      size: 60
+      placeholder: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  langcode: true
+  path: true
+  status: true
+  uid: true
