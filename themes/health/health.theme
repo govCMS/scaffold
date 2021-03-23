@@ -1488,21 +1488,25 @@ function health_preprocess_form_element(array &$variables) {
  * Implements template_preprocess_image().
  */
 function health_preprocess_image(array &$variables) {
-  // Lazy load images.
-  $variables['attributes']['data-src'] = $variables['attributes']['src'];
-  unset($variables['attributes']['src']);
 
-  // Calculate ratio for space reservation.
-  if (isset($variables['width']) && isset($variables['height'])) {
-    $variables['ratio'] = round(($variables['height'] / $variables['width']) * 100, 2);
+  if (isset($variables['attributes']['src'])) {
+    // Lazy load images.
+    $variables['attributes']['data-src'] = $variables['attributes']['src'];
+    unset($variables['attributes']['src']);
+
+    // Calculate ratio for space reservation.
+    if (isset($variables['width']) && isset($variables['height'])) {
+      $variables['ratio'] = round(($variables['height'] / $variables['width']) * 100, 2);
+    }
+
+    // Set image alt property to null for decorative images.
+    $token = '<decorative>';
+    if (isset($variables['attributes']['alt']) && $variables['attributes']['alt'] === $token) {
+      $variables['alt'] = '';
+      $variables['attributes']['alt'] = '';
+    }
   }
 
-  // Set image alt property to null for decorative images.
-  $token = '<decorative>';
-  if (isset($variables['attributes']['alt']) && $variables['attributes']['alt'] === $token) {
-    $variables['alt'] = '';
-    $variables['attributes']['alt'] = '';
-  }
 }
 
 /**
@@ -1660,8 +1664,9 @@ function health_preprocess_node__h_global_notification(array &$variables) {
     }
 
     // Process notification background colour.
-    if ($node->hasField('field_h_notification_type')) {
-      /** @var \Drupal\taxonomy\TermInterface $colour. */
+    if ($node->hasField('field_h_notification_type') && $node->get('field_h_notification_type')->entity) {
+      /** @var \Drupal\taxonomy\TermInterface $colour . */
+
       $colour = $node
         ->get('field_h_notification_type')
         ->entity
@@ -1672,6 +1677,19 @@ function health_preprocess_node__h_global_notification(array &$variables) {
         ->value;
       $variables['health_notification_bg_colour'] = $colour_hex;
       $variables['health_dark_theme'] = ($colour->get('field_h_colour_theme')->value === 'dark') ? TRUE : FALSE;
+
+      $notification = $node->get('field_h_notification_type')->entity;
+      if ($notification->hasField('field_h_icon') && $notification->get('field_h_icon')
+        ->isEmpty() !== TRUE) {
+        if ($icon = $notification->get('field_h_icon')->entity) {
+
+          $media = Media::load($icon->mid->first()->value);
+          $fid = $media->field_media_file->target_id;
+          $file = File::load($fid);
+          $url = $file->url();
+          $variables['health_notification_icon_url'] = $url;
+        }
+      }
     }
   }
 }

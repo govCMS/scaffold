@@ -1,0 +1,46 @@
+id: sample_media_svg
+label: Sample Media - SVG
+migration_tags:
+  - health_sample_content
+  - health_sample_media
+  - health_sample_media_svg
+source:
+  plugin: embedded_data
+  data_rows:
+    - id: 8
+      image: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/unicode.svg'
+    - id: 9
+      image: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/php.svg'
+  ids:
+    id:
+      type: integer
+process:
+  pseudo_destination_filename:
+    -
+      plugin: callback
+      callable: basename
+      source: image
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Cannot import empty filename.'
+  pseudo_destionation_path:
+    -
+      plugin: concat
+      source:
+        - '@pseudo_destination_filename'
+  name: '@pseudo_destination_filename'
+  'field_media_file/target_id':
+    plugin: migration_lookup
+    migration: sample_file_document
+    source: id
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:media'
+  default_bundle: h_svg
+migration_dependencies:
+  required:
+    - sample_media_file
+    - sample_file_document
