@@ -15,6 +15,7 @@ source:
       id: h_notification_type_2
       name: information
       field_h_colour: information
+      field_h_icon: 9
     -
       id: h_notification_type_3
       name: warning
