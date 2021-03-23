@@ -10,7 +10,7 @@ field_name: field_h_title
 entity_type: paragraph
 bundle: para_h_band
 label: 'Band heading'
-description: ''
+description: 'Add a heading to this band if grouping the featured cards by a common element will help our users - for example,  <i>Video training for aged care providers</i>'
 required: false
 translatable: true
 default_value: {  }
