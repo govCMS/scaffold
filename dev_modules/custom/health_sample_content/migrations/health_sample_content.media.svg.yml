@@ -9,19 +9,24 @@ source:
   data_rows:
     - id: 8
       image: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/unicode.svg'
+    - id: 9
+      image: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/php.svg'
   ids:
     id:
-      type: string
+      type: integer
 process:
   pseudo_destination_filename:
-    - plugin: callback
+    -
+      plugin: callback
       callable: basename
       source: image
-    - plugin: skip_on_empty
+    -
+      plugin: skip_on_empty
       method: row
       message: 'Cannot import empty filename.'
   pseudo_destionation_path:
-    - plugin: concat
+    -
+      plugin: concat
       source:
         - '@pseudo_destination_filename'
   name: '@pseudo_destination_filename'
