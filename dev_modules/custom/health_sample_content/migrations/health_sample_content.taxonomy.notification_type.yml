@@ -10,7 +10,7 @@ source:
       id: h_notification_type_1
       name: success
       field_h_colour: success
-      field_h_icon: image_23
+      field_h_icon: 8
     -
       id: h_notification_type_2
       name: information

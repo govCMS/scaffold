@@ -72,9 +72,6 @@ source:
     -
       id: image_22
       image: 'https://lumiere-a.akamaihd.net/v1/images/beskar-main_a95f957f.jpeg'
-    -
-      id: image_23
-      image: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/unicode.svg'
   ids:
     id:
       type: string
