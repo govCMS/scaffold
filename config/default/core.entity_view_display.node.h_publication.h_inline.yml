@@ -57,15 +57,15 @@ content:
     third_party_settings: {  }
   field_h_publication_type:
     type: entity_reference_label
-    weight: 2
+    weight: 1
     region: content
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
   field_h_summary:
     type: basic_string
-    weight: 1
+    weight: 2
     region: content
     label: hidden
     settings: {  }
