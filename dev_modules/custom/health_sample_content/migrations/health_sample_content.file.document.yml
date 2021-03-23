@@ -27,6 +27,12 @@ source:
     -
       id: 7
       file: 'https://www.health.gov.au/sites/default/files/documents/2020/11/how-to-become-a-representative-for-someone-in-my-aged-care.docx'
+    -
+      id: 8
+      file: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/unicode.svg'
+    -
+      id: 9
+      file: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/php.svg'
   ids:
     id:
       type: integer
