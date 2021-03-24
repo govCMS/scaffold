@@ -1,0 +1,6 @@
+.health-band {
+
+  h2 + .health-layout {
+    @include AU-space(margin-top, 2.5unit);
+  }
+}
