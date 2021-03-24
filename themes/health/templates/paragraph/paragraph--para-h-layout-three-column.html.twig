@@ -1,15 +1,24 @@
 {% extends "@paragraphs/paragraph.html.twig" %}
 
 {% block paragraph %}
-  <div class="row">
-    <div class="col-xs-12 col-sm-4">
-      {{ content.field_h_content_components_col_1 }}
-    </div>
-    <div class="col-xs-12 col-sm-4 standard-gap--mobile-only">
-      {{ content.field_h_content_components }}
-    </div>
-    <div class="col-xs-12 col-sm-4 standard-gap--mobile-only">
-      {{ content.field_h_content_components_col_2 }}
+
+  {% set classes = [
+    'health-layout',
+    'health-layout--3col'
+  ] %}
+
+  <div{{ attributes.addClass(classes) }}>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        {{ content.field_h_content_components_col_1 }}
+      </div>
+      <div class="col-xs-12 col-sm-4 standard-gap--mobile-only">
+        {{ content.field_h_content_components }}
+      </div>
+      <div class="col-xs-12 col-sm-4 standard-gap--mobile-only">
+        {{ content.field_h_content_components_col_2 }}
+      </div>
     </div>
   </div>
+
 {% endblock %}

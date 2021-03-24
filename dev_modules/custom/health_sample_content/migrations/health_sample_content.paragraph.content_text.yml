@@ -50,15 +50,15 @@ source:
     -
       id: para_h_content_text_7
       body_text: |
-        <h2>The Force Awakens</h2>
+        <h3>The Force Awakens</h3>
     -
       id: para_h_content_text_8
       body_text: |
-        <h2>Last Jedi</h2>
+        <h3>Last Jedi</h3>
     -
       id: para_h_content_text_9
       body_text: |
-        <h2>The Rise of Skywalker</h2>
+        <h3>The Rise of Skywalker</h3>
     -
       id: para_h_content_text_10
       body_text: |
