@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.h_foi_request.field_h_content_owner
     - field.field.node.h_foi_request.field_h_content_pass_sentences
     - field.field.node.h_foi_request.field_h_content_readability
+    - field.field.node.h_foi_request.field_h_date_created
     - field.field.node.h_foi_request.field_h_date_published
     - field.field.node.h_foi_request.field_h_date_reviewed
     - field.field.node.h_foi_request.field_h_date_updated
@@ -61,6 +62,11 @@ targetEntityType: node
 bundle: h_foi_request
 mode: h_search_result
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   field_h_summary:
     weight: 1
     label: hidden
@@ -75,6 +81,7 @@ hidden:
   field_h_content_owner: true
   field_h_content_pass_sentences: true
   field_h_content_readability: true
+  field_h_date_created: true
   field_h_date_published: true
   field_h_date_reviewed: true
   field_h_date_updated: true

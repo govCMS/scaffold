@@ -15,7 +15,10 @@ label: 'Date published'
 description: 'The date this information was first published on the website.'
 required: false
 translatable: true
-default_value: {  }
+default_value:
+  -
+    default_date_type: now
+    default_date: now
 default_value_callback: ''
 settings: {  }
 field_type: datetime

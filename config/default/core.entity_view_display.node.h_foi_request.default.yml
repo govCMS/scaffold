@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.h_foi_request.field_h_content_owner
     - field.field.node.h_foi_request.field_h_content_pass_sentences
     - field.field.node.h_foi_request.field_h_content_readability
+    - field.field.node.h_foi_request.field_h_date_created
     - field.field.node.h_foi_request.field_h_date_published
     - field.field.node.h_foi_request.field_h_date_reviewed
     - field.field.node.h_foi_request.field_h_date_updated
@@ -40,6 +41,11 @@ targetEntityType: node
 bundle: h_foi_request
 mode: default
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   field_h_audience:
     weight: 106
     label: above
@@ -97,6 +103,15 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+    region: content
+  field_h_date_created:
+    weight: 123
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   field_h_date_published:
     weight: 115

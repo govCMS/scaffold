@@ -1,19 +1,19 @@
-uuid: 8d393a1c-cf63-4949-b305-bbd85ac43fcd
+uuid: fecf2071-d62d-4128-bef0-9a7a27f824ed
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_h_date_reviewed
+    - field.storage.node.field_h_date_created
     - node.type.h_foi_request
   module:
     - datetime
-id: node.h_foi_request.field_h_date_reviewed
-field_name: field_h_date_reviewed
+id: node.h_foi_request.field_h_date_created
+field_name: field_h_date_created
 entity_type: node
 bundle: h_foi_request
-label: 'Date last reviewed'
+label: 'Date created'
 description: ''
-required: true
+required: false
 translatable: true
 default_value:
   -

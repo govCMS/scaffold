@@ -15,7 +15,10 @@ label: 'Resource published'
 description: 'If available, set as (back-date to) the date the app or tool was officially published/released by its publisher. Else set as the date first published to the website. Update this date when a new version of the app or tool is available. In the case only the year or the year and month of official publication are known, then set the day and/or month as the first day and month respectively. For example, if the official publication date is 2019, then set the date to 1 January 2019. Likewise if the official publication date is March 2019, then set the date as 1 March 2019. '
 required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    default_date_type: now
+    default_date: now
 default_value_callback: ''
 settings: {  }
 field_type: datetime
