@@ -10,10 +10,12 @@ source:
       id: h_notification_type_1
       name: success
       field_h_colour: success
+      field_h_icon: 8
     -
       id: h_notification_type_2
       name: information
       field_h_colour: information
+      field_h_icon: 9
     -
       id: h_notification_type_3
       name: warning
@@ -31,9 +33,15 @@ process:
     migration:
       - sample_taxonomy_colour
     source: field_h_colour
+  field_h_icon/target_id:
+    plugin: migration_lookup
+    migration: sample_media_svg
+    source: field_h_icon
+    no_stub: true
 destination:
   plugin: entity:taxonomy_term
   default_bundle: h_notification_type
 dependencies:
   required:
     - sample_taxonomy_colour
+    - sample_media_svg

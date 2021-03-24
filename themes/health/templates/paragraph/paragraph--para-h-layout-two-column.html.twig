@@ -2,7 +2,13 @@
 {% extends "@paragraphs/paragraph.html.twig" %}
 
 {% block paragraph %}
-  <div{{ attributes }}>
+
+  {% set classes = [
+    'health-layout',
+    'health-layout--2col'
+  ] %}
+
+  <div{{ attributes.addClass(classes) }}>
     <div class="row">
       <div class="{{ column_left_width_classes }}">
         {{ content.field_h_content_components_col_1 }}
@@ -12,4 +18,5 @@
       </div>
     </div>
   </div>
+
 {% endblock %}
