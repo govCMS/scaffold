@@ -1,7 +1,14 @@
 {% extends "@paragraphs/paragraph.html.twig" %}
 
 {% block paragraph %}
+
+  {% set classes = [
+    'health-layout',
+    'health-layout--grid'
+  ] %}
+
   <div{{ attributes }}>
     {{ content }}
   </div>
+
 {% endblock %}
