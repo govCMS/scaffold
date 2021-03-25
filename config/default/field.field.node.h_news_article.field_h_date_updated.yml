@@ -12,7 +12,7 @@ field_name: field_h_date_updated
 entity_type: node
 bundle: h_news_article
 label: 'Date last updated'
-description: 'The date this information was last updated (medified).'
+description: 'The date this information was last updated (modified).'
 required: true
 translatable: true
 default_value:

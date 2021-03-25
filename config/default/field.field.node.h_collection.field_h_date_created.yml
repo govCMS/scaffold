@@ -1,17 +1,17 @@
-uuid: b5851792-4ac3-405c-af85-76a3f6db116a
+uuid: 13039851-c08b-4115-ba81-08f877531fd0
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_h_date_reviewed
-    - node.type.h_listing
+    - field.storage.node.field_h_date_created
+    - node.type.h_collection
   module:
     - datetime
-id: node.h_listing.field_h_date_reviewed
-field_name: field_h_date_reviewed
+id: node.h_collection.field_h_date_created
+field_name: field_h_date_created
 entity_type: node
-bundle: h_listing
-label: 'Date last reviewed'
+bundle: h_collection
+label: 'Date created'
 description: ''
 required: false
 translatable: true

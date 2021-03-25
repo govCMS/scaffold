@@ -15,7 +15,10 @@ label: 'Date last reviewed'
 description: 'Select the date this information was last reviewed.'
 required: false
 translatable: true
-default_value: {  }
+default_value:
+  -
+    default_date_type: now
+    default_date: now
 default_value_callback: ''
 settings: {  }
 field_type: datetime

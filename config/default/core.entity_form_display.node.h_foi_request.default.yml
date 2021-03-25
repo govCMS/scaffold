@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.h_foi_request.field_h_content_owner
     - field.field.node.h_foi_request.field_h_content_pass_sentences
     - field.field.node.h_foi_request.field_h_content_readability
+    - field.field.node.h_foi_request.field_h_date_created
     - field.field.node.h_foi_request.field_h_date_published
     - field.field.node.h_foi_request.field_h_date_reviewed
     - field.field.node.h_foi_request.field_h_date_updated
@@ -148,8 +149,9 @@ third_party_settings:
       label: Readability
     group_system_dates:
       children:
-        - field_h_date_published
+        - field_h_date_created
         - field_h_date_updated
+        - field_h_date_published
       parent_name: group_h_dates
       weight: 28
       format_type: details
@@ -212,9 +214,15 @@ content:
     settings:
       placeholder: ''
     third_party_settings: {  }
+  field_h_date_created:
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
   field_h_date_published:
     type: datetime_default
-    weight: 29
+    weight: 32
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -226,7 +234,7 @@ content:
     third_party_settings: {  }
   field_h_date_updated:
     type: datetime_default
-    weight: 30
+    weight: 31
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -8,7 +8,7 @@ PHPCBF_BIN="./vendor/bin/phpcbf"
 
 drupalfiles=$(git diff --cached --name-only  --diff-filter=ACM HEAD | grep -E '\.php$|\.module$|\.inc$|\.install$|\.test$|\.profile$|\.theme$|\.css$|\.info$|\.txt$|\.md$|\.yml$|\.theme$')
 
-if [ "$drupalfiles" != "" ]
+if [ $drupalfiles != "" ]
 then
     drupalfailed=0
     echo "Running Code Sniffer..."
@@ -25,10 +25,11 @@ then
         fi
     fi
 
+    commitfailed=$drupalfailed
+
     if [ $drupalfailed != 0 ]
     then
         echo "PHPCS failed, errors found not fixable automatically, git commit denied!"
-        commitfailed=$drupalfailed
     fi
 fi
 

@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.h_collection.field_h_content_owner
     - field.field.node.h_collection.field_h_content_pass_sentences
     - field.field.node.h_collection.field_h_content_readability
+    - field.field.node.h_collection.field_h_date_created
     - field.field.node.h_collection.field_h_date_published
     - field.field.node.h_collection.field_h_date_reviewed
     - field.field.node.h_collection.field_h_date_updated
@@ -86,7 +87,7 @@ third_party_settings:
       label: Related
     group_h_dates:
       children:
-        - field_h_date_updated
+        - field_h_date_reviewed
         - group_system_dates
       parent_name: group_h_tabs
       weight: 33
@@ -134,10 +135,11 @@ third_party_settings:
       label: Tabs
     group_system_dates:
       children:
+        - field_h_date_created
+        - field_h_date_updated
         - field_h_date_published
-        - field_h_date_reviewed
       parent_name: group_h_dates
-      weight: 24
+      weight: 28
       format_type: details
       region: content
       format_settings:
@@ -216,8 +218,14 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  field_h_date_created:
+    weight: 35
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
   field_h_date_published:
-    weight: 25
+    weight: 37
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -229,7 +237,7 @@ content:
     type: datetime_default
     region: content
   field_h_date_updated:
-    weight: 23
+    weight: 36
     settings: {  }
     third_party_settings: {  }
     type: datetime_default

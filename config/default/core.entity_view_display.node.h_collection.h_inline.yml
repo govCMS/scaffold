@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.h_collection.field_h_content_owner
     - field.field.node.h_collection.field_h_content_pass_sentences
     - field.field.node.h_collection.field_h_content_readability
+    - field.field.node.h_collection.field_h_date_created
     - field.field.node.h_collection.field_h_date_published
     - field.field.node.h_collection.field_h_date_reviewed
     - field.field.node.h_collection.field_h_date_updated
@@ -64,6 +65,7 @@ hidden:
   field_h_content_owner: true
   field_h_content_pass_sentences: true
   field_h_content_readability: true
+  field_h_date_created: true
   field_h_date_published: true
   field_h_date_reviewed: true
   field_h_date_updated: true

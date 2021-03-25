@@ -15,7 +15,10 @@ label: 'Resource publication'
 description: "Enter the date the publication was published or released by the publisher - you can backdate this if you need to. Otherwise leave as the default, which will be the date published to our site.\r\nUpdate this field when a new version is made available."
 required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    default_date_type: now
+    default_date: now
 default_value_callback: ''
 settings: {  }
 field_type: datetime
