@@ -149,8 +149,9 @@ third_party_settings:
       label: Readability
     group_system_dates:
       children:
-        - field_h_date_published
+        - field_h_date_created
         - field_h_date_updated
+        - field_h_date_published
       parent_name: group_h_dates
       weight: 28
       format_type: details
@@ -214,14 +215,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_h_date_created:
-    weight: 31
+    weight: 30
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_h_date_published:
     type: datetime_default
-    weight: 29
+    weight: 32
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -233,7 +234,7 @@ content:
     third_party_settings: {  }
   field_h_date_updated:
     type: datetime_default
-    weight: 30
+    weight: 31
     region: content
     settings: {  }
     third_party_settings: {  }

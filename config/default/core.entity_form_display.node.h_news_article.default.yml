@@ -133,8 +133,8 @@ third_party_settings:
     group_h_system_dates:
       children:
         - field_h_date_created
-        - field_h_date_published
         - field_h_date_updated
+        - field_h_date_published
       parent_name: group_h_dates
       weight: 30
       format_type: details
@@ -223,7 +223,7 @@ content:
     type: datetime_default
     region: content
   field_h_date_published:
-    weight: 106
+    weight: 107
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -235,7 +235,7 @@ content:
     type: datetime_default
     region: content
   field_h_date_updated:
-    weight: 107
+    weight: 106
     settings: {  }
     third_party_settings: {  }
     type: datetime_default

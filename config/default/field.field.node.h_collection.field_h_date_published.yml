@@ -12,7 +12,7 @@ field_name: field_h_date_published
 entity_type: node
 bundle: h_collection
 label: 'Date published'
-description: ''
+description: 'The date this information was first published on the website.'
 required: true
 translatable: true
 default_value:
