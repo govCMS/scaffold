@@ -1682,12 +1682,12 @@ function health_preprocess_node__h_global_notification(array &$variables) {
       if ($notification->hasField('field_h_icon') && $notification->get('field_h_icon')
         ->isEmpty() !== TRUE) {
         if ($icon = $notification->get('field_h_icon')->entity) {
-
-          $media = Media::load($icon->mid->first()->value);
-          $fid = $media->field_media_file->target_id;
-          $file = File::load($fid);
-          $url = $file->url();
-          $variables['health_notification_icon_url'] = $url;
+          if ($media = Media::load($icon->mid->first()->value)) {
+            $fid = $media->field_media_file->target_id;
+            $file = File::load($fid);
+            $url = $file->url();
+            $variables['health_notification_icon_url'] = $url;
+          }
         }
       }
     }
