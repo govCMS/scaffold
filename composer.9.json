@@ -11,7 +11,7 @@
     ],
     "require": {
         "govcms/govcms-custom": "*",
-        "govcms-poc/govcms": "2.x-dev",
+        "govcms/govcms": "2.x-master-dev",
         "govcms/scaffold-tooling": "9.x-dev"
     },
     "require-dev": {
