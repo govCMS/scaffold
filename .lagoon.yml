@@ -4,7 +4,7 @@ environments:
   master:
     cronjobs:
       - name: Drupal cron with notifications
-        schedule: "0 * * * *"
+        schedule: "M * * * *"
         command: '/app/vendor/bin/govcms-drush cron --root=/app'
         service: cli
 
