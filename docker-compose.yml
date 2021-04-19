@@ -2,45 +2,40 @@ version: '2.3'
 
 # This value intentionally matches the project name on Lagoon.
 # It is used to name the CLI_IMAGE to use as a build arg locally.
-x-lagoon-project:
-  &lagoon-project {{ GOVCMS_PROJECT_NAME }}
+x-lagoon-project: &lagoon-project {{ GOVCMS_PROJECT_NAME }}
 
-x-lagoon-local-dev-url:
-  &lagoon-local-dev-url http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
+x-lagoon-local-dev-url: &lagoon-local-dev-url http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
 
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
 x-govcms-image-version:
   &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
 
-x-volumes:
-  &default-volumes
-    volumes:
-      - ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
-      - ./files:/app/web/sites/default/files:delegated
-      - ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
-      - ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
-      - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
-      - ./config:/app/config
+x-volumes: &default-volumes
+  volumes:
+    - ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
+    - ./files:/app/web/sites/default/files:delegated
+    - ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
+    - ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
+    - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
+    - ./config:/app/config
 
-x-volumes-paas:
-  &paas-volumes
-    volumes:
-      - .:/app:delegated
+x-volumes-paas: &paas-volumes
+  volumes:
+    - .:/app:delegated
 
-x-environment:
-  &default-environment
-    STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
-    LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
-    LAGOON_PROJECT: *lagoon-project
-    LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io}
-    GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
-    DEV_MODE: ${DEV_MODE:-false}
-    XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
-    DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
-    X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
-    DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-}
-    DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
-    GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
+x-environment: &default-environment
+  STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
+  LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
+  LAGOON_PROJECT: *lagoon-project
+  LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io}
+  GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
+  DEV_MODE: ${DEV_MODE:-false}
+  XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
+  DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
+  X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
+  DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-}
+  DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
+  GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
 
 services:
 
