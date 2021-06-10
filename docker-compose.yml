@@ -7,8 +7,7 @@ x-lagoon-project: &lagoon-project {{ GOVCMS_PROJECT_NAME }}
 x-lagoon-local-dev-url: &lagoon-local-dev-url http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
 
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
-x-govcms-image-version:
-  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
+x-govcms-image-version: &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
 
 x-volumes: &default-volumes
   volumes:
@@ -36,6 +35,7 @@ x-environment: &default-environment
   DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-}
   DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
+  GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
 
 services:
 
