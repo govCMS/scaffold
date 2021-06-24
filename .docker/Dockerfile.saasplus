@@ -18,4 +18,6 @@ COPY favicon.ico /app/web
 
 # To enable SaaS+ uncomment these lines
 COPY custom /app/custom
+RUN jq -s '.[1].repositories = (.[0].repositories + .[1].repositories) | .[1]' /app/custom/composer/composer.json /app/composer.json > /tmp/composer.json
+RUN mv /tmp/composer.json /app/composer.json
 RUN rm composer.lock && composer install -d /app && composer clearcache

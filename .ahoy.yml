@@ -72,6 +72,12 @@ commands:
   login:
     usage: Login to a website.
     cmd: docker-compose exec -T cli drush uli "$@"
+    
+  unloop:
+    usage: Fix local redirect loop
+    cmd: |
+      docker-compose exec -T cli drush ev '$u=\Drupal\user\Entity\User::load(1); $u->set("field_password_expiration", "0"); $u->save()' && \
+      docker-compose exec -T cli drush ev '$u=\Drupal\user\Entity\User::load(1); $u->set("field_last_password_reset", date("Y-m-d\TH:i:s")); $u->save()'
 
   mysql-import:
     usage: Pipe in a sql file.  `ahoy mysql-import local.sql`
@@ -116,6 +122,19 @@ commands:
   audit-site:
     usage: Run site audit.
     cmd: docker-compose exec -T test ./vendor/bin/govcms-audit
+
+  ship-shape:
+    usage: Run site validation scripts locally
+    cmd: |
+      set -eu
+      APP_DIR="${APP_DIR:-/app}"
+      docker-compose exec -T cli ${APP_DIR}/vendor/bin/govcms-ship-shape
+      # Copy reports from container to local.
+      rm -rf ./.ship-shape
+      docker cp $(docker-compose ps -q cli):${APP_DIR}/.ship-shape ./
+      docker-compose exec -T cli rm -rf ${APP_DIR}/.ship-shape
+      echo "XML files have been generated at ./.ship-shape:"
+      find .ship-shape/ -type f -exec echo '  {}' \;
 
   debug:
     usage: Enable debug configuration.

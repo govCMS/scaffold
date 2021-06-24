@@ -3,9 +3,9 @@ docker-compose-yaml: docker-compose.yml
 environments:
   master:
     cronjobs:
-      - name: drush cron
+      - name: Drupal cron with notifications
         schedule: "M * * * *"
-        command: 'drush cron --root=/app'
+        command: '/app/vendor/bin/govcms-drush cron --root=/app'
         service: cli
 
 # Note regarding tasks in the scaffold.
