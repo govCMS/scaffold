@@ -64,6 +64,10 @@ sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .env && rm .env.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .docker/Dockerfile* && rm .docker/Dockerfile*.bak
 
 if [[ "$GOVCMS_TYPE" != "paas" ]]; then
+  echo "[info]: Preparing CI pipeline"
+  cp .gitlab-ci.paas.yml .gitlab-ci.yml
+  sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .gitlab-ci.yml && rm .gitlab-ci.yml.bak
+
   cat >> .gitignore << 'EOF'
 # Added by the scaffold provisioner.
 web/
@@ -97,6 +101,8 @@ else
   rm -r .docker/scripts
   rm composer.*
   rm tests/behat/behat.screenshot.yml tests/behat/behat.travis.yml tests/behat/behat.yml tests/behat/bootstrap/FeatureContext.php tests/phpcs.xml tests/phpunit/bootstrap.php tests/phpunit/phpunit.xml
+  rm .gitlab-ci-inuts.yml
+  rm .gitlab-ci.paas.yml
 fi
 
 if [[ "$GOVCMS_TYPE" == "saas" ]]; then

@@ -1,0 +1,41 @@
+# Basic control of your GitLab CI.
+# @todo wiki page
+
+# Used for various lint and mess tests.
+.job-lint:
+  when: on_success
+  allow_failure: true
+
+# Used for phpunit static unit tests.
+.job-unit:
+  when: manual
+  allow_failure: true
+
+# Used to ensure the site can update-db and config-import.
+.job-preflight:
+  when: on_success
+  allow_failure: true
+
+# Used for behat tests.
+.job-behat:
+  when: manual
+  allow_failure: true
+
+# Used for phpunit functional/integration tests.
+.job-functional:
+  when: manual
+  allow_failure: true
+
+# Used for drutiny.
+.job-audit:
+  when: manual
+  allow_failure: true
+
+# Used for drutiny on the merge request.
+.job-audit-on-merge:
+  when: on_success
+  allow_failure: true
+
+# You can add new variables if they don't exist in .gitlab-ci-main.yml.
+.variables:
+  EXAMPLE_VARIABLE: "Example value."
