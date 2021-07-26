@@ -38,6 +38,7 @@ x-environment: &default-environment
   DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-}
   DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
+  GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
 
 services:
 

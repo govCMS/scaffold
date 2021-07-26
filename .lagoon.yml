@@ -50,6 +50,11 @@ tasks:
         command: /app/vendor/bin/govcms-validate-theme-yml || true
         service: cli
         shell: bash
+    - run:
+        name: Check banned PHP functions
+        command: /app/vendor/bin/govcms-validate-php-functions
+        service: cli
+        shell: bash
     ## END SaaS-only
     - run:
         name: Synchronise the database
