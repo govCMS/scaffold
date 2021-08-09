@@ -46,13 +46,38 @@ tasks:
         service: cli
         shell: bash
     - run:
-        name: Validate theme YAML files
-        command: /app/vendor/bin/govcms-validate-theme-yml || true
+        name: Validate the GovCMS profile
+        command: /app/vendor/bin/govcms-govcms-validate-modules || true
         service: cli
         shell: bash
     - run:
         name: Check banned PHP functions
         command: /app/vendor/bin/govcms-validate-php-functions
+        service: cli
+        shell: bash
+    - run:
+        name: Validate the GovCMS profile
+        command: /app/vendor/bin/govcms-validate-profile
+        service: cli
+        shell: bash
+    - run:
+        name: Validate the Platform yaml configuration
+        command: /app/vendor/bin/govcms-validate-platform-yml || true
+        service: cli
+        shell: bash
+    - run:
+        name: Validate the TFA configuration
+        command: /app/vendor/bin/govcms-validate-tfa || true
+        service: cli
+        shell: bash
+    - run:
+        name: Validate theme yaml configuration
+        command: /app/vendor/bin/govcms-validate-theme-yml || true
+        service: cli
+        shell: bash
+    - run:
+        name: Validate theme modules
+        command: /app/vendor/bin/govcms-prevent-theme-modules
         service: cli
         shell: bash
     ## END SaaS-only
