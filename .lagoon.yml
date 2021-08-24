@@ -46,7 +46,7 @@ tasks:
         service: cli
         shell: bash
     - run:
-        name: Validate the GovCMS profile
+        name: Validate the GovCMS modules
         command: /app/vendor/bin/govcms-govcms-validate-modules || true
         service: cli
         shell: bash
