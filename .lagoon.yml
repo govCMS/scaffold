@@ -41,18 +41,8 @@ tasks:
         shell: bash
     ## START SaaS-only
     - run:
-        name: Prevent elevated permissions
-        command: '[ "${GOVCMS_SKIP_AUDIT}" = "true" ] && echo "Audit skipped." || /app/vendor/bin/govcms-validate-permissions'
-        service: cli
-        shell: bash
-    - run:
-        name: Validate theme YAML files
-        command: '[ "${GOVCMS_SKIP_AUDIT}" = "true" ] && echo "Audit skipped." || (/app/vendor/bin/govcms-validate-theme-yml || true)'
-        service: cli
-        shell: bash
-    - run:
-        name: Check banned PHP functions
-        command: '[ "${GOVCMS_SKIP_AUDIT}" = "true" ] && echo "Audit skipped." || /app/vendor/bin/govcms-validate-php-functions'
+        name: Perform GovCMS platform validations
+        command: '[ "${GOVCMS_SKIP_AUDIT}" = "true" ] && echo "Audit skipped." || /app/vendor/bin/govcms-ship-shape -an'
         service: cli
         shell: bash
     ## END SaaS-only
