@@ -12,7 +12,7 @@
     "require": {
         "govcms/govcms-custom": "*",
         "govcms/govcms": "2.x-master-dev",
-        "govcms/scaffold-tooling": "9.x-dev"
+        "govcms/scaffold-tooling": "9.x-master-dev"
     },
     "require-dev": {
         "govcms/require-dev": "~1"
