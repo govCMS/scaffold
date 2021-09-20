@@ -26,18 +26,16 @@ x-volumes-paas: &paas-volumes
     - .:/app:delegated
 
 x-environment: &default-environment
-  STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
-  LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
+  STAGE_FILE_PROXY_URL: "${STAGE_FILE_PROXY_URL:-}"
+  LAGOON_ENVIRONMENT_TYPE: "${LAGOON_ENVIRONMENT_TYPE:-}"
   LAGOON_PROJECT: *lagoon-project
-  LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io}
-  GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
+  LAGOON_ROUTE: &default-url "${LOCALDEV_URL:-http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io}"
+  GOVCMS_IMAGE_VERSION: "${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}"
   DEV_MODE: "${DEV_MODE:-false}"
-  XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
-  DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
-  X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
-  DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-}
-  DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
-  GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
+  XDEBUG_ENABLE: "${XDEBUG_ENABLE:-false}"
+  DOCKERHOST: "${DOCKERHOST:-host.docker.internal}"
+  X_FRAME_OPTIONS: "${X_FRAME_OPTIONS:-SameOrigin}"
+  GOVCMS_DEPLOY_WORKFLOW_CONFIG: "${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}"
   GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
 
 services:
@@ -69,7 +67,7 @@ services:
       args:
         CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
-        SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
+        SITE_AUDIT_VERSION: "${SITE_AUDIT_VERSION:-7.x-3.x}"
     labels:
       lagoon.type: none
     << : *default-volumes
@@ -116,7 +114,7 @@ services:
       << : *default-environment
 
   mariadb:
-    image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
+    image: "${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}"
     labels:
       lagoon.type: mariadb
       lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
