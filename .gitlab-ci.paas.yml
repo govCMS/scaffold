@@ -1,0 +1,10 @@
+# This file is locked for GovCMS SaaS.
+include:
+
+  # Simple control of your jobs.
+  - local: '/.gitlab-ci-inputs.yml'
+
+  # The primary default GovCMS GitLab CI configuration.
+  - project: 'govcms/scaffold-tooling'
+    ref: "{{ GOVCMS_VERSION }}.x-master"
+    file: '.gitlab-ci-main.yml'

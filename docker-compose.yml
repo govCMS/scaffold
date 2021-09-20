@@ -2,13 +2,15 @@ version: '2.3'
 
 # This value intentionally matches the project name on Lagoon.
 # It is used to name the CLI_IMAGE to use as a build arg locally.
-x-lagoon-project: &lagoon-project {{ GOVCMS_PROJECT_NAME }}
+x-lagoon-project: &lagoon-project
+  {{ GOVCMS_PROJECT_NAME }}
 
-x-lagoon-local-dev-url: &lagoon-local-dev-url http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
+x-lagoon-local-dev-url: &lagoon-local-dev-url
+  http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
 
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
-x-govcms-image-version:
-  &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
+x-govcms-image-version: &govcms-image-version
+  ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
 
 x-volumes: &default-volumes
   volumes:
@@ -29,13 +31,14 @@ x-environment: &default-environment
   LAGOON_PROJECT: *lagoon-project
   LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io}
   GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
-  DEV_MODE: ${DEV_MODE:-false}
+  DEV_MODE: "${DEV_MODE:-false}"
   XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
   DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
   X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
   DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-}
   DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
+  GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
 
 services:
 
@@ -57,7 +60,7 @@ services:
     # Mount volumes from Pygmy to inject host SSH key into container.
     # https://pygmy.readthedocs.io/en/master/ssh_agent/
     volumes_from: ### Local overrides to mount host SSH keys. Automatically removed in CI.
-      - container:amazeeio-ssh-agent
+      - container:amazeeio-ssh-agent ### Local overrides to mount host SSH keys. Automatically removed in CI.
 
   test:
     build:

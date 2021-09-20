@@ -71,6 +71,10 @@ scripts/
 drush/
 EOF
 else
+  echo "[info]: Preparing CI pipeline"
+  mv .gitlab-ci.paas.yml .gitlab-ci.yml
+  sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .gitlab-ci.yml && rm .gitlab-ci.yml.bak
+
   # Remove SaaS-only blocks from .lagoon.yml
   sed -i.bak "/START SaaS-only/,/END SaaS-only/d" .lagoon.yml && rm .lagoon.yml.bak
 
@@ -97,6 +101,8 @@ else
   rm -r .docker/scripts
   rm composer.*
   rm tests/behat/behat.screenshot.yml tests/behat/behat.travis.yml tests/behat/behat.yml tests/behat/bootstrap/FeatureContext.php tests/phpcs.xml tests/phpunit/bootstrap.php tests/phpunit/phpunit.xml
+  rm .gitlab-ci-inputs.yml
+  rm .gitlab-ci.paas.yml
 fi
 
 if [[ "$GOVCMS_TYPE" == "saas" ]]; then
