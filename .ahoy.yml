@@ -25,6 +25,7 @@ commands:
   build:
     usage: Build project.
     cmd: |
+      docker-compose build cli &&
       docker-compose up -d --build "$@" &&
       docker-compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 2m &&
       ahoy govcms-deploy && ahoy info;
@@ -72,7 +73,7 @@ commands:
   login:
     usage: Login to a website.
     cmd: docker-compose exec -T cli drush uli "$@"
-    
+
   unloop:
     usage: Fix local redirect loop
     cmd: |
