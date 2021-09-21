@@ -5,6 +5,9 @@ version: '2.3'
 x-lagoon-project: &lagoon-project
   {{ GOVCMS_PROJECT_NAME }}
 
+x-cli-image: &cli-image
+  {{ GOVCMS_PROJECT_NAME }}/cli:latest
+
 x-lagoon-local-dev-url: &lagoon-local-dev-url
   http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
 
@@ -47,7 +50,7 @@ services:
       args:
         LAGOON_SAFE_PROJECT: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
-    image: *lagoon-project
+    image: *cli-image
     labels:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
@@ -65,7 +68,7 @@ services:
       context: .
       dockerfile: .docker/Dockerfile.test
       args:
-        CLI_IMAGE: *lagoon-project
+        CLI_IMAGE: *cli-image
         GOVCMS_IMAGE_VERSION: *govcms-image-version
         SITE_AUDIT_VERSION: "${SITE_AUDIT_VERSION:-7.x-3.x}"
     labels:
@@ -81,7 +84,7 @@ services:
       context: .
       dockerfile: .docker/Dockerfile.nginx-drupal
       args:
-        CLI_IMAGE: *lagoon-project
+        CLI_IMAGE: *cli-image
         GOVCMS_IMAGE_VERSION: *govcms-image-version
     labels:
       lagoon.type: nginx-php-persistent
@@ -101,7 +104,7 @@ services:
       context: .
       dockerfile: .docker/Dockerfile.php
       args:
-        CLI_IMAGE: *lagoon-project
+        CLI_IMAGE: *cli-image
         GOVCMS_IMAGE_VERSION: *govcms-image-version
     labels:
       lagoon.type: nginx-php-persistent
