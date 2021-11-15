@@ -7,7 +7,11 @@
         { "type": "path", "url": "custom/composer" },
         { "type": "composer", "url": "https://packages.drupal.org/8" },
         { "type": "composer", "url": "https://asset-packagist.org" },
-        { "type": "vcs", "url": "git@github.com:govcms/govcms.git" }
+        {
+          "type": "vcs",
+          "url": "git@github.com:govcms/govcms.git",
+          "no-api": true
+        }
     ],
     "require": {
         "govcms/govcms-custom": "*",
