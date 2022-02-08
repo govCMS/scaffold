@@ -14,6 +14,7 @@
         }
     ],
     "require": {
+        "php": "^7.4",
         "govcms/govcms-custom": "*",
         "govcms/govcms": "2.x-master-dev",
         "govcms/scaffold-tooling": "9.x-master-dev"
