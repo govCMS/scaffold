@@ -105,7 +105,7 @@ else
   rm .gitlab-ci-inputs.yml
   rm .gitlab-ci.paas.yml
 
-  echo -e "\nCOPY redirects-map.conf /etc/nginx/redirects-map.conf" >> .docker/Dockerfile.nginx-drupal
+  echo -e "\nCOPY redirects-map.conf /etc/nginx/govcms-redirects-map.conf" >> .docker/Dockerfile.nginx-drupal
 fi
 
 if [[ "$GOVCMS_TYPE" == "saas" ]]; then
