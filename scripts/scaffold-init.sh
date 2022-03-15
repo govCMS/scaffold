@@ -95,7 +95,6 @@ if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm -r themes
   rm composer.8.json
   rm composer.9.json
-  rm redirects-map.conf
 else
   rm .docker/Dockerfile*paas*
   rm -r .docker/config
@@ -104,8 +103,6 @@ else
   rm tests/behat/behat.screenshot.yml tests/behat/behat.travis.yml tests/behat/behat.yml tests/behat/bootstrap/FeatureContext.php tests/phpcs.xml tests/phpunit/bootstrap.php tests/phpunit/phpunit.xml
   rm .gitlab-ci-inputs.yml
   rm .gitlab-ci.paas.yml
-
-  echo -e "\nCOPY redirects-map.conf /etc/nginx/govcms-redirects-map.conf" >> .docker/Dockerfile.nginx-drupal
 fi
 
 if [[ "$GOVCMS_TYPE" == "saas" ]]; then
