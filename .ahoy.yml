@@ -40,6 +40,7 @@ commands:
   govcms-deploy:
     usage: Runs deployment commands (e.g. config import, updb, cr, set up file_stage_proxy).
     cmd: |
+      docker-compose exec -T cli mkdir -p /app/web/sites/default/files/private/tmp && \
       docker-compose exec -T cli /app/vendor/bin/govcms-db-update && \
       docker-compose exec -T cli /app/vendor/bin/govcms-config-import && \
       docker-compose exec -T cli /app/vendor/bin/govcms-cache-rebuild && \
@@ -72,7 +73,7 @@ commands:
   login:
     usage: Login to a website.
     cmd: docker-compose exec -T cli drush uli "$@"
-    
+
   unloop:
     usage: Fix local redirect loop
     cmd: |
