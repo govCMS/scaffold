@@ -29,3 +29,6 @@ audit-site
 
 # Location of ship-shape XML result files.
 .ship-shape
+
+# Local development tools.
+docker-compose.override.yml
