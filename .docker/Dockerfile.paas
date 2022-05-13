@@ -37,7 +37,7 @@ RUN wget -O /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/re
   && chmod +x /usr/local/bin/drush \
   && rm -Rf /home/.composer/vendor/bin
 
-COPY --from=govcms/govcms:${GOVCMS_IMAGE_VERSION} /app/web/sites/all/modules/ /app/web/sites/all/modules/
+COPY --from=base /app/web/sites/all/modules/ /app/web/sites/all/modules/
 
 # Sanitize the Drupal install to remove potentially
 # harmful files from the built image.
