@@ -5,11 +5,14 @@
 ARG CLI_IMAGE
 ARG GOVCMS_IMAGE_VERSION={{ GOVCMS_VERSION }}.x-latest
 
+# Keep the base so we can copy modules from it at the end.
+FROM govcms/govcms:${GOVCMS_IMAGE_VERSION} as base
+
 FROM govcms/govcms:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
-# @todo: May be removed once base image is leaner.
+# Clean up base image so as not to conflict with any changes.
 RUN rm -rf /app
 
 COPY composer.* /app/
@@ -33,6 +36,8 @@ COPY .docker/config/cli/govcms.site.yml /app/drush/sites/
 RUN wget -O /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar" \
   && chmod +x /usr/local/bin/drush \
   && rm -Rf /home/.composer/vendor/bin
+
+COPY --from=govcms/govcms:${GOVCMS_IMAGE_VERSION} /app/web/sites/all/modules/ /app/web/sites/all/modules/
 
 # Sanitize the Drupal install to remove potentially
 # harmful files from the built image.
