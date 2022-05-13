@@ -9,6 +9,9 @@ FROM govcms/govcms:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
+# @todo: May be removed once base image is leaner.
+RUN rm -rf /app
+
 COPY composer.* /app/
 COPY scripts /app/scripts
 COPY custom /app/custom
