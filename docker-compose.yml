@@ -49,6 +49,7 @@ services:
       args:
         LAGOON_SAFE_PROJECT: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
+        GOVCMS_GITHUB_TOKEN: ${GOVCMS_GITHUB_TOKEN:-}
     image: *lagoon-project
     labels:
       lagoon.type: cli-persistent
