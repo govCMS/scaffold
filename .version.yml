@@ -5,4 +5,4 @@
 # e.g. site audits, automated backups.
 version: {{ GOVCMS_VERSION }}
 type: {{ GOVCMS_TYPE }}
-scaffold: 2.2.0
+scaffold: 2.3.0
