@@ -10,3 +10,4 @@ FROM govcms/nginx-drupal:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 COPY --from=cli /app/web /app/web
+COPY redirects-map.conf /etc/nginx/govcms-redirects-map.conf
