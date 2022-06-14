@@ -48,7 +48,7 @@ commands:
 
   drush:
     usage: Run drush commands in cli container.
-    cmd: docker-compose exec -T cli drush "$@"
+    cmd: docker-compose exec -e COLUMNS=120 -T cli drush "$@"
 
   logs:
     usage: Show Docker logs.
