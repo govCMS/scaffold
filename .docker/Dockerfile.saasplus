@@ -7,6 +7,8 @@ ARG GOVCMS_IMAGE_VERSION={{ GOVCMS_VERSION }}.x-latest
 
 FROM govcms/govcms:${GOVCMS_IMAGE_VERSION}
 
+ARG GOVCMS_GITHUB_TOKEN
+
 ENV WEBROOT=web
 
 COPY themes/ /app/web/themes/custom
@@ -17,6 +19,7 @@ COPY config /app/config
 COPY favicon.ico /app/web
 
 # To enable SaaS+ uncomment these lines
+RUN composer config --global github-oauth.github.com $GOVCMS_GITHUB_TOKEN
 COPY custom /app/custom
 RUN jq -s '.[1].repositories = (.[0].repositories + .[1].repositories) | .[1]' /app/custom/composer/composer.json /app/composer.json > /tmp/composer.json
 RUN mv /tmp/composer.json /app/composer.json
