@@ -48,7 +48,7 @@ commands:
 
   drush:
     usage: Run drush commands in cli container.
-    cmd: docker-compose exec -T cli drush "$@"
+    cmd: docker-compose exec -e -T cli drush "$@"
 
   logs:
     usage: Show Docker logs.
@@ -72,7 +72,9 @@ commands:
 
   login:
     usage: Login to a website.
-    cmd: docker-compose exec -T cli drush uli "$@"
+    cmd: |
+      docker-compose exec -T cli drush uinf --uid 1 --field name | xargs docker-compose exec -T cli drush uublk && \
+      docker-compose exec -T cli drush uli
 
   unloop:
     usage: Fix local redirect loop
