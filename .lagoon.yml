@@ -42,7 +42,7 @@ tasks:
     ## START SaaS-only
     - run:
         name: Perform GovCMS platform validations
-        command: '[ "${GOVCMS_SKIP_AUDIT}" = "true" ] && echo "Audit skipped." || /app/vendor/bin/govcms-ship-shape -an'
+        command: '[ "${GOVCMS_SKIP_AUDIT}" = "true" ] && echo "Audit skipped." || shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code'
         service: cli
         shell: bash
     ## END SaaS-only
