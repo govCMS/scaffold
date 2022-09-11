@@ -11,6 +11,10 @@ commands:
       echo -e "Type \`\033[0;32mahoy my\033[0m\` for a list of custom commmands."
       echo
 
+  drush-wo-line-wrap:
+    usage: Return the output without line wrapping.
+    cmd: docker-compose exec -e 120 -T cli drush "$@"
+
 #  mycustomcommand:
 #    cmd: |
 #      echo "Anything complex you can do on the command line, you can make available for all developers in your project."
