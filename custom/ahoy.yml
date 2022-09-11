@@ -11,7 +11,7 @@ commands:
       echo -e "Type \`\033[0;32mahoy my\033[0m\` for a list of custom commmands."
       echo
 
-  drush-wo-line-wrap:
+  drush-local:
     usage: Return the output without line wrapping.
     cmd: docker-compose exec -e 120 -T cli drush "$@"
 
