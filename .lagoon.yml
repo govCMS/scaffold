@@ -42,9 +42,10 @@ tasks:
     ## START SaaS-only
     - run:
         name: Perform GovCMS platform validations
-        command: '[ "${GOVCMS_SKIP_AUDIT}" = "true" ] && echo "Audit skipped." || /app/vendor/bin/govcms-ship-shape -an'
+        command: /app/vendor/bin/govcms-ship-shape -an
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_AUDIT", false) == false
     ## END SaaS-only
     - run:
         name: Synchronise the database
@@ -61,6 +62,7 @@ tasks:
         command: /app/vendor/bin/govcms-config-import
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_CONFIG_IMPORT", false) == false
     - run:
         name: Perform cache rebuild
         command: /app/vendor/bin/govcms-cache-rebuild
