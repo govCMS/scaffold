@@ -42,9 +42,10 @@ tasks:
     ## START SaaS-only
     - run:
         name: Perform GovCMS platform validations
-        command: '[ "${GOVCMS_SKIP_AUDIT}" = "true" ] && echo "Audit skipped." || shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code'
+        command: 'shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code'
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_AUDIT", false) == false
     ## END SaaS-only
     - run:
         name: Synchronise the database
@@ -61,11 +62,13 @@ tasks:
         command: /app/vendor/bin/govcms-config-import
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_CONFIG_IMPORT", false) == false
     - run:
         name: Perform cache rebuild
         command: /app/vendor/bin/govcms-cache-rebuild
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_CACHE_REBUILD", false) == false
     - run:
         name: Ensure GovCMS/Lagoon modules are enabled
         command: /app/vendor/bin/govcms-enable_modules
