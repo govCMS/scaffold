@@ -68,6 +68,7 @@ tasks:
         command: /app/vendor/bin/govcms-cache-rebuild
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_CACHE_REBUILD", false) == false
     - run:
         name: Ensure GovCMS/Lagoon modules are enabled
         command: /app/vendor/bin/govcms-enable_modules
