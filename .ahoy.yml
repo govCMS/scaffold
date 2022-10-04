@@ -129,15 +129,7 @@ commands:
   ship-shape:
     usage: Run site validation scripts locally
     cmd: |
-      set -eu
-      APP_DIR="${APP_DIR:-/app}"
-      docker-compose exec -T cli ${APP_DIR}/vendor/bin/govcms-ship-shape
-      # Copy reports from container to local.
-      rm -rf ./.ship-shape
-      docker cp $(docker-compose ps -q cli):${APP_DIR}/.ship-shape ./
-      docker-compose exec -T cli rm -rf ${APP_DIR}/.ship-shape
-      echo "XML files have been generated at ./.ship-shape:"
-      find .ship-shape/ -type f -exec echo '  {}' \;
+      docker-compose exec -T cli shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code "$@"
 
   debug:
     usage: Enable debug configuration.
