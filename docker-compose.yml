@@ -40,6 +40,7 @@ x-environment: &default-environment
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
   GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
   CLAMAV_HOST: clamav
+  CLAMAV_MODE: daemon
 
 services:
 
