@@ -143,7 +143,7 @@ services:
   #     << : *default-environment
 
   chrome:
-    image: selenium/standalone-chrome
+    image: selenium/standalone-chrome:4.5.2-20221021
     shm_size: '1gb'
     depends_on:
       - test
