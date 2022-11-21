@@ -52,6 +52,7 @@ tasks:
         command: /app/vendor/bin/govcms-db-sync
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_DB_SYNC", false) == false
     - run:
         name: Perform database updates
         command: /app/vendor/bin/govcms-db-update
