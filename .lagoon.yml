@@ -22,16 +22,19 @@ tasks:
         command: "[ -f /app/vendor/bin/govcms-pre-deploy-db-update ] && /app/vendor/bin/govcms-pre-deploy-db-update || echo 'Pre Update databse is not available.'"
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_PRE_DEPLOY_UPDATE", false) == false
     - run:
         name: Snapshot the database and store
         command: "[ -f /app/vendor/bin/govcms-db-backup ] && /app/vendor/bin/govcms-db-backup || echo 'Database backup is not available.'"
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_PRE_DEPLOY_DB_BACKUP", false) == false
     - run:
         name: Snapshot the config and store
         command: "[ -f /app/vendor/bin/govcms-config-backup ] && /app/vendor/bin/govcms-config-backup || echo 'Config backup is not available.'"
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_PRE_DEPLOY_CONFIG_BACKUP", false) == false
 
   post-rollout:
     - run:
@@ -58,6 +61,7 @@ tasks:
         command: /app/vendor/bin/govcms-db-update
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_DB_UPDATE", false) == false
     - run:
         name: Perform config import
         command: /app/vendor/bin/govcms-config-import
@@ -75,8 +79,10 @@ tasks:
         command: /app/vendor/bin/govcms-enable_modules
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_ENABLE_MODULES", false) == false
     - run:
         name: Preserve the last successful backup
         command: /app/vendor/bin/govcms-backups-preserve
         service: cli
         shell: bash
+        when: withDefault("GOVCMS_SKIP_PRESERVE_BACKUP", false) == false
