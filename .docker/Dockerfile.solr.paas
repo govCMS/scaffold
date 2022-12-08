@@ -8,5 +8,6 @@ COPY .docker/config/solr/ /opt/solr/server/solr/configsets/drupal/conf
 
 USER solr
 
-RUN precreate-core drupal /opt/solr/server/solr/configsets/drupal
-CMD ["solr-foreground"]
+# Note: The solr-recreate command will remove and replace.
+# If your configuration has changed you may need to reindex your solr index.
+CMD solr-recreate drupal /opt/solr/server/solr/configsets/drupal && solr-foreground
