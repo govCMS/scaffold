@@ -10,10 +10,14 @@ FROM govcms/govcms:${GOVCMS_IMAGE_VERSION} as base
 
 FROM govcms/govcms:${GOVCMS_IMAGE_VERSION}
 
+ARG GOVCMS_GITHUB_TOKEN
+
 ENV WEBROOT=web
 
 # Clean up base image so as not to conflict with any changes.
 RUN rm -rf /app
+
+RUN composer config --global github-oauth.github.com $GOVCMS_GITHUB_TOKEN
 
 COPY composer.* /app/
 COPY scripts /app/scripts
