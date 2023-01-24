@@ -129,7 +129,7 @@ commands:
   ship-shape:
     usage: Run site validation scripts locally
     cmd: |
-      docker-compose exec -T cli shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code "$@"
+      docker-compose exec -T -w /app/web cli shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code "$@"
 
   debug:
     usage: Enable debug configuration.
