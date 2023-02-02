@@ -39,6 +39,8 @@ x-environment: &default-environment
   DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
   GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
+  CLAMAV_HOST: clamav
+  CLAMAV_MODE: daemon
 
 services:
 
@@ -125,6 +127,11 @@ services:
       - "3306" # Find port on host with `docker-compose port mariadb 3306`
     environment:
       << : *default-environment
+
+  clamav:
+    image: govcms/clamav:{{ GOVCMS_VERSION }}.x-latest
+    labels:
+      lagoon.type: none
 
   # Uncomment to enable solr.
   # solr:
