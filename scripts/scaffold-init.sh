@@ -57,7 +57,7 @@ echo "[info]: Preparing scaffold for GovCMS$GOVCMS_VERSION ($GOVCMS_TYPE): $GOVC
 # Remember the original version provided. We provision with 9.x base images until 10.x is ready.
 GOVCMS_ORIGINAL_VERSION=$GOVCMS_VERSION
 
-if [[ "$GOVCMS_VERSION" != "10" ]]; then
+if [[ "$GOVCMS_VERSION" == "10" ]]; then
   GOVCMS_VERSION=9
 fi;
 
