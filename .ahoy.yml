@@ -122,10 +122,6 @@ commands:
       # Run this if confirm returns false
       echo "OK, probably a wise choice..."
 
-  audit-site:
-    usage: Run site audit.
-    cmd: docker-compose exec -T test ./vendor/bin/govcms-audit
-
   ship-shape:
     usage: Run site validation scripts locally
     cmd: |
