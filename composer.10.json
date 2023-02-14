@@ -42,7 +42,7 @@
         "govcms/govcms-custom": "*",
         "govcms/scaffold-tooling": "10.x-master-dev",
         "drush/drush": "^11",
-        "drupal/recommended-project": ":^10"
+        "drupal/recommended-project": "^10"
     },
     "require-dev": {
         "govcms/require-dev": "~1"

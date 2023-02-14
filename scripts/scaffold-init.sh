@@ -53,6 +53,14 @@ fi
 
 echo "[info]: Preparing scaffold for GovCMS$GOVCMS_VERSION ($GOVCMS_TYPE): $GOVCMS_NAME"
 
+# Temporary D10 support.
+# Remember the original version provided. We provision with 9.x base images until 10.x is ready.
+GOVCMS_ORIGINAL_VERSION=$GOVCMS_VERSION
+
+if [[ "$GOVCMS_VERSION" != "10" ]]; then
+  GOVCMS_VERSION=9
+fi;
+
 cp .env.default .env
 sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .env && rm .env.bak
 sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" docker-compose.yml && rm docker-compose.yml.bak
@@ -82,7 +90,7 @@ else
   sed -i.bak "s/*default-volumes/*paas-volumes/" docker-compose.yml && rm docker-compose.yml.bak
 
   # Copy correct composer.json version into place.
-  cp "composer.$GOVCMS_VERSION.json" composer.json
+  cp "composer.$GOVCMS_ORIGINAL_VERSION.json" composer.json
 fi
 
 # Remove non-relevant scaffold items
