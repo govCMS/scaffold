@@ -41,10 +41,9 @@
         "php": "^8.1",
         "govcms/govcms-custom": "*",
         "govcms/scaffold-tooling": "10.x-develop-dev",
+        "govcms/govcms": "3.x-develop-dev",
         "drush/drush": "^11",
-        "composer/installers": "^2.0",
-        "drupal/core-composer-scaffold": "^10",
-        "drupal/core-recommended": "^10"
+        "composer/installers": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
