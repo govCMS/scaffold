@@ -129,7 +129,7 @@ services:
       << : *default-environment
 
   clamav:
-    image: govcms/clamav:{{ GOVCMS_VERSION }}.x-latest
+    image: clamav/clamav:latest
     labels:
       lagoon.type: none
 
