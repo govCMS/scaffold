@@ -13,7 +13,7 @@ usage () {
     $ scaffold.sh -t <type> -v <version> -n <name>
     -h    Print this message
     -t    Type of GovCMS project to scaffold
-    -v    Version of GovCMS (7|8|9)
+    -v    Version of GovCMS (7|8|9|10)
     -n    Name of project (machine name)
 HELP_USAGE
   exit 2
@@ -40,8 +40,8 @@ if [[ "$GOVCMS_TYPE" != "saas" && "$GOVCMS_TYPE" != "paas" && "$GOVCMS_TYPE" != 
   exit 2
 fi
 
-if [[ "$GOVCMS_VERSION" != "7" && "$GOVCMS_VERSION" != "8" && "$GOVCMS_VERSION" != "9" ]]; then
-  echo "[error]: Valid scaffold version required, must be (7, 8, 9)."
+if [[ "$GOVCMS_VERSION" != "7" && "$GOVCMS_VERSION" != "8" && "$GOVCMS_VERSION" != "9" && "$GOVCMS_VERSION" != "10" ]]; then
+  echo "[error]: Valid scaffold version required, must be (7, 8, 9, 10)."
   exit 2
 fi
 
@@ -95,6 +95,7 @@ if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm -r themes
   rm composer.8.json
   rm composer.9.json
+  rm composer.10.json
 else
   rm .docker/Dockerfile*paas*
   rm -r .docker/config

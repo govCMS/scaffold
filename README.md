@@ -12,8 +12,8 @@ To make this codebase function you must first initialise it.
 ahoy init project_name type version
 ```
 
-`type`: May be `saas` or `paas`
-`version`: May be `8` or `9`
+ * `type`: May be `saas` or `paas`
+ * `version`: May be `8`, `9` or `10`
 
 ## Next steps
 
