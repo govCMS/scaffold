@@ -73,6 +73,7 @@ commands:
   login:
     usage: Login to a website.
     cmd: |
+      docker-compose exec -T cli drush -y cset tfa.settings reset_pass_skip_enabled true && \
       docker-compose exec -T cli drush uinf --uid 1 --field name | xargs docker-compose exec -T cli drush uublk && \
       docker-compose exec -T cli drush uli
 
