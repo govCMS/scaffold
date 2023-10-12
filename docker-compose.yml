@@ -150,8 +150,8 @@ services:
   #     << : *default-environment
 
   chrome:
-    image: selenium/standalone-chrome:4.5.2-20221021
-    shm_size: '1gb'
+    image: seleniarm/standalone-chromium:111.0
+    shm_size: '2gb'
     depends_on:
       - test
     labels:
