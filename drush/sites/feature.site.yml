@@ -13,3 +13,5 @@
   ssh:
     options: -p 30831
     tty: false
+  paths:
+    drush-script: /app/vendor/bin/drush
