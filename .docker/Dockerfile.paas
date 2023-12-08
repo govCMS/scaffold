@@ -35,11 +35,9 @@ COPY . /app
 # Set up Drush aliases.
 COPY .docker/config/cli/govcms.site.yml /app/drush/sites/
 
-# Ensure drush-launcher instead of Drush 8 in /home/.composer
-# @todo Make drush launcher available upstream, @see https://github.com/amazeeio/lagoon/pull/1183
-RUN wget -O /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar" \
-  && chmod +x /usr/local/bin/drush \
-  && rm -Rf /home/.composer/vendor/bin
+# Remove Drush 8 in /home/.composer.
+RUN rm -Rf /home/.composer/vendor/bin
+ENV PATH="/app/vendor/bin:${PATH}"
 
 COPY --from=base /app/web/sites/all/modules/ /app/web/sites/all/modules/
 
