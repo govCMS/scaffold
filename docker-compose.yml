@@ -64,6 +64,9 @@ services:
     # https://pygmy.readthedocs.io/en/master/ssh_agent/
     volumes_from: ### Local overrides to mount host SSH keys. Automatically removed in CI.
       - container:amazeeio-ssh-agent ### Local overrides to mount host SSH keys. Automatically removed in CI.
+    networks:
+      - amazeeio-network
+      - default
 
   test:
     build:
@@ -80,6 +83,9 @@ services:
       - cli
     environment:
       << : *default-environment
+    networks:
+      - amazeeio-network
+      - default
 
   nginx:
     build:
@@ -117,6 +123,9 @@ services:
       - cli
     environment:
       << : *default-environment
+    networks:
+      - amazeeio-network
+      - default
 
   mariadb:
     image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
