@@ -132,7 +132,7 @@ commands:
     usage: Enable debug configuration.
     cmd: |
       { ahoy run "php -v|grep -q Xdebug" && echo "Debug is already enabled"; } \
-      || { export XDEBUG_ENABLE="true" && ahoy up cli test php && ahoy run "php -v|grep -q Xdebug" && echo "Enabled debug configuration. Use 'ahoy up' to disable."; }
+      || { export XDEBUG_ENABLE="true" && ahoy up cli test php nginx && ahoy run "php -v|grep -q Xdebug" && echo "Enabled debug configuration. Use 'ahoy up' to disable."; }
 
   info:
     usage: Print information about this project.
