@@ -133,7 +133,7 @@ services:
       lagoon.type: mariadb
       lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
     ports:
-      - "3306" # Find port on host with `docker-compose port mariadb 3306`
+      - "3306" # Find port on host with `docker compose port mariadb 3306`
     environment:
       << : *default-environment
 
@@ -152,7 +152,7 @@ services:
   #   labels:
   #     lagoon.type: solr
   #   ports:
-  #     - "8983" # Find port on host with `docker-compose port solr 8983`
+  #     - "8983" # Find port on host with `docker compose port solr 8983`
   #   depends_on:
   #     - cli
   #   environment:
