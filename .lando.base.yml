@@ -49,6 +49,18 @@
 # <container ID> is not connected to the network lando_bridge_network"
 # Then just run "lando rebuild" again.
 
+# If swapping image via `MARIADB_DATA_IMAGE` AFTER using the lando project, then
+# the database volumes must be removed first, otherwise it will use the old
+# database. So use `lando destroy` or remove the database container and volumes
+# via the below commands:
+# <begin terminal commands>
+# LANDO_APP_NAME=$(lando info 2>/dev/null | grep hostnames | grep -o -P "[^\.]*.internal('|\")" | awk -F . '{print $1}' | head -n 1)
+# LANDO_APP_DB_NAME=$(printf $LANDO_APP_NAME)_mariadb_1
+# docker container rm --force $LANDO_APP_DB_NAME
+# docker volume rm $(printf $LANDO_APP_NAME)_data_mariadb_blank
+# docker volume rm $(printf $LANDO_APP_NAME)_data_mariadb_govcms_image
+# <end terminal commmands>
+
 ############################################
 ## SSH agent volume with pygmy - Optional ##
 ############################################
@@ -192,7 +204,7 @@ x-environment: &default-environment
 ## Lando configuration ##
 #########################
 
-# Unique lando project name.
+# Unique lando project name - uses 'lagoon-project' variable.
 name: *lagoon-project
 
 # Note: Vars only work in the containers, not in the lando.yml files and only if
