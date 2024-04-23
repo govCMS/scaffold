@@ -473,7 +473,7 @@ tooling:
   'db-import <file>':
     service: ':host'
     description: 'Imports a dump file into a database service'
-    cmd: '/lando-govcms/scripts/db-import-prompt.sh /helpers/sql-import.sh'
+    cmd: '/lando-govcms/container-scripts/db-import-prompt.sh /helpers/sql-import.sh'
     user: 'root'
     env:
       << : *lando-database-tooling-vars
@@ -548,7 +548,7 @@ tooling:
   ahoy-run:
     service: cli
     description: Run command inside cli container.
-    cmd: /lando-govcms/scripts/ahoy-run.sh
+    cmd: /lando-govcms/container-scripts/ahoy-run.sh
   ahoy-govcms-deploy:
     service: cli
     description: Runs deployment commands (e.g. config import, updb, cr, set up file_stage_proxy).
