@@ -26,13 +26,13 @@ proxy:
 x-environment: &default-environment
   COMPOSE_PROJECT_NAME: *lagoon-project
   DEV_MODE: true
-  GOVCMS_IMAGE_VERSION: &govcms-image-version 10.x-latest
+  GOVCMS_IMAGE_VERSION: &govcms-image-version {{ GOVCMS_VERSION }}.x-latest
   LAGOON_ENVIRONMENT_TYPE: local
   LOCALDEV_URL: *default-url
   # If changing the image via `MARIADB_DATA_IMAGE` AFTER using the lando project,
   # then use `lando destroy` or remove one the database volumes via terminal
   # commands noted in lando base file.
-  MARIADB_DATA_IMAGE: &MARIADB_DATA_IMAGE govcms/mariadb-drupal:10.x-latest
+  MARIADB_DATA_IMAGE: &MARIADB_DATA_IMAGE govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
   #MARIADB_DATA_IMAGE: &MARIADB_DATA_IMAGE gitlab-registry-production.govcms.amazee.io/org/project/mariadb-drupal-data
   #STAGE_FILE_PROXY_URL: http://govcms.docker.amazee.io
   X_FRAME_OPTIONS: SameOrigin
@@ -97,10 +97,10 @@ services:
       image: *MARIADB_DATA_IMAGE
       environment:
         << : *default-environment
-  solr:
-    services:
-      build:
-        args:
-          GOVCMS_IMAGE_VERSION: *govcms-image-version
-      environment:
-        << : *default-environment
+  # solr:
+  #   services:
+  #     build:
+  #       args:
+  #         GOVCMS_IMAGE_VERSION: *govcms-image-version
+  #     environment:
+  #       << : *default-environment

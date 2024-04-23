@@ -131,7 +131,7 @@ proxy:
   #   hostname: {{ GOVCMS_PROJECT_NAME }}-solr.lndo.site:8983
 
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS/wiki
-x-govcms-image-version: &govcms-image-version ${GOVCMS_IMAGE_VERSION:-10.x-latest}
+x-govcms-image-version: &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
 
 x-volumes:
   volumes:
@@ -187,7 +187,7 @@ x-environment: &default-environment
   LAGOON_PROJECT: *lagoon-project
   LAGOON_ROUTE: *default-url
   LOCALDEV_URL: *default-url
-  GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-10.x-latest}
+  GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
   DEV_MODE: "${DEV_MODE:-false}"
   XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
   DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
@@ -389,10 +389,10 @@ services:
     # Mount the app folder, for db import, db-export.
     app_mount: true
     services:
-      image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:10.x-latest}
+      image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
       labels:
         lagoon.type: mariadb
-        lagoon.image: govcms/mariadb-drupal:10.x-latest
+        lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
       ports:
         - '3306' # Find port on host with `docker port [container_name_for_mariadb] 3306`
       environment:
