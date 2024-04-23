@@ -120,5 +120,6 @@ if [[ "$GOVCMS_TYPE" == "saas" ]]; then
 fi
 
 rm scripts/scaffold-init.sh
+rm scripts/scaffold-post-setup-add-lando.sh
 
 # trap finish EXIT
