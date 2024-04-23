@@ -38,6 +38,11 @@ if [[ "$HAS_SOLR" -eq 0 ]]; then
   printf "and .lando.local[.example].yml files.\n"
 fi
 
+printf "${YELLOW}[!! action required !!]${NC}: For existing projects, you may\n"
+printf "need to manually move the changes (new lines) added to the project\n"
+printf "root's '.ahoy.yml' file to the 'custom/ahoy.yml' file instead as the file is\n"
+printf "govcms locked, commands become 'ahoy my lando-[command]' instead.\n"
+
 rm scripts/scaffold-post-setup-add-lando.sh
 
 echo "[success]: Lando GovCMS scaffold changed!"
