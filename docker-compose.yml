@@ -20,6 +20,7 @@ x-volumes: &default-volumes
     - ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
     - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
     - ./config:/app/config
+    - ./tests/cy:/app/tests/cy
 
 x-volumes-paas: &paas-volumes
   volumes:
@@ -86,6 +87,24 @@ services:
     networks:
       - amazeeio-network
       - default
+  
+  cypress:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.cypress
+      args:
+        CLI_IMAGE: *lagoon-project
+    labels:
+      lagoon.type: cli-persistent
+      lagoon.persistent.name: cypress
+      lagoon.persistent: /app/web/sites/default/files/
+    << : *default-volumes
+    depends_on:
+      - cli
+      - test 
+    environment:
+      << : *default-environment
+
 
   nginx:
     build:
