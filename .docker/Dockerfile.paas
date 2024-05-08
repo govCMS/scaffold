@@ -5,9 +5,6 @@
 ARG CLI_IMAGE
 ARG GOVCMS_IMAGE_VERSION={{ GOVCMS_VERSION }}.x-latest
 
-# Keep the base so we can copy modules from it at the end.
-FROM govcms/govcms:${GOVCMS_IMAGE_VERSION} as base
-
 FROM govcms/govcms:${GOVCMS_IMAGE_VERSION}
 
 ARG GOVCMS_GITHUB_TOKEN
@@ -38,8 +35,6 @@ COPY .docker/config/cli/govcms.site.yml /app/drush/sites/
 # Remove Drush 8 in /home/.composer.
 RUN rm -Rf /home/.composer/vendor/bin
 ENV PATH="/app/vendor/bin:${PATH}"
-
-COPY --from=base /app/web/sites/all/modules/ /app/web/sites/all/modules/
 
 # Sanitize the Drupal install to remove potentially
 # harmful files from the built image.
