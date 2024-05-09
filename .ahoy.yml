@@ -156,3 +156,155 @@ commands:
   init:
     usage: Initialise codebase with project name, type (saas|paas|saasplus) and version (8|9)
     cmd: scripts/scaffold-init.sh -n $1 -t $2 -v $3
+
+  #####################
+  ## Lando commands ###
+  #####################
+  lando:
+    service: cli
+    cmd: echo Use \`ahoy lando-[command]\` to run specific ahoy lando commands instead.
+
+  lando-up:
+    usage: Build project. [Lando]
+    cmd: |
+      lando start "$@" &&
+      ahoy lando-info;
+
+  lando-down:
+    usage: Delete project (CAUTION). [Lando]
+    # `lando destroy` already has a prompt.
+    cmd: lando destroy
+
+  lando-build:
+    usage: Build project. [Lando]
+    cmd: |
+      lando rebuild "$@"
+      ahoy lando-govcms-deploy && ahoy lando-info;
+
+  lando-cli:
+    usage: Start a shell inside cli container. [Lando]
+    cmd: lando ssh -s cli
+
+  lando-run:
+    usage: Run command inside cli container. [Lando]
+    cmd: docker exec -it $(ahoy lando-app-name)_cli_1 bash -c "$*"
+
+  lando-govcms-deploy:
+    usage: Runs deployment commands (e.g. config import, updb, cr, set up file_stage_proxy). [lando]
+    cmd: |
+      lando ssh -s cli -c "mkdir -p /app/web/sites/default/files/private/tmp && \
+      /app/vendor/bin/govcms-db-update && \
+      /app/vendor/bin/govcms-config-import && \
+      /app/vendor/bin/govcms-cache-rebuild && \
+      /app/vendor/bin/govcms-enable_modules"
+
+  lando-drush:
+    usage: Run drush commands in cli container. [Lando]
+    cmd: lando drush "$@"
+
+  lando-logs:
+    usage: Show Docker logs. [Lando]
+    cmd: lando logs "$@"
+
+  lando-ps:
+    usage: List running Docker containers. [Lando]
+    # Find Lando app name and pass to docker docker container ls
+    cmd: ahoy lando-app-name | { read result; head -1; docker container ls -a | grep $result; }
+
+  lando-restart:
+    usage: Restart Docker containers. [Lando]
+    cmd: lando restart
+
+  lando-stop:
+    usage: Stop Docker containers. [Lando]
+    cmd: lando stop "$@"
+
+  lando-install:
+    usage: Install the profile. [Lando]
+    cmd: |
+      ahoy confirm "Running this command will destroy your current site, are you sure?" && \
+      (lando ssh -u 0 -s cli -c "drush si -y govcms \"$@\"" && ahoy lando-govcms-deploy) || \
+      echo "Cancelled."
+
+  lando-login:
+    usage: Login to a website. [Lando]
+    cmd: |
+      lando ssh -s cli -c "drush -y cset tfa.settings reset_pass_skip_enabled true" && \
+      lando ssh -s cli -c "drush uinf --uid 1 --field name" | xargs -I % lando ssh -s cli -c "drush uublk %" && \
+      lando ssh -s cli -c "drush uli"
+
+  lando-unloop:
+    usage: Fix local redirect loop [Lando]
+    # Make the PHP code, escape it and run in docker not lando due to issue
+    # lando/lando#212
+    cmd: |
+      DRUSH_TEMP_COMMAND=$(cat <<'END'
+      $u=\Drupal\user\Entity\User::load(1); $u->set("field_password_expiration", "0"); $u->save();
+      $u=\Drupal\user\Entity\User::load(1); $u->set("field_last_password_reset", date("Y-m-d\TH:i:s")); $u->save();
+      END
+      ); DRUSH_TEMP_COMMAND="$(printf "\"%q\"" $DRUSH_TEMP_COMMAND)"
+      docker exec -it $(ahoy lando-app-name)_cli_1 bash -c "drush ev \"$DRUSH_TEMP_COMMAND\""
+
+  lando-mysql-import:
+    usage: Pipe in a sql file.  `ahoy lando-mysql-import local.sql` [Lando]
+    cmd: |
+      if [ -e "$@" ] ; then
+        lando ssh -s cli -c 'drush sql-drop' &&
+        lando ssh -s cli -c 'drush sql-cli' < "$@"
+      else echo "Provided sql file" "$@" "does not exist"
+      fi
+
+  lando-mysql-dump:
+    usage: Dump data out into a file. `ahoy lando-mysql-dump local.sql` [Lando]
+    cmd: lando ssh -s cli -c 'drush sql-dump --ordered-dump' > "$@"
+
+  lando-lint:
+    usage: Lint code [Lando]
+    cmd: |
+      lando ssh -s test -c ./vendor/bin/govcms-lint web/modules/custom
+      lando ssh -s test -c ./vendor/bin/govcms-lint web/themes/custom
+
+  lando-test-behat:
+    usage: Run Behat tests. [Lando]
+    cmd: lando ssh -s test -c ./vendor/bin/govcms-behat "$@"
+
+  lando-test-phpunit:
+    usage: Run phpunit tests [Lando]
+    cmd: lando ssh -s test -c ./vendor/bin/govcms-phpunit --testsuite govcms
+
+  lando-refresh-db:
+    usage: Refresh the database container with latest nightly dump. [Lando]
+    cmd: |
+      ahoy confirm "Running this command will replace your current database. Are you sure?" &&
+      ( cat .env | grep ^MARIADB_DATA_IMAGE | cut -c20- \
+      | xargs -n1 docker pull; docker rm -f -v $(ahoy lando-app-name)_mariadb_1 \
+      && lando start ) ||
+      echo OK, probably a wise choice...
+
+  lando-ship-shape:
+    usage: Run site validation scripts locally [Lando]
+    cmd: |
+      docker exec -it $(ahoy lando-app-name)_cli_1 bash -c "shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code \"$@\""
+
+  lando-debug:
+    usage: Enable debug configuration. [Lando]
+    cmd: |
+      { ahoy lando-run "php -v|grep -q Xdebug" && echo "Debug is already enabled. Use \`export XDEBUG_ENABLE="" && lando rebuild\` to disable."; } \
+      || { export XDEBUG_ENABLE="true" && lando rebuild && \
+      ahoy lando-run "php -v|grep -q Xdebug" && echo "Enabled debug configuration. Use \`export XDEBUG_ENABLE="" && lando rebuild\` to disable." || \
+      echo "Enabling debug configuration failed."; }
+
+  lando-info:
+    usage: Print information about this project.  [Lando]
+    cmd: |
+      echo "Project                  : "$(ahoy lando-run "echo \$LAGOON_PROJECT" 2>/dev/null)
+      echo "Site local URL           : "$(ahoy lando-run "echo \$LAGOON_ROUTE" 2>/dev/null)
+      echo "DB port on host          : "$(docker port $(ahoy lando-app-name 2>/dev/null)_mariadb_1 3306 | cut -d : -f 2)
+      if [ "$1" ]; then
+        echo "One-time login           : " $(ahoy lando-login -- --no-browser)
+      fi
+
+  # Helpers.
+  lando-app-name:
+    cmd: lando info 2>/dev/null | grep hostnames | grep -o -P "[^\.]*.internal('|\")" | awk -F . '{print $1}' | head -n 1
+    hide: true
