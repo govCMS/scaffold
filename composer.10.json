@@ -7,19 +7,7 @@
         { "type": "path", "url": "custom/composer" },
         { "type": "composer", "url": "https://packages.drupal.org/8" },
         { "type": "composer", "url": "https://asset-packagist.org" },
-        { "type": "vcs", "url": "git@github.com:govcms/govcms.git" },
-        {
-            "type": "package",
-            "package": {
-                "name": "dropzone/dropzone",
-                "version": "v5.7.2",
-                "type": "drupal-library",
-                "dist": {
-                    "type": "zip",
-                    "url": "https://github.com/dropzone/dropzone/archive/refs/tags/v5.7.2.zip"
-                }
-            }
-        }
+        { "type": "vcs", "url": "git@github.com:govcms/govcms.git" }
     ],
     "require": {
         "php": "^8.1",
@@ -27,8 +15,7 @@
         "govcms/govcms": "3.x-master-dev",
         "govcms/scaffold-tooling": "10.x-master-dev",
         "drush/drush": "^12",
-        "composer/installers": "^2.0",
-        "egulias/email-validator": "4.0.1 as 3.2.6"
+        "composer/installers": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -47,7 +34,8 @@
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
             "oomphinc/composer-installers-extender": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true
         }
     },
     "autoload": {
