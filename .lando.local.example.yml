@@ -1,0 +1,106 @@
+###############################
+## Local override for lando ##
+##############################
+
+######################
+## !! IMPORTANT !!! ##
+## To run multiple copies of the same project, the following properties must be
+## unique per project:
+## - lagoon-project `x-lagoon-project`
+## - default-url (which affects LAGOON_ROUTE / LOCALDEV_URL) `x-default-url`
+## - lando proxy urls `proxy`
+######################
+
+x-lagoon-project: &lagoon-project {{ GOVCMS_PROJECT_NAME }}
+
+x-default-url: &default-url http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
+
+# Lando proxy urls.
+proxy:
+  nginx:
+    hostname: {{ GOVCMS_PROJECT_NAME }}-nginx.lndo.site:8080
+  # solr:
+  #   hostname: {{ GOVCMS_PROJECT_NAME }}-solr.lndo.site:8983
+
+# lando doesn't define .env as dockers vars @see lando/lando#1616
+x-environment: &default-environment
+  COMPOSE_PROJECT_NAME: *lagoon-project
+  DEV_MODE: true
+  GOVCMS_IMAGE_VERSION: &govcms-image-version {{ GOVCMS_VERSION }}.x-latest
+  LAGOON_ENVIRONMENT_TYPE: local
+  LOCALDEV_URL: *default-url
+  # If changing the image via `MARIADB_DATA_IMAGE` AFTER using the lando project,
+  # then use `lando destroy` or remove one the database volumes via terminal
+  # commands noted in lando base file.
+  MARIADB_DATA_IMAGE: &MARIADB_DATA_IMAGE govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
+  #MARIADB_DATA_IMAGE: &MARIADB_DATA_IMAGE gitlab-registry-production.govcms.amazee.io/org/project/mariadb-drupal-data
+  #STAGE_FILE_PROXY_URL: http://govcms.docker.amazee.io
+  X_FRAME_OPTIONS: SameOrigin
+  #VOLUME_FLAGS: cached
+  GOVCMS_DEPLOY_WORKFLOW_CONFIG: import
+  LAGOON_PROJECT: *lagoon-project
+  LAGOON_ROUTE: *default-url
+  # XDEBUG_ENABLE: ''
+  # DOCKERHOST: host.docker.internal
+  # DRUPAL_SHIELD_USER: ''
+  # DRUPAL_SHIELD_PASS: ''
+
+x-others:
+ - SITE_AUDIT_VERSION: &SITE_AUDIT_VERSION 7.x-3.x
+ - GOVCMS_GITHUB_TOKEN: &GOVCMS_GITHUB_TOKEN ''
+
+# Unique lando project name - uses 'lagoon-project' variable above in same file.
+name: *lagoon-project
+
+##############
+## Services ##
+##############
+
+services:
+  cli:
+    services:
+      build:
+        args:
+          LAGOON_SAFE_PROJECT: *lagoon-project
+          GOVCMS_IMAGE_VERSION: *govcms-image-version
+          GOVCMS_GITHUB_TOKEN: *GOVCMS_GITHUB_TOKEN
+      image: *lagoon-project
+      environment:
+        << : *default-environment
+
+  test:
+    services:
+      build:
+        args:
+          CLI_IMAGE: *lagoon-project
+          GOVCMS_IMAGE_VERSION: *govcms-image-version
+          SITE_AUDIT_VERSION: *SITE_AUDIT_VERSION
+  nginx:
+    services:
+      build:
+        args:
+          CLI_IMAGE: *lagoon-project
+          GOVCMS_IMAGE_VERSION: *govcms-image-version
+      environment:
+        << : *default-environment
+        LAGOON_LOCALDEV_URL: *default-url
+  php:
+    services:
+      build:
+        args:
+          CLI_IMAGE: *lagoon-project
+          GOVCMS_IMAGE_VERSION: *govcms-image-version
+      environment:
+        << : *default-environment
+  mariadb:
+    services:
+      image: *MARIADB_DATA_IMAGE
+      environment:
+        << : *default-environment
+  # solr:
+  #   services:
+  #     build:
+  #       args:
+  #         GOVCMS_IMAGE_VERSION: *govcms-image-version
+  #     environment:
+  #       << : *default-environment
