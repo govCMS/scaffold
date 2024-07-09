@@ -50,6 +50,7 @@ services:
         LAGOON_SAFE_PROJECT: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
         GOVCMS_GITHUB_TOKEN: ${GOVCMS_GITHUB_TOKEN:-}
+    image: *lagoon-project
     container_name: *lagoon-project
     labels:
       lagoon.type: cli-persistent
@@ -127,6 +128,7 @@ services:
 
   mariadb:
     image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
+    platform: linux/amd64
     labels:
       lagoon.type: mariadb
       lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
@@ -159,6 +161,7 @@ services:
   chrome:
     image: selenium/standalone-chrome:4.5.2-20221021
     shm_size: '1gb'
+    platform: linux/amd64
     depends_on:
       - test
     labels:
