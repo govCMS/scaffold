@@ -35,7 +35,8 @@
             "drupal/core-project-message": true,
             "oomphinc/composer-installers-extender": true,
             "phpstan/extension-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "simplesamlphp/composer-module-installer": true
         }
     },
     "autoload": {
