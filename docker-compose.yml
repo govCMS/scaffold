@@ -1,5 +1,3 @@
-version: '2.3'
-
 # This value intentionally matches the project name on Lagoon.
 # It is used to name the CLI_IMAGE to use as a build arg locally.
 x-lagoon-project: &lagoon-project
@@ -53,6 +51,7 @@ services:
         GOVCMS_IMAGE_VERSION: *govcms-image-version
         GOVCMS_GITHUB_TOKEN: ${GOVCMS_GITHUB_TOKEN:-}
     image: *lagoon-project
+    container_name: *lagoon-project
     labels:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
@@ -129,11 +128,12 @@ services:
 
   mariadb:
     image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
+    platform: linux/amd64
     labels:
       lagoon.type: mariadb
       lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
     ports:
-      - "3306" # Find port on host with `docker-compose port mariadb 3306`
+      - "3306" # Find port on host with `docker compose port mariadb 3306`
     environment:
       << : *default-environment
 
@@ -152,7 +152,7 @@ services:
   #   labels:
   #     lagoon.type: solr
   #   ports:
-  #     - "8983" # Find port on host with `docker-compose port solr 8983`
+  #     - "8983" # Find port on host with `docker compose port solr 8983`
   #   depends_on:
   #     - cli
   #   environment:
@@ -161,6 +161,7 @@ services:
   chrome:
     image: selenium/standalone-chrome:4.5.2-20221021
     shm_size: '1gb'
+    platform: linux/amd64
     depends_on:
       - test
     labels:

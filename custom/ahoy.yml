@@ -13,7 +13,7 @@ commands:
 
   drush-local:
     usage: Return the output without line wrapping.
-    cmd: docker-compose exec -e 120 -T cli drush "$@"
+    cmd: docker compose exec -e 120 -T cli drush "$@"
 
 #  mycustomcommand:
 #    cmd: |
