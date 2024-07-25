@@ -1,0 +1,8 @@
+{
+  "name": "cy",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "cypress": "^13.8.1"
+  }
+}

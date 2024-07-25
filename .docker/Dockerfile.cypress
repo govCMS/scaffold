@@ -1,0 +1,11 @@
+FROM cypress/included
+
+COPY ./tests/cy/package.json .
+
+RUN npm install -g cypress
+
+WORKDIR /app/tests/cy
+
+# Remove the Cypress image entrypoint as it automatically runs on launch and causes the container to exit, which is undesireable.
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+
