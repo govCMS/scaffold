@@ -12,7 +12,8 @@ ARG GOVCMS_GITHUB_TOKEN
 ENV WEBROOT=web
 
 # Clean up base image so as not to conflict with any changes.
-RUN rm -rf /app
+RUN mv /app/web/sites/all/modules /scaffold_modules \
+  && rm -rf /app
 
 RUN composer config --global github-oauth.github.com $GOVCMS_GITHUB_TOKEN
 
@@ -22,6 +23,8 @@ COPY custom /app/custom
 
 # Run composer. Additional `rm`s can be added to reduce the image size, with diminishing returns.
 RUN composer install --no-dev --no-interaction --no-suggest \
+  && mkdir -p /app/web/sites/all \
+  && mv /scaffold_modules /app/web/sites/all/modules \
   && rm -rf ~/.composer/cache \
   && rm -rf /app/web/core/tests \
   && rm -rf /app/web/modules/contrib/webform/tests
