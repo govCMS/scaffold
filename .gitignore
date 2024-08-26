@@ -29,3 +29,4 @@ console
 
 # Local development tools.
 docker-compose.override.yml
+.lando.local.yml

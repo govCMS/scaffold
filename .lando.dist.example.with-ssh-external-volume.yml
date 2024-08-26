@@ -1,0 +1,26 @@
+#########################
+## Lando configuration ##
+#########################
+
+# Mark volume back to external, users need to create external volume though,
+# See notes in main lando file.
+x-lando-volumes-top-level: &lando-volumes-top-level
+  volumes:
+    amazeeio-ssh-agent-volume:
+      external: true
+
+##############
+## Services ##
+##############
+
+services:
+  cli:
+    << : *lando-volumes-top-level
+  test:
+    << : *lando-volumes-top-level
+  nginx:
+    << : *lando-volumes-top-level
+  php:
+    << : *lando-volumes-top-level
+  chrome:
+    << : *lando-volumes-top-level

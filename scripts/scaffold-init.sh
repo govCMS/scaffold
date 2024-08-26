@@ -56,10 +56,16 @@ echo "[info]: Preparing scaffold for GovCMS$GOVCMS_VERSION ($GOVCMS_TYPE): $GOVC
 cp .env.default .env
 sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .env && rm .env.bak
 sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" docker-compose.yml && rm docker-compose.yml.bak
+sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .lando.base.yml && rm .lando.base.yml.bak
+sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .lando.local.example.yml && rm .lando.local.example.yml.bak
 sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .version.yml && rm .version.yml.bak
 sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" docker-compose.yml && rm docker-compose.yml.bak
+sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .lando.base.yml && rm .lando.base.yml.bak
+sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .lando.local.example.yml && rm .lando.local.example.yml.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .version.yml && rm .version.yml.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" docker-compose.yml && rm docker-compose.yml.bak
+sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .lando.base.yml && rm .lando.base.yml.bak
+sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .lando.local.example.yml && rm .lando.local.example.yml.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .env && rm .env.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .docker/Dockerfile* && rm .docker/Dockerfile*.bak
 
@@ -80,6 +86,7 @@ else
 
   # Replace default/saas mounts for PaaS projects.
   sed -i.bak "s/*default-volumes/*paas-volumes/" docker-compose.yml && rm docker-compose.yml.bak
+  sed -i.bak "s/*default-volumes/*paas-volumes/" .lando.base.yml && rm .lando.base.yml.bak
 
   # Copy correct composer.json version into place.
   cp "composer.$GOVCMS_VERSION.json" composer.json
@@ -113,5 +120,6 @@ if [[ "$GOVCMS_TYPE" == "saas" ]]; then
 fi
 
 rm scripts/scaffold-init.sh
+rm scripts/scaffold-post-setup-add-lando.sh
 
 # trap finish EXIT
