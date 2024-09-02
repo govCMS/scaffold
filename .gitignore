@@ -29,3 +29,6 @@ console
 
 # Local development tools.
 docker-compose.override.yml
+
+# Local data directory.
+.data
