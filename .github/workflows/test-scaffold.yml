@@ -1,0 +1,107 @@
+name: Test scaffold
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DREVOPS_CI_TEST_RESULTS: /tmp/tests
+  DREVOPS_CI_ARTIFACTS: /tmp/artifacts
+  GOVCMS_VERSION: 10
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 2
+      matrix:
+        govcms_image:
+          - "10.x-latest"
+          - "10.x-edge"
+        project_type:
+          - saas
+          - paas
+      fail-fast: false
+
+    container:
+      image: drevops/ci-runner:24.1.0
+      env:
+        CI: 1
+        # Prevent GitHub overriding the Docker config.
+        DOCKER_CONFIG: /root/.docker
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TZ: "Australia/Melbourne"
+        # Set runner terminal capabilities.
+        TERM: xterm-256color
+        # How often to refresh the cache of the DB dump. Refer to `date` command.
+        DREVOPS_CI_DB_CACHE_TIMESTAMP: "+%Y%m%d"
+        # Use cache fallback if the above timestamp does not match.
+        DREVOPS_CI_DB_CACHE_FALLBACK: "yes"
+        # Which branch to use as a source of DB caches.
+        DREVOPS_CI_DB_CACHE_BRANCH: "develop"
+        # Directory to store test results.
+        DREVOPS_CI_TEST_RESULTS: ${{ env.DREVOPS_CI_TEST_RESULTS }}
+        # Directory to store test artifacts.
+        DREVOPS_CI_ARTIFACTS: ${{ env.DREVOPS_CI_ARTIFACTS }}
+        # Check only minimal stack requirements.
+        DREVOPS_DOCTOR_CHECK_MINIMAL: 1
+        # Directory to store code exported between jobs.
+        DREVOPS_EXPORT_CODE_DIR: /tmp/workspace/code
+        # Directory to use for artifact deployments.
+        DREVOPS_DEPLOY_ARTIFACT_SRC: ""
+        # Source code location for artifact deployments.
+        DREVOPS_DEPLOY_ARTIFACT_ROOT: .
+        # Report file location for artifact deployments.
+        DREVOPS_DEPLOY_ARTIFACT_REPORT_FILE: /tmp/artifacts/deployment_report.txt
+
+    steps:
+      -
+        name: Checkout the repo
+        uses: actions/checkout@main
+
+      -
+        name: Check Docker and Compose version
+        run: |
+          echo "[INFO] Docker version."
+          docker version
+          echo "[INFO] Docker Compose version."
+          docker compose version
+
+      -
+        name: Setup Docker network
+        run: docker network prune -f >/dev/null 2>&1 && docker network inspect amazeeio-network >/dev/null 2>&1 || docker network create amazeeio-network >/dev/null 2>&1 || true
+
+      -
+        name: Process codebase to run in CI
+        run: |
+          find . -name "docker-compose.yml" -print0 | xargs -0 -I {} sh -c "sed -i -e ''/###/d'' {} && sed -i -e ''s/##//'' {} && sed -i -e 's#- .:/app:delegated##' {}"
+          mkdir -p /tmp/workspace/code
+
+      -
+        name: Init scaffold
+        run: ahoy init scaffold-test ${{ matrix.project_type }} ${{ env.GOVCMS_VERSION }}
+
+      -
+        name: Build project
+        run: ahoy up
+        env:
+          GOVCMS_IMAGE_VERSION: ${{ matrix.govcms_image }}
+          GOVCMS_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      -
+        name: Install GovCMS profile
+        run: ahoy install
+
