@@ -96,12 +96,10 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     needs: [ test ]
-    if: ${{ !cancelled() }}
     steps:
       -
         name: Notify failures to Slack
         id: failure_slack
-        if: ${{ contains(needs.*.result, 'failure') }}
         uses: slackapi/slack-github-action@v1.27.0
         with:
           # See https://github.com/slackapi/slack-github-action?tab=readme-ov-file
