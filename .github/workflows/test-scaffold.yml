@@ -103,7 +103,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.27.0
         with:
           # See https://github.com/slackapi/slack-github-action?tab=readme-ov-file
-          channel-id: ${{ vars.SLACK_CHANNEL }}
+          channel-id: ${{ secrets.SLACK_CHANNEL }}
           payload: |
             {
               "attachments": [
