@@ -90,6 +90,9 @@ echo "[info]: Cleaning up"
 mv ".docker/Dockerfile.$GOVCMS_TYPE" .docker/Dockerfile.cli
 mv ".docker/Dockerfile.solr.$GOVCMS_TYPE" .docker/Dockerfile.solr
 
+# Remove the GitHub Actions CI configuration.
+rm -rf .github
+
 if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm .docker/Dockerfile*saas*
   rm -r themes
