@@ -11,6 +11,9 @@ on:
       - reopened
       - ready_for_review
       - synchronize
+  schedule:
+    # Sunday 2 AM Melbourne time.
+    - cron: '0 16 * * SUN'
   workflow_dispatch:
 
 concurrency:
