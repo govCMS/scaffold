@@ -114,7 +114,7 @@ jobs:
                       "type": "header",
                       "text": {
                         "type": "plain_text",
-                        "text": "Scaffold test failure"
+                        "text": "GovCMS Scaffold test failure"
                       }
                     },
                     {
@@ -123,19 +123,6 @@ jobs:
                         {
                           "type": "mrkdwn",
                           "text": "Some jobs were not successful, please view the pipeline and rerun."
-                        }
-                      ]
-                    },
-                    {
-                      "type": "section",
-                      "fields": [
-                        {
-                          "type": "mrkdwn",
-                          "text": "*Project Type:*\n${{ matrix.project_type }}"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "*GovCMS Image:*\n${{ matrix.govcms_image }}"
                         }
                       ]
                     },
