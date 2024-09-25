@@ -24,6 +24,7 @@ x-volumes-paas: &paas-volumes
     - .:/app:delegated
 
 x-environment: &default-environment
+  RESTY_RESOLVER: 8.8.8.8
   STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
   LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
   LAGOON_PROJECT: *lagoon-project
