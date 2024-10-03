@@ -24,6 +24,7 @@ x-volumes-paas: &paas-volumes
     - .:/app:delegated
 
 x-environment: &default-environment
+  RESTY_RESOLVER: 8.8.8.8
   STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
   LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
   LAGOON_PROJECT: *lagoon-project
@@ -37,8 +38,9 @@ x-environment: &default-environment
   DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
   GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
-  CLAMAV_HOST: av
-  CLAMAV_MODE: daemon
+  HTTPAV_ENDPOINT: http://av:3993/scan
+  HTTPAV_RETURN_KEY: comodo
+  HTTP_PAYLOAD_KEY: malware
 
 services:
 
