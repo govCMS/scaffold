@@ -38,8 +38,9 @@ x-environment: &default-environment
   DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
   GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
-  CLAMAV_HOST: av
-  CLAMAV_MODE: daemon
+  HTTPAV_ENDPOINT: http://av:3993/scan
+  HTTPAV_RETURN_KEY: comodo
+  HTTP_PAYLOAD_KEY: malware
 
 services:
 
