@@ -135,7 +135,7 @@ services:
   #   environment:
   #     << : *default-environment
 
-  # # Uncomment to enable test.
+  # Uncomment to enable testing.
   # test:
   #   build:
   #     context: .
@@ -152,7 +152,7 @@ services:
   #   environment:
   #     << : *default-environment
 
-  # # Uncomment to enable chrome.
+  # Uncomment to enable chrome.
   # chrome:
   #   image: selenium/standalone-chrome:4.5.2-20221021
   #   shm_size: '1gb'
