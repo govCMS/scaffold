@@ -58,6 +58,7 @@ services:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
       lagoon.persistent: /app/web/sites/default/files/
+      lagoon.base.image: govcms/govcms:${GOVCMS_IMAGE_VERSION:-10.x-latest}
     << : *default-volumes
     environment:
       << : *default-environment
@@ -92,6 +93,7 @@ services:
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.persistent: /app/web/sites/default/files/
+      lagoon.base.image: govcms/nginx-drupal:${GOVCMS_IMAGE_VERSION:-10.x-latest}
     << : *default-volumes
     depends_on:
       - cli
@@ -113,6 +115,7 @@ services:
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx
       lagoon.persistent: /app/web/sites/default/files/
+      lagoon.base.image: govcms/php:${GOVCMS_IMAGE_VERSION:-10.x-latest}
     << : *default-volumes
     depends_on:
       - cli
@@ -144,6 +147,7 @@ services:
   #       GOVCMS_IMAGE_VERSION: *govcms-image-version
   #   labels:
   #     lagoon.type: solr
+  #     lagoon.base.image: govcms/solr:${GOVCMS_IMAGE_VERSION:-10.x-latest}
   #   ports:
   #     - "8983" # Find port on host with `docker compose port solr 8983`
   #   depends_on:
