@@ -2,29 +2,28 @@
 
 /**
  * @file
- * Autoloader for Drupal PHPUnit testing.
+ * Autoloader for GovCMS Drupal PHPUnit testing.
  *
- * @see phpunit.xml.dist
+ * @see phpunit.xml
  */
 
-use Drupal\Component\Assertion\Handle;
-use PHPUnit\Runner\Version;
+use Drupal\TestTools\PhpUnitCompatibility\ClassWriter;
 
 /**
  * Finds all valid extension directories recursively within a given directory.
  *
  * @param string $scan_directory
  *   The directory that should be recursively scanned.
+ *
  * @return array
  *   An associative array of extension directories found within the scanned
  *   directory, keyed by extension name.
  */
-function drupal_phpunit_find_extension_directories($scan_directory)
-{
+function drupal_phpunit_find_extension_directories($scan_directory) {
   $extensions = [];
   $dirs = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($scan_directory, \RecursiveDirectoryIterator::FOLLOW_SYMLINKS));
   foreach ($dirs as $dir) {
-    if (strpos($dir->getPathname(), '.info.yml') !== FALSE) {
+    if (str_contains($dir->getPathname(), '.info.yml')) {
       // Cut off ".info.yml" from the filename for use as the extension name. We
       // use getRealPath() so that we can scan extensions represented by
       // directory aliases.
@@ -44,14 +43,14 @@ function drupal_phpunit_find_extension_directories($scan_directory)
  * @return array
  *   An array of directories under which contributed extensions may exist.
  */
-function drupal_phpunit_contrib_extension_directory_roots($root = NULL)
-{
+function drupal_phpunit_contrib_extension_directory_roots($root = NULL) {
   if ($root === NULL) {
     $root = '/app/web';
   }
   $paths = [
     $root . '/core/modules',
     $root . '/core/profiles',
+    $root . '/core/themes',
     $root . '/modules',
     $root . '/profiles',
     $root . '/themes',
@@ -68,7 +67,7 @@ function drupal_phpunit_contrib_extension_directory_roots($root = NULL)
     $paths[] = is_dir("$path/profiles") ? realpath("$path/profiles") : NULL;
     $paths[] = is_dir("$path/themes") ? realpath("$path/themes") : NULL;
   }
-  return array_filter($paths, 'file_exists');
+  return array_filter($paths);
 }
 
 /**
@@ -80,9 +79,8 @@ function drupal_phpunit_contrib_extension_directory_roots($root = NULL)
  * @return array
  *   An associative array of extension directories, keyed by their namespace.
  */
-function drupal_phpunit_get_extension_namespaces($dirs)
-{
-  $suite_names = ['Unit', 'Kernel', 'Functional', 'FunctionalJavascript'];
+function drupal_phpunit_get_extension_namespaces($dirs) {
+  $suite_names = ['Unit', 'Kernel', 'Functional', 'Build', 'FunctionalJavascript'];
   $namespaces = [];
   foreach ($dirs as $extension => $dir) {
     if (is_dir($dir . '/src')) {
@@ -98,7 +96,7 @@ function drupal_phpunit_get_extension_namespaces($dirs)
           $namespaces['Drupal\\Tests\\' . $extension . '\\' . $suite_name . '\\'][] = $suite_dir;
         }
       }
-      // Extensions can have a \Drupal\extension\Traits namespace for
+      // Extensions can have a \Drupal\Tests\extension\Traits namespace for
       // cross-suite trait code.
       $trait_dir = $test_dir . '/Traits';
       if (is_dir($trait_dir)) {
@@ -121,22 +119,33 @@ if (!defined('PHPUNIT_COMPOSER_INSTALL')) {
  * Populate class loader with additional namespaces for tests.
  *
  * We run this in a function to avoid setting the class loader to a global
- * that can change. This change can cause unpredictable false positives for
- * phpunit's global state change watcher. The class loader can be retrieved from
+ * that can change. This change can cause unpredictable false positives for the
+ * PHPUnit global state change watcher. The class loader can be retrieved from
  * composer at any time by requiring autoload.php.
  */
-function drupal_phpunit_populate_class_loader()
-{
+function drupal_phpunit_populate_class_loader() {
 
   /** @var \Composer\Autoload\ClassLoader $loader */
   $loader = require '/app/web/autoload.php';
 
   // Start with classes in known locations.
+  $loader->add('Drupal\\BuildTests', '/app/web/core/tests');
   $loader->add('Drupal\\Tests', '/app/web/core/tests');
   $loader->add('Drupal\\TestSite', '/app/web/core/tests');
   $loader->add('Drupal\\KernelTests', '/app/web/core/tests');
   $loader->add('Drupal\\FunctionalTests', '/app/web/core/tests');
   $loader->add('Drupal\\FunctionalJavascriptTests', '/app/web/core/tests');
+  $loader->add('Drupal\\TestTools', '/app/web/core/tests');
+
+  // Add multiple paths for GovCMS\Tests
+  $loader->addPsr4('GovCMS\\Tests\\', [
+    '/app/tests/phpunit/tests',
+  ]);
+
+  // Add a separate path for GovCMS\Tests\Integration
+  $loader->addPsr4('GovCMS\\Tests\\Integration\\', [
+      '/app/tests/phpunit/integration'
+  ]);
 
   if (!isset($GLOBALS['namespaces'])) {
     // Scan for arbitrary extension namespaces from core and contrib.
@@ -151,17 +160,13 @@ function drupal_phpunit_populate_class_loader()
   }
 
   return $loader;
-};
+}
 
 // Do class loader population.
-drupal_phpunit_populate_class_loader();
+$loader = drupal_phpunit_populate_class_loader();
+class_alias('\Drupal\Tests\DocumentElement', '\Behat\Mink\Element\DocumentElement', TRUE);
 
-// Ensure we have the correct PHPUnit version for the version of PHP.
-if (class_exists('\PHPUnit_Runner_Version')) {
-  $phpunit_version = \PHPUnit_Runner_Version::id();
-} else {
-  $phpunit_version = Version::id();
-}
+ClassWriter::mutateTestBase($loader);
 
 // Set sane locale settings, to ensure consistent string, dates, times and
 // numbers handling.
@@ -179,24 +184,13 @@ mb_language('uni');
 // reduce the fragility of the testing system in general.
 date_default_timezone_set('Australia/Sydney');
 
-// Runtime assertions. PHPUnit follows the php.ini assert.active setting for
-// runtime assertions. By default this setting is on. Ensure exceptions are
-// thrown if an assert fails, but this call does not turn runtime assertions on
-// if they weren't on already.
-Handle::register();
-
-// PHPUnit 4 to PHPUnit 6 bridge. Tests written for PHPUnit 4 need to work on
-// PHPUnit 6 with a minimum of fuss.
-if (version_compare($phpunit_version, '6.1', '>=')) {
-  class_alias('\PHPUnit\Framework\AssertionFailedError', '\PHPUnit_Framework_AssertionFailedError');
-  class_alias('\PHPUnit\Framework\Constraint\Count', '\PHPUnit_Framework_Constraint_Count');
-  class_alias('\PHPUnit\Framework\Error\Error', '\PHPUnit_Framework_Error');
-  class_alias('\PHPUnit\Framework\Error\Warning', '\PHPUnit_Framework_Error_Warning');
-  class_alias('\PHPUnit\Framework\ExpectationFailedException', '\PHPUnit_Framework_ExpectationFailedException');
-  class_alias('\PHPUnit\Framework\Exception', '\PHPUnit_Framework_Exception');
-  class_alias('\PHPUnit\Framework\MockObject\Matcher\InvokedRecorder', '\PHPUnit_Framework_MockObject_Matcher_InvokedRecorder');
-  class_alias('\PHPUnit\Framework\SkippedTestError', '\PHPUnit_Framework_SkippedTestError');
-  class_alias('\PHPUnit\Framework\TestCase', '\PHPUnit_Framework_TestCase');
-  class_alias('\PHPUnit\Util\Test', '\PHPUnit_Util_Test');
-  class_alias('\PHPUnit\Util\Xml', '\PHPUnit_Util_XML');
+// Ensure ignored deprecation patterns listed in .deprecation-ignore.txt are
+// considered in testing.
+if (getenv('SYMFONY_DEPRECATIONS_HELPER') === FALSE) {
+  $deprecation_ignore_filename = realpath("/app/web/core/.deprecation-ignore.txt");
+  putenv("SYMFONY_DEPRECATIONS_HELPER=ignoreFile=$deprecation_ignore_filename");
 }
+
+// Drupal expects to be run from its root directory. This ensures all test types
+// are consistent.
+chdir('/app/web');
