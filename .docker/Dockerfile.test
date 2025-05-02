@@ -12,3 +12,4 @@ ENV WEBROOT=web
 
 COPY --from=cli /app /app
 COPY tests /app/tests/
+COPY behat.yml /app/tests/behat.yml

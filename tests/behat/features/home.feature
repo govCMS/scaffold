@@ -1,8 +1,16 @@
-Feature: Home Page
+@d9 @d10 @smoke @homepage
+Feature: Homepage
 
-  Ensure the home page is rendering correctly
+  Ensure that homepage is displayed as expected.
 
-  @javascript @smoke
-  Scenario: Anonymous user visits the homepage
-    Given I am on the homepage
-    And save screenshot
+  @api
+  Scenario: Anonymous user visits homepage
+    Given I go to the homepage
+    And I should be in the "<front>" path
+    Then I save screenshot
+
+  @api @javascript
+  Scenario: Anonymous user visits homepage
+    Given I go to the homepage
+    And I should be in the "<front>" path
+    Then I save screenshot
