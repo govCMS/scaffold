@@ -1,29 +1,46 @@
+# See https://github.com/govcms-tests/tests/blob/3.x-master/behat/behat.yml
 default:
-  autoload: [ %paths.base%/bootstrap ]
+  autoload: [ '%paths.base%/bootstrap' ]
   gherkin:
+    # Disable caching during development. It is enabled for profiles below.
+    cache: ~
     filters:
-      # Allow skipping tests by tagging them with "@skipped"
+      # Allow skipping tests by tagging them with "@skipped".
       tags: "~@skipped"
   suites:
     default:
-      paths: [ %paths.base%/features ]
+      paths: [ '%paths.base%/features' ]
       contexts:
-      - FeatureContext
-      - Drupal\DrupalExtension\Context\DrupalContext
-      - Drupal\DrupalExtension\Context\MinkContext
-      - Drupal\DrupalExtension\Context\MarkupContext
-      - Drupal\DrupalExtension\Context\MessageContext
-      - IntegratedExperts\BehatScreenshotExtension\Context\ScreenshotContext
+        - FeatureContext
+        - BehatCliContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MarkupContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - DrevOps\BehatScreenshotExtension\Context\ScreenshotContext
+      filters:
+        tags: "@d10&&~skipped"
 
   extensions:
-    Behat\MinkExtension:
-      goutte: ~
+    Drupal\MinkExtension:
+      browserkit_http: ~
       base_url: http://nginx:8080
-      files_path: %paths.base%/fixtures
+      files_path: '%paths.base%/fixtures'
       browser_name: chrome
       selenium2:
         wd_host: "http://chrome:4444/wd/hub"
-        capabilities: { "browser": "chrome", "version": "*", "marionette": true, "extra_capabilities": { "chromeOptions": { "w3c": false } } }
+        capabilities:
+          browser: "chrome"
+          version: "*"
+          marionette: true
+          extra_capabilities:
+            chromeOptions:
+              w3c: false
+              args:
+                - --disable-dev-shm-usage
+                - --disable-extensions
+                - --disable-gpu
+                - --no-sandbox
+                - --headless
       javascript_session: selenium2
     # Provides integration with Drupal APIs.
     Drupal\DrupalExtension:
@@ -31,8 +48,10 @@ default:
       api_driver: drupal
       drush_driver: drush
       drupal:
+        # Behat would run from within "build" dir.
         drupal_root: /app/web
       drush:
+        # Behat would run from within "build" dir.
         root: /app/web
       selectors:
         message_selector: '.messages'
@@ -40,15 +59,16 @@ default:
         success_message_selector: '.messages.status'
         warning_message_selector: '.messages.warning'
     # Allows to capture HTML and JPG screenshots (based on the driver used).
-    IntegratedExperts\BehatScreenshotExtension:
-      dir: %paths.base%/screenshots
-      fail: true
-      purge: false
-p0:
+    DrevOps\BehatScreenshotExtension: ~
+
+d10:
   gherkin:
+    cache: '/tmp/behat_gherkin_cache'
     filters:
-      tags: "@p0&&~@skipped"
-p1:
+      tags: "@d10&&~@skipped"
+
+d9:
   gherkin:
+    cache: '/tmp/behat_gherkin_cache'
     filters:
-      tags: "@p1&&~@skipped"
+      tags: "@d9&&~@skipped"
