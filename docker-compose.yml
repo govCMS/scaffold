@@ -1,7 +1,7 @@
 # This value intentionally matches the project name on Lagoon.
 # It is used to name the CLI_IMAGE to use as a build arg locally.
 x-lagoon-project: &lagoon-project
-  {{ GOVCMS_PROJECT_NAME }}
+  ${COMPOSE_PROJECT_NAME:-{{ GOVCMS_PROJECT_NAME }}}
 
 x-lagoon-local-dev-url: &lagoon-local-dev-url
   http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
@@ -53,7 +53,6 @@ services:
         GOVCMS_IMAGE_VERSION: *govcms-image-version
         GOVCMS_GITHUB_TOKEN: ${GOVCMS_GITHUB_TOKEN:-}
     image: *lagoon-project
-    container_name: *lagoon-project
     labels:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
