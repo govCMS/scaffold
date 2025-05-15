@@ -7,19 +7,7 @@
         { "type": "path", "url": "custom/composer" },
         { "type": "composer", "url": "https://packages.drupal.org/8" },
         { "type": "composer", "url": "https://asset-packagist.org" },
-        { "type": "vcs", "url": "git@github.com:govcms/govcms.git" },
-        {
-            "type": "package",
-            "package": {
-                "name": "dropzone/dropzone",
-                "version": "v5.7.2",
-                "type": "drupal-library",
-                "dist": {
-                    "type": "zip",
-                    "url": "https://github.com/dropzone/dropzone/archive/refs/tags/v5.7.2.zip"
-                }
-            }
-        }
+        { "type": "vcs", "url": "git@github.com:govcms/govcms.git" }
     ],
     "require": {
         "php": "^8.1",
@@ -35,9 +23,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "platform": {
-           "php": "8.1"
-        },
         "sort-packages": true,
         "allow-plugins": {
             "composer/installers": true,
@@ -46,7 +31,11 @@
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
             "oomphinc/composer-installers-extender": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true,
+            "simplesamlphp/composer-module-installer": false,
+            "simplesamlphp/composer-xmlprovider-installer": false,
+            "tbachert/spi": true
         }
     },
     "autoload": {
