@@ -67,22 +67,6 @@ services:
     volumes_from: ### Local overrides to mount host SSH keys. Automatically removed in CI.
       - container:amazeeio-ssh-agent ### Local overrides to mount host SSH keys. Automatically removed in CI.
 
-  test:
-    build:
-      context: .
-      dockerfile: .docker/Dockerfile.test
-      args:
-        CLI_IMAGE: *lagoon-project
-        GOVCMS_IMAGE_VERSION: *govcms-image-version
-        SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
-    labels:
-      lagoon.type: none
-    << : *default-volumes
-    depends_on:
-      - cli
-    environment:
-      << : *default-environment
-
   nginx:
     build:
       context: .
@@ -155,15 +139,33 @@ services:
   #   environment:
   #     << : *default-environment
 
-  chrome:
-    image: selenium/standalone-chrome:4.5.2-20221021
-    shm_size: '1gb'
-    platform: linux/amd64
-    depends_on:
-      - test
-    labels:
-      lagoon.type: none
-    << : *default-volumes
+  # Uncomment to enable testing.
+  # test:
+  #   build:
+  #     context: .
+  #     dockerfile: .docker/Dockerfile.test
+  #     args:
+  #       CLI_IMAGE: *lagoon-project
+  #       GOVCMS_IMAGE_VERSION: *govcms-image-version
+  #       SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
+  #   labels:
+  #     lagoon.type: none
+  #   << : *default-volumes
+  #   depends_on:
+  #     - cli
+  #   environment:
+  #     << : *default-environment
+
+  # Uncomment to enable chrome.
+  # chrome:
+  #   image: selenium/standalone-chrome:4.5.2-20221021
+  #   shm_size: '1gb'
+  #   platform: linux/amd64
+  #   depends_on:
+  #     - test
+  #   labels:
+  #     lagoon.type: none
+  #   << : *default-volumes
 
 networks:
   amazeeio-network:
