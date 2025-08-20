@@ -1,7 +1,9 @@
 # This value intentionally matches the project name on Lagoon.
 # It is used to name the CLI_IMAGE to use as a build arg locally.
 x-lagoon-project: &lagoon-project
-  {{ GOVCMS_PROJECT_NAME }}
+  ${COMPOSE_PROJECT_NAME:-{{ GOVCMS_PROJECT_NAME }}}
+x-additional-context-cli: &additional-context-cli
+  - ${COMPOSE_PROJECT_NAME:-{{ GOVCMS_PROJECT_NAME }}}=service:cli
 
 x-lagoon-local-dev-url: &lagoon-local-dev-url
   http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
@@ -75,6 +77,8 @@ services:
         CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
         SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
+      additional_contexts:
+        *additional-context-cli
     labels:
       lagoon.type: none
     << : *default-volumes
@@ -90,6 +94,8 @@ services:
       args:
         CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
+      additional_contexts:
+        *additional-context-cli
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.persistent: /app/web/sites/default/files/
@@ -111,6 +117,8 @@ services:
       args:
         CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
+      additional_contexts:
+        *additional-context-cli
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx
