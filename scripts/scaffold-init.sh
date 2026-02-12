@@ -135,10 +135,12 @@ cat > "$REPO_ROOT/README.md" << EOF
 
 ## Basic commands
 
-- \`ahoy build\`
-- \`ahoy up\`
-- \`ahoy stop\`
-- \`ahoy pull\`
+To find a list of all ahoy commands, check the .ahoy.yml file, or run \`ahoy\` in command line.
+
+- \`ahoy build\` - Builds your project containers from scratch
+- \`ahoy install\` - Only needs to be run once after the initial \`ahoy build\`
+- \`ahoy up\` - Starts your project if it has been stopped
+- \`ahoy stop\` - Stops your project
 
 ## Theme settings
 
