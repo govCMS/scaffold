@@ -125,7 +125,7 @@ cat > "$REPO_ROOT/README.md" << EOF
 - **Project:** $GOVCMS_NAME
 - **Version:** $GOVCMS_VERSION
 - **SaaS or PaaS:** $GOVCMS_TYPE
-- **Local Dev URL:** [http://$GOVCMS_TYPE.docker.amazee.io/](http://$GOVCMS_TYPE.docker.amazee.io/)
+- **Local Dev URL:** [http://$GOVCMS_NAME.docker.amazee.io/](http://$GOVCMS_NAME.docker.amazee.io/)
 
 ## Useful links
 
