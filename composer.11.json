@@ -10,14 +10,12 @@
         { "type": "vcs", "url": "git@github.com:govcms/govcms.git" }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "govcms/govcms-custom": "*",
-        "govcms/govcms": "1.x-dev",
-        "govcms/scaffold-tooling": "~2",
-        "symfony/event-dispatcher": "4.3.11 as 3.4.41"
-    },
-    "require-dev": {
-        "govcms/require-dev": "~1"
+        "govcms/govcms": "4.x-master-dev",
+        "govcms/scaffold-tooling": "11.x-master-dev",
+        "drush/drush": "^13",
+        "composer/installers": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -31,8 +29,13 @@
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true,
             "oomphinc/composer-installers-extender": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true,
+            "simplesamlphp/composer-module-installer": false,
+            "simplesamlphp/composer-xmlprovider-installer": false,
+            "tbachert/spi": true
         }
     },
     "autoload": {
