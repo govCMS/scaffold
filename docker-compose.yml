@@ -42,6 +42,7 @@ x-environment: &default-environment
   HTTPAV_RETURN_KEY: comodo
   HTTP_PAYLOAD_KEY: malware
   SOLR_MODULES: ${SOLR_MODULES:-extraction,langid,ltr,analysis-extras}
+  COMPOSER_NO_SECURITY_BLOCKING: ${COMPOSER_NO_SECURITY_BLOCKING:-}
 
 services:
 
@@ -53,6 +54,7 @@ services:
         LAGOON_SAFE_PROJECT: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
         GOVCMS_GITHUB_TOKEN: ${GOVCMS_GITHUB_TOKEN:-}
+        COMPOSER_NO_SECURITY_BLOCKING: ${COMPOSER_NO_SECURITY_BLOCKING:-}
     image: *lagoon-project
     container_name: *lagoon-project
     labels:
