@@ -102,13 +102,13 @@ commands:
       docker compose exec -T test ./vendor/bin/govcms-lint web/modules/custom
       docker compose exec -T test ./vendor/bin/govcms-lint web/themes/custom
 
-  test-behat:
-    usage: Run Behat tests.
-    cmd: docker compose exec -T test ./vendor/bin/govcms-behat "$@"
-
   test-phpunit:
     usage: Run phpunit tests
     cmd: docker compose exec -T test ./vendor/bin/govcms-phpunit --testsuite govcms
+
+  test-playwright:
+    usage: Run Playwright tests.
+    cmd: docker compose exec -T playwright npx playwright test --config /app/tests/playwright/playwright.config.ts "$@"
 
   pull:
     usage: Pull latest docker images.
