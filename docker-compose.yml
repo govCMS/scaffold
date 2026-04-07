@@ -14,8 +14,6 @@ x-volumes: &default-volumes
   volumes:
     - ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
     - ./files:/app/web/sites/default/files:delegated
-    - ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
-    - ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
     - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
     - ./config:/app/config
 
