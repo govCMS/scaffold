@@ -21,8 +21,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DREVOPS_CI_TEST_RESULTS: /tmp/tests
-  DREVOPS_CI_ARTIFACTS: /tmp/artifacts
   GOVCMS_VERSION: 10
 
 jobs:
@@ -34,29 +32,17 @@ jobs:
         govcms_image:
           - "10.x-latest"
           - "10.x-edge"
+          - "11.x-latest"
+          - "11.x-edge"
         project_type:
           - saas
           - paas
       fail-fast: false
 
-    container:
-      image: drevops/ci-runner:24.8.0
-      env:
-        CI: 1
-        # Prevent GitHub overriding the Docker config.
-        DOCKER_CONFIG: /root/.docker
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TZ: "Australia/Melbourne"
-        # Set runner terminal capabilities.
-        TERM: xterm-256color
-        # Directory to store test results.
-        DREVOPS_CI_TEST_RESULTS: ${{ env.DREVOPS_CI_TEST_RESULTS }}
-        # Directory to store test artifacts.
-        DREVOPS_CI_ARTIFACTS: ${{ env.DREVOPS_CI_ARTIFACTS }}
-        # Check only minimal stack requirements.
-        DREVOPS_DOCTOR_CHECK_MINIMAL: 1
-        # Directory to store code exported between jobs.
-        DREVOPS_EXPORT_CODE_DIR: /tmp/workspace/code
+    env:
+      # Enable BuildKit for additional_contexts support.
+      DOCKER_BUILDKIT: 1
+      COMPOSE_DOCKER_CLI_BUILD: 1
 
     steps:
       -
@@ -72,6 +58,13 @@ jobs:
           docker compose version
 
       -
+        name: Install Ahoy
+        run: |
+          sudo wget -qO /usr/local/bin/ahoy https://github.com/ahoy-cli/ahoy/releases/latest/download/ahoy-bin-linux-amd64
+          sudo chmod +x /usr/local/bin/ahoy
+          ahoy --version
+
+      -
         name: Setup Docker network
         run: docker network prune -f >/dev/null 2>&1 && docker network inspect amazeeio-network >/dev/null 2>&1 || docker network create amazeeio-network >/dev/null 2>&1 || true
 
@@ -79,7 +72,6 @@ jobs:
         name: Process codebase to run in CI
         run: |
           find . -name "docker-compose.yml" -print0 | xargs -0 -I {} sh -c "sed -i -e ''/###/d'' {} && sed -i -e ''s/##//'' {} && sed -i -e 's#- .:/app:delegated#[]#' {}"
-          mkdir -p "${DREVOPS_EXPORT_CODE_DIR}"
 
       -
         name: Init scaffold

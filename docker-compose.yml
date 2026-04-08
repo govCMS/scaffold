@@ -41,6 +41,7 @@ x-environment: &default-environment
   HTTPAV_ENDPOINT: http://av:3993/scan
   HTTPAV_RETURN_KEY: comodo
   HTTP_PAYLOAD_KEY: malware
+  SOLR_MODULES: ${SOLR_MODULES:-extraction,langid,ltr,analysis-extras}
 
 services:
 
@@ -58,7 +59,7 @@ services:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
       lagoon.persistent: /app/web/sites/default/files/
-      lagoon.base.image: govcms/govcms:${GOVCMS_IMAGE_VERSION:-10.x-latest}
+      lagoon.base.image: govcms/govcms:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
     << : *default-volumes
     environment:
       << : *default-environment
@@ -75,6 +76,8 @@ services:
         CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
         SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
+      additional_contexts:
+        cli: 'service:cli' # Ensure cli is built first
     labels:
       lagoon.type: none
     << : *default-volumes
@@ -90,10 +93,12 @@ services:
       args:
         CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
+      additional_contexts:
+        cli: 'service:cli' # Ensure cli is built first
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.persistent: /app/web/sites/default/files/
-      lagoon.base.image: govcms/nginx-drupal:${GOVCMS_IMAGE_VERSION:-10.x-latest}
+      lagoon.base.image: govcms/nginx-drupal:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
     << : *default-volumes
     depends_on:
       - cli
@@ -111,11 +116,13 @@ services:
       args:
         CLI_IMAGE: *lagoon-project
         GOVCMS_IMAGE_VERSION: *govcms-image-version
+      additional_contexts:
+        cli: 'service:cli' # Ensure cli is built first
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx
       lagoon.persistent: /app/web/sites/default/files/
-      lagoon.base.image: govcms/php:${GOVCMS_IMAGE_VERSION:-10.x-latest}
+      lagoon.base.image: govcms/php:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
     << : *default-volumes
     depends_on:
       - cli
@@ -145,9 +152,10 @@ services:
   #     dockerfile: .docker/Dockerfile.solr
   #     args:
   #       GOVCMS_IMAGE_VERSION: *govcms-image-version
+  #       LAGOON_IMAGE_VERSION: ${LAGOON_IMAGE_VERSION:-latest}
   #   labels:
   #     lagoon.type: solr
-  #     lagoon.base.image: govcms/solr:${GOVCMS_IMAGE_VERSION:-10.x-latest}
+  #     lagoon.base.image: govcms/solr:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
   #   ports:
   #     - "8983" # Find port on host with `docker compose port solr 8983`
   #   depends_on:

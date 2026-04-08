@@ -1,13 +1,20 @@
 ##
 # @see  https://govcms.gov.au/wiki-advanced#docker
 #
-FROM uselagoon/solr-8
+ARG LAGOON_IMAGE_VERSION
+# Use the uselagoon/solr-9 as the base image
+FROM uselagoon/solr-9:${LAGOON_IMAGE_VERSION:-latest}
 
-# Based off search_api_solr/jump-start/solr8/config-set as a sane default.
+# Based off search_api_solr/jump-start/solr9/config-set as a sane default.
 COPY .docker/config/solr/ /opt/solr/server/solr/configsets/drupal/conf
+
+# The <lib/> directives are deprecated and will be removed in Solr 10.0
+# hence the jump-start configset has them disabled by default.
+# We need to load the existing plugins via the newer env var SOLR_MODULES.
+ENV SOLR_MODULES=${SOLR_MODULES:-"extraction,langid,ltr,analysis-extras"}
 
 USER solr
 
-# Note: The solr-recreate command will remove and replace.
+# Note: The solr-recreate command will remove and replace the core config.
 # If your configuration has changed you may need to reindex your solr index.
 CMD solr-recreate drupal /opt/solr/server/solr/configsets/drupal && solr-foreground
