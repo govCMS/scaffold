@@ -13,7 +13,7 @@ ahoy init project_name type version
 ```
 
  * `type`: May be `saas` or `paas`
- * `version`: May be `8`, `9` or `10`
+ * `version`: May be `10` or `11`
 
 ## Next steps
 
