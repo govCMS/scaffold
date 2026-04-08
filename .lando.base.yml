@@ -25,7 +25,7 @@
 # - '[version]': May be '8', '9' or '10'
 
 # 2. Enable local overrides by duplicating .lando.local.example.yml to
-# .lando.local.yml
+# .lando.local.yml (instead of .env file)
 
 # Command: `cp -i .lando.local.example.yml .lando.local.yml`
 
@@ -33,11 +33,7 @@
 # set MARIADB_DATA_IMAGE or make the lando project name/urls unique for multiple
 # instances of this same project on the same computer.
 
-# 4. Optional, Enable SSH agent integration with pygmy.
-
-# See heading in this file 'SSH agent volume with pygmy' for steps.
-
-# 5. Run the project.
+# 4. Run the project.
 
 # Command: `lando start`
 
@@ -59,36 +55,6 @@
 # docker container rm --force $LANDO_APP_DB_NAME
 # docker volume rm $(printf $LANDO_APP_NAME)_data_mariadb_blank
 # docker volume rm $(printf $LANDO_APP_NAME)_data_mariadb_govcms_image
-# <end terminal commmands>
-
-############################################
-## SSH agent volume with pygmy - Optional ##
-############################################
-
-# Creating a new SSH agent container is optional for integration, if required
-# with pymgy SSH agent. To use, rename
-# '.lando.dist.example.with-ssh-external-volume.yml' to .lando.dist.yml',
-# rebuild lando and fellow the terminal commands below.
-
-# Why?
-# In Docker compose v3, the' volumes_from' property, which maps volumes from one
-# container to another another, cannot be used. The new method, is to specify
-# the volume by name, however, the amazee.io SSH agent creates randomly named
-# volume, so rename it first.
-
-# <begin terminal commmands>
-# OLD_VOLUME=$(docker inspect --type=container --format='{{ (index .Mounts 0).Name }}' amazeeio-ssh-agent)
-# docker volume create amazeeio-ssh-agent-volume
-#
-# docker run --rm -it -v $OLD_VOLUME:/from -v amazeeio-ssh-agent-volume:/to alpine ash -c "cd /from ; cp -av . /to"
-# docker run -d --name amazeeio-ssh-agent-new-container \
-# -v amazeeio-ssh-agent-volume:/tmp/amazeeio_ssh-agent \
-# --restart=unless-stopped \
-# pygmystack/ssh-agent
-#
-# docker container rm amazeeio-ssh-agent -f
-# docker rename amazeeio-ssh-agent-new-container amazeeio-ssh-agent
-# docker volume rm $OLD_VOLUME
 # <end terminal commmands>
 
 ################
@@ -146,14 +112,6 @@ x-volumes-paas:
   volumes:
     - &volume-drupal-app .:/app:delegated
 
-# The property, 'volumes_from' was removed in docker compose v3, so use named
-# volumes instead.
-# Mount volumes from Pygmy to inject host SSH key into container.
-# https://pygmy.readthedocs.io/en/master/ssh_agent/
-x-volumes-external:
-  volumes:
-    - &volume-ssh-agent amazeeio-ssh-agent-volume:/tmp/amazeeio_ssh-agent
-
 x-volumes-tooling:
   volumes:
     - &volume-tooling ./.lando/container:/lando-govcms
@@ -167,13 +125,11 @@ x-volumes-with-external: &default-volumes-with-external
     - *volume-behat-screenshots
     - *volume-phpunit-tests
     - *volume-drupal-config
-    - *volume-ssh-agent
     - *volume-tooling
 
 x-volumes-paas-with-external: &paas-volumes-with-external
   volumes:
     - *volume-drupal-app
-    - *volume-ssh-agent
     - *volume-tooling
 
 # Entry point process isn't PID 1 as lando entrypoint is instead,
@@ -224,12 +180,6 @@ x-lando-common-options: &lando-common-options
   # Do not auto mount /app folder by default.
   app_mount: false
 
-# Mark volume as internal for each service, use override for external.
-x-lando-volumes-top-level: &lando-volumes-top-level
-  volumes:
-    amazeeio-ssh-agent-volume:
-      external: false
-
 x-lando-database-tooling-vars: &lando-database-tooling-vars
   MYSQL_DATABASE: drupal
   LANDO_DB_EXPORT_USER: drupal
@@ -277,7 +227,6 @@ services:
   cli:
     << : *lando-common-options
     << : *lando-extra-build-steps
-    << : *lando-volumes-top-level
     services:
       build:
         context: .
@@ -299,10 +248,13 @@ services:
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
       << : *default-volumes-with-external
+      # Mount volumes from Pygmy to inject host SSH key into container.
+      # https://pygmy.readthedocs.io/en/master/ssh_agent/
+      volumes_from:
+        - container:amazeeio-ssh-agent
 
   test:
     << : *lando-common-options
-    << : *lando-volumes-top-level
     services:
       build:
         context: .
@@ -326,7 +278,6 @@ services:
 
   nginx:
     << : *lando-common-options
-    << : *lando-volumes-top-level
     # Expose Nginx via lando proxy, note that 'ports' must also be present in
     # 'services'.
     moreHttpPorts:
@@ -361,7 +312,6 @@ services:
 
   php:
     << : *lando-common-options
-    << : *lando-volumes-top-level
     services:
       build:
         context: .
@@ -447,7 +397,6 @@ services:
 
   chrome:
     << : *lando-common-options
-    << : *lando-volumes-top-level
     services:
       image: selenium/standalone-chrome:4.5.2-20221021
       shm_size: '1gb'
