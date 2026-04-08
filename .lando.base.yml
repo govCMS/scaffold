@@ -167,8 +167,8 @@ name: *lagoon-project
 # NOT defined in the .lando.yml files, otherwise lando yml takes precedence,
 # unlike docker-compose.yml.
 # @see https://github.com/lando/lando/issues/1616
-env_file:
-  - .env
+#env_file:
+#  - .env
 
 # Define internal/external network 'amazeeio-network'.
 compose:
