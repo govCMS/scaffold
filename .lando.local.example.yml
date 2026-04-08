@@ -46,7 +46,6 @@ x-environment: &default-environment
   # DRUPAL_SHIELD_PASS: ''
 
 x-others:
- - SITE_AUDIT_VERSION: &SITE_AUDIT_VERSION 7.x-3.x
  - GOVCMS_GITHUB_TOKEN: &GOVCMS_GITHUB_TOKEN ''
 
 # Unique lando project name - uses 'lagoon-project' variable above in same file.
@@ -74,7 +73,6 @@ services:
         args:
           CLI_IMAGE: *lagoon-project
           GOVCMS_IMAGE_VERSION: *govcms-image-version
-          SITE_AUDIT_VERSION: *SITE_AUDIT_VERSION
   nginx:
     services:
       build:

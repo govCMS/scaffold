@@ -138,6 +138,7 @@ x-extra-environment-tini: &extra-environment-tini
  - TINI_SUBREAPER: true
 
 x-environment: &default-environment
+  RESTY_RESOLVER: 8.8.8.8
   STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
   LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
   LAGOON_PROJECT: *lagoon-project
@@ -152,8 +153,10 @@ x-environment: &default-environment
   DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
   GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
-  CLAMAV_HOST: av
-  CLAMAV_MODE: daemon
+  HTTPAV_ENDPOINT: http://av:3993/scan
+  HTTPAV_RETURN_KEY: comodo
+  HTTP_PAYLOAD_KEY: malware
+  SOLR_MODULES: ${SOLR_MODULES:-extraction,langid,ltr,analysis-extras}
   << : *extra-environment-tini
 
 #########################
@@ -240,11 +243,9 @@ services:
         lagoon.type: cli-persistent
         lagoon.persistent.name: nginx
         lagoon.persistent: /app/web/sites/default/files/
+        lagoon.base.image: govcms/govcms:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
       environment:
         << : *default-environment
-      networks:
-        - amazeeio-network
-        - default
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
       << : *default-volumes-with-external
@@ -263,15 +264,17 @@ services:
           CLI_IMAGE: *lagoon-project
           GOVCMS_IMAGE_VERSION: *govcms-image-version
           SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
+        # Can't use additional contexts, but lando rebuild pulls new images
+        # anyway so might not be a problem.
+        # @see https://github.com/lando/lagoon/pull/107
+        # additional_contexts:
+        #   cli: 'service:cli' # Ensure cli is built first
       labels:
         lagoon.type: none
       depends_on:
         - cli
       environment:
         << : *default-environment
-      networks:
-        - amazeeio-network
-        - default
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
       << : *default-volumes-with-external
@@ -292,6 +295,11 @@ services:
         args:
           CLI_IMAGE: *lagoon-project
           GOVCMS_IMAGE_VERSION: *govcms-image-version
+        # Can't use additional contexts, but lando rebuild pulls new images
+        # anyway so might not be a problem.
+        # @see https://github.com/lando/lagoon/pull/107
+        # additional_contexts:
+        #   cli: 'service:cli' # Ensure cli is built first
       labels:
         lagoon.type: nginx-php-persistent
         lagoon.persistent: /app/web/sites/default/files/
@@ -319,6 +327,11 @@ services:
         args:
           CLI_IMAGE: *lagoon-project
           GOVCMS_IMAGE_VERSION: *govcms-image-version
+        # Can't use additional contexts, but lando rebuild pulls new images
+        # anyway so might not be a problem.
+        # @see https://github.com/lando/lagoon/pull/107
+        # additional_contexts:
+        #   cli: 'service:cli' # Ensure cli is built first
       labels:
         lagoon.type: nginx-php-persistent
         lagoon.name: nginx
@@ -327,9 +340,6 @@ services:
         - cli
       environment:
         << : *default-environment
-      networks:
-        - amazeeio-network
-        - default
       command: /sbin/tini -- /lagoon/entrypoints.sh /usr/local/sbin/php-fpm -F -R
       << : *default-volumes-with-external
 
@@ -340,6 +350,7 @@ services:
     app_mount: true
     services:
       image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
+      platform: linux/amd64
       labels:
         lagoon.type: mariadb
         lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
@@ -385,8 +396,10 @@ services:
   #       dockerfile: .docker/Dockerfile.solr
   #       args:
   #         GOVCMS_IMAGE_VERSION: *govcms-image-version
+  #         LAGOON_IMAGE_VERSION: ${LAGOON_IMAGE_VERSION:-latest}
   #     labels:
   #       lagoon.type: solr
+  #       lagoon.base.image: govcms/solr:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
   #     ports:
   #       - '8983' # Find port on host with `docker port [container_name_for_solr] 8983`
   #     depends_on:
@@ -399,6 +412,7 @@ services:
     << : *lando-common-options
     services:
       image: selenium/standalone-chrome:4.5.2-20221021
+      platform: linux/amd64
       shm_size: '1gb'
       depends_on:
         - test
@@ -606,7 +620,7 @@ tooling:
   ahoy-ship-shape:
     service: cli
     description: Run site validation scripts locally
-    cmd: shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code
+    cmd: shipshape run -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code .
   ahoy-debug:
     service: cli
     description: Enable debug configuration (use alternative command)
