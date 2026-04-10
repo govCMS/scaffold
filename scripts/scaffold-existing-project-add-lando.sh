@@ -8,8 +8,8 @@ echo "[info] Preparing Lando GovCMS Scaffold"
 
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
-printf "I ${RED}love${NC} Stack Overflow\n"
 
+################## TODO "my-project" is "my" instead?
 GOVCMS_NAME=$(grep -oP 'http://\K\w+' docker-compose.yml | head -n 1)
 GOVCMS_VERSION=$(grep -oP 'GOVCMS_IMAGE_VERSION:-\K\w+' docker-compose.yml | head -n 1)
 grep -q '^  solr:$' docker-compose.yml
