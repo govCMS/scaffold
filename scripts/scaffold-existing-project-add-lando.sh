@@ -43,6 +43,6 @@ printf "need to manually move the changes (new lines) added to the project\n"
 printf "root's '.ahoy.yml' file to the 'custom/ahoy.yml' file instead as the file is\n"
 printf "govcms locked, commands become 'ahoy my lando-[command]' instead.\n"
 
-rm scripts/scaffold-post-setup-add-lando.sh
+rm scripts/scaffold-existing-project-add-lando.sh
 
 echo "[success]: Lando GovCMS scaffold changed!"
