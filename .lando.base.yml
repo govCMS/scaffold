@@ -221,6 +221,16 @@ x-lando-extra-build-steps: &lando-extra-build-steps
       apk add pv &&
       echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV install done. ####\e[0m";
       fi
+    # If DB container, remove default database paramater, so we can recreate the
+    # databse without it already existsing.
+    - |
+      CONFIG_FILE=/var/lib/mysql/.my.cnf
+      if test -f $CONFIG_FILE; then
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) DB config file change. ####\e[0m";
+        sed -i -e 's|^database=drupal$|#database=drupal|g' $CONFIG_FILE;
+        echo "Config file: $CONFIG_FILE changed!"
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) DB config file change done. ####\e[0m";
+      fi
 
 ##############
 ## Services ##
@@ -358,6 +368,11 @@ services:
         - '3306' # Find port on host with `docker port [container_name_for_mariadb] 3306`
       environment:
         << : *default-environment
+        # Govcms database name for lando sql import script, instead of
+        # `~/.my.cnf`
+        MYSQL_DATABASE: drupal
+        # GovCMS SQL container doesn't allow TCP/IP connections.
+        LANDO_EXTRA_DB_IMPORT_ARGS: --socket=/run/mysqld/mysqld.sock
       command: /sbin/tini -- /lagoon/entrypoints.bash mysqld
       # Keep index data across lando rebuilds. (1 of 2)
       volumes:
