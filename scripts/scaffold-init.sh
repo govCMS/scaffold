@@ -157,6 +157,6 @@ EOF
 echo "[info]: README.md updated"
 
 rm scripts/scaffold-init.sh
-rm scripts/scaffold-post-setup-add-lando.sh
+rm scripts/scaffold-existing-project-add-lando.sh
 
 # trap finish EXIT
