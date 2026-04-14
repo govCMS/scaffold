@@ -184,6 +184,8 @@ x-lando-common-options: &lando-common-options
   app_mount: false
 
 x-lando-database-tooling-vars: &lando-database-tooling-vars
+  # Govcms database name for lando sql import script, instead of
+  # `~/.my.cnf`
   MYSQL_DATABASE: drupal
   LANDO_DB_EXPORT_USER: drupal
   LANDO_DB_IMPORT_USER: drupal
@@ -192,7 +194,8 @@ x-lando-database-tooling-vars: &lando-database-tooling-vars
   # but the default lando script places the extra paramters at the end, so use
   # the druapl user.
   LANDO_EXTRA_DB_EXPORT_ARGS: -pdrupal --single-transaction
-  LANDO_EXTRA_DB_IMPORT_ARGS: -pdrupal
+  # GovCMS SQL container doesn't allow TCP/IP connections.
+  LANDO_EXTRA_DB_IMPORT_ARGS: -pdrupal --socket=/run/mysqld/mysqld.sock --disable-ssl 
 
 x-lando-tooling-mysql-cmd: &lando-mysql-cli-cmd 'mysql -udrupal -pdrupal -h 127.0.0.1 drupal'
 
@@ -368,11 +371,6 @@ services:
         - '3306' # Find port on host with `docker port [container_name_for_mariadb] 3306`
       environment:
         << : *default-environment
-        # Govcms database name for lando sql import script, instead of
-        # `~/.my.cnf`
-        MYSQL_DATABASE: drupal
-        # GovCMS SQL container doesn't allow TCP/IP connections.
-        LANDO_EXTRA_DB_IMPORT_ARGS: --socket=/run/mysqld/mysqld.sock
       command: /sbin/tini -- /lagoon/entrypoints.bash mysqld
       # Keep index data across lando rebuilds. (1 of 2)
       volumes:
