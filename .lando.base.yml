@@ -237,6 +237,7 @@ x-lando-extra-build-steps: &lando-extra-build-steps
     # Download another copy of mariadb-client to avoid sandbox uncomment hack.
     - |
       if command -v mariadb > /dev/null; then
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Mariadb client download. ####\e[0m";
         PROGRAM=mariadb-client
         # Same repo as cli image.
         REPO=https://dl-cdn.alpinelinux.org/alpine/v3.23/main
@@ -257,6 +258,7 @@ x-lando-extra-build-steps: &lando-extra-build-steps
         else
           echo "Newest version of $PROGRAM is already installed."
         fi
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Mariadb client download done. ####\e[0m";
       fi
 
 ##############
