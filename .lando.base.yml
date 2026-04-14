@@ -234,6 +234,30 @@ x-lando-extra-build-steps: &lando-extra-build-steps
         echo "Config file: $CONFIG_FILE changed!"
         echo -e "\e[96m#### ($LANDO_SERVICE_NAME) DB config file change done. ####\e[0m";
       fi
+    # Download another copy of mariadb-client to avoid sandbox uncomment hack.
+    - |
+      if command -v mariadb > /dev/null; then
+        PROGRAM=mariadb-client
+        # Same repo as cli image.
+        REPO=https://dl-cdn.alpinelinux.org/alpine/v3.23/main
+        apkInstalledVersion() {
+          apk info "$1" | head -n1 | sed "s/^$1-\(.*\) description:/\1/g"
+        }
+        apkSearchVersion() {
+          apk search $1 --no-cache --repository $REPO | grep "^$1-\d\+" | head -n1 | sed "s/^$1-//"
+        }
+        CURRENT_VERSION=$(apkInstalledVersion $PROGRAM)
+        SEARCH_VERSION=$(apkSearchVersion $PROGRAM)
+        if [ $(printf "${CURRENT_VERSION}\n${SEARCH_VERSION}"|sort|head -1) == "${CURRENT_VERSION}" ]; then
+          echo "Newest version of $PROGRAM required, downloading..."
+          mkdir "/opt/custom-${PROGRAM}"
+          wget -q --show-progress "${REPO}/$(arch)/${PROGRAM}-${SEARCH_VERSION}.apk" -O "/opt/custom-${PROGRAM}/${PROGRAM}.apk"
+          tar -xzf "/opt/custom-${PROGRAM}/${PROGRAM}.apk" -C "/opt/custom-${PROGRAM}"
+          echo "Downloaded and extracted ${PROGRAM}@${SEARCH_VERSION} to /opt/custom-${PROGRAM}."
+        else
+          echo "Newest version of $PROGRAM is already installed."
+        fi
+      fi
 
 ##############
 ## Services ##

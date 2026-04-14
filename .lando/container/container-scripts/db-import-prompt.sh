@@ -8,10 +8,18 @@ mysql() {
   # Avoid sandbox comment due to different client versions on cli vs mariadb
   # containers.
   # @see https://github.com/govCMS/scaffold/issues/133
-  if ! test -t 0; then
-    awk 'NR == 1 && /\/\*M\!999999\\\- enable the sandbox mode \*\// {next} {print}' | command mysql "$@"
+  CUSTOM_MARIADB_PROGRAM=/opt/custom-mariadb-client/usr/bin/mariadb
+  # Try to use our newest download version.
+  if test -f $CUSTOM_MARIADB_PROGRAM; then
+    "$CUSTOM_MARIADB_PROGRAM" "$@"
+  # Else use hack to remove sandbox comment.
   else
-    command mysql "$@"
+    # If std-input, then change it.
+    if ! test -t 0; then
+      awk 'NR == 1 && /\/\*M\!999999\\\- enable the sandbox mode \*\// {next} {print}' | command mysql "$@"
+    else
+      command mysql "$@"
+    fi
   fi
 }
 # Pass to sub bash script.
