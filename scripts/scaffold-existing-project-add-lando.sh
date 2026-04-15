@@ -33,15 +33,13 @@ sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .lando.base.yml && rm .land
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .lando.local.example.yml && rm .lando.local.example.yml.bak
 
 if [[ "$HAS_SOLR" -eq 0 ]]; then
-  printf "${YELLOW}[!! action required !!]${NC}: SOLR has been detected,\n"
+  printf "\n${YELLOW}[!! action required !!]${NC}: SOLR has been detected,\n"
   printf "please uncomment the lando SOLR proxy and service in lando.base.yml\n"
-  printf "and .lando.local[.example].yml files.\n"
+  printf "and .lando.local[.example].yml files.\n\n"
 fi
 
-printf "${YELLOW}[!! action required !!]${NC}: For existing projects, you may\n"
-printf "need to manually move the changes (new lines) added to the project\n"
-printf "root's '.ahoy.yml' file to the 'custom/ahoy.yml' file instead as the file is\n"
-printf "govcms locked, commands become 'ahoy my lando-[command]' instead.\n"
+printf "\n${YELLOW}[!! optional - ahoy !!]${NC}:\n"
+printf "If you would like .ahoy.yml integration, see notes in .lando.base.yml.\n\n"
 
 rm scripts/scaffold-existing-project-add-lando.sh
 
