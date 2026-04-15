@@ -2,7 +2,7 @@
 ## Instructions ##
 ##################
 
-# This file is designed to be used with an alternative docker-compose wrappe
+# This file is designed to be used with an alternative docker-compose wrapper
 # tool 'lando'. Installation instructions for the tool can be found here:
 # - Mac OS - https://docs.lando.dev/install/macos.html
 # - Linux OS - https://docs.lando.dev/install/linux.html
@@ -10,24 +10,18 @@
 # --- (for best performance, install the full docker desktop in windows with WSL
 #     intergration, then the install lando in the WSL via the `caveats` way.
 
-# 1. Initialise the project, if not already done
-# (skip this step if this project has already been provided by govcms, ahoy
-# command fails or file '[project]/scripts/scaffold-init.sh' does not exist.)
+# 1. After the initialising the project, (may have already been done is by
+# GovCMS if '[project]/scripts/scaffold-init.sh' doesn't exist):
+# Run '[project]/scripts/scaffold-existing-project-add-lando.sh'.
 
-# Command:
-# `ahoy init [project_name] [type] [version]`
-# OR
-# `./scripts/scaffold-init.sh -n [project_name] -t [type] -v [version]`
+# Command `./scripts/scaffold-existing-project-add-lando.sh`
 
-# Where:
-# - '[project_name]': Is your project name
-# - '[type]': May be 'saas' or 'paas'
-# - '[version]': May be '8', '9' or '10'
+# 2. Optionally enable local overrides (e.g. change project name for multiple
+# copies of the same project running at once) by duplicating
+# '[project]/.lando.local.example.yml' to '[project].lando.local.yml'
+# (instead of .env file):
 
-# 2. Enable local overrides by duplicating .lando.local.example.yml to
-# .lando.local.yml (instead of .env file)
-
-# Command: `cp -i .lando.local.example.yml .lando.local.yml`
+# Command: `cp -i ./.lando.local.example.yml ./.lando.local.yml`
 
 # 3. Adjust '.lando.local.yml' if required. For example, toggle DEV_MODE,
 # set MARIADB_DATA_IMAGE or make the lando project name/urls unique for multiple
@@ -56,6 +50,25 @@
 # docker volume rm $(printf $LANDO_APP_NAME)_data_mariadb_blank
 # docker volume rm $(printf $LANDO_APP_NAME)_data_mariadb_govcms_image
 # <end terminal commmands>
+
+###################
+## Ahoy commands ##
+###################
+
+# Out of the box, ahoy commands in lando are mapped like:
+# `ahoy [command]`
+# becomes
+# `lando ahoy-[command]`
+
+# If you prefer to use ahoy directly, then first copy the content of:
+# [project]/custom/ahoy.lando.yml
+# to:
+# [project]/custom/ahoy.yml
+#
+# then the commands are:
+# `ahoy [command]`
+# becomes
+# ahoy my lando-[command]
 
 ################
 ## Misc notes ##
