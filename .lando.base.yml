@@ -238,7 +238,7 @@ x-lando-extra-build-steps: &lando-extra-build-steps
         echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV install done. ####\e[0m";
       fi
     # If DB container, remove default database paramater, so we can recreate the
-    # databse without it already existsing.
+    # database without it already existsing.
     - |
       CONFIG_FILE=/var/lib/mysql/.my.cnf
       if test -f $CONFIG_FILE; then
