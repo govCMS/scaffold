@@ -229,13 +229,13 @@ x-lando-extra-build-steps: &lando-extra-build-steps
     # Add pv.
     - |
       if apk list | grep "{pv}" > /dev/null | grep -q pv; then
-      # Run this if confirm returns true.
-      echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV is already installed. ####\e[0m";
-      else
-      # Run this if confirm returns false.
-      echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Installing PV. ####\e[0m" &&
-      apk add pv &&
-      echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV install done. ####\e[0m";
+        # Run this if confirm returns true.
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV is already installed. ####\e[0m";
+        else
+        # Run this if confirm returns false.
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Installing PV. ####\e[0m" &&
+        apk add pv &&
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV install done. ####\e[0m";
       fi
     # If DB container, remove default database paramater, so we can recreate the
     # databse without it already existsing.
@@ -272,6 +272,18 @@ x-lando-extra-build-steps: &lando-extra-build-steps
           echo "Newest version of $PROGRAM is already installed."
         fi
         echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Mariadb client download done. ####\e[0m";
+      fi
+    # Disable SSL on mariadb client. Note that drush uses it's own mysql
+    # configuration instead. Also, the drush.yml extra paramater is not used on
+    # drush v12 for site install, so use work around of
+    # `composer require "drush/drush:13.6.2 as 12.5.2" -W` in cli container.
+    # @see https://github.com/uselagoon/lagoon-images/pull/1276
+    # @see https://github.com/govCMS/scaffold/issues/133#issuecomment-4249427842
+    - |
+      if test -d /etc/my.cnf.d; then
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Disable SSL on mariadb client. ####\e[0m";
+        printf '[client]\nskip-ssl' > /etc/my.cnf.d/zz-mariadb-client.cnf
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Disable SSL on mariadb client - done. ####\e[0m";
       fi
 
 ##############
