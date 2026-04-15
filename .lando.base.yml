@@ -282,6 +282,7 @@ services:
   cli:
     << : *lando-common-options
     << : *lando-extra-build-steps
+    meUser: root
     services:
       build:
         context: .
@@ -308,6 +309,7 @@ services:
 
   test:
     << : *lando-common-options
+    meUser: root
     services:
       build:
         context: .
@@ -333,6 +335,7 @@ services:
 
   nginx:
     << : *lando-common-options
+    meUser: root
     # Expose Nginx via lando proxy, note that 'ports' must also be present in
     # 'services'.
     moreHttpPorts:
@@ -372,6 +375,7 @@ services:
 
   php:
     << : *lando-common-options
+    meUser: root
     services:
       build:
         context: .
@@ -398,6 +402,7 @@ services:
   mariadb:
     << : *lando-common-options
     << : *lando-extra-build-steps
+    meUser: mysql
     # Mount the app folder, for db import, db-export.
     app_mount: true
     services:
@@ -425,6 +430,7 @@ services:
         command: mysql -uroot --silent --execute "SHOW DATABASES;"
   av:
     << : *lando-common-options
+    meUser: root
     services:
       image: govcms/av:latest
       labels:
@@ -436,6 +442,7 @@ services:
   # Uncomment to enable solr and `proxy` => `solr`.
   # solr:
   #   << : *lando-common-options
+  #   meUser: solr
   #   # Expose SOLR via lando proxy.
   #   moreHttpPorts:
   #     - '8983'
@@ -462,6 +469,7 @@ services:
 
   chrome:
     << : *lando-common-options
+    meUser: seluser
     services:
       image: selenium/standalone-chrome:4.5.2-20221021
       platform: linux/amd64
