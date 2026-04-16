@@ -194,7 +194,7 @@ x-lando-database-tooling-vars: &lando-database-tooling-vars
   # the druapl user.
   LANDO_EXTRA_DB_EXPORT_ARGS: -pdrupal --single-transaction
   # GovCMS SQL container doesn't allow TCP/IP connections.
-  LANDO_EXTRA_DB_IMPORT_ARGS: -pdrupal --socket=/run/mysqld/mysqld.sock --disable-ssl 
+  LANDO_EXTRA_DB_IMPORT_ARGS: -pdrupal --socket=/run/mysqld/mysqld.sock --disable-ssl
 
 x-lando-tooling-mysql-cmd: &lando-mysql-cli-cmd 'mysql -udrupal -pdrupal -h 127.0.0.1 drupal'
 
