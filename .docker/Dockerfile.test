@@ -12,11 +12,3 @@ ENV WEBROOT=web
 
 COPY --from=cli /app /app
 COPY tests /app/tests/
-
-# Copy deploy and test scripts.
-RUN cp /app/vendor/govcms/scaffold-tooling/scripts/govcms* /usr/local/bin/
-RUN chmod +x /usr/local/bin/*
-
-# @see also drush setup in Dockerfile.cli
-COPY --from=cli /usr/local/bin/drush /usr/local/bin/
-RUN chmod +x /usr/local/bin/drush && rm -Rf /home/.composer/vendor/bin

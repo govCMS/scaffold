@@ -10,11 +10,13 @@ usage () {
   cat <<HELP_USAGE
   Prepare the scaffold directory for project use.
   Usage:
-    $ scaffold.sh -t <type> -v <version> -n <name>
+    $ ahoy init <name> <type> <version>
+    OR
+    $ scaffold-init.sh -n <name> -t <type> -v <version>
     -h    Print this message
-    -t    Type of GovCMS project to scaffold
-    -v    Version of GovCMS (7|8|9|10)
     -n    Name of project (machine name)
+    -t    Type of GovCMS project to scaffold (saas|paas|saasplus)
+    -v    Version of GovCMS (10|11)
 HELP_USAGE
   exit 2
 }
@@ -23,7 +25,7 @@ finish () {
   echo "[success]: Scaffold created!"; rm "$self"
 }
 
-while getopts 'h:n:v:t:' o
+while getopts 'hn:v:t:' o
 do
   case $o in
     t ) GOVCMS_TYPE=$OPTARG ;;
@@ -40,8 +42,8 @@ if [[ "$GOVCMS_TYPE" != "saas" && "$GOVCMS_TYPE" != "paas" && "$GOVCMS_TYPE" != 
   exit 2
 fi
 
-if [[ "$GOVCMS_VERSION" != "7" && "$GOVCMS_VERSION" != "8" && "$GOVCMS_VERSION" != "9" && "$GOVCMS_VERSION" != "10" ]]; then
-  echo "[error]: Valid scaffold version required, must be (7, 8, 9, 10)."
+if [[ "$GOVCMS_VERSION" != "10" && "$GOVCMS_VERSION" != "11" ]]; then
+  echo "[error]: Valid scaffold version required, must be (10, 11)."
   exit 2
 fi
 
@@ -56,16 +58,10 @@ echo "[info]: Preparing scaffold for GovCMS$GOVCMS_VERSION ($GOVCMS_TYPE): $GOVC
 cp .env.default .env
 sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .env && rm .env.bak
 sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" docker-compose.yml && rm docker-compose.yml.bak
-sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .lando.base.yml && rm .lando.base.yml.bak
-sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .lando.local.example.yml && rm .lando.local.example.yml.bak
 sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .version.yml && rm .version.yml.bak
 sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" docker-compose.yml && rm docker-compose.yml.bak
-sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .lando.base.yml && rm .lando.base.yml.bak
-sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .lando.local.example.yml && rm .lando.local.example.yml.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .version.yml && rm .version.yml.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" docker-compose.yml && rm docker-compose.yml.bak
-sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .lando.base.yml && rm .lando.base.yml.bak
-sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .lando.local.example.yml && rm .lando.local.example.yml.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .env && rm .env.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .docker/Dockerfile* && rm .docker/Dockerfile*.bak
 
@@ -86,7 +82,6 @@ else
 
   # Replace default/saas mounts for PaaS projects.
   sed -i.bak "s/*default-volumes/*paas-volumes/" docker-compose.yml && rm docker-compose.yml.bak
-  sed -i.bak "s/*default-volumes/*paas-volumes/" .lando.base.yml && rm .lando.base.yml.bak
 
   # Copy correct composer.json version into place.
   cp "composer.$GOVCMS_VERSION.json" composer.json
@@ -97,12 +92,14 @@ echo "[info]: Cleaning up"
 mv ".docker/Dockerfile.$GOVCMS_TYPE" .docker/Dockerfile.cli
 mv ".docker/Dockerfile.solr.$GOVCMS_TYPE" .docker/Dockerfile.solr
 
+# Remove the GitHub Actions CI configuration.
+rm -rf .github
+
 if [[ "$GOVCMS_TYPE" == "paas" ]]; then
   rm .docker/Dockerfile*saas*
   rm -r themes
-  rm composer.8.json
-  rm composer.9.json
   rm composer.10.json
+  rm composer.11.json
 else
   rm .docker/Dockerfile*paas*
   rm -r .docker/config
@@ -119,7 +116,39 @@ if [[ "$GOVCMS_TYPE" == "saas" ]]; then
   rm .docker/Dockerfile.solr.saasplus
 fi
 
+# Write project README.md
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+cat > "$REPO_ROOT/README.md" << EOF
+# $GOVCMS_NAME
+
+- **Project:** $GOVCMS_NAME
+- **Version:** $GOVCMS_VERSION
+- **SaaS or PaaS:** $GOVCMS_TYPE
+- **Local Dev URL:** [http://$GOVCMS_NAME.docker.amazee.io/](http://$GOVCMS_NAME.docker.amazee.io/)
+
+## Useful links
+
+- [Govcms.gov.au](https://govcms.gov.au)
+- [Statuspage](https://status.govcms.gov.au)
+- [Service desk](https://support.govcms.gov.au)
+
+## Basic commands
+
+To find a list of all ahoy commands, check the .ahoy.yml file, or run \`ahoy\` in command line.
+
+- \`ahoy build\` - Builds your project containers from scratch
+- \`ahoy install\` - Only needs to be run once after the initial \`ahoy build\`
+- \`ahoy up\` - Starts your project if it has been stopped
+- \`ahoy stop\` - Stops your project
+
+## Theme settings
+
+Use this area to provide any additional information regarding your theme, such as if you are using a CSS compiler or any NPM packages that need to be installed.
+EOF
+
+echo "[info]: README.md updated"
+
 rm scripts/scaffold-init.sh
-rm scripts/scaffold-post-setup-add-lando.sh
 
 # trap finish EXIT

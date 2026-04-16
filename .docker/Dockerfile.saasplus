@@ -19,7 +19,9 @@ COPY config /app/config
 COPY favicon.ico /app/web
 
 # To enable SaaS+ uncomment these lines
-RUN composer config --global github-oauth.github.com $GOVCMS_GITHUB_TOKEN
+RUN [ ! -z "$GOVCMS_GITHUB_TOKEN" ] \
+  && composer config --global github-oauth.github.com $GOVCMS_GITHUB_TOKEN \
+  || echo "skipping github token"
 COPY custom /app/custom
 RUN jq -s '.[1].repositories = (.[0].repositories + .[1].repositories) | .[1]' /app/custom/composer/composer.json /app/composer.json > /tmp/composer.json
 RUN mv /tmp/composer.json /app/composer.json

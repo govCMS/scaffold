@@ -2,7 +2,7 @@
 ## Instructions ##
 ##################
 
-# This file is designed to be used with an alternative docker-compose wrappe
+# This file is designed to be used with an alternative docker-compose wrapper
 # tool 'lando'. Installation instructions for the tool can be found here:
 # - Mac OS - https://docs.lando.dev/install/macos.html
 # - Linux OS - https://docs.lando.dev/install/linux.html
@@ -10,34 +10,24 @@
 # --- (for best performance, install the full docker desktop in windows with WSL
 #     intergration, then the install lando in the WSL via the `caveats` way.
 
-# 1. Initialise the project, if not already done
-# (skip this step if this project has already been provided by govcms, ahoy
-# command fails or file '[project]/scripts/scaffold-init.sh' does not exist.)
+# 1. After the initialising the project, (may have already been done is by
+# GovCMS if '[project]/scripts/scaffold-init.sh' doesn't exist):
+# Run '[project]/scripts/scaffold-existing-project-add-lando.sh'.
 
-# Command:
-# `ahoy init [project_name] [type] [version]`
-# OR
-# `./scripts/scaffold-init.sh -n [project_name] -t [type] -v [version]`
+# Command `./scripts/scaffold-existing-project-add-lando.sh`
 
-# Where:
-# - '[project_name]': Is your project name
-# - '[type]': May be 'saas' or 'paas'
-# - '[version]': May be '8', '9' or '10'
+# 2. Optionally enable local overrides (e.g. change project name for multiple
+# copies of the same project running at once) by duplicating
+# '[project]/.lando.local.example.yml' to '[project].lando.local.yml'
+# (instead of .env file):
 
-# 2. Enable local overrides by duplicating .lando.local.example.yml to
-# .lando.local.yml
-
-# Command: `cp -i .lando.local.example.yml .lando.local.yml`
+# Command: `cp -i ./.lando.local.example.yml ./.lando.local.yml`
 
 # 3. Adjust '.lando.local.yml' if required. For example, toggle DEV_MODE,
 # set MARIADB_DATA_IMAGE or make the lando project name/urls unique for multiple
 # instances of this same project on the same computer.
 
-# 4. Optional, Enable SSH agent integration with pygmy.
-
-# See heading in this file 'SSH agent volume with pygmy' for steps.
-
-# 5. Run the project.
+# 4. Run the project.
 
 # Command: `lando start`
 
@@ -61,35 +51,24 @@
 # docker volume rm $(printf $LANDO_APP_NAME)_data_mariadb_govcms_image
 # <end terminal commmands>
 
-############################################
-## SSH agent volume with pygmy - Optional ##
-############################################
+###################
+## Ahoy commands ##
+###################
 
-# Creating a new SSH agent container is optional for integration, if required
-# with pymgy SSH agent. To use, rename
-# '.lando.dist.example.with-ssh-external-volume.yml' to .lando.dist.yml',
-# rebuild lando and fellow the terminal commands below.
+# Out of the box, ahoy commands in lando are mapped like:
+# `ahoy [command]`
+# becomes
+# `lando ahoy-[command]`
 
-# Why?
-# In Docker compose v3, the' volumes_from' property, which maps volumes from one
-# container to another another, cannot be used. The new method, is to specify
-# the volume by name, however, the amazee.io SSH agent creates randomly named
-# volume, so rename it first.
-
-# <begin terminal commmands>
-# OLD_VOLUME=$(docker inspect --type=container --format='{{ (index .Mounts 0).Name }}' amazeeio-ssh-agent)
-# docker volume create amazeeio-ssh-agent-volume
+# If you prefer to use ahoy directly, then first copy the content of:
+# [project]/custom/ahoy.lando.yml
+# to:
+# [project]/custom/ahoy.yml
 #
-# docker run --rm -it -v $OLD_VOLUME:/from -v amazeeio-ssh-agent-volume:/to alpine ash -c "cd /from ; cp -av . /to"
-# docker run -d --name amazeeio-ssh-agent-new-container \
-# -v amazeeio-ssh-agent-volume:/tmp/amazeeio_ssh-agent \
-# --restart=unless-stopped \
-# pygmystack/ssh-agent
-#
-# docker container rm amazeeio-ssh-agent -f
-# docker rename amazeeio-ssh-agent-new-container amazeeio-ssh-agent
-# docker volume rm $OLD_VOLUME
-# <end terminal commmands>
+# then the commands are:
+# `ahoy [command]`
+# becomes
+# ahoy my lando-[command]
 
 ################
 ## Misc notes ##
@@ -133,48 +112,24 @@ proxy:
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS/wiki
 x-govcms-image-version: &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
 
-x-volumes:
+x-volumes-lando-tooling:
   volumes:
-    - &volume-drupal-themes ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
-    - &volume-drupal-files ./files:/app/web/sites/default/files:delegated
-    - &volume-behat-features ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
-    - &volume-behat-screenshots ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
-    - &volume-phpunit-tests ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
-    - &volume-drupal-config ./config:/app/config
+    - &volume-lando-tooling ./.lando/container:/lando-govcms
 
-x-volumes-paas:
+x-volumes: &default-volumes
   volumes:
-    - &volume-drupal-app .:/app:delegated
+    - ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
+    - ./files:/app/web/sites/default/files:delegated
+    - ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
+    - ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
+    - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
+    - ./config:/app/config
+    - *volume-lando-tooling
 
-# The property, 'volumes_from' was removed in docker compose v3, so use named
-# volumes instead.
-# Mount volumes from Pygmy to inject host SSH key into container.
-# https://pygmy.readthedocs.io/en/master/ssh_agent/
-x-volumes-external:
+x-volumes-paas: &paas-volumes
   volumes:
-    - &volume-ssh-agent amazeeio-ssh-agent-volume:/tmp/amazeeio_ssh-agent
-
-x-volumes-tooling:
-  volumes:
-    - &volume-tooling ./.lando/container:/lando-govcms
-
-# YAML Merge key doesn't work with arrays so use anchors instead/
-x-volumes-with-external: &default-volumes-with-external
-  volumes:
-    - *volume-drupal-themes
-    - *volume-drupal-files
-    - *volume-behat-features
-    - *volume-behat-screenshots
-    - *volume-phpunit-tests
-    - *volume-drupal-config
-    - *volume-ssh-agent
-    - *volume-tooling
-
-x-volumes-paas-with-external: &paas-volumes-with-external
-  volumes:
-    - *volume-drupal-app
-    - *volume-ssh-agent
-    - *volume-tooling
+    - .:/app:delegated
+    - *volume-lando-tooling
 
 # Entry point process isn't PID 1 as lando entrypoint is instead,
 # so force it to run.
@@ -182,6 +137,7 @@ x-extra-environment-tini: &extra-environment-tini
  - TINI_SUBREAPER: true
 
 x-environment: &default-environment
+  RESTY_RESOLVER: 8.8.8.8
   STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
   LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
   LAGOON_PROJECT: *lagoon-project
@@ -196,8 +152,10 @@ x-environment: &default-environment
   DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
   GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
   GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
-  CLAMAV_HOST: av
-  CLAMAV_MODE: daemon
+  HTTPAV_ENDPOINT: http://av:3993/scan
+  HTTPAV_RETURN_KEY: comodo
+  HTTP_PAYLOAD_KEY: malware
+  SOLR_MODULES: ${SOLR_MODULES:-extraction,langid,ltr,analysis-extras}
   << : *extra-environment-tini
 
 #########################
@@ -211,8 +169,8 @@ name: *lagoon-project
 # NOT defined in the .lando.yml files, otherwise lando yml takes precedence,
 # unlike docker-compose.yml.
 # @see https://github.com/lando/lando/issues/1616
-env_file:
-  - .env
+#env_file:
+#  - .env
 
 # Define internal/external network 'amazeeio-network'.
 compose:
@@ -224,13 +182,9 @@ x-lando-common-options: &lando-common-options
   # Do not auto mount /app folder by default.
   app_mount: false
 
-# Mark volume as internal for each service, use override for external.
-x-lando-volumes-top-level: &lando-volumes-top-level
-  volumes:
-    amazeeio-ssh-agent-volume:
-      external: false
-
 x-lando-database-tooling-vars: &lando-database-tooling-vars
+  # Govcms database name for lando sql import script, instead of
+  # `~/.my.cnf`
   MYSQL_DATABASE: drupal
   LANDO_DB_EXPORT_USER: drupal
   LANDO_DB_IMPORT_USER: drupal
@@ -239,7 +193,8 @@ x-lando-database-tooling-vars: &lando-database-tooling-vars
   # but the default lando script places the extra paramters at the end, so use
   # the druapl user.
   LANDO_EXTRA_DB_EXPORT_ARGS: -pdrupal --single-transaction
-  LANDO_EXTRA_DB_IMPORT_ARGS: -pdrupal
+  # GovCMS SQL container doesn't allow TCP/IP connections.
+  LANDO_EXTRA_DB_IMPORT_ARGS: -pdrupal --socket=/run/mysqld/mysqld.sock --disable-ssl 
 
 x-lando-tooling-mysql-cmd: &lando-mysql-cli-cmd 'mysql -udrupal -pdrupal -h 127.0.0.1 drupal'
 
@@ -260,13 +215,64 @@ x-lando-extra-build-steps: &lando-extra-build-steps
     # Add pv.
     - |
       if apk list | grep "{pv}" > /dev/null | grep -q pv; then
-      # Run this if confirm returns true.
-      echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV is already installed. ####\e[0m";
-      else
-      # Run this if confirm returns false.
-      echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Installing PV. ####\e[0m" &&
-      apk add pv &&
-      echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV install done. ####\e[0m";
+        # Run this if confirm returns true.
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV is already installed. ####\e[0m";
+        else
+        # Run this if confirm returns false.
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Installing PV. ####\e[0m" &&
+        apk add pv &&
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) PV install done. ####\e[0m";
+      fi
+    # If DB container, remove default database paramater, so we can recreate the
+    # database without it already existsing.
+    - |
+      CONFIG_FILE=/var/lib/mysql/.my.cnf
+      if test -f $CONFIG_FILE; then
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) DB config file change. ####\e[0m";
+        sed -i -e 's|^database=drupal$|#database=drupal|g' $CONFIG_FILE;
+        echo "Config file: $CONFIG_FILE changed!"
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) DB config file change done. ####\e[0m";
+      fi
+    # Download another copy of mariadb-client to avoid sandbox uncomment hack.
+    - |
+      if command -v mariadb > /dev/null; then
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Mariadb client download. ####\e[0m";
+        PROGRAM=mariadb-client
+        # Same repo as cli image.
+        REPO=https://dl-cdn.alpinelinux.org/alpine/v3.23/main
+        apkInstalledVersion() {
+          apk info "$1" | head -n1 | sed "s/^$1-\(.*\) description:/\1/g"
+        }
+        apkSearchVersion() {
+          apk search $1 --no-cache --repository $REPO | grep "^$1-\d\+" | head -n1 | sed "s/^$1-//"
+        }
+        CURRENT_VERSION=$(apkInstalledVersion $PROGRAM)
+        SEARCH_VERSION=$(apkSearchVersion $PROGRAM)
+        echo "Version compare:"
+        echo "Current: $CURRENT_VERSION"
+        echo "Search: $SEARCH_VERSION"
+        if [ $(printf "${CURRENT_VERSION}\n${SEARCH_VERSION}"|sort -r|head -1) != "${CURRENT_VERSION}" ]; then
+          echo "Newest version of $PROGRAM required, downloading..."
+          mkdir "/opt/custom-${PROGRAM}"
+          wget -q "${REPO}/$(arch)/${PROGRAM}-${SEARCH_VERSION}.apk" -O "/opt/custom-${PROGRAM}/${PROGRAM}.apk"
+          tar -xzf "/opt/custom-${PROGRAM}/${PROGRAM}.apk" -C "/opt/custom-${PROGRAM}"
+          echo "Downloaded and extracted ${PROGRAM}@${SEARCH_VERSION} to /opt/custom-${PROGRAM}."
+        else
+          echo "Newest version of $PROGRAM is already installed."
+        fi
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Mariadb client download done. ####\e[0m";
+      fi
+    # Disable SSL on mariadb client. Note that drush uses it's own mysql
+    # configuration instead. Also, the drush.yml extra paramater is not used on
+    # drush v12 for site install, so use work around of
+    # `composer require "drush/drush:13.6.2 as 12.5.2" -W` in cli container.
+    # @see https://github.com/uselagoon/lagoon-images/pull/1276
+    # @see https://github.com/govCMS/scaffold/issues/133#issuecomment-4249427842
+    - |
+      if test -d /etc/my.cnf.d; then
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Disable SSL on mariadb client. ####\e[0m";
+        printf '[client]\nskip-ssl' > /etc/my.cnf.d/zz-mariadb-client.cnf
+        echo -e "\e[96m#### ($LANDO_SERVICE_NAME) Disable SSL on mariadb client - done. ####\e[0m";
       fi
 
 ##############
@@ -277,8 +283,9 @@ services:
   cli:
     << : *lando-common-options
     << : *lando-extra-build-steps
-    << : *lando-volumes-top-level
+    meUser: root
     services:
+      user: root
       build:
         context: .
         dockerfile: .docker/Dockerfile.cli
@@ -291,19 +298,22 @@ services:
         lagoon.type: cli-persistent
         lagoon.persistent.name: nginx
         lagoon.persistent: /app/web/sites/default/files/
+        lagoon.base.image: govcms/govcms:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
       environment:
         << : *default-environment
-      networks:
-        - amazeeio-network
-        - default
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
-      << : *default-volumes-with-external
+      << : *default-volumes
+      # Mount volumes from Pygmy to inject host SSH key into container.
+      # https://pygmy.readthedocs.io/en/master/ssh_agent/
+      volumes_from:
+        - container:amazeeio-ssh-agent
 
   test:
     << : *lando-common-options
-    << : *lando-volumes-top-level
+    meUser: root
     services:
+      user: root
       build:
         context: .
         dockerfile: .docker/Dockerfile.test
@@ -311,22 +321,24 @@ services:
           CLI_IMAGE: *lagoon-project
           GOVCMS_IMAGE_VERSION: *govcms-image-version
           SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
+        # Can't use additional contexts, but lando rebuild pulls new images
+        # anyway so might not be a problem.
+        # @see https://github.com/lando/lagoon/pull/107
+        # additional_contexts:
+        #   cli: 'service:cli' # Ensure cli is built first
       labels:
         lagoon.type: none
       depends_on:
         - cli
       environment:
         << : *default-environment
-      networks:
-        - amazeeio-network
-        - default
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
-      << : *default-volumes-with-external
+      << : *default-volumes
 
   nginx:
     << : *lando-common-options
-    << : *lando-volumes-top-level
+    meUser: root
     # Expose Nginx via lando proxy, note that 'ports' must also be present in
     # 'services'.
     moreHttpPorts:
@@ -335,12 +347,18 @@ services:
     # installed yet and Lando DNS might not be setup either.
     scanner: false
     services:
+      user: root
       build:
         context: .
         dockerfile: .docker/Dockerfile.nginx-drupal
         args:
           CLI_IMAGE: *lagoon-project
           GOVCMS_IMAGE_VERSION: *govcms-image-version
+        # Can't use additional contexts, but lando rebuild pulls new images
+        # anyway so might not be a problem.
+        # @see https://github.com/lando/lagoon/pull/107
+        # additional_contexts:
+        #   cli: 'service:cli' # Ensure cli is built first
       labels:
         lagoon.type: nginx-php-persistent
         lagoon.persistent: /app/web/sites/default/files/
@@ -357,18 +375,24 @@ services:
       # Required for lando proxy 'moreHttpPorts'.
       ports:
        - '8080'
-      << : *default-volumes-with-external
+      << : *default-volumes
 
   php:
     << : *lando-common-options
-    << : *lando-volumes-top-level
+    meUser: root
     services:
+      user: root
       build:
         context: .
         dockerfile: .docker/Dockerfile.php
         args:
           CLI_IMAGE: *lagoon-project
           GOVCMS_IMAGE_VERSION: *govcms-image-version
+        # Can't use additional contexts, but lando rebuild pulls new images
+        # anyway so might not be a problem.
+        # @see https://github.com/lando/lagoon/pull/107
+        # additional_contexts:
+        #   cli: 'service:cli' # Ensure cli is built first
       labels:
         lagoon.type: nginx-php-persistent
         lagoon.name: nginx
@@ -377,19 +401,18 @@ services:
         - cli
       environment:
         << : *default-environment
-      networks:
-        - amazeeio-network
-        - default
       command: /sbin/tini -- /lagoon/entrypoints.sh /usr/local/sbin/php-fpm -F -R
-      << : *default-volumes-with-external
+      << : *default-volumes
 
   mariadb:
     << : *lando-common-options
     << : *lando-extra-build-steps
+    meUser: mysql
     # Mount the app folder, for db import, db-export.
     app_mount: true
     services:
       image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
+      platform: linux/amd64
       labels:
         lagoon.type: mariadb
         lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
@@ -403,7 +426,7 @@ services:
         # Keep database across lando rebuilds by using named volumes. (1 of 2)
         - data_mariadb_blank:/var/lib/mysql
         - data_mariadb_govcms_image:/var/lib/db-data
-        - *volume-tooling
+        - *volume-lando-tooling
     # Keep database across lando rebuilds by using named volumes. (2 of 2)
     volumes:
       data_mariadb_blank:
@@ -423,20 +446,30 @@ services:
   # Uncomment to enable solr and `proxy` => `solr`.
   # solr:
   #   << : *lando-common-options
+  #   meUser: solr
   #   # Expose SOLR via lando proxy.
   #   moreHttpPorts:
   #     - '8983'
   #   # Skip Lando checking for service to be healthy, the site might not be
   #   # installed yet and Lando DNS might be setup either.
   #   scanner: false
+  #   # Prevent 'lando ssh' failing because "cd /app" as not mounted.
+  #   run_as_root:
+  #   - |
+  #     echo -e "\e[96m#### ($LANDO_SERVICE_NAME) create /app if not exist. ####\e[0m";
+  #     mkdir -p /app
+  #     echo -e "\e[96m#### ($LANDO_SERVICE_NAME) create /app if not exist - done. ####\e[0m";
   #   services:
+  #     user: solr
   #     build:
   #       context: .
   #       dockerfile: .docker/Dockerfile.solr
   #       args:
   #         GOVCMS_IMAGE_VERSION: *govcms-image-version
+  #         LAGOON_IMAGE_VERSION: ${LAGOON_IMAGE_VERSION:-latest}
   #     labels:
   #       lagoon.type: solr
+  #       lagoon.base.image: govcms/solr:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
   #     ports:
   #       - '8983' # Find port on host with `docker port [container_name_for_solr] 8983`
   #     depends_on:
@@ -447,16 +480,19 @@ services:
 
   chrome:
     << : *lando-common-options
-    << : *lando-volumes-top-level
     services:
+      user: seluser
       image: selenium/standalone-chrome:4.5.2-20221021
+      platform: linux/amd64
       shm_size: '1gb'
       depends_on:
         - test
       labels:
         lagoon.type: none
+      environment:
+        LANDO_DROP_USER: seluser
       command: /opt/bin/entry_point.sh
-      << : *default-volumes-with-external
+      << : *default-volumes
 
 ###########################
 ## Drush / ahoy commands ##
@@ -657,7 +693,7 @@ tooling:
   ahoy-ship-shape:
     service: cli
     description: Run site validation scripts locally
-    cmd: shipshape -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code
+    cmd: shipshape run -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code .
   ahoy-debug:
     service: cli
     description: Enable debug configuration (use alternative command)
