@@ -446,15 +446,21 @@ services:
   # Uncomment to enable solr and `proxy` => `solr`.
   # solr:
   #   << : *lando-common-options
-  #   meUser: root
+  #   meUser: solr
   #   # Expose SOLR via lando proxy.
   #   moreHttpPorts:
   #     - '8983'
   #   # Skip Lando checking for service to be healthy, the site might not be
   #   # installed yet and Lando DNS might be setup either.
   #   scanner: false
+  #   # Prevent 'lando ssh' failing because "cd /app" as not mounted.
+  #   run_as_root:
+  #   - |
+  #     echo -e "\e[96m#### ($LANDO_SERVICE_NAME) create /app if not exist. ####\e[0m";
+  #     mkdir -p /app
+  #     echo -e "\e[96m#### ($LANDO_SERVICE_NAME) create /app if not exist - done. ####\e[0m";
   #   services:
-  #     user: root
+  #     user: solr
   #     build:
   #       context: .
   #       dockerfile: .docker/Dockerfile.solr
