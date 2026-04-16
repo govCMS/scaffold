@@ -283,6 +283,7 @@ services:
   cli:
     << : *lando-common-options
     << : *lando-extra-build-steps
+    meUser: root
     services:
       user: root
       build:
@@ -300,7 +301,6 @@ services:
         lagoon.base.image: govcms/govcms:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
       environment:
         << : *default-environment
-        LANDO_DROP_USER: root
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
       << : *default-volumes
@@ -311,6 +311,7 @@ services:
 
   test:
     << : *lando-common-options
+    meUser: root
     services:
       user: root
       build:
@@ -331,13 +332,13 @@ services:
         - cli
       environment:
         << : *default-environment
-        LANDO_DROP_USER: root
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
       << : *default-volumes
 
   nginx:
     << : *lando-common-options
+    meUser: root
     # Expose Nginx via lando proxy, note that 'ports' must also be present in
     # 'services'.
     moreHttpPorts:
@@ -366,7 +367,6 @@ services:
       environment:
         << : *default-environment
         LAGOON_LOCALDEV_URL: *default-url
-        LANDO_DROP_USER: root
       networks:
         - amazeeio-network
         - default
@@ -379,6 +379,7 @@ services:
 
   php:
     << : *lando-common-options
+    meUser: root
     services:
       user: root
       build:
@@ -400,13 +401,13 @@ services:
         - cli
       environment:
         << : *default-environment
-        LANDO_DROP_USER: root
       command: /sbin/tini -- /lagoon/entrypoints.sh /usr/local/sbin/php-fpm -F -R
       << : *default-volumes
 
   mariadb:
     << : *lando-common-options
     << : *lando-extra-build-steps
+    meUser: mysql
     # Mount the app folder, for db import, db-export.
     app_mount: true
     services:
@@ -445,6 +446,7 @@ services:
   # Uncomment to enable solr and `proxy` => `solr`.
   # solr:
   #   << : *lando-common-options
+  #   meUser: root
   #   # Expose SOLR via lando proxy.
   #   moreHttpPorts:
   #     - '8983'
@@ -452,7 +454,7 @@ services:
   #   # installed yet and Lando DNS might be setup either.
   #   scanner: false
   #   services:
-  #     user: solr
+  #     user: root
   #     build:
   #       context: .
   #       dockerfile: .docker/Dockerfile.solr
@@ -468,7 +470,6 @@ services:
   #       - cli
   #     environment:
   #       << : *default-environment
-  #       LANDO_DROP_USER: solr
   #     command: /sbin/tini -- /lagoon/entrypoints.sh solr-foreground
 
   chrome:
