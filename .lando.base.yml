@@ -112,38 +112,24 @@ proxy:
 # See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS/wiki
 x-govcms-image-version: &govcms-image-version ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
 
-x-volumes:
+x-volumes-lando-tooling:
   volumes:
-    - &volume-drupal-themes ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
-    - &volume-drupal-files ./files:/app/web/sites/default/files:delegated
-    - &volume-behat-features ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
-    - &volume-behat-screenshots ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
-    - &volume-phpunit-tests ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
-    - &volume-drupal-config ./config:/app/config
+    - &volume-lando-tooling ./.lando/container:/lando-govcms
 
-x-volumes-paas:
+x-volumes: &default-volumes
   volumes:
-    - &volume-drupal-app .:/app:delegated
+    - ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
+    - ./files:/app/web/sites/default/files:delegated
+    - ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
+    - ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
+    - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
+    - ./config:/app/config
+    - *volume-lando-tooling
 
-x-volumes-tooling:
+x-volumes-paas: &paas-volumes
   volumes:
-    - &volume-tooling ./.lando/container:/lando-govcms
-
-# YAML Merge key doesn't work with arrays so use anchors instead/
-x-volumes-with-external: &default-volumes-with-external
-  volumes:
-    - *volume-drupal-themes
-    - *volume-drupal-files
-    - *volume-behat-features
-    - *volume-behat-screenshots
-    - *volume-phpunit-tests
-    - *volume-drupal-config
-    - *volume-tooling
-
-x-volumes-paas-with-external: &paas-volumes-with-external
-  volumes:
-    - *volume-drupal-app
-    - *volume-tooling
+    - .:/app:delegated
+    - *volume-lando-tooling
 
 # Entry point process isn't PID 1 as lando entrypoint is instead,
 # so force it to run.
@@ -317,7 +303,7 @@ services:
         LANDO_DROP_USER: root
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
-      << : *default-volumes-with-external
+      << : *default-volumes
       # Mount volumes from Pygmy to inject host SSH key into container.
       # https://pygmy.readthedocs.io/en/master/ssh_agent/
       volumes_from:
@@ -348,7 +334,7 @@ services:
         LANDO_DROP_USER: root
       # Set Dockerfile entrypoint & CMD togther so lando uses it's secret sauce.
       command: /sbin/tini -- /lagoon/entrypoints.sh /bin/docker-sleep
-      << : *default-volumes-with-external
+      << : *default-volumes
 
   nginx:
     << : *lando-common-options
@@ -389,7 +375,7 @@ services:
       # Required for lando proxy 'moreHttpPorts'.
       ports:
        - '8080'
-      << : *default-volumes-with-external
+      << : *default-volumes
 
   php:
     << : *lando-common-options
@@ -416,7 +402,7 @@ services:
         << : *default-environment
         LANDO_DROP_USER: root
       command: /sbin/tini -- /lagoon/entrypoints.sh /usr/local/sbin/php-fpm -F -R
-      << : *default-volumes-with-external
+      << : *default-volumes
 
   mariadb:
     << : *lando-common-options
@@ -439,7 +425,7 @@ services:
         # Keep database across lando rebuilds by using named volumes. (1 of 2)
         - data_mariadb_blank:/var/lib/mysql
         - data_mariadb_govcms_image:/var/lib/db-data
-        - *volume-tooling
+        - *volume-lando-tooling
     # Keep database across lando rebuilds by using named volumes. (2 of 2)
     volumes:
       data_mariadb_blank:
@@ -499,7 +485,7 @@ services:
       environment:
         LANDO_DROP_USER: seluser
       command: /opt/bin/entry_point.sh
-      << : *default-volumes-with-external
+      << : *default-volumes
 
 ###########################
 ## Drush / ahoy commands ##
