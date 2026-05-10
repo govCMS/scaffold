@@ -15,7 +15,10 @@ ENV WEBROOT=web
 RUN mv /app/web/sites/all/modules /scaffold_modules \
   && rm -rf /app
 
-RUN composer config --global github-oauth.github.com $GOVCMS_GITHUB_TOKEN
+# Only set GitHub token if it is available, otherwise skip so build doesn't fail.
+RUN if [ -n "$GOVCMS_GITHUB_TOKEN" ]; then \
+      composer config --global github-oauth.github.com "$GOVCMS_GITHUB_TOKEN"; \
+    fi
 
 COPY composer.* /app/
 COPY scripts /app/scripts
