@@ -32,3 +32,9 @@ docker-compose.override.yml
 
 # Local data directory.
 .data
+
+# Environment file
+.env
+
+# Mac-specific file
+.DS_STORE
