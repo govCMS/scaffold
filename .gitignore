@@ -15,6 +15,7 @@ vendor/
 # Ingore files that are only for the current local environment
 web/sites/*/settings.local.php
 web/sites/*/services.local.yml
+config/local/
 
 # Test and CI artifacts.
 tests/behat/screenshots/*
