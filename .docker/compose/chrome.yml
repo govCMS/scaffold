@@ -1,0 +1,22 @@
+##
+# Opt-in headless Chrome, used by Behat for JS-driven scenarios. Included by
+# default in docker-compose.yml; comment out the include entry to remove it.
+#
+# Gated behind the "test" profile alongside the test service, since it has no
+# purpose without it. `required: false` on depends_on tolerates a project that
+# opts into chrome without also opting into test (not a supported combination,
+# but avoids a hard failure if it happens).
+##
+
+services:
+  chrome:
+    image: selenium/standalone-chrome:4.5.2-20221021
+    shm_size: '1gb'
+    platform: linux/amd64
+    labels:
+      lagoon.type: none
+    profiles: [test]
+    depends_on:
+      test:
+        condition: service_started
+        required: false

@@ -5,8 +5,7 @@ commands:
   up:
     usage: Build project.
     cmd: |
-      docker compose up -d "$@" &&
-      docker compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 2m &&
+      docker compose up -d --wait "$@" &&
       ahoy info;
 
   down:
@@ -25,8 +24,7 @@ commands:
   build:
     usage: Build project.
     cmd: |
-      docker compose up -d --build "$@" &&
-      docker compose exec -T test dockerize -wait tcp://mariadb:3306 -timeout 2m &&
+      docker compose up -d --build --wait "$@" &&
       ahoy govcms-deploy && ahoy info;
 
   cli:
@@ -99,16 +97,21 @@ commands:
   lint:
     usage: Lint code
     cmd: |
-      docker compose exec -T test ./vendor/bin/govcms-lint web/modules/custom
+      docker compose --profile test up -d --wait test &&
+      docker compose exec -T test ./vendor/bin/govcms-lint web/modules/custom &&
       docker compose exec -T test ./vendor/bin/govcms-lint web/themes/custom
 
   test-behat:
     usage: Run Behat tests.
-    cmd: docker compose exec -T test ./vendor/bin/govcms-behat "$@"
+    cmd: |
+      docker compose --profile test up -d --wait test &&
+      docker compose exec -T test ./vendor/bin/govcms-behat "$@"
 
   test-phpunit:
     usage: Run phpunit tests
-    cmd: docker compose exec -T test ./vendor/bin/govcms-phpunit --testsuite govcms
+    cmd: |
+      docker compose --profile test up -d --wait test &&
+      docker compose exec -T test ./vendor/bin/govcms-phpunit --testsuite govcms
 
   pull:
     usage: Pull latest docker images.
@@ -132,7 +135,7 @@ commands:
     usage: Enable debug configuration.
     cmd: |
       { ahoy run "php -v|grep -q Xdebug" && echo "Debug is already enabled"; } \
-      || { export XDEBUG_ENABLE="true" && ahoy up cli test php nginx && ahoy run "php -v|grep -q Xdebug" && echo "Enabled debug configuration. Use 'ahoy up' to disable."; }
+      || { export XDEBUG_ENABLE="true" && docker compose --profile test up -d --wait cli test php nginx && ahoy run "php -v|grep -q Xdebug" && echo "Enabled debug configuration. Use 'ahoy up' to disable."; }
 
   info:
     usage: Print information about this project.
