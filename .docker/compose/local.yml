@@ -1,0 +1,12 @@
+##
+# Local-only overrides, loaded via COMPOSE_FILE in .env. Never read by Lagoon
+# or CI (CI overrides COMPOSE_FILE to exclude this layer).
+#
+# Mounts Pygmy's ssh-agent so host SSH keys reach the container.
+# https://pygmy.readthedocs.io/en/master/ssh_agent/
+##
+
+services:
+  cli:
+    volumes_from:
+      - container:amazeeio-ssh-agent
