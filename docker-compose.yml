@@ -22,6 +22,9 @@ x-volumes: &default-volumes
 x-volumes-paas: &paas-volumes
   volumes:
     - .:/app:delegated
+    - /app/tests
+    - ./tests/behat:/app/tests/behat:${VOLUME_FLAGS:-delegated}
+    - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
 
 x-environment: &default-environment
   RESTY_RESOLVER: 8.8.8.8

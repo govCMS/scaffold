@@ -1,41 +1,74 @@
 <?php
 
-use Drupal\DrupalExtension\Context\MinkContext;
-use Drupal\DrupalExtension\Context\RawDrupalContext;
-use Behat\Mink\Driver\Selenium2Driver;
-use Behat\Behat\Hook\Scope\AfterStepScope;
-use Behat\Behat\Context\SnippetAcceptingContext;
-use Drupal\DrupalExtension\Hook\Scope\EntityScope;
+/**
+ * @file
+ * Feature context for testing Behat-steps.
+ */
+
+use DrevOps\BehatSteps\BigPipeTrait;
+use DrevOps\BehatSteps\ContentTrait;
+use DrevOps\BehatSteps\DateTrait;
+use DrevOps\BehatSteps\DraggableViewsTrait;
+use DrevOps\BehatSteps\EckTrait;
+use DrevOps\BehatSteps\ElementTrait;
+use DrevOps\BehatSteps\EmailTrait;
+use DrevOps\BehatSteps\FieldTrait;
+use DrevOps\BehatSteps\FileDownloadTrait;
+use DrevOps\BehatSteps\FileTrait;
+use DrevOps\BehatSteps\KeyboardTrait;
+use DrevOps\BehatSteps\LinkTrait;
+use DrevOps\BehatSteps\MediaTrait;
+use DrevOps\BehatSteps\MenuTrait;
+use DrevOps\BehatSteps\OverrideTrait;
+use DrevOps\BehatSteps\ParagraphsTrait;
+use DrevOps\BehatSteps\PathTrait;
+use DrevOps\BehatSteps\ResponseTrait;
+use DrevOps\BehatSteps\RoleTrait;
+use DrevOps\BehatSteps\SearchApiTrait;
+use DrevOps\BehatSteps\SelectTrait;
+use DrevOps\BehatSteps\TaxonomyTrait;
+use DrevOps\BehatSteps\TestmodeTrait;
+use DrevOps\BehatSteps\UserTrait;
+use DrevOps\BehatSteps\VisibilityTrait;
+use DrevOps\BehatSteps\WaitTrait;
+use DrevOps\BehatSteps\WatchdogTrait;
+use DrevOps\BehatSteps\WysiwygTrait;
+use Drupal\DrupalExtension\Context\DrupalContext;
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
+class FeatureContext extends DrupalContext {
 
-  /**
-   * Keep track of all users that are created.
-   *
-   * @var array
-   */
-  protected $userLog = array();
+  use BigPipeTrait;
+  use ContentTrait;
+  use EckTrait;
+  use DateTrait;
+  use DraggableViewsTrait;
+  use EmailTrait;
+  use ElementTrait;
+  use FieldTrait;
+  use FileDownloadTrait;
+  use FileTrait;
+  use KeyboardTrait;
+  use LinkTrait;
+  use MediaTrait;
+  use MenuTrait;
+  use OverrideTrait;
+  use ParagraphsTrait;
+  use PathTrait;
+  use ResponseTrait;
+  use RoleTrait;
+  use SelectTrait;
+  use SearchApiTrait;
+  use TaxonomyTrait;
+  use TestmodeTrait;
+  use UserTrait;
+  use VisibilityTrait;
+  use WatchdogTrait;
+  use WaitTrait;
+  use WysiwygTrait;
 
-  /**
-   * Initializes context.
-   *
-   * Every scenario gets its own context instance.
-   * You can also pass arbitrary arguments to the
-   * context constructor through behat.yml.
-   */
-  public function __construct() {
-  }
-
-  /**
-   * Clean up all the test users that were logged during the scenario.
-   *
-   * @AfterScenario @api
-   */
-  public function cleanUpUsers() {
-    $this->userLog = array();
-  }
+  use FeatureContextTrait;
 
 }
