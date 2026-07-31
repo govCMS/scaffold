@@ -105,7 +105,7 @@ else
   rm -r .docker/config
   rm -r .docker/scripts
   rm composer.*
-  rm tests/behat/behat.screenshot.yml tests/behat/behat.travis.yml tests/behat/behat.yml tests/behat/bootstrap/FeatureContext.php tests/phpcs.xml tests/phpunit/bootstrap.php tests/phpunit/phpunit.xml
+  rm tests/phpcs.xml tests/phpunit/bootstrap.php tests/phpunit/phpunit.xml
   rm .gitlab-ci-inputs.yml
   rm .gitlab-ci.paas.yml
 fi
