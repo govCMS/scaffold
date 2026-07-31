@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+#
+# Modification script for the GovCMS Scaffold chnage varaibles in lando files.
+#
+
+echo "[info] Preparing Lando GovCMS Scaffold"
+
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+################## TODO "my-project" is "my" instead?
+GOVCMS_NAME=$(grep -oP 'http:\/\/\K[^\n]+(?=\.docker\.amazee\.io)' docker-compose.yml | head -n 1)
+GOVCMS_VERSION=$(grep -oP 'GOVCMS_IMAGE_VERSION:-\K\w+' docker-compose.yml | head -n 1)
+GOVCMS_TYPE=$(grep -oP '^type:\s+\K\w+' .version.yml | head -n 1)
+grep -q '^  solr:$' docker-compose.yml
+HAS_SOLR=$?
+
+if [[ -z "$GOVCMS_NAME" ]]; then
+  echo "[error]: Cannot determine GovCMS project name."
+  exit 2
+fi
+
+if [[ -z "$GOVCMS_VERSION" ]]; then
+  echo "[error]: Cannot determine GovCMS version."
+  exit 2
+fi
+
+if [[ -z "$GOVCMS_TYPE" ]]; then
+  echo "[error]: Cannot determine scaffold type, must be (saas, saasplus or paas)."
+  exit 2
+fi
+
+echo "[info]: Modifying scaffold for GovCMS$GOVCMS_VERSION: $GOVCMS_NAME"
+
+sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .lando.base.yml && rm .lando.base.yml.bak
+sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .lando.local.example.yml && rm .lando.local.example.yml.bak
+sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .lando.base.yml && rm .lando.base.yml.bak
+sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .lando.local.example.yml && rm .lando.local.example.yml.bak
+
+if [[ "$GOVCMS_TYPE" != "paas" ]]; then
+  : # Do nothing.
+else
+  sed -i.bak -E 's/(\*default-volumes)([[:space:]]|$|#)/\*paas-volumes\2/' .lando.base.yml && rm .lando.base.yml.bak
+fi
+
+if [[ "$HAS_SOLR" -eq 0 ]]; then
+  printf "\n${YELLOW}[!! action required !!]${NC}: SOLR has been detected,\n"
+  printf "please uncomment the lando SOLR proxy and service in lando.base.yml\n"
+  printf "and .lando.local[.example].yml files.\n\n"
+fi
+
+printf "\n${YELLOW}[!! optional - ahoy !!]${NC}:\n"
+printf "If you would like .ahoy.yml integration, see notes in .lando.base.yml.\n\n"
+
+rm scripts/scaffold-existing-project-add-lando.sh
+
+echo "[success]: Lando GovCMS scaffold changed!"
