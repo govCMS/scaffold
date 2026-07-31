@@ -14,9 +14,8 @@ x-volumes: &default-volumes
   volumes:
     - ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
     - ./files:/app/web/sites/default/files:delegated
-    - ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
-    - ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
     - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
+    - ./tests/playwright:/app/tests/playwright:${VOLUME_FLAGS:-delegated}
     - ./config:/app/config
 
 x-volumes-paas: &paas-volumes
@@ -163,15 +162,15 @@ services:
   #   environment:
   #     << : *default-environment
 
-  chrome:
-    image: selenium/standalone-chrome:4.5.2-20221021
+  playwright:
+    image: govcms/playwright:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
     shm_size: '1gb'
-    platform: linux/amd64
     depends_on:
       - test
     labels:
       lagoon.type: none
-    << : *default-volumes
+    volumes:
+      - ./tests/playwright:/app/tests/playwright:${VOLUME_FLAGS:-delegated}
 
 networks:
   amazeeio-network:
