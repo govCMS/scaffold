@@ -131,7 +131,6 @@ services:
 
   mariadb:
     image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
-    platform: linux/amd64
     labels:
       lagoon.type: mariadb
       lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
