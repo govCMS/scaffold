@@ -5,3 +5,7 @@
 ARG GOVCMS_IMAGE_VERSION={{ GOVCMS_VERSION }}.x-latest
 
 FROM govcms/solr:${GOVCMS_IMAGE_VERSION}
+
+# Custom Solr synonyms and stopwords.
+COPY custom/solr/custom_stopwords_en.txt /lagoon/solr/custom/custom_stopwords_en.txt
+COPY custom/solr/custom_synonyms_en.txt /lagoon/solr/custom/custom_synonyms_en.txt

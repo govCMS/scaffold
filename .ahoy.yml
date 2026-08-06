@@ -154,5 +154,5 @@ commands:
       - 'custom/ahoy.yml'
 
   init:
-    usage: Initialise codebase with project name, type (saas|paas|saasplus) and version (8|9)
+    usage: Initialise codebase with project name, type (saas|paas|saasplus) and version (10|11)
     cmd: scripts/scaffold-init.sh -n $1 -t $2 -v $3
