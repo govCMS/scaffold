@@ -8,6 +8,9 @@ FROM uselagoon/solr-9:${LAGOON_IMAGE_VERSION:-latest}
 # Based off search_api_solr/jump-start/solr9/config-set as a sane default.
 COPY .docker/config/solr/ /opt/solr/server/solr/configsets/drupal/conf
 
+COPY custom/solr/custom_stopwords_en.txt /lagoon/solr/custom/custom_stopwords_en.txt
+COPY custom/solr/custom_synonyms_en.txt /lagoon/solr/custom/custom_synonyms_en.txt
+
 # The <lib/> directives are deprecated and will be removed in Solr 10.0
 # hence the jump-start configset has them disabled by default.
 # We need to load the existing plugins via the newer env var SOLR_MODULES.
