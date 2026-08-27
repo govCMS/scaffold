@@ -10,5 +10,5 @@ FROM govcms/test:${GOVCMS_IMAGE_VERSION}
 
 ENV WEBROOT=web
 
-COPY --from=cli /app /app
+COPY --from=cli /app/web /app/web
 COPY tests /app/tests/
