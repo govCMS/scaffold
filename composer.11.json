@@ -86,6 +86,9 @@
             ],
             "drush/Commands/{$name}": [
                 "type:drupal-drush"
+            ],
+            "recipes/{$name}": [
+                "type:drupal-recipe"
             ]
         },
         "drupal-scaffold": {
