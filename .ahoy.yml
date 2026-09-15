@@ -124,9 +124,11 @@ commands:
       echo "OK, probably a wise choice..."
 
   ship-shape:
-    usage: Run site validation scripts locally
+    usage: Run site validation scripts locally. Pass --include-db to also validate the database.
     cmd: |
-      docker compose exec -T cli shipshape run -f /app/vendor/govcms/scaffold-tooling/shipshape.yml --exclude-db --error-code . "$@"
+      exclude_db="--exclude-db"
+      [ "$1" = "--include-db" ] && exclude_db="" && shift
+      docker compose exec -T cli shipshape run -f /app/vendor/govcms/scaffold-tooling/shipshape.yml $exclude_db --error-code . "$@"
 
   debug:
     usage: Enable debug configuration.
