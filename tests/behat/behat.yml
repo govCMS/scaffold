@@ -1,25 +1,25 @@
 default:
-  autoload: [ %paths.base%/bootstrap ]
+  autoload: [ '%paths.base%/bootstrap' ]
   gherkin:
     filters:
       # Allow skipping tests by tagging them with "@skipped"
       tags: "~@skipped"
   suites:
     default:
-      paths: [ %paths.base%/features ]
+      paths: [ '%paths.base%/features' ]
       contexts:
       - FeatureContext
       - Drupal\DrupalExtension\Context\DrupalContext
       - Drupal\DrupalExtension\Context\MinkContext
       - Drupal\DrupalExtension\Context\MarkupContext
       - Drupal\DrupalExtension\Context\MessageContext
-      - IntegratedExperts\BehatScreenshotExtension\Context\ScreenshotContext
+      - DrevOps\BehatScreenshotExtension\Context\ScreenshotContext
 
   extensions:
     Behat\MinkExtension:
-      goutte: ~
+      browserkit_http: ~
       base_url: http://nginx:8080
-      files_path: %paths.base%/fixtures
+      files_path: '%paths.base%/files'
       browser_name: chrome
       selenium2:
         wd_host: "http://chrome:4444/wd/hub"
@@ -40,9 +40,9 @@ default:
         success_message_selector: '.messages.status'
         warning_message_selector: '.messages.warning'
     # Allows to capture HTML and JPG screenshots (based on the driver used).
-    IntegratedExperts\BehatScreenshotExtension:
-      dir: %paths.base%/screenshots
-      fail: true
+    DrevOps\BehatScreenshotExtension:
+      dir: '%paths.base%/screenshots'
+      on_failed: true
       purge: false
 p0:
   gherkin:
