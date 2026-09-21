@@ -57,13 +57,20 @@ echo "[info]: Preparing scaffold for GovCMS$GOVCMS_VERSION ($GOVCMS_TYPE): $GOVC
 
 cp .env.default .env
 sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" .env && rm .env.bak
-sed -i.bak "s/{{ GOVCMS_PROJECT_NAME }}/$GOVCMS_NAME/" docker-compose.yml && rm docker-compose.yml.bak
 sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .version.yml && rm .version.yml.bak
-sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" docker-compose.yml && rm docker-compose.yml.bak
+sed -i.bak "s/{{ GOVCMS_TYPE }}/$GOVCMS_TYPE/" .env && rm .env.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .version.yml && rm .version.yml.bak
-sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" docker-compose.yml && rm docker-compose.yml.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .env && rm .env.bak
 sed -i.bak "s/{{ GOVCMS_VERSION }}/$GOVCMS_VERSION/" .docker/Dockerfile* && rm .docker/Dockerfile*.bak
+
+# docker-compose.yml selects the SaaS/SaaS+ vs PaaS volume layout via
+# GOVCMS_VOLUMES in .env, rather than swapping anchors in the compose file
+# itself — this is what keeps docker-compose.yml identical across projects.
+GOVCMS_VOLUMES=default
+if [[ "$GOVCMS_TYPE" == "paas" ]]; then
+  GOVCMS_VOLUMES=paas
+fi
+sed -i.bak "s/{{ GOVCMS_VOLUMES }}/$GOVCMS_VOLUMES/" .env && rm .env.bak
 
 if [[ "$GOVCMS_TYPE" != "paas" ]]; then
   cat >> .gitignore << 'EOF'
@@ -79,9 +86,6 @@ else
 
   # Remove SaaS-only blocks from .lagoon.yml
   sed -i.bak "/START SaaS-only/,/END SaaS-only/d" .lagoon.yml && rm .lagoon.yml.bak
-
-  # Replace default/saas mounts for PaaS projects.
-  sed -i.bak "s/*default-volumes/*paas-volumes/" docker-compose.yml && rm docker-compose.yml.bak
 
   # Copy correct composer.json version into place.
   cp "composer.$GOVCMS_VERSION.json" composer.json

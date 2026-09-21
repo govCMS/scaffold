@@ -1,177 +1,121 @@
-# This value intentionally matches the project name on Lagoon.
-# It is used to name the CLI_IMAGE to use as a build arg locally.
-x-lagoon-project: &lagoon-project
-  {{ GOVCMS_PROJECT_NAME }}
+##
+# GovCMS scaffold. Intentionally identical across all projects of a given type
+# (saas | paas | saasplus) — every per-project value comes from .env. Do not
+# edit this file directly; add local overrides to docker-compose.override.yml
+# and append it to COMPOSE_FILE in .env once created.
+#
+# Optional services (test, chrome, solr, redis) are opt-in via the `include:`
+# list below. The installer comments out entries a project does not use.
+##
 
-x-lagoon-local-dev-url: &lagoon-local-dev-url
-  http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io
-
-# See GOVCMS_IMAGE_VERSION in "Variables" at https://github.com/govCMS/govCMS8/wiki
-x-govcms-image-version: &govcms-image-version
-  ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
-
-x-volumes: &default-volumes
-  volumes:
-    - ./themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
-    - ./files:/app/web/sites/default/files:delegated
-    - ./tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
-    - ./tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
-    - ./tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
-    - ./config:/app/config
-
-x-volumes-paas: &paas-volumes
-  volumes:
-    - .:/app:delegated
-
-x-environment: &default-environment
-  RESTY_RESOLVER: 8.8.8.8
-  STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
-  LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
-  LAGOON_PROJECT: *lagoon-project
-  LAGOON_ROUTE: &default-url ${LOCALDEV_URL:-http://{{ GOVCMS_PROJECT_NAME }}.docker.amazee.io}
-  GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
-  DEV_MODE: "${DEV_MODE:-false}"
-  XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
-  DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
-  X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
-  DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-}
-  DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
-  GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
-  GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
-  HTTPAV_ENDPOINT: http://av:3993/scan
-  HTTPAV_RETURN_KEY: comodo
-  HTTP_PAYLOAD_KEY: malware
-  SOLR_MODULES: ${SOLR_MODULES:-extraction,langid,ltr,analysis-extras}
+include:
+  - path: .docker/compose/test.yml
+    project_directory: .
+    env_file: .env
+  - path: .docker/compose/chrome.yml
+    project_directory: .
+    env_file: .env
+  # Uncomment to enable solr.
+  # - path: .docker/compose/solr.yml
+  #   project_directory: .
+  #   env_file: .env
+  # Uncomment to enable redis.
+  # - path: .docker/compose/redis.yml
+  #   project_directory: .
+  #   env_file: .env
 
 services:
-
   cli:
+    extends:
+      file: .docker/compose/_common.${GOVCMS_VOLUMES:-default}.yml
+      service: govcms-app
     build:
       context: .
       dockerfile: .docker/Dockerfile.cli
       args:
-        LAGOON_SAFE_PROJECT: *lagoon-project
-        GOVCMS_IMAGE_VERSION: *govcms-image-version
+        LAGOON_SAFE_PROJECT: ${GOVCMS_PROJECT_NAME}
+        GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
         GOVCMS_GITHUB_TOKEN: ${GOVCMS_GITHUB_TOKEN:-}
-    image: *lagoon-project
-    container_name: *lagoon-project
+    image: ${GOVCMS_PROJECT_NAME}
+    container_name: ${GOVCMS_PROJECT_NAME}
     labels:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
       lagoon.persistent: /app/web/sites/default/files/
-      lagoon.base.image: govcms/govcms:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
-    << : *default-volumes
-    environment:
-      << : *default-environment
-    # Mount volumes from Pygmy to inject host SSH key into container.
-    # https://pygmy.readthedocs.io/en/master/ssh_agent/
-    volumes_from: ### Local overrides to mount host SSH keys. Automatically removed in CI.
-      - container:amazeeio-ssh-agent ### Local overrides to mount host SSH keys. Automatically removed in CI.
-
-  test:
-    build:
-      context: .
-      dockerfile: .docker/Dockerfile.test
-      args:
-        CLI_IMAGE: *lagoon-project
-        GOVCMS_IMAGE_VERSION: *govcms-image-version
-        SITE_AUDIT_VERSION: ${SITE_AUDIT_VERSION:-7.x-3.x}
-      additional_contexts:
-        cli: 'service:cli' # Ensure cli is built first
-    labels:
-      lagoon.type: none
-    << : *default-volumes
+      lagoon.base.image: govcms/govcms:${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
     depends_on:
-      - cli
-    environment:
-      << : *default-environment
+      mariadb:
+        condition: service_healthy
 
   nginx:
+    extends:
+      file: .docker/compose/_common.${GOVCMS_VOLUMES:-default}.yml
+      service: govcms-app
     build:
       context: .
       dockerfile: .docker/Dockerfile.nginx-drupal
       args:
-        CLI_IMAGE: *lagoon-project
-        GOVCMS_IMAGE_VERSION: *govcms-image-version
+        CLI_IMAGE: ${GOVCMS_PROJECT_NAME}
+        GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
       additional_contexts:
         cli: 'service:cli' # Ensure cli is built first
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.persistent: /app/web/sites/default/files/
-      lagoon.base.image: govcms/nginx-drupal:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
-    << : *default-volumes
+      lagoon.base.image: govcms/nginx-drupal:${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
+    environment:
+      LAGOON_LOCALDEV_URL: ${LOCALDEV_URL:-http://${GOVCMS_PROJECT_NAME}.docker.amazee.io}
     depends_on:
       - cli
-    environment:
-      << : *default-environment
-      LAGOON_LOCALDEV_URL: *default-url
     networks:
       - amazeeio-network
       - default
 
   php:
+    extends:
+      file: .docker/compose/_common.${GOVCMS_VOLUMES:-default}.yml
+      service: govcms-app
     build:
       context: .
       dockerfile: .docker/Dockerfile.php
       args:
-        CLI_IMAGE: *lagoon-project
-        GOVCMS_IMAGE_VERSION: *govcms-image-version
+        CLI_IMAGE: ${GOVCMS_PROJECT_NAME}
+        GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
       additional_contexts:
-        cli: 'service:cli' # Ensure cli is built first
+        cli: 'service:cli'
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx
       lagoon.persistent: /app/web/sites/default/files/
-      lagoon.base.image: govcms/php:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
-    << : *default-volumes
+      lagoon.base.image: govcms/php:${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
     depends_on:
       - cli
-    environment:
-      << : *default-environment
 
   mariadb:
-    image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest}
+    image: ${MARIADB_DATA_IMAGE:-govcms/mariadb-drupal:${GOVCMS_VERSION}.x-latest}
     platform: linux/amd64
     labels:
       lagoon.type: mariadb
-      lagoon.image: govcms/mariadb-drupal:{{ GOVCMS_VERSION }}.x-latest
+      lagoon.image: govcms/mariadb-drupal:${GOVCMS_VERSION}.x-latest
     ports:
       - "3306" # Find port on host with `docker compose port mariadb 3306`
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 24 # ~2m, matching the old dockerize -timeout 2m
+      start_period: 10s
     environment:
-      << : *default-environment
+      LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
+      LAGOON_PROJECT: ${GOVCMS_PROJECT_NAME}
+      LAGOON_ROUTE: ${LOCALDEV_URL:-http://${GOVCMS_PROJECT_NAME}.docker.amazee.io}
+      GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
+      DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
 
   av:
     image: govcms/av:latest
     labels:
       lagoon.type: none
-
-  # Uncomment to enable solr.
-  # solr:
-  #   build:
-  #     context: .
-  #     dockerfile: .docker/Dockerfile.solr
-  #     args:
-  #       GOVCMS_IMAGE_VERSION: *govcms-image-version
-  #       LAGOON_IMAGE_VERSION: ${LAGOON_IMAGE_VERSION:-latest}
-  #   labels:
-  #     lagoon.type: solr
-  #     lagoon.base.image: govcms/solr:${GOVCMS_IMAGE_VERSION:-{{ GOVCMS_VERSION }}.x-latest}
-  #   ports:
-  #     - "8983" # Find port on host with `docker compose port solr 8983`
-  #   depends_on:
-  #     - cli
-  #   environment:
-  #     << : *default-environment
-
-  chrome:
-    image: selenium/standalone-chrome:4.5.2-20221021
-    shm_size: '1gb'
-    platform: linux/amd64
-    depends_on:
-      - test
-    labels:
-      lagoon.type: none
-    << : *default-volumes
 
 networks:
   amazeeio-network:

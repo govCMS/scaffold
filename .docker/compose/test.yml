@@ -1,0 +1,28 @@
+##
+# Opt-in test runner service. Included by default in docker-compose.yml;
+# comment out the include entry to remove it from a project entirely.
+#
+# Gated behind the "test" profile — does not start on a plain
+# `docker compose up`. Ahoy commands that need it (lint, test-behat,
+# test-phpunit, debug) start it explicitly with
+# `docker compose --profile test up -d --wait test` before exec'ing in.
+##
+
+services:
+  test:
+    extends:
+      file: .docker/compose/_common.${GOVCMS_VOLUMES:-default}.yml
+      service: govcms-app
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.test
+      args:
+        CLI_IMAGE: ${GOVCMS_PROJECT_NAME}
+        GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
+      additional_contexts:
+        cli: 'service:cli' # Ensure cli is built first
+    labels:
+      lagoon.type: none
+    profiles: [test]
+    depends_on:
+      - cli

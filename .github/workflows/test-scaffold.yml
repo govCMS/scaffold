@@ -43,6 +43,10 @@ jobs:
       # Enable BuildKit for additional_contexts support.
       DOCKER_BUILDKIT: 1
       COMPOSE_DOCKER_CLI_BUILD: 1
+      # Exclude the local-only SSH agent layer (.docker/compose/local.yml).
+      # This shell-level env var takes precedence over the COMPOSE_FILE entry
+      # `ahoy init` writes into .env, so CI never loads it.
+      COMPOSE_FILE: docker-compose.yml
 
     steps:
       -
@@ -69,13 +73,16 @@ jobs:
         run: docker network prune -f >/dev/null 2>&1 && docker network inspect amazeeio-network >/dev/null 2>&1 || docker network create amazeeio-network >/dev/null 2>&1 || true
 
       -
-        name: Process codebase to run in CI
-        run: |
-          find . -name "docker-compose.yml" -print0 | xargs -0 -I {} sh -c "sed -i -e ''/###/d'' {} && sed -i -e ''s/##//'' {} && sed -i -e 's#- .:/app:delegated#[]#' {}"
-
-      -
         name: Init scaffold
         run: ahoy init scaffold-test ${{ matrix.project_type }} ${{ env.GOVCMS_VERSION }}
+
+      -
+        name: Neutralise PaaS bind mount for CI
+        # The PaaS .:/app:delegated mount doesn't behave the same way inside
+        # the runner as on a dev machine, so it's defused for both matrix
+        # legs here — same behaviour as the sed this replaced, retargeted at
+        # the file that now owns the PaaS volume layout.
+        run: sed -i -e 's#- ../../:/app:delegated#[]#' .docker/compose/_common.paas.yml
 
       -
         name: Build project

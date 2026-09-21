@@ -1,0 +1,43 @@
+##
+# Shared service definition consumed via `extends` by cli, test, nginx, php and
+# chrome. Deliberately excluded from the root `include:` list in
+# docker-compose.yml — this is a template, not a deployable service.
+#
+# YAML anchors do not cross file boundaries, so this cannot reuse anchors
+# declared in docker-compose.yml. Everything is interpolated from .env instead.
+#
+# This is the SaaS / SaaS+ volume layout. See _common.paas.yml for the PaaS
+# variant, selected via GOVCMS_VOLUMES in .env.
+##
+
+services:
+  govcms-app:
+    environment:
+      RESTY_RESOLVER: 8.8.8.8
+      STAGE_FILE_PROXY_URL: ${STAGE_FILE_PROXY_URL:-}
+      LAGOON_ENVIRONMENT_TYPE: ${LAGOON_ENVIRONMENT_TYPE:-}
+      LAGOON_PROJECT: ${GOVCMS_PROJECT_NAME}
+      LAGOON_ROUTE: ${LOCALDEV_URL:-http://${GOVCMS_PROJECT_NAME}.docker.amazee.io}
+      GOVCMS_IMAGE_VERSION: ${GOVCMS_IMAGE_VERSION:-${GOVCMS_VERSION}.x-latest}
+      DEV_MODE: "${DEV_MODE:-false}"
+      XDEBUG_ENABLE: ${XDEBUG_ENABLE:-}
+      DOCKERHOST: ${DOCKERHOST:-host.docker.internal}
+      X_FRAME_OPTIONS: ${X_FRAME_OPTIONS:-SameOrigin}
+      DRUPAL_SHIELD_USER: ${DRUPAL_SHIELD_USER:-}
+      DRUPAL_SHIELD_PASS: ${DRUPAL_SHIELD_PASS:-}
+      GOVCMS_DEPLOY_WORKFLOW_CONFIG: ${GOVCMS_DEPLOY_WORKFLOW_CONFIG:-import}
+      GOVCMS_PREPARE_XML_SCRIPT: /app/vendor/bin/govcms-prepare-xml
+      HTTPAV_ENDPOINT: http://av:3993/scan
+      HTTPAV_RETURN_KEY: comodo
+      HTTP_PAYLOAD_KEY: malware
+      SOLR_MODULES: ${SOLR_MODULES:-extraction,langid,ltr,analysis-extras}
+    volumes:
+      # NOTE: extends has no project_directory equivalent — relative paths
+      # here resolve against this file's own directory, not the project
+      # root. ../../ steps back out of .docker/compose/ to the project root.
+      - ../../themes:/app/web/themes/custom:${VOLUME_FLAGS:-delegated}
+      - ../../files:/app/web/sites/default/files:delegated
+      - ../../tests/behat/features:/app/tests/behat/features:${VOLUME_FLAGS:-delegated}
+      - ../../tests/behat/screenshots:/app/tests/behat/screenshots:${VOLUME_FLAGS:-delegated}
+      - ../../tests/phpunit/tests:/app/tests/phpunit/tests:${VOLUME_FLAGS:-delegated}
+      - ../../config:/app/config

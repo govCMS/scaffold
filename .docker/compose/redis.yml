@@ -1,0 +1,13 @@
+##
+# Opt-in Redis cache backend. Not present in the current scaffold — added here
+# as a template for projects that add Redis. Uncomment the include entry in
+# docker-compose.yml to enable it for a project.
+##
+
+services:
+  redis:
+    image: ${GOVCMS_REDIS_IMAGE:-uselagoon/redis-7:latest}
+    labels:
+      lagoon.type: redis
+    environment:
+      MAXMEMORY: ${GOVCMS_REDIS_MAXMEMORY:-256mb}
