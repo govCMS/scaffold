@@ -2,7 +2,7 @@
     "name": "govcms/scaffold",
     "description": "GovCMS Drupal Scaffold",
     "type": "project",
-    "license": "GPL-2.0-or-later",
+    "license": "proprietary",
     "repositories": [
         { "type": "path", "url": "custom/composer" },
         { "type": "composer", "url": "https://packages.drupal.org/8" },
